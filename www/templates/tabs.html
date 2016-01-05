@@ -1,0 +1,28 @@
+<!--
+Create tabs with an icon and label, using the tabs-energized style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<ion-tabs class="tabs-icon-top tabs-color-active-energized" ng-class="tabsHidden">
+
+  <!-- Dashboard Tab -->
+  <ion-tab title="首页" icon-off="ion-ios-home-outline" icon-on="ion-ios-home" href="#/tab/home">
+    <ion-nav-view name="tab-home"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Categorie Tab -->
+  <ion-tab title="分类" icon-off="ion-ios-keypad-outline" icon-on="ion-ios-keypad" href="#/tab/categories">
+    <ion-nav-view name="tab-categories"></ion-nav-view>
+  </ion-tab>
+
+    <!-- Cart Tab -->
+  <ion-tab title="购物车" icon-off="ion-ios-cart-outline" icon-on="ion-ios-cart" href="#/tab/cart">
+    <ion-nav-view name="tab-cart"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Account Tab -->
+  <ion-tab title="我的" icon-off="ion-ios-person-outline" icon-on="ion-ios-person" href="#/tab/mine">
+    <ion-nav-view name="tab-mine"></ion-nav-view>
+  </ion-tab>
+
+</ion-tabs>

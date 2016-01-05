@@ -1,0 +1,15 @@
+# Specifies intentionally untracked files to ignore when using Git
+# http://git-scm.com/docs/gitignore
+
+node_modules/
+platforms/
+plugins/
+www/lib/
+mmr-ws/src/main/resources/
+mmr-ws/.mvn/
+mmr-ws/.settings/
+mmr-ws/target/
+mmr-ws/.classpath
+mmr-ws/.project
+mmr-ws/mvnw
+mmr-ws/mvnw.cmd

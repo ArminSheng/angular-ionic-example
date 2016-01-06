@@ -1,5 +1,5 @@
 // MMR App
-angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
+angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule', 'angularMoment'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
 .constant('REST_BASE', 'http://192.168.1.100:8081/mmr/')
@@ -93,6 +93,11 @@ angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directiv
           },
           seckilling: function(mmrItemFactory) {
             return mmrItemFactory.seckilling().then(function(res) {
+              // process the items for seckilling
+              if(res.data) {
+                _.forEach(res.data, function(item) {
+                });
+              }
               return res;
             }, function(err) {
               return err;

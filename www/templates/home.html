@@ -16,7 +16,7 @@
     </a>
     </div>
   </ion-nav-title>
-  <ion-content>
+  <ion-content class="m-home-content">
     <!-- slider -->
     <ion-slide-box on-slide-changed="slideHasChanged($index)">
       <ion-slide ng-repeat="banner in banners track by $index">
@@ -29,6 +29,9 @@
     <div class="m-sales-area">
       <sales-area areas="areas"></sales-area>
     </div>
+
+    <!-- seckilling area -->
+    <seckilling-list items="seckilling"></seckilling-list>
 
     首页 地点：{{ pos | json }}
     Error: {{ err | json }}

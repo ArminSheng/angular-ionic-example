@@ -1,5 +1,5 @@
 .m-sales-area {
-    height: 110px;
+    height: 100px;
 
     /*bg image*/
     background-repeat: no-repeat;
@@ -16,4 +16,46 @@
     left: 4%;
     transform: translate(0, -50%);
     font-size: 20px;
+}
+
+/*sec killing*/
+.m-sec-killing-area {
+    width: 1450px;
+}
+
+.m-sec-killing-area-title {
+    margin: 0 10px;
+}
+
+.m-sec-killing-area-title img {
+    width: 100%;
+}
+
+/*seckilling*/
+.m-sec-killing-area-item {
+    display: inline-block;
+    width: 140px;
+    text-align: center;
+    background-color: white;
+    margin: 0 2px;
+}
+
+.m-sec-killing-item-remain-time {
+
+}
+
+.m-sec-killing-item-img {
+    width: 90%;
+}
+
+.m-sec-killing-item-current-price {
+    display: block;
+}
+
+.m-sec-killing-item-original-price {
+    display: block;
+}
+
+.m-sec-killing-item-name {
+    display: block;
 }

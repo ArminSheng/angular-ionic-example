@@ -1,6 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrAreaFactory', ['$http', 'restService', function($http, restService) {
+.factory('mmrAreaFactory', ['$http', 'restService', 
+  function($http, restService) {
 
   return {
     banners: function(platform) {
@@ -10,7 +11,7 @@ angular.module('mmr.services')
         params: {
           'p': platform || 1  // 1 represents the moblie app
         }
-      })
+      });
     },
 
     areas: function(platform) {
@@ -20,7 +21,7 @@ angular.module('mmr.services')
         params: {
           'p': platform || 1  // 1 represents the moblie app
         }
-      })
+      });
     }
   };
 

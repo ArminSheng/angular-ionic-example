@@ -1,0 +1,18 @@
+<div>
+  <div class="m-sec-killing-area-title">
+    <img src="img/seckilling/title.png"/>
+  </div>
+  <ion-scroll zooming="true" direction="x" style="width: 100%; height: 250px;">
+    <div class="m-sec-killing-area">
+      <div class="m-sec-killing-area-items">
+        <div class="m-sec-killing-area-item" ng-repeat="item in items track by $index">
+          <span class="m-sec-killing-item-remain-time">{{ item.deadline }}</span>
+          <img class="m-sec-killing-item-img" ng-src="{{ item.imagePath }}"/>
+          <span class="m-sec-killing-item-current-price">{{ item.cprice | currency: '￥' }}</span>
+          <span class="m-sec-killing-item-original-price">{{ item.oprice | currency: '￥' }}</span>
+          <span class="m-sec-killing-item-name">{{ item.title }}</span>
+        </div>
+      </div>
+    </div>
+  </ion-scroll>
+</div>

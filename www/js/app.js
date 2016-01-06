@@ -2,7 +2,7 @@
 angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-.constant('REST_BASE', 'http://localhost:8081/mmr/')
+.constant('REST_BASE', 'http://192.168.1.100:8081/mmr/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
   this.data = {
@@ -86,6 +86,13 @@ angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directiv
           },
           areas: function(mmrAreaFactory) {
             return mmrAreaFactory.areas().then(function(res) {
+              return res;
+            }, function(err) {
+              return err;
+            });
+          },
+          seckilling: function(mmrItemFactory) {
+            return mmrItemFactory.seckilling().then(function(res) {
               return res;
             }, function(err) {
               return err;

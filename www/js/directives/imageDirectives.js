@@ -34,7 +34,7 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/sales-area.html',
     link: function(scope, element, attrs) {
-      console.log(element);
+      
     }
   }
 

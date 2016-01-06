@@ -1,1 +1,31 @@
 /* Empty. Add your own CSS if you like */
+.badge.m-badge {
+    padding: 1px 5px;
+    border-radius: 10px;
+    right: 1px;
+    top: -3px;
+    float: right;
+    position: absolute;
+}
+
+.m-btn-geo {
+    margin-right: 10px;
+}
+
+.m-slide-image {
+    height: 180px;
+    width: 100%;
+}
+
+.row.m-no-padding {
+    padding: 0;
+}
+
+.col.m-no-padding {
+    padding: 0;
+}
+
+.m-sales-area {
+    position: relative;
+    bottom: 10px;
+}

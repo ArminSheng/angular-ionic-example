@@ -1,5 +1,36 @@
 <ion-view view-title="首页" hide-back-button="true">
+  <ion-nav-title>
+    <div class="bar bar-header item-input-inset">
+      <!-- geolocation -->
+      <button class="button button-clear m-btn-geo" ng-click="openGeoPopover($event)">
+        上海市
+      </button>
+      <!-- search input -->
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="搜索商品">
+      </label>
+      <!-- notification -->
+      <a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">
+      <span class="badge badge-assertive m-badge">{{ notificationCount }}</span>
+    </a>
+    </div>
+  </ion-nav-title>
   <ion-content>
-    首页
+    <!-- slider -->
+    <ion-slide-box on-slide-changed="slideHasChanged($index)">
+      <ion-slide ng-repeat="banner in banners track by $index">
+        <div>
+          <img class="m-slide-image" ng-src="{{ banner.path }}"/>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+    <!-- sales area -->
+    <div class="m-sales-area">
+      <sales-area areas="areas"></sales-area>
+    </div>
+
+    首页 地点：{{ pos | json }}
+    Error: {{ err | json }}
   </ion-content>
 </ion-view>

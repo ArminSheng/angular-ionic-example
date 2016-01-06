@@ -22,4 +22,20 @@ angular.module('mmr.directives')
         });
       }
     };
+}])
+
+.directive('salesArea', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      areas: '='
+    },
+    templateUrl: 'templates/directives/sales-area.html',
+    link: function(scope, element, attrs) {
+      console.log(element);
+    }
+  }
+
 }]);

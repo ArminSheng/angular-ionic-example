@@ -1,0 +1,19 @@
+.m-sales-area {
+    height: 110px;
+
+    /*bg image*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+
+    position: relative;
+}
+
+.m-sales-area .m-sales-area-title {
+    /*title*/
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    transform: translate(0, -50%);
+    font-size: 20px;
+}

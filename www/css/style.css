@@ -35,3 +35,11 @@
 .m-home-content {
     background-color: #eee;
 }
+
+.m-row-small-padding {
+    padding: 2px;
+}
+
+.m-row-small-margin > .col {
+    margin: 2px;
+}

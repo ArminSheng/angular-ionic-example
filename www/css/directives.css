@@ -32,6 +32,11 @@
 }
 
 /*seckilling*/
+.m-sec-killing-area-offset {
+    position: relative;
+    top: 6px;
+}
+
 .m-sec-killing-area-item {
     display: inline-block;
     width: 160px;
@@ -92,8 +97,14 @@
     right: 2px;
 }
 
+.m-commodity-grid-container {
+    position: relative;
+    right: 2px;
+}
+
 .m-commodity-grid-container-first {
     height: 100px;
+    margin-bottom: 7px;
 }
 
 .m-commodity-grid-cell {
@@ -103,6 +114,7 @@
 
 .m-commodity-grid-cell-left {
     position: relative;
+    left: 4px;
 }
 
 .m-commodity-grid-cell-desc {
@@ -116,7 +128,7 @@
     overflow: hidden;
 }
 
-.m-commodity-grid-item-price {
+.m-commodity-grid-item-price, .m-commodity-grid-item2-price {
     color: red;
     font-weight: bold;
 }
@@ -124,4 +136,18 @@
 .m-commodity-grid-item-first-img {
     width: 100%;
     height: 100px;
+}
+
+/*second row*/
+.m-commodity-grid-cell2 {
+    background-color: white;
+}
+
+.m-commodity-grid-item2-img {
+    width: 100%;
+}
+
+.m-commodity-grid-row-last {
+    position: relative;
+    right: 4px;
 }

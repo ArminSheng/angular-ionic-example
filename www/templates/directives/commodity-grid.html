@@ -21,13 +21,27 @@
           </div>
         </div>
       </div>
-    <div class="row row-no-padding">
-      <div class="col col-25" ng-repeat="item in items.slice(2, 4) track by $index">
+  </div>
+  <div class="row m-row-small-margin m-commodity-grid-row-last">
+    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(2, 6) track by $index">
+      <div class="m-commodity-grid-item2-title">
+        {{ item.title }}
       </div>
+      <div class="m-commodity-grid-item2-price">
+        {{ item.cprice }}/{{ item.unitName }}
+      </div>
+      <img class="m-commodity-grid-item2-img" ng-src="{{ item.imagePath }}"/>
     </div>
-    <div class="row row-no-padding">
-      <div class="col col-25" ng-repeat="item in items.slice(6, 4) track by $index">
+  </div>
+  <div class="row m-row-small-margin m-commodity-grid-row-last">
+    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(6, 10) track by $index">
+      <div class="m-commodity-grid-item2-title">
+        {{ item.title }}
       </div>
+      <div class="m-commodity-grid-item2-price">
+        {{ item.cprice }}/{{ item.unitName }}
+      </div>
+      <img class="m-commodity-grid-item2-img" ng-src="{{ item.imagePath }}"/>
     </div>
   </div>
 </div>

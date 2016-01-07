@@ -1,5 +1,5 @@
 // MMR App
-angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule', 'angularMoment'])
+angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
 .constant('REST_BASE', 'http://192.168.1.100:8081/mmr/')

@@ -20,7 +20,7 @@
 
 /*sec killing*/
 .m-sec-killing-area {
-    width: 1450px;
+    width: 1650px;
 }
 
 .m-sec-killing-area-title {
@@ -34,7 +34,7 @@
 /*seckilling*/
 .m-sec-killing-area-item {
     display: inline-block;
-    width: 140px;
+    width: 160px;
     text-align: center;
     background-color: white;
     margin: 0 2px;
@@ -48,14 +48,25 @@
     width: 90%;
 }
 
+.m-sec-killing-item-prices {
+
+}
+
 .m-sec-killing-item-current-price {
-    display: block;
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .m-sec-killing-item-original-price {
-    display: block;
+    color: #999;
+    font-size: 12px;
+    text-decoration: line-through;
 }
 
 .m-sec-killing-item-name {
     display: block;
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 16px;
 }

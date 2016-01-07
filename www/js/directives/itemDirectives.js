@@ -60,4 +60,21 @@ angular.module('mmr.directives')
       }
     }
   }
+}])
+
+.directive('commodityGrid', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      items: '=',
+      banner: '@'
+    },
+    templateUrl: 'templates/directives/commodity-grid.html',
+    link: function(scope, element, attrs) {
+
+    }
+  };
+
 }]);

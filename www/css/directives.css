@@ -70,3 +70,24 @@
     font-weight: bold;
     font-size: 16px;
 }
+
+/*grid items*/
+.m-commodity-grid-banner {
+    text-align: center;
+    height: 40px;
+    background-size: 100%;
+    background-repeat: repeat;
+}
+
+.m-commodity-grid-banner-img {
+    height: 50px;
+    position: relative;
+    right: 48px;
+}
+
+.m-commodity-grid-banner-link {
+    float: right;
+    position: relative;
+    top: 4px;
+    right: 2px;
+}

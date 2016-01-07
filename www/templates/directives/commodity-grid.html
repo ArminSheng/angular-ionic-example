@@ -1,0 +1,24 @@
+<div class="m-commodity-grid">
+  <div class="m-commodity-grid-banner" style="background-image: url('{{ banner }}')">
+    <a class="button button-clear button-small button-positive m-commodity-grid-banner-link">更多></a>
+  </div>
+  <div class="m-commodity-grid-container">
+    <div class="row row-no-padding">
+      <div class="col col-50" ng-repeat="item in items.slice(0, 2) track by $index">
+        <div class="row row-no-padding">
+          <div class="col col-50">
+            <div class="m-commodity-grid-item-title">{{ item.title }}</div>
+          </div>
+          <div class="col col-50">{{ item.cprice }}/</div>
+        </div>
+      </div>
+    <div class="row row-no-padding">
+      <div class="col col-25" ng-repeat="item in items.slice(2, 4) track by $index">
+      </div>
+    </div>
+    <div class="row row-no-padding">
+      <div class="col col-25" ng-repeat="item in items.slice(6, 4) track by $index">
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@
     <div class="row row-no-padding m-commodity-grid-container-first">
       <div class="col col-50 m-commodity-grid-cell" ng-repeat="item in items.slice(0, 2) track by $index">
         <div class="row row-no-padding">
-          <div class="col col-33 m-commodity-grid-cell-left">
+          <div class="col col-50 m-commodity-grid-cell-left">
             <div class="m-commodity-grid-cell-desc">
               <div class="m-commodity-grid-item-title">
                 {{ item.title }}
@@ -16,7 +16,7 @@
               </div>
             </div>
           </div>
-          <div class="col col-67">
+          <div class="col col-50">
             <img class="m-commodity-grid-item-first-img" ng-src="{{ item.imagePath }}"/>
           </div>
         </div>
@@ -26,6 +26,9 @@
     <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(2, 6) track by $index">
       <div class="m-commodity-grid-item2-title">
         {{ item.title }}
+      </div>
+      <div class="m-commodity-grid-item2-brand">
+        {{ item.brand }}
       </div>
       <div class="m-commodity-grid-item2-price">
         {{ item.cprice }}/{{ item.unitName }}
@@ -37,6 +40,9 @@
     <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(6, 10) track by $index">
       <div class="m-commodity-grid-item2-title">
         {{ item.title }}
+      </div>
+      <div class="m-commodity-grid-item2-brand">
+        {{ item.brand }}
       </div>
       <div class="m-commodity-grid-item2-price">
         {{ item.cprice }}/{{ item.unitName }}

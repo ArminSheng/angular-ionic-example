@@ -7,6 +7,7 @@ public class ItemVo {
     private int id;
     private int type;
     private String title;
+    private String brand;
     private String imagePath;
     private double oprice;
     private double cprice;
@@ -17,12 +18,14 @@ public class ItemVo {
 
     }
 
-    public ItemVo(int id, int type, String title, String imagePath,
-            double oprice, double cprice, String unitName, Date deadline) {
+    public ItemVo(int id, int type, String title, String brand,
+            String imagePath, double oprice, double cprice, String unitName,
+            Date deadline) {
         super();
         this.id = id;
         this.type = type;
         this.title = title;
+        this.brand = brand;
         this.imagePath = imagePath;
         this.oprice = oprice;
         this.cprice = cprice;
@@ -88,6 +91,14 @@ public class ItemVo {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
 }

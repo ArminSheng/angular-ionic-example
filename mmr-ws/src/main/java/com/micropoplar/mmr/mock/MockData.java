@@ -41,7 +41,7 @@ public class MockData {
         }
 
         for (int i = 0; i < size; i++) {
-            results.add(new ItemVo(i + 1, type, typeStr + i,
+            results.add(new ItemVo(i + 1, type, typeStr + i, "微杨科技",
                     "img/item/sample.png", 122.0, 88.8, "箱", null));
         }
 
@@ -55,8 +55,8 @@ public class MockData {
         Date next = new Date(now.getTime() + 360000000);
 
         for (int i = 0; i < size; i++) {
-            results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "img/item/sample.png",
-                    12.0, 8.8, "箱", next));
+            results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
+                    "img/item/sample.png", 12.0, 8.8, "箱", next));
         }
 
         return results;

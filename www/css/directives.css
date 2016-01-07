@@ -12,9 +12,8 @@
 .m-sales-area .m-sales-area-title {
     /*title*/
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 4%;
-    transform: translate(0, -50%);
     font-size: 20px;
 }
 
@@ -118,9 +117,7 @@
 }
 
 .m-commodity-grid-cell-desc {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
+    padding: 5px 0 0 2px;
 }
 
 .m-commodity-grid-item-title {

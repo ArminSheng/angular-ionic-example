@@ -3,13 +3,22 @@
     <a class="button button-clear button-small button-positive m-commodity-grid-banner-link">更多></a>
   </div>
   <div class="m-commodity-grid-container">
-    <div class="row row-no-padding">
-      <div class="col col-50" ng-repeat="item in items.slice(0, 2) track by $index">
+    <div class="row row-no-padding m-commodity-grid-container-first">
+      <div class="col col-50 m-commodity-grid-cell" ng-repeat="item in items.slice(0, 2) track by $index">
         <div class="row row-no-padding">
-          <div class="col col-50">
-            <div class="m-commodity-grid-item-title">{{ item.title }}</div>
+          <div class="col col-33 m-commodity-grid-cell-left">
+            <div class="m-commodity-grid-cell-desc">
+              <div class="m-commodity-grid-item-title">
+                {{ item.title }}
+              </div>
+              <div class="m-commodity-grid-item-price">
+                {{ item.cprice }}/{{ item.unitName }}
+              </div>
+            </div>
           </div>
-          <div class="col col-50">{{ item.cprice }}/</div>
+          <div class="col col-67">
+            <img class="m-commodity-grid-item-first-img" ng-src="{{ item.imagePath }}"/>
+          </div>
         </div>
       </div>
     <div class="row row-no-padding">

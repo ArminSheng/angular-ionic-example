@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicPopup', '$cordovaGeolocation', 'banners', 'areas', 'seckilling', 
-  function($scope, $rootScope, $ionicHistory, $ionicPopup, $cordovaGeolocation, banners, areas, seckilling) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicPopup', '$cordovaGeolocation', 'banners', 'areas', 'seckilling', 'homeCommodity', 
+  function($scope, $rootScope, $ionicHistory, $ionicPopup, $cordovaGeolocation, banners, areas, seckilling, homeCommodity) {
   
   $scope.notificationCount = 5;
 
@@ -18,7 +18,7 @@ angular.module('mmr.controllers')
 
   // seckilling processing
   $scope.seckilling = seckilling.data;
-  console.log($scope.seckilling);
+  $scope.commodities = homeCommodity.data;
 
   function initialize() {
     var path = './upload/20151231/20151231085342270.jpg';

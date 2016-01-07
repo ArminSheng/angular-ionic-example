@@ -93,15 +93,17 @@ angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directiv
           },
           seckilling: function(mmrItemFactory) {
             return mmrItemFactory.seckilling().then(function(res) {
-              // process the items for seckilling
-              if(res.data) {
-                _.forEach(res.data, function(item) {
-                });
-              }
               return res;
             }, function(err) {
               return err;
             });
+          },
+          homeCommodity: function(mmrItemFactory) {
+            return mmrItemFactory.homeCommodity().then(function(res) {
+              return res;
+            }, function(err) {
+              return err;
+            })
           }
         }
       }

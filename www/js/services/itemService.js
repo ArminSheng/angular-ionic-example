@@ -12,6 +12,16 @@ angular.module('mmr.services')
           's': size || 10
         }
       });
+    },
+
+    homeCommodity: function(size) {
+      return $http({
+        url: restService['API_REST'] + 'c_item/homeCommodity',
+        method: 'GET',
+        params: {
+          's': size || 10
+        }
+      }); 
     }
   };
 

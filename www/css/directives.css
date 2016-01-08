@@ -1,5 +1,5 @@
 .m-sales-area {
-    height: 100px;
+    height: 85px;
 
     /*bg image*/
     background-repeat: no-repeat;
@@ -19,11 +19,11 @@
 
 /*sec killing*/
 .m-sec-killing-area {
-    width: 1650px;
+    width: 1600px;
 }
 
 .m-sec-killing-area-title {
-    margin: 0 10px;
+    padding: 0 10px 10px 10px;
 }
 
 .m-sec-killing-area-title img {
@@ -33,6 +33,8 @@
 .m-sec-killing-area-offset {
     position: relative;
     top: 6px;
+    background-color: white;
+    padding-top: 12px
 }
 
 .m-sec-killing-area-item {
@@ -40,7 +42,7 @@
     width: 160px;
     text-align: center;
     background-color: white;
-    margin: 0 2px;
+    border-right: 1px solid #e8e8e8;
 }
 
 .m-sec-killing-item-remain-time {
@@ -115,7 +117,7 @@
 .m-recommend-item-name {
     font-weight: bold;
     font-size: 16px;
-    margin-left: 4px;
+    padding-left: 4px;
     display: block;
 }
 
@@ -130,11 +132,16 @@
 }
 
 /*grid items*/
+.m-commodity-grid {
+    margin: 10px 0;
+}
+
 .m-commodity-grid-banner {
     text-align: center;
     height: 40px;
     background-size: 100%;
     background-repeat: repeat;
+    margin-bottom: 10px;
 }
 
 .m-commodity-grid-banner-img {
@@ -157,12 +164,22 @@
 
 .m-commodity-grid-container-first {
     height: 100px;
-    margin-bottom: 7px;
+    border-bottom: 1px solid #e8e8e8;
 }
 
 .m-commodity-grid-cell {
     background-color: white;
-    margin: 0 2px;
+    border-bottom: 1px solid #e8e8e8;
+    height: 100px;
+}
+
+.m-commodity-border-bottom {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.m-commodity-grid-cell.m-commodity-grid-cell-border,
+.m-commodity-grid-cell2.m-commodity-grid-cell-border {
+    border-right: 1px solid #e8e8e8;
 }
 
 .m-commodity-grid-cell-left {
@@ -184,9 +201,13 @@
     font-weight: bold;
 }
 
+.row-no-padding > .col.m-commodity-grid-item-first-img-container {
+    padding: 0 4px;
+}
+
 .m-commodity-grid-item-first-img {
     width: 100%;
-    height: 100px;
+    height: 95px;
 }
 
 /*second row*/
@@ -194,11 +215,18 @@
     background-color: white;
 }
 
+.m-commodity-grid-item2-img-container {
+    padding: 6px;
+}
+
 .m-commodity-grid-item2-img {
     width: 100%;
 }
 
-.m-commodity-grid-row-last {
-    position: relative;
-    right: 4px;
+.m-commodity-grid-cell2-desc {
+    padding: 2px 0 0 6px;
+}
+
+.row.m-commodity-margin-top-zero {
+    margin-top: 0;
 }

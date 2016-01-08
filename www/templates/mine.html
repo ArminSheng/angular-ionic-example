@@ -16,7 +16,7 @@
     </a>
     </div>
   </ion-nav-title>
-  <ion-content>
+  <ion-content class="m-mine-body">
     <!-- avatar & personal info & address mgmt -->
     <div class="m-mine-pinfo">
       <div class="row row-no-padding">
@@ -55,7 +55,39 @@
 
     <!-- my order -->
     <div class="m-mine-order">
+      <!-- title area -->
+      <div class="m-mine-order-title">
+        <span class="m-mine-order-hint">
+          我的订单
+        </span>
+        <span class="m-mine-order-all">
+          查看订单详情>
+        </span>
+      </div>
 
+      <!-- order icons -->
+      <div class="row m-mine-order-center">
+        <div class="col col-20">
+          <img ng-src="img/mine/o-pay.png" class="m-mine-order-icon"/>
+          <span class="m-mine-order-type">待付款</span>
+        </div>
+        <div class="col col-20">
+          <img ng-src="img/mine/o-delivery.png" class="m-mine-order-icon"/>
+          <span class="m-mine-order-type">待发货</span>
+        </div>
+        <div class="col col-20">
+          <img ng-src="img/mine/o-receive.png" class="m-mine-order-icon"/>
+          <span class="m-mine-order-type">待收货</span>
+        </div>
+        <div class="col col-20">
+          <img ng-src="img/mine/o-self.png" class="m-mine-order-icon"/>
+          <span class="m-mine-order-type">待自提</span>
+        </div>
+        <div class="col col-20">
+          <img ng-src="img/mine/o-service.png" class="m-mine-order-icon"/>
+          <span class="m-mine-order-type">售后中</span>
+        </div>
+      </div>
     </div>
 
   </ion-content>

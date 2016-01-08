@@ -45,6 +45,11 @@
 }
 
 /*mine view*/
+.m-mine-body {
+    background-color: #eee;
+}
+
+/*my pinfo area start*/
 .m-mine-notification {
     position: relative;
     top: 4px;
@@ -84,12 +89,60 @@
     padding: 50px 0;
 }
 
+.m-mine-address {
+    position: relative;
+}
+
 .m-mine-address .m-mine-pinfo-link {
     position: absolute;
-    bottom: 10px;
+    bottom: 16px;
 }
 
 .m-mine-phone {
     padding: 0 6px;
     font-size: 16px;
 }
+/*my pinfo area end*/
+
+/*my order area start*/
+.m-mine-order {
+    height: 140px;
+    background-color: white;
+}
+
+.m-mine-order-title {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+}
+
+.m-mine-order-hint, .m-mine-order-all {
+    font-weight: bold;
+    position: relative;
+    top: 15px;
+}
+
+.m-mine-order-hint {
+    font-size: 18px;
+    padding: 15px;
+}
+
+.m-mine-order-all {
+    float: right;
+    margin-right: 15px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.m-mine-order-center {
+    text-align: center;
+}
+
+.m-mine-order-icon {
+    height: 42px;
+}
+
+.m-mine-order-type {
+
+}
+
+/*my order area end*/

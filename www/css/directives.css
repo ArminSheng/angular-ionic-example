@@ -30,7 +30,6 @@
     width: 100%;
 }
 
-/*seckilling*/
 .m-sec-killing-area-offset {
     position: relative;
     top: 6px;
@@ -73,6 +72,62 @@
     margin: 5px 0;
     font-weight: bold;
     font-size: 16px;
+}
+
+/*recommend list*/
+.m-recommend-area-scroll {
+    width: 100%;
+    height: 200px;
+}
+
+.m-recommend-area {
+    width: 1650px;
+}
+
+.m-recommend-area-item {
+    display: inline-block;
+    width: 160px;
+    background-color: white;
+    margin: 0 2px;
+    position: relative;
+    padding: 4px;
+    height: 170px;
+    max-height: 170px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.m-recommend-item-img-container {
+    text-align: center;
+}
+
+.m-recommend-item-img {
+    width: 75%;
+}
+
+.m-recommend-item-current-price {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+    width: 100px;
+}
+
+.m-recommend-item-name {
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 4px;
+    display: block;
+}
+
+.m-recommend-item-fav {
+    background-image: url('../img/mine/fav.png');
+    background-size: 100%;
+    width: 45px;
+    height: 45px;
+    position: absolute;
+    right: 6px;
+    top: 75px;
 }
 
 /*grid items*/

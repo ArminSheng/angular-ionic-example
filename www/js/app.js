@@ -2,7 +2,7 @@
 angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-.constant('REST_BASE', 'http://192.168.1.100:8081/mmr/')
+.constant('REST_BASE', 'http://192.168.1.101:8081/mmr/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
   this.data = {
@@ -48,7 +48,7 @@ angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directiv
   });
 })
 
-.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider', 
+.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider',
   function($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider) {
   $ionicConfigProvider.tabs.style('standard');
   $ionicConfigProvider.tabs.position('bottom');
@@ -135,7 +135,16 @@ angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directiv
     views: {
       'tab-mine': {
         templateUrl: 'templates/mine.html',
-        controller: 'MineCtrl'
+        controller: 'MineCtrl',
+        resolve: {
+          recommendedItems: function(mmrItemFactory) {
+            return mmrItemFactory.recommend().then(function(res) {
+              return res;
+            }, function(err) {
+              return err;
+            });
+          }
+        }
       }
     }
   })

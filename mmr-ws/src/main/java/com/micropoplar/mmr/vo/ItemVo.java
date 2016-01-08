@@ -4,23 +4,24 @@ import java.util.Date;
 
 public class ItemVo {
 
-    private int id;
-    private int type;
+    private Integer id;
+    private Integer type;
     private String title;
     private String brand;
     private String imagePath;
-    private double oprice;
-    private double cprice;
+    private Double oprice;
+    private Double cprice;
     private String unitName;
     private Date deadline; // only exists for seckilling item
+    private Integer salesAmount;
 
     public ItemVo() {
 
     }
 
-    public ItemVo(int id, int type, String title, String brand,
+    public ItemVo(Integer id, Integer type, String title, String brand,
             String imagePath, double oprice, double cprice, String unitName,
-            Date deadline) {
+            Date deadline, Integer salesAmount) {
         super();
         this.id = id;
         this.type = type;
@@ -31,13 +32,14 @@ public class ItemVo {
         this.cprice = cprice;
         this.unitName = unitName;
         this.deadline = deadline;
+        this.salesAmount = salesAmount;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -81,7 +83,7 @@ public class ItemVo {
         this.deadline = deadline;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -99,6 +101,14 @@ public class ItemVo {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public Integer getSalesAmount() {
+        return salesAmount;
+    }
+
+    public void setSalesAmount(Integer salesAmount) {
+        this.salesAmount = salesAmount;
     }
 
 }

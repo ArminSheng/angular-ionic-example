@@ -1,0 +1,20 @@
+<div class="m-recommend-area-offset">
+  <ion-scroll zooming="true" direction="x" class="m-recommend-area-scroll">
+    <div class="m-recommend-area">
+      <div class="m-recommend-area-items">
+        <div class="m-recommend-area-item" ng-repeat="item in items track by $index">
+          <div class="m-recommend-item-img-container">
+            <img class="m-recommend-item-img" ng-src="{{ item.imagePath }}"/>
+          </div>
+          <span class="m-recommend-item-name">{{ item.title }}</span>
+          <span class="m-recommend-item-current-price m-no-padding">
+            {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
+          </span>
+          <!-- fav icon -->
+          <div class="m-recommend-item-fav">
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-scroll>
+</div>

@@ -39,4 +39,9 @@ public class ItemController {
         return results;
     }
 
+    @RequestMapping(value = "/recommend", method = RequestMethod.GET)
+    public List<ItemVo> recommend(@RequestParam("s") Integer size) {
+        return mockData.findRecommend(size);
+    }
+
 }

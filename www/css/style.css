@@ -180,3 +180,37 @@
     height: 2px;
 }
 /*my item area end*/
+
+/*recommend area start*/
+.m-mine-recommend-items {
+    margin-top: 4px;
+}
+
+.m-mine-recommend {
+
+}
+
+.m-mine-recommend-title {
+    height: 50px;
+    border-bottom: 1px solid #ddd;
+    background-color: white;
+}
+
+.m-mine-recommend-hint, .m-mine-recommend-all {
+    font-weight: bold;
+    position: relative;
+    top: 15px;
+}
+
+.m-mine-recommend-hint {
+    font-size: 18px;
+    padding: 15px;
+}
+
+.m-mine-recommend-all {
+    float: right;
+    margin-right: 15px;
+    font-size: 12px;
+    color: #aaa;
+}
+/*recommend area end*/

@@ -1,7 +1,7 @@
 angular.module('mmr.directives')
 
 .run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/directives/item-remain-time.html', 
+  $templateCache.put('templates/directives/item-remain-time.html',
     '<span class="m-sec-killing-item-remain-time"></span>');
 }])
 
@@ -19,6 +19,20 @@ angular.module('mmr.directives')
   };
 }])
 
+.directive('recommendList', [function() {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      items: '='
+    },
+    templateUrl: 'templates/directives/item-list-recommending.html',
+    link: function(scope, element, attrs) {
+
+    }
+  }
+}])
+
 .directive('itemRemainTime', ['$interval', function($interval) {
   var dayMillis = 86400000,
       hourMillis = 3600000,
@@ -32,16 +46,16 @@ angular.module('mmr.directives')
           minuteRemain = Math.floor(millis / minuteMillis % 60),
           secondRemain = Math.floor(millis / secondMillis % 60);
 
-      return '剩余<span style="color: red">' + dayRemain + 
-      '</span>天<span style="color: red">' + hourRemain + 
-      '</span>时<span style="color: red">' + minuteRemain + 
+      return '剩余<span style="color: red">' + dayRemain +
+      '</span>天<span style="color: red">' + hourRemain +
+      '</span>时<span style="color: red">' + minuteRemain +
       '</span>分<span style="color: red">' + secondRemain + '</span>秒';
     } else {
       return '已经过期';
     }
   };
 
-  return {    
+  return {
     retrict: 'E',
     replace: true,
     scope: {
@@ -50,7 +64,7 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/item-remain-time.html',
     link: function(scope, element, attrs) {
       var remainingMillis = new Date(scope.time).getTime() - new Date().getTime();
-      
+
       if(remainingMillis > 0) {
         $interval(function() {
           scope.remainTime = translate(remainingMillis);

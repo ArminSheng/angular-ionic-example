@@ -42,7 +42,7 @@ public class MockData {
 
         for (int i = 0; i < size; i++) {
             results.add(new ItemVo(i + 1, type, typeStr + i, "微杨科技",
-                    "img/item/sample.png", 122.0, 88.8, "箱", null));
+                    "img/item/sample.png", 122.0, 88.8, "箱", null, null));
         }
 
         return results;
@@ -56,7 +56,21 @@ public class MockData {
 
         for (int i = 0; i < size; i++) {
             results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
-                    "img/item/sample.png", 12.0, 8.8, "箱", next));
+                    "img/item/sample.png", 12.0, 8.8, "箱", next, null));
+        }
+
+        return results;
+    }
+
+    public List<ItemVo> findRecommend(Integer size) {
+        List<ItemVo> results = new LinkedList<ItemVo>();
+
+        Date now = new Date();
+        Date next = new Date(now.getTime() + 360000000);
+
+        for (int i = 0; i < size; i++) {
+            results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
+                    "img/item/sample.png", 12.0, 8.8, "箱", next, (i + 1) * 1000));
         }
 
         return results;

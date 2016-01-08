@@ -43,3 +43,53 @@
 .m-row-small-margin > .col {
     margin: 2px;
 }
+
+/*mine view*/
+.m-mine-notification {
+    position: relative;
+    top: 4px;
+    left: 10px;
+}
+
+.m-mine-pinfo {
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    height: 124px;
+    background-image: url('../img/mine/avatar-bg.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.row-no-padding .col.m-mine-avatar {
+    padding: 20px;
+}
+
+.m-mine-avatar img {
+    width: 100%;
+}
+
+.button-small.button-clear.m-mine-pinfo-link {
+    color: white;
+    font-size: 16px;
+}
+
+.row-no-padding .col .m-mine-detail {
+    padding: 42px 0;
+    position: relative;
+    right: 16px;
+}
+
+.row-no-padding .col .m-mine-detail.m-mine-detail-login {
+    padding: 50px 0;
+}
+
+.m-mine-address .m-mine-pinfo-link {
+    position: absolute;
+    bottom: 10px;
+}
+
+.m-mine-phone {
+    padding: 0 6px;
+    font-size: 16px;
+}

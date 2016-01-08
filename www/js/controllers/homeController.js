@@ -1,9 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicPopup', '$cordovaGeolocation', 'banners', 'areas', 'seckilling', 'homeCommodity', 
+.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicPopup', '$cordovaGeolocation', 'banners', 'areas', 'seckilling', 'homeCommodity',
   function($scope, $rootScope, $ionicHistory, $ionicPopup, $cordovaGeolocation, banners, areas, seckilling, homeCommodity) {
-  
-  $scope.notificationCount = 5;
 
   if(banners.data && areas.data) {
     $scope.banners = banners.data;

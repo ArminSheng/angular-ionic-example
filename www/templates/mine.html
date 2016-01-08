@@ -1,5 +1,62 @@
-<ion-view view-title="我的" hide-back-button="true">
+<ion-view view-title="买卖肉APP个人中心" hide-back-button="true">
+  <ion-nav-title>
+    <div class="row row-no-padding">
+      <div class="col col-20">
+        安全中心
+      </div>
+      <!-- view title -->
+      <div class="col col-20 col-offset-20">
+        我的
+      </div>
+      <!-- notification -->
+      <div class="col col-20 col-offset-20 m-mine-notification">
+        <notification-center count="{{ $root.notificationCount }}"></notification-center>
+      </div>
+    </div>
+    </a>
+    </div>
+  </ion-nav-title>
   <ion-content>
-    我的
+    <!-- avatar & personal info & address mgmt -->
+    <div class="m-mine-pinfo">
+      <div class="row row-no-padding">
+        <!-- avatar & pinfo -->
+        <div class="col col-67">
+          <div class="row row-no-padding">
+            <!-- avatar -->
+            <div class="col col-50 m-mine-avatar">
+              <img ng-src="{{ pinfo.avatar }}" ng-if="$root.pinfo.avatar"/>
+              <img ng-src="img/mine/avatar-bak.png" ng-if="!$root.pinfo.avatar"/>
+            </div>
+            <div class="col col-50">
+              <!-- pinfo -->
+              <div class="m-mine-detail" ng-if="$root.authenticated">
+                <div class="m-mine-phone">{{ $root.pinfo.phone }}</div>
+                <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doModify()">
+                  完善个人资料
+                </a>
+              </div>
+              <div class="m-mine-detail m-mine-detail-login" ng-if="!$root.authenticated">
+                <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doLogin()">
+                  点击登录
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- address mgmt -->
+        <div class="col col-33 m-mine-address" ng-if="$root.authenticated">
+          <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doAddressMgmt()">
+            收货地址管理>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- my order -->
+    <div class="m-mine-order">
+
+    </div>
+
   </ion-content>
 </ion-view>

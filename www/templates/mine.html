@@ -90,5 +90,50 @@
       </div>
     </div>
 
+    <!-- my items area -->
+    <div class="m-mine-order-myitems">
+      <!-- row 1 -->
+      <div class="row row-no-padding">
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-deposit.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">账户余额</span>
+          <span class="m-mine-item-subtitle">{{ $root.pinfo.deposit | currency: '￥' }}</span>
+        </div>
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-fav.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">收藏的商品</span>
+        </div>
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-shop.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">收藏的店铺</span>
+        </div>
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-footprint.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">我的足迹</span>
+        </div>
+      </div>
+
+      <!-- space -->
+      <div class="m-mine-order-myitems-space">
+      </div>
+
+      <!-- row 2 -->
+      <div class="row row-no-padding">
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-coupon.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">我的优惠券</span>
+          <span class="m-mine-item-subtitle m-mine-item-placeholder">Placeholder</span>
+        </div>
+        <div class="col col-25 m-mine-item-area">
+          <img ng-src="img/mine/m-receipt.png" class="m-mine-item-icon"/>
+          <span class="m-mine-item-title">我的发票</span>
+        </div>
+        <div class="col col-25 m-mine-item-area">
+        </div>
+        <div class="col col-25 m-mine-item-area">
+        </div>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>

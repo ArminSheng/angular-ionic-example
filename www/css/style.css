@@ -144,5 +144,39 @@
 .m-mine-order-type {
 
 }
-
 /*my order area end*/
+
+/*my item area start*/
+.m-mine-order-myitems {
+    margin: 12px 4px;
+    width: 96%;
+}
+
+.m-mine-item-area {
+    text-align: center;
+    background-color: white;
+    padding-bottom: 8px;
+    margin: 0 1px;
+}
+
+.m-mine-item-icon {
+    width: 100%;
+    padding: 10px 20px 0 20px;
+}
+
+.m-mine-item-title {
+
+}
+
+.m-mine-item-subtitle {
+
+}
+
+.m-mine-item-placeholder {
+    visibility: hidden;
+}
+
+.m-mine-order-myitems-space {
+    height: 2px;
+}
+/*my item area end*/

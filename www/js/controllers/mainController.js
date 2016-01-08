@@ -13,7 +13,8 @@ angular.module('mmr.controllers')
     notificationCount: 5,
     authenticated: true,
     pinfo: {
-      phone: '18501751020'
+      phone: '18501751020',
+      deposit: 200.0
     }
   };
 

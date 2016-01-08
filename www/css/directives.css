@@ -84,7 +84,7 @@
 }
 
 .m-recommend-area {
-    width: 1640px;
+    width: 1600px;
 }
 
 .m-recommend-area-item {
@@ -98,6 +98,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    text-align: center;
+}
+
+.m-recommend-area-item.m-recommend-area-item-border {
+    border-right: 1px solid #e8e8e8;
 }
 
 .m-recommend-item-img-container {

@@ -34,6 +34,7 @@
 
 .m-home-content {
     background-color: #eee;
+    overflow-x: hidden;
 }
 
 .m-row-small-padding {
@@ -44,9 +45,13 @@
     margin: 2px;
 }
 
+.m-padding-lr {
+    padding: 0 1px;
+}
+
 /*mine view*/
 .m-mine-body {
-    background-color: #eee;
+    background-color: #f7f7f7;
 }
 
 /*my pinfo area start*/
@@ -128,7 +133,7 @@
 
 .m-mine-order-all {
     float: right;
-    margin-right: 15px;
+    padding-right: 15px;
     font-size: 12px;
     color: #aaa;
 }
@@ -148,15 +153,13 @@
 
 /*my item area start*/
 .m-mine-order-myitems {
-    margin: 12px 4px;
-    width: 96%;
+    margin: 12px 0;
 }
 
 .m-mine-item-area {
     text-align: center;
     background-color: white;
     padding-bottom: 8px;
-    margin: 0 1px;
 }
 
 .m-mine-item-icon {
@@ -184,6 +187,7 @@
 /*recommend area start*/
 .m-mine-recommend-items {
     margin-top: 4px;
+    width: 100%;
 }
 
 .m-mine-recommend {
@@ -209,7 +213,7 @@
 
 .m-mine-recommend-all {
     float: right;
-    margin-right: 15px;
+    padding-right: 15px;
     font-size: 12px;
     color: #aaa;
 }

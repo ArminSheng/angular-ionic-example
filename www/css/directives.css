@@ -77,18 +77,17 @@
 /*recommend list*/
 .m-recommend-area-scroll {
     width: 100%;
-    height: 200px;
+    height: 180px;
 }
 
 .m-recommend-area {
-    width: 1650px;
+    width: 1640px;
 }
 
 .m-recommend-area-item {
     display: inline-block;
     width: 160px;
     background-color: white;
-    margin: 0 2px;
     position: relative;
     padding: 4px;
     height: 170px;

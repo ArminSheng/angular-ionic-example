@@ -15,6 +15,7 @@
     top: 40%;
     left: 4%;
     font-size: 20px;
+    font-weight: bold;
 }
 
 /*sec killing*/
@@ -178,7 +179,8 @@
 }
 
 .m-commodity-grid-cell.m-commodity-grid-cell-border,
-.m-commodity-grid-cell2.m-commodity-grid-cell-border {
+.m-commodity-grid-cell2.m-commodity-grid-cell-border,
+.m-sales-area.m-sales-area-border {
     border-right: 1px solid #e8e8e8;
 }
 

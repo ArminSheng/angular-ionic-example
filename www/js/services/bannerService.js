@@ -9,7 +9,7 @@ angular.module('mmr.services')
         url: restService['API_REST'] + 'c_banner/platform',
         method: 'GET',
         params: {
-          'p': platform || 1  // 1 represents the moblie app
+          'p': platform || 2  // 2 represents the moblie app
         }
       });
     },
@@ -19,7 +19,7 @@ angular.module('mmr.services')
         url: restService['API_REST'] + 'c_salesarea/platform',
         method: 'GET',
         params: {
-          'p': platform || 1  // 1 represents the moblie app
+          'p': platform || 2  // 1 represents the moblie app
         }
       });
     }

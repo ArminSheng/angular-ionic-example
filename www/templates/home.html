@@ -11,8 +11,7 @@
         <input type="search" placeholder="搜索商品">
       </label>
       <!-- notification -->
-      <a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">
-      <span class="badge badge-assertive m-badge">{{ notificationCount }}</span>
+      <notification-center count="{{ notificationCount }}"></notification-center>
     </a>
     </div>
   </ion-nav-title>

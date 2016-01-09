@@ -4,9 +4,9 @@ angular.module('mmr.controllers')
   function($scope, $rootScope, $ionicHistory) {
 
   // controller defaults
-  $scope.filtersActivated = false;
-  $scope.selectedFilterIndex = 0;
-  $scope.filters = [
+  $scope.sortActivated = false;
+  $scope.selectedSortIndex = 0;
+  $scope.sorters = [
     { 'text': '智能排序' },
     { 'text': '价格从高到低' },
     { 'text': '价格从低到高' },
@@ -14,13 +14,13 @@ angular.module('mmr.controllers')
     { 'text': '销量从低到高' }
   ]
 
-  $scope.activateFilters = function() {
-    $scope.filtersActivated = !$scope.filtersActivated;
+  $scope.activateSort = function() {
+    $scope.sortActivated = !$scope.sortActivated;
   };
 
-  $scope.doSelectFilter = function(idx) {
-    $scope.selectedFilterIndex = idx;
-    $scope.filtersActivated = false;
+  $scope.doSelectSorter = function(idx) {
+    $scope.selectedSortIndex = idx;
+    $scope.sortActivated = false;
   };
 
 }]);

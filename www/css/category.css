@@ -1,0 +1,38 @@
+/*categories*/
+.m-cat-body {
+    background-color: #f7f7f7;
+}
+
+.m-cat-options {
+    position: relative;
+    left: 6px;
+}
+
+.m-cat-filters {
+    text-align: center;
+    height: 42px;
+    background-color: white;
+    position: relative;
+}
+
+.m-cat-filters-row {
+    height: 26px;
+    position: relative;
+    top: 8px;
+}
+
+.button-clear.m-cat-filters-text {
+    color: black;
+    font-size: 14px;
+}
+
+.m-cat-filters-col-border {
+    border-right: 1px solid #e8e8e8;
+}
+
+.m-cat-down-icon {
+    position: relative;
+    top: 2px;
+    left: 2px;
+    font-size: 6px;
+}

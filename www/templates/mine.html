@@ -17,142 +17,146 @@
     </div>
   </ion-nav-title>
   <ion-content class="m-mine-body" scrollbar-x="false" scrollbar-y="false">
-    <!-- avatar & personal info & address mgmt -->
-    <div class="m-mine-pinfo">
-      <div class="row row-no-padding">
-        <!-- avatar & pinfo -->
-        <div class="col col-67">
-          <div class="row row-no-padding">
-            <!-- avatar -->
-            <div class="col col-50 m-mine-avatar">
-              <img ng-src="{{ pinfo.avatar }}" ng-if="$root.pinfo.avatar"/>
-              <img ng-src="img/mine/avatar-bak.png" ng-if="!$root.pinfo.avatar"/>
-            </div>
-            <div class="col col-50">
-              <!-- pinfo -->
-              <div class="m-mine-detail" ng-if="$root.authenticated">
-                <div class="m-mine-phone">{{ $root.pinfo.phone }}</div>
-                <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doModify()">
-                  完善个人资料
-                </a>
+
+    <div ng-if="$root.network">
+      <!-- avatar & personal info & address mgmt -->
+      <div class="m-mine-pinfo">
+        <div class="row row-no-padding">
+          <!-- avatar & pinfo -->
+          <div class="col col-67">
+            <div class="row row-no-padding">
+              <!-- avatar -->
+              <div class="col col-50 m-mine-avatar">
+                <img ng-src="{{ pinfo.avatar }}" ng-if="$root.pinfo.avatar"/>
+                <img ng-src="img/mine/avatar-bak.png" ng-if="!$root.pinfo.avatar"/>
               </div>
-              <div class="m-mine-detail m-mine-detail-login" ng-if="!$root.authenticated">
-                <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doLogin()">
-                  点击登录
-                </a>
+              <div class="col col-50">
+                <!-- pinfo -->
+                <div class="m-mine-detail" ng-if="$root.authenticated">
+                  <div class="m-mine-phone">{{ $root.pinfo.phone }}</div>
+                  <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doModify()">
+                    完善个人资料
+                  </a>
+                </div>
+                <div class="m-mine-detail m-mine-detail-login" ng-if="!$root.authenticated">
+                  <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doLogin()">
+                    点击登录
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- address mgmt -->
-        <div class="col col-33 m-mine-address" ng-if="$root.authenticated">
-          <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doAddressMgmt()">
-            收货地址管理>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- my order -->
-    <div class="m-mine-order">
-      <!-- title area -->
-      <div class="m-mine-order-title">
-        <span class="m-mine-order-hint">
-          我的订单
-        </span>
-        <span class="m-mine-order-all">
-          查看订单详情>
-        </span>
-      </div>
-
-      <!-- order icons -->
-      <div class="row m-mine-order-center">
-        <div class="col col-20">
-          <img ng-src="img/mine/o-pay.png" class="m-mine-order-icon"/>
-          <span class="m-mine-order-type">待付款</span>
-        </div>
-        <div class="col col-20">
-          <img ng-src="img/mine/o-delivery.png" class="m-mine-order-icon"/>
-          <span class="m-mine-order-type">待发货</span>
-        </div>
-        <div class="col col-20">
-          <img ng-src="img/mine/o-receive.png" class="m-mine-order-icon"/>
-          <span class="m-mine-order-type">待收货</span>
-        </div>
-        <div class="col col-20">
-          <img ng-src="img/mine/o-self.png" class="m-mine-order-icon"/>
-          <span class="m-mine-order-type">待自提</span>
-        </div>
-        <div class="col col-20">
-          <img ng-src="img/mine/o-service.png" class="m-mine-order-icon"/>
-          <span class="m-mine-order-type">售后中</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- my items area -->
-    <div class="m-mine-order-myitems">
-      <!-- row 1 -->
-      <div class="row row-no-padding">
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-          <img ng-src="img/mine/m-deposit.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">账户余额</span>
-          <span class="m-mine-item-subtitle">{{ $root.pinfo.deposit | currency: '￥' }}</span>
-        </div>
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-          <img ng-src="img/mine/m-fav.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">收藏的商品</span>
-        </div>
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-          <img ng-src="img/mine/m-shop.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">收藏的店铺</span>
-        </div>
-        <div class="col col-25 m-mine-item-area">
-          <img ng-src="img/mine/m-footprint.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">我的足迹</span>
+          <!-- address mgmt -->
+          <div class="col col-33 m-mine-address" ng-if="$root.authenticated">
+            <a class="button button-small button-clear m-mine-pinfo-link" ng-click="doAddressMgmt()">
+              收货地址管理>
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- space -->
-      <div class="m-mine-order-myitems-space">
+      <!-- my order -->
+      <div class="m-mine-order">
+        <!-- title area -->
+        <div class="m-mine-order-title">
+          <span class="m-mine-order-hint">
+            我的订单
+          </span>
+          <span class="m-mine-order-all">
+            查看订单详情>
+          </span>
+        </div>
+
+        <!-- order icons -->
+        <div class="row m-mine-order-center">
+          <div class="col col-20">
+            <img ng-src="img/mine/o-pay.png" class="m-mine-order-icon"/>
+            <span class="m-mine-order-type">待付款</span>
+          </div>
+          <div class="col col-20">
+            <img ng-src="img/mine/o-delivery.png" class="m-mine-order-icon"/>
+            <span class="m-mine-order-type">待发货</span>
+          </div>
+          <div class="col col-20">
+            <img ng-src="img/mine/o-receive.png" class="m-mine-order-icon"/>
+            <span class="m-mine-order-type">待收货</span>
+          </div>
+          <div class="col col-20">
+            <img ng-src="img/mine/o-self.png" class="m-mine-order-icon"/>
+            <span class="m-mine-order-type">待自提</span>
+          </div>
+          <div class="col col-20">
+            <img ng-src="img/mine/o-service.png" class="m-mine-order-icon"/>
+            <span class="m-mine-order-type">售后中</span>
+          </div>
+        </div>
       </div>
 
-      <!-- row 2 -->
-      <div class="row row-no-padding">
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-          <img ng-src="img/mine/m-coupon.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">我的优惠券</span>
-          <span class="m-mine-item-subtitle m-mine-item-placeholder">Placeholder</span>
+      <!-- my items area -->
+      <div class="m-mine-order-myitems">
+        <!-- row 1 -->
+        <div class="row row-no-padding">
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+            <img ng-src="img/mine/m-deposit.png" class="m-mine-item-icon"/>
+            <span class="m-mine-item-title">账户余额</span>
+            <span class="m-mine-item-subtitle">{{ $root.pinfo.deposit | currency: '￥' }}</span>
+          </div>
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+            <img ng-src="img/mine/m-fav.png" class="m-mine-item-icon"/>
+            <span class="m-mine-item-title">收藏的商品</span>
+          </div>
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+            <img ng-src="img/mine/m-shop.png" class="m-mine-item-icon"/>
+            <span class="m-mine-item-title">收藏的店铺</span>
+          </div>
+          <div class="col col-25 m-mine-item-area">
+            <img ng-src="img/mine/m-footprint.png" class="m-mine-item-icon"/>
+
+            <span class="m-mine-item-title">我的足迹</span>
+          </div>
         </div>
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-          <img ng-src="img/mine/m-receipt.png" class="m-mine-item-icon"/>
-          <span class="m-mine-item-title">我的发票</span>
+
+        <!-- space -->
+        <div class="m-mine-order-myitems-space">
         </div>
-        <div class="col col-25 m-mine-item-area m-mine-item-area-border">
-        </div>
-        <div class="col col-25 m-mine-item-area">
+
+        <!-- row 2 -->
+        <div class="row row-no-padding">
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+            <img ng-src="img/mine/m-coupon.png" class="m-mine-item-icon"/>
+            <span class="m-mine-item-title">我的优惠券</span>
+            <span class="m-mine-item-subtitle m-mine-item-placeholder">Placeholder</span>
+          </div>
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+            <img ng-src="img/mine/m-receipt.png" class="m-mine-item-icon"/>
+            <span class="m-mine-item-title">我的发票</span>
+          </div>
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+          </div>
+          <div class="col col-25 m-mine-item-area">
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- recommend area -->
-    <div class="m-mine-recommend">
+      <!-- recommend area -->
+      <div class="m-mine-recommend">
 
-      <!-- title area -->
-      <div class="m-mine-recommend-title">
-        <span class="m-mine-recommend-hint">
-          猜你喜欢
-        </span>
-        <span class="m-mine-recommend-all">
-          换一批>
-        </span>
+        <!-- title area -->
+        <div class="m-mine-recommend-title">
+          <span class="m-mine-recommend-hint">
+            猜你喜欢
+          </span>
+          <span class="m-mine-recommend-all">
+            换一批>
+          </span>
+        </div>
+
+        <!-- recommended items area -->
+        <div class="m-mine-recommend-items">
+          <recommend-list items="recommendedItems"></recommend-list>
+        </div>
+
       </div>
-
-      <!-- recommended items area -->
-      <div class="m-mine-recommend-items">
-        <recommend-list items="recommendedItems"></recommend-list>
-      </div>
-
     </div>
 
   </ion-content>

@@ -2,7 +2,7 @@
 angular.module('mmr', ['ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-.constant('REST_BASE', 'http://192.168.1.101:8081/mmr/')
+.constant('REST_BASE', 'http://192.168.2.116:8081/mmr/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
   this.data = {

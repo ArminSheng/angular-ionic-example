@@ -11,43 +11,50 @@
         <input type="search" placeholder="搜索商品">
       </label>
       <!-- notification -->
-      <notification-center count="{{ notificationCount }}"></notification-center>
-    </a>
+      <div class="m-home-nofitication">
+        <notification-center count="{{ $root.notificationCount }}"></notification-center>
+      </div>
     </div>
   </ion-nav-title>
   <ion-content class="m-home-content">
-    <!-- slider -->
-    <ion-slide-box on-slide-changed="slideHasChanged($index)">
-      <ion-slide ng-repeat="banner in banners track by $index">
-        <div>
-          <img class="m-slide-image" ng-src="{{ banner.path }}"/>
-        </div>
-      </ion-slide>
-    </ion-slide-box>
-    <!-- sales area -->
-    <div class="m-sales-area">
-      <sales-area areas="areas"></sales-area>
+
+    <div ng-if="$root.network">
+      <!-- slider -->
+      <ion-slide-box on-slide-changed="slideHasChanged($index)">
+        <ion-slide ng-repeat="banner in banners track by $index">
+          <div>
+            <img class="m-slide-image" ng-src="{{ banner.path }}"/>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+      <!-- sales area -->
+      <div class="m-sales-area">
+        <sales-area areas="areas"></sales-area>
+      </div>
+
+      <!-- seckilling area -->
+      <seckilling-list items="seckilling"></seckilling-list>
+
+      <!-- type 1 area -->
+      <commodity-grid items="commodities[0]" banner="img/item/type-1.png"></commodity-grid>
+
+      <!-- type 2 area -->
+      <commodity-grid items="commodities[1]" banner="img/item/type-2.png"></commodity-grid>
+
+      <!-- type 3 area -->
+      <commodity-grid items="commodities[2]" banner="img/item/type-3.png"></commodity-grid>
+
+      <!-- type 4 area -->
+      <commodity-grid items="commodities[3]" banner="img/item/type-4.png"></commodity-grid>
+
+      <!-- type 5 area -->
+      <commodity-grid items="commodities[4]" banner="img/item/type-5.png"></commodity-grid>
+
+      首页 地点：{{ pos | json }}
+      Error: {{ err | json }}
     </div>
-
-    <!-- seckilling area -->
-    <seckilling-list items="seckilling"></seckilling-list>
-
-    <!-- type 1 area -->
-    <commodity-grid items="commodities[0]" banner="img/item/type-1.png"></commodity-grid>
-
-    <!-- type 2 area -->
-    <commodity-grid items="commodities[1]" banner="img/item/type-2.png"></commodity-grid>
-
-    <!-- type 3 area -->
-    <commodity-grid items="commodities[2]" banner="img/item/type-3.png"></commodity-grid>
-
-    <!-- type 4 area -->
-    <commodity-grid items="commodities[3]" banner="img/item/type-4.png"></commodity-grid>
-
-    <!-- type 5 area -->
-    <commodity-grid items="commodities[4]" banner="img/item/type-5.png"></commodity-grid>
-
-    首页 地点：{{ pos | json }}
-    Error: {{ err | json }}
+    <div ng-if="!$root.network">
+      <!-- shown when network is down -->
+    </div>
   </ion-content>
 </ion-view>

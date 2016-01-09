@@ -1,8 +1,12 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', 'recommendedItems',
-  function($scope, $rootScope, $ionicHistory, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', 'messageCenter', 'recommendedItems',
+  function($scope, $rootScope, $ionicHistory, messageCenter, recommendedItems) {
 
-  $scope.recommendedItems = recommendedItems.data;
+  if(recommendedItems.data) {
+    $scope.recommendedItems = recommendedItems.data;
+  } else {
+    messageCenter.networkDown();
+  }
 
 }]);

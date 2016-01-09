@@ -43,6 +43,12 @@
     background-color: #f7f7f7;
 }
 
+.m-home-nofitication {
+    position: relative;
+    top: 4px;
+    left: 9px;
+}
+
 /*mine view*/
 .m-mine-body {
     background-color: #f7f7f7;

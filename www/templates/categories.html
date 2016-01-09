@@ -1,4 +1,33 @@
-<ion-view view-title="分类" hide-back-button="true">
-  <ion-content scrollbar-x="false" scrollbar-y="false">
+<ion-view view-title="买卖肉APP分类" hide-back-button="true">
+  <ion-nav-title>
+    <div class="bar bar-header item-input-inset">
+      <!-- search input -->
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="搜索商品">
+      </label>
+      <!-- options -->
+      <a class="button button-icon icon ion-android-more-horizontal m-cat-options" ng-click="doCheckOptions()">
+      </a>
+    </div>
+  </ion-nav-title>
+  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body">
+
+    <!-- filters -->
+    <div class="m-cat-filters">
+      <div class="row row-no-padding m-cat-filters-row">
+        <div class="col col-50 m-cat-filters-col-border">
+          <a class="button button-small button-clear m-cat-filters-text" ng-click="doSmartSort()">
+            智能排序<span class="ion-chevron-down m-cat-down-icon"></span>
+          </a>
+        </div>
+        <div class="col col-50">
+          <a class="button button-small button-clear m-cat-filters-text" ng-click="doFilter()">
+            筛选<span class="ion-chevron-down m-cat-down-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </ion-content>
 </ion-view>

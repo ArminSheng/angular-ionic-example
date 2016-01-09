@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory',
-  function($scope, $rootScope, $ionicHistory) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'messageCenter',
+  function($scope, $rootScope, $ionicHistory, $interval, messageCenter) {
 
   $scope.myGoBack = function() {
     $rootScope.tabsHidden = "";
@@ -15,7 +15,13 @@ angular.module('mmr.controllers')
     pinfo: {
       phone: '18501751020',
       deposit: 200.0
-    }
+    },
+    network: true
   };
+
+  // send heartbeat every 30s
+  $interval(function() {
+    messageCenter.networkCheck();
+  }, 30000);
 
 }]);

@@ -17,8 +17,8 @@
     <div class="m-cat-filters">
       <div class="row row-no-padding m-cat-filters-row">
         <div class="col col-50 m-cat-filters-col-border">
-          <a class="button button-small button-clear m-cat-filters-text" ng-click="doSmartSort()">
-            智能排序<span class="ion-chevron-down m-cat-down-icon"></span>
+          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'activated': filtersActivated}" ng-click="activateFilters()">
+            {{ filters[selectedFilterIndex].text }}<span class="ion-chevron-down m-cat-down-icon"></span>
           </a>
         </div>
         <div class="col col-50">
@@ -27,6 +27,22 @@
           </a>
         </div>
       </div>
+    </div>
+
+    <!-- filter options -->
+    <div class="m-cat-filters-options">
+      <div class="list m-cat-filters-options-list" ng-class="{'activated': filtersActivated}">
+        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="filter in filters track by $index" ng-click="doSelectFilter($index)">
+          {{ filter.text }}
+          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedFilterIndex === $index"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- item list area -->
+
+    <!-- backdrop -->
+    <div class="m-cat-backdrop" ng-class="{'activated': filtersActivated}">
     </div>
 
   </ion-content>

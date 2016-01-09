@@ -38,6 +38,15 @@
     padding: 0 1px;
 }
 
+/*common colors*/
+.m-color-theme-fg {
+    color: #ffc900;
+}
+
+.m-color-theme-bg {
+    background-color: #ffc900;
+}
+
 /*home view*/
 .m-home-content {
     background-color: #f7f7f7;

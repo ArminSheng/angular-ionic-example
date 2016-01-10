@@ -34,6 +34,17 @@ angular.module('mmr.services')
           's': size || 10
         }
       });
+    },
+
+    // search the items
+    search: function(size) {
+      return $http({
+        url: restService['API_REST'] + 'c_search/',
+        method: 'GET',
+        params: {
+          's': size || 10
+        }
+      });
     }
   };
 

@@ -75,4 +75,18 @@ public class MockData {
 
         return results;
     }
+
+    public List<ItemVo> findSearchResults(Integer size) {
+        List<ItemVo> results = new LinkedList<ItemVo>();
+
+        Date now = new Date();
+        Date next = new Date(now.getTime() + 360000000);
+
+        for (int i = 0; i < size; i++) {
+            results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
+                    "img/item/sample.png", 12.0, 8.8, "箱", next, (i + 1) * 1000));
+        }
+
+        return results;
+    }
 }

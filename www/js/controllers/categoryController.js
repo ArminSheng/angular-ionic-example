@@ -67,6 +67,10 @@ angular.module('mmr.controllers')
     $scope.activateScreen();
   };
 
+  $scope.swipeMenu = function(event) {
+    console.log(event);
+  };
+
   // cache bindings
   localStorageService.bind($scope, 'brands');
   localStorageService.bind($scope, 'attributes');

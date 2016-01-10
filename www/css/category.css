@@ -142,16 +142,21 @@
 
 }
 
-.m-cat-screen-brands-title {
-
+.m-cat-screen-brands-title, .m-cat-screen-attrs-title {
+    color: #999;
+    padding: 5px 0;
 }
 
 .m-cat-screen-brands-items {
 
 }
 
-.m-cat-screen-attrs-title {
-
+.m-cat-screen-brands-item, .m-cat-screen-attrs-item {
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #999;
+    border-radius: 10px;
+    margin: 4px;
 }
 
 .m-cat-screen-attrs-items {

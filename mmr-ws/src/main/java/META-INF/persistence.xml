@@ -4,5 +4,6 @@
 		<class>com.micropoplar.mmr.entity.CrBanner</class>
 		<class>com.micropoplar.mmr.entity.CrMobileSalesArea</class>
 		<class>com.micropoplar.mmr.entity.CrBuyersBrand</class>
+		<class>com.micropoplar.mmr.entity.CrBuyersAttribute</class>
 	</persistence-unit>
 </persistence>

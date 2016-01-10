@@ -59,8 +59,8 @@
           品牌
         </div>
         <div class="m-cat-screen-brands-items">
-          <span ng-repeat="brand in brands track by $index">
-            {{ brand | json }}
+          <span class="m-cat-screen-brands-item" ng-repeat="brand in brands track by $index">
+            {{ brand.name }}
           </span>
         </div>
       </div>
@@ -71,7 +71,9 @@
           产品属性
         </div>
         <div class="m-cat-screen-attrs-items">
-
+          <span class="m-cat-screen-attrs-item" ng-repeat="attr in attributes track by $index">
+            {{ attr.name }}
+          </span>
         </div>
       </div>
 

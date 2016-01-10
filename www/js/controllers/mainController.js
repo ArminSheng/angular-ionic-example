@@ -31,5 +31,6 @@ angular.module('mmr.controllers')
 
   // retrieve meta data
   mmrMetaFactory.brands();
+  mmrMetaFactory.attributes();
 
 }]);

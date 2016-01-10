@@ -13,6 +13,18 @@ angular.module('mmr.services')
         mmrCacheFactory.set('brands', res.data);
       }, function(err) {
       });
+    },
+
+    // such as: 冻品，鲜品
+    attributes: function() {
+      $http({
+        url: restService['API_REST'] + 'c_attribute/all',
+        method: 'GET'
+      }).then(function(res) {
+        // save into cache
+        mmrCacheFactory.set('attributes', res.data);
+      }, function(err) {
+      });
     }
   };
 

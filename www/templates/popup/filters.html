@@ -1,0 +1,30 @@
+<!-- screen view -->
+<div class="m-cat-screen-options-area">
+  <ion-content class="m-cat-screen-container-scroll">
+    <div class="m-cat-screen-container" ng-class="{'activated': screenActivated}">
+
+      <!-- brands -->
+      <div class="m-cat-screen-brands">
+        <div class="m-cat-screen-brands-title">
+          品牌
+        </div>
+        <div class="m-cat-screen-brands-items">
+          <span ng-repeat="brand in brands track by $index">
+            {{ brand | json }}
+          </span>
+        </div>
+      </div>
+
+      <!-- product attributes -->
+      <div class="m-cat-screen-attrs">
+        <div class="m-cat-screen-attrs-title">
+          产品属性
+        </div>
+        <div class="m-cat-screen-attrs-items">
+
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+</div>

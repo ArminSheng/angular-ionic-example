@@ -16,7 +16,7 @@
 }
 
 .m-cat-filters, .m-cat-filters-options, .m-cat-filters-option {
-    z-index: 12;
+    z-index: 20;
 }
 
 .m-cat-filters-row {
@@ -28,6 +28,11 @@
 .button-clear.m-cat-filters-text {
     color: black;
     font-size: 14px;
+}
+
+.button-clear.m-cat-filters-text.text-activated {
+    color: orange;
+    font-weight: bold;
 }
 
 .m-cat-filters-col-border {
@@ -93,4 +98,62 @@
 .m-cat-backdrop.activated {
     opacity: 1;
     visibility: visible;
+}
+
+.scroll-content.m-cat-screen-container-scroll {
+    top: 46px;
+    padding: 10px;
+    background-color: white;
+}
+
+.scroll-content.m-cat-screen-container-scroll.activated {
+    top: 86px;
+}
+
+.m-cat-screen-options-area {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    bottom: 40px;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.m-cat-screen-options-area.activated {
+    opacity: 1;
+    bottom: 0;
+    visibility: visible;
+}
+
+.m-cat-screen-container {
+
+}
+
+.m-cat-screen-container.activated {
+
+}
+
+.m-cat-screen-brands, .m-cat-screen-attrs {
+
+}
+
+.m-cat-screen-brands-title {
+
+}
+
+.m-cat-screen-brands-items {
+
+}
+
+.m-cat-screen-attrs-title {
+
+}
+
+.m-cat-screen-attrs-items {
+
 }

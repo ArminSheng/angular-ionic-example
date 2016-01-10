@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'messageCenter',
-  function($scope, $rootScope, $ionicHistory, $interval, messageCenter) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'messageCenter', 'mmrMetaFactory',
+  function($scope, $rootScope, $ionicHistory, $interval, messageCenter, mmrMetaFactory) {
 
   $scope.myGoBack = function() {
     $rootScope.tabsHidden = "";
@@ -16,12 +16,20 @@ angular.module('mmr.controllers')
       phone: '18501751020',
       deposit: 200.0
     },
-    network: true
+    network: true,
+
+    // UI related
+    ui: {
+      tabsHidden: false
+    }
   };
 
   // send heartbeat every 30s
   $interval(function() {
     messageCenter.networkCheck();
   }, 30000);
+
+  // retrieve meta data
+  mmrMetaFactory.brands();
 
 }]);

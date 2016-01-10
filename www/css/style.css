@@ -38,6 +38,10 @@
     padding: 0 1px;
 }
 
+.tabs-bottom.hidden > .tabs {
+    display: none;
+}
+
 /*common colors*/
 .m-color-theme-fg {
     color: #ffc900;

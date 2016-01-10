@@ -17,12 +17,12 @@
     <div class="m-cat-filters">
       <div class="row row-no-padding m-cat-filters-row">
         <div class="col col-50 m-cat-filters-col-border">
-          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'activated': sortActivated}" ng-click="activateSort()">
+          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
             {{ sorters[selectedSortIndex].text }}<span class="ion-chevron-down m-cat-down-icon"></span>
           </a>
         </div>
         <div class="col col-50">
-          <a class="button button-small button-clear m-cat-filters-text" ng-click="doSelectFilter()">
+          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
             筛选<span class="ion-chevron-down m-cat-down-icon"></span>
           </a>
         </div>
@@ -39,6 +39,8 @@
       </div>
     </div>
 
+
+
     <!-- item list area -->
 
     <!-- backdrop -->
@@ -46,4 +48,34 @@
     </div>
 
   </ion-content>
+
+  <!-- screen options -->
+  <ion-content class="m-cat-screen-container-scroll m-cat-screen-options-area" ng-class="{'activated': screenActivated}">
+    <div class="m-cat-screen-container">
+
+      <!-- brands -->
+      <div class="m-cat-screen-brands">
+        <div class="m-cat-screen-brands-title">
+          品牌
+        </div>
+        <div class="m-cat-screen-brands-items">
+          <span ng-repeat="brand in brands track by $index">
+            {{ brand | json }}
+          </span>
+        </div>
+      </div>
+
+      <!-- product attributes -->
+      <div class="m-cat-screen-attrs">
+        <div class="m-cat-screen-attrs-title">
+          产品属性
+        </div>
+        <div class="m-cat-screen-attrs-items">
+
+        </div>
+      </div>
+
+    </div>
+  </ion-content>
+
 </ion-view>

@@ -3,5 +3,6 @@
 	<persistence-unit name="mmr-ws">
 		<class>com.micropoplar.mmr.entity.CrBanner</class>
 		<class>com.micropoplar.mmr.entity.CrMobileSalesArea</class>
+		<class>com.micropoplar.mmr.entity.CrBuyersBrand</class>
 	</persistence-unit>
 </persistence>

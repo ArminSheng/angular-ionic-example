@@ -59,7 +59,7 @@
           品牌
         </div>
         <div class="m-cat-screen-brands-items">
-          <span class="m-cat-screen-brands-item" ng-repeat="brand in brands track by $index">
+          <span class="m-cat-screen-brands-item" ng-repeat="brand in brands track by $index" ng-click="doSelectBrand($index)" ng-class="{'selected': checkStatus('brand', $index)}">
             {{ brand.name }}
           </span>
         </div>
@@ -71,7 +71,7 @@
           产品属性
         </div>
         <div class="m-cat-screen-attrs-items">
-          <span class="m-cat-screen-attrs-item" ng-repeat="attr in attributes track by $index">
+          <span class="m-cat-screen-attrs-item" ng-repeat="attr in attributes track by $index" ng-click="doSelectAttribute($index)" ng-class="{'selected': checkStatus('attr', $index)}">
             {{ attr.name }}
           </span>
         </div>

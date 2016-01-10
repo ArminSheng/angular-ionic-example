@@ -157,6 +157,18 @@
     border: 1px solid #999;
     border-radius: 10px;
     margin: 4px;
+    /*animation part*/
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.m-cat-screen-brands-item.selected, .m-cat-screen-attrs-item.selected {
+    background-color: #D6A900;
+    border-color: #D6A900;
+    color: white;
 }
 
 .m-cat-screen-attrs-items {

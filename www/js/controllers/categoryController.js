@@ -55,6 +55,18 @@ angular.module('mmr.controllers')
     }
   };
 
+  $scope.doResetScreen = function() {
+    selectedBrandsIdx = {};
+    selectedAttributesIdx = {};
+  };
+
+  $scope.doConfirmScreen = function() {
+    // confirm logic
+
+    // hide the screen popup
+    $scope.activateScreen();
+  };
+
   // cache bindings
   localStorageService.bind($scope, 'brands');
   localStorageService.bind($scope, 'attributes');

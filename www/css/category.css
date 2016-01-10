@@ -174,3 +174,12 @@
 .m-cat-screen-attrs-items {
 
 }
+
+.m-cat-screen-reset {
+    display: block;
+    margin: 10px auto;
+}
+
+.m-cat-screen-confirm {
+
+}

@@ -1,10 +1,36 @@
 <div class="m-search-list">
   <div class="list">
 
-    <a class="item item-thumbnail-left" href="#" ng-repeat="item in items track by $index">
+    <a class="item item-thumbnail-left m-search-list-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
       <img ng-src="{{ item.imagePath }}">
       <h2>{{ item.title }}</h2>
-      <p>{{ item.brand }}</p>
+      <p>
+        {{ item.brand }}
+        <span class="m-search-list-item-amount">
+          销量:
+          <span class="m-search-list-item-amount-text">
+            {{ item.salesAmount }}
+          </span>
+        </span>
+      </p>
+
+      <div class="m-search-list-item-prices">
+        <span class="m-search-list-item-current-price">
+          {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
+        </span>
+        <span class="m-search-list-item-original-price">
+          {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
+        </span>
+      </div>
+
+      <!-- control group -->
+      <div class="m-search-list-item-controls">
+        <span class="ion-ios-minus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, -1); $event.stopPropagation();"></span>
+
+        <span class="m-search-list-item-controls-num">{{ item.cartAmount || 0 }}</span>
+
+        <span class="ion-ios-plus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, 1); $event.stopPropagation();"></span>
+      </div>
     </a>
 
   </div>

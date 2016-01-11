@@ -93,7 +93,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('searchResultList', [function() {
+.directive('searchResultList', ['$timeout', function($timeout) {
 
   return {
     retrict: 'E',
@@ -103,7 +103,17 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/search-result-list.html',
     link: function(scope, element, attrs) {
+      scope.doOpenDetail = function(item) {
+        // go to detail page
+      };
 
+      scope.doChangeNumber = function(item, offset) {
+        item.cartAmount = item.cartAmount || 0;
+        item.cartAmount += offset;
+        if(item.cartAmount < 0) {
+          item.cartAmount = 0;
+        }
+      };
     }
   };
 

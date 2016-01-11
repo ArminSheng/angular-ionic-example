@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
-  function($scope, $rootScope, $ionicScrollDelegate, localStorageService, mmrEventing, mmrItemFactory) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
+  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrEventing, mmrItemFactory) {
 
   // controller defaults
   $scope.sortActivated = false;
@@ -121,7 +121,9 @@ angular.module('mmr.controllers')
     console.log(item);
 
     // close menu
-    $scope.swipeMenu(false);
+    $timeout(function() {
+      $scope.swipeMenu(false);
+    }, 500);
   };
 
   // cache bindings

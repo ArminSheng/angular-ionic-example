@@ -311,14 +311,14 @@
 .m-cat-to-top-area {
     position: fixed;
     right: 15px;
-    bottom: -5px;
+    bottom: -50px;
 
     /*animation part*/
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .m-cat-to-top-area.activated {
@@ -328,4 +328,47 @@
 .m-cat-to-top-area > img {
     width: 45px;
 }
+
+/*item detail*/
+.item.m-search-list-item {
+    padding-bottom: 8px;
+}
+
+.m-search-list-item-current-price {
+    color: red;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.m-search-list-item-original-price {
+    color: #999;
+    font-size: 12px;
+    text-decoration: line-through;
+}
+
+.m-search-list-item-amount {
+    padding-left: 8px;
+}
+
+.m-search-list-item-amount > .m-search-list-item-amount-text {
+
+}
+
+/*item detail controls*/
+.m-search-list-item-controls {
+    padding-top: 4px;
+}
+
+.m-search-list-item-controls-img {
+    position: relative;
+    top: 3px;
+    font-size: 24px;
+    color: #ffc900;
+}
+
+.m-search-list-item-controls-num {
+    padding: 0 4px;
+}
+
+
 

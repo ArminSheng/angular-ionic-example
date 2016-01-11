@@ -42,7 +42,21 @@
     <!-- item list area -->
 
     <!-- category menu hint -->
-    <div class="m-cat-menu" on-swipe-right="swipeMenu()">
+    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}" on-tap="swipeMenu(true)">
+      <div class="m-cat-menu-container">
+        <!-- menu itself -->
+        <div class="m-cat-menu-bar">
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return">
+            <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
+          </div>
+          <div class="m-cat-menu-bar-item" ng-repeat="item in classifications[currentLevel] track by $index">
+            <div class="m-cat-menu-bar-item-title">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- icon hint -->
       <div class="m-cat-menu-hint">
         <i class="icon ion-chevron-right"></i>
       </div>

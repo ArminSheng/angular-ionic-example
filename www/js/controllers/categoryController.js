@@ -16,6 +16,10 @@ angular.module('mmr.controllers')
 
   $scope.screenActivated = false;
 
+  // menu related
+  $scope.currentLevel = 0;
+  $scope.menuOpened = false;
+
   // record which brand and attribute has been selected
   var selectedBrandsIdx = {},
       selectedAttributesIdx = {};
@@ -67,13 +71,14 @@ angular.module('mmr.controllers')
     $scope.activateScreen();
   };
 
-  $scope.swipeMenu = function(event) {
-    console.log(event);
+  $scope.swipeMenu = function(open) {
+    $scope.menuOpened = open;
   };
 
   // cache bindings
   localStorageService.bind($scope, 'brands');
   localStorageService.bind($scope, 'attributes');
+  localStorageService.bind($scope, 'classifications');
 
   // event handlers
 

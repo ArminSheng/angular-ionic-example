@@ -6,7 +6,9 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
 import com.micropoplar.mmr.entity.CrBanner;
+import com.micropoplar.mmr.entity.CrBuyersAttribute;
 import com.micropoplar.mmr.entity.CrBuyersBrand;
+import com.micropoplar.mmr.entity.CrBuyersClassification;
 import com.micropoplar.mmr.entity.CrMobileSalesArea;
 
 @Configuration
@@ -19,6 +21,8 @@ public class RepoRestConfiguration extends RepositoryRestMvcConfiguration {
         config.exposeIdsFor(CrBanner.class);
         config.exposeIdsFor(CrMobileSalesArea.class);
         config.exposeIdsFor(CrBuyersBrand.class);
+        config.exposeIdsFor(CrBuyersAttribute.class);
+        config.exposeIdsFor(CrBuyersClassification.class);
     }
 
 }

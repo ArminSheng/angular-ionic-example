@@ -190,12 +190,71 @@
 .m-cat-menu {
     height: 1000px;
     width: 30px;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
-.m-cat-menu-hint {
+.m-cat-menu.activated {
+    width: 100px;
+}
+
+.m-cat-menu .m-cat-menu-container {
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.m-cat-menu.activated > .m-cat-menu-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+.m-cat-menu-bar {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.m-cat-menu > .m-cat-menu-hint {
     position: fixed;
     top: 250px;
     left: 5px;
     padding: 10px;
+}
+
+.m-cat-menu.activated > .m-cat-menu-hint {
+    display: none;
+}
+
+.m-cat-menu-bar-return {
+    display: block;
+
+}
+
+.m-cat-menu-bar-item.m-cat-menu-bar-item-return {
+    display: block;
+}
+
+.m-cat-menu-bar-item {
+    background-color: white;
+    padding: 4px;
+    margin: 1px 0;
+    min-height: 40px;
+/*    display: flex;
+    align-items: center;
+    justify-content: center;*/
 }
 

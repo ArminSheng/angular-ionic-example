@@ -100,8 +100,17 @@ angular.module('mmr.controllers')
   };
 
   // scroll related
+  var lastTop;
   $scope.getScrollPosition = function() {
     var moveData = $ionicScrollDelegate.getScrollPosition().top;
+    if(lastTop) {
+      if(moveData > lastTop) {
+        $rootScope.$root.ui.tabsHidden = true;
+      } else {
+        $rootScope.$root.ui.tabsHidden = false;
+      }
+    }
+    lastTop = moveData;
     $scope.$apply(function(){
       if(moveData > 150){
         $scope.showBacktoTopBtn=true;

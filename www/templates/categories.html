@@ -11,7 +11,7 @@
       </a>
     </div>
   </ion-nav-title>
-  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" on-scroll="getScrollPosition()">
+  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" on-scroll="getScrollPosition()">
 
     <!-- sorting & filters -->
     <div class="m-cat-filters">

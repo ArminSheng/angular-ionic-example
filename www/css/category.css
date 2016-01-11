@@ -322,7 +322,7 @@
 }
 
 .m-cat-to-top-area.activated {
-    bottom: 55px;
+    bottom: 10px;
 }
 
 .m-cat-to-top-area > img {
@@ -368,6 +368,11 @@
 
 .m-search-list-item-controls-num {
     padding: 0 4px;
+}
+
+/*expand main scrollable area when downing*/
+.m-cat-body.has-tabs.downing {
+    bottom: 0;
 }
 
 

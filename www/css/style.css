@@ -38,8 +38,19 @@
     padding: 0 1px;
 }
 
-.tabs-bottom.hidden > .tabs {
-    display: none;
+/*tabs hidden animation*/
+.tabs-bottom.m-tabs > .tabs {
+    /*animation part*/
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.tabs-bottom.m-tabs.hidden > .tabs {
+    /*display: none;*/
+    bottom: -50px;
 }
 
 /*common colors*/

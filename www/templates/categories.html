@@ -42,7 +42,7 @@
     <!-- item list area -->
 
     <!-- category menu hint -->
-    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}" on-tap="swipeMenu(true)">
+    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
         <!-- menu itself -->
         <div class="m-cat-menu-bar">
@@ -54,10 +54,13 @@
               {{ item.name }}
             </div>
           </div>
+          <div class="m-cat-menu-bar-hide" ng-if="menuOpened" on-tap="swipeMenu(false)">
+            <span class="ion-chevron-left"></span>
+          </div>
         </div>
       </div>
       <!-- icon hint -->
-      <div class="m-cat-menu-hint">
+      <div class="m-cat-menu-hint" on-tap="swipeMenu(true)">
         <i class="icon ion-chevron-right"></i>
       </div>
     </div>

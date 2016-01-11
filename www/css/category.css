@@ -207,6 +207,8 @@
     width: 100%;
     opacity: 0;
     visibility: hidden;
+    position: relative;
+    right: 100px;
 
     /*animation part*/
     -webkit-transition: all 0.5s ease;
@@ -219,6 +221,8 @@
 .m-cat-menu.activated > .m-cat-menu-container {
     opacity: 1;
     visibility: visible;
+    position: relative;
+    right: 0;
 }
 
 .m-cat-menu-bar {
@@ -233,6 +237,7 @@
     top: 250px;
     left: 5px;
     padding: 10px;
+    font-size: 18px;
 }
 
 .m-cat-menu.activated > .m-cat-menu-hint {
@@ -253,8 +258,14 @@
     padding: 4px;
     margin: 1px 0;
     min-height: 40px;
-/*    display: flex;
-    align-items: center;
-    justify-content: center;*/
+}
+
+.m-cat-menu-bar-item-title {
+    padding: 8px 0;
+}
+
+.m-cat-menu-bar-hide {
+    margin-top: 8px;
+    font-size: 18px;
 }
 

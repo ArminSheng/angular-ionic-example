@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
-  function($scope, $rootScope, localStorageService, mmrEventing, mmrItemFactory) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
+  function($scope, $rootScope, $ionicScrollDelegate, localStorageService, mmrEventing, mmrItemFactory) {
 
   // controller defaults
   $scope.sortActivated = false;
@@ -20,6 +20,9 @@ angular.module('mmr.controllers')
   $scope.currentLevel = 0;
   $scope.menuOpened = false;
   $scope.menuHeight = 0;
+
+  // scroll related
+  $scope.showBacktoTopBtn = false;
 
   // search related
   $scope.searchResults = [];
@@ -94,6 +97,23 @@ angular.module('mmr.controllers')
     // reset all
     $scope.sortActivated = false;
     $scope.swipeMenu(false);
+  };
+
+  // scroll related
+  $scope.getScrollPosition = function() {
+    var moveData = $ionicScrollDelegate.getScrollPosition().top;
+    $scope.$apply(function(){
+      if(moveData > 150){
+        $scope.showBacktoTopBtn=true;
+      }else{
+        $scope.showBacktoTopBtn=false;
+      }
+    }); //apply
+  };
+
+  $scope.scrollToTop = function() {
+    $ionicScrollDelegate.scrollTop(true);
+    $scope.showBacktoTopBtn = false;
   };
 
   // search related

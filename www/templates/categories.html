@@ -11,7 +11,7 @@
       </a>
     </div>
   </ion-nav-title>
-  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body">
+  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" on-scroll="getScrollPosition()">
 
     <!-- sorting & filters -->
     <div class="m-cat-filters">
@@ -117,5 +117,9 @@
       </div>
     </div>
   </ion-content>
+
+  <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">
+    <img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>
+  </div>
 
 </ion-view>

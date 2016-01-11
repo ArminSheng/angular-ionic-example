@@ -90,6 +90,12 @@ angular.module('mmr.controllers')
     $scope.menuOpened = open;
   };
 
+  $scope.doTapBackdrop = function() {
+    // reset all
+    $scope.sortActivated = false;
+    $scope.swipeMenu(false);
+  };
+
   // search related
   $scope.doSelectCategory = function(item) {
     console.log(item);

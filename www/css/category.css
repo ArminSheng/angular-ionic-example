@@ -186,7 +186,17 @@
 
 /*item list area*/
 
-/*menu hint*/
+/*menu related*/
+.m-cat-menu-content {
+    position: absolute;
+    top: 87px;
+    width: 36px;
+}
+
+.m-cat-menu-content.activated {
+    width: 130px;
+}
+
 .m-cat-menu {
     height: auto;
     width: 30px;

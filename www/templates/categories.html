@@ -41,40 +41,12 @@
 
     <!-- item list area -->
     <div class="m-cat-main">
-
-      <!-- category menu -->
-      <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}" style="height: {{ menuHeight }} + 'px'">
-        <div class="m-cat-menu-container">
-          <!-- menu itself -->
-          <div class="m-cat-menu-bar">
-            <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return">
-              <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
-            </div>
-            <div class="m-cat-menu-bar-item" ng-repeat="item in classifications[currentLevel] track by $index" ng-click="doSelectCategory(item)">
-              <div class="m-cat-menu-bar-item-title">
-                {{ item.name }}
-              </div>
-            </div>
-            <div class="m-cat-menu-bar-item m-cat-menu-bar-hide" ng-if="menuOpened" on-tap="swipeMenu(false)">
-              <div class="m-cat-menu-hide-wrapper">
-                <span class="ion-chevron-left"></span>
-                <span class="m-cat-menu-bar-hide-text">关闭</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- icon hint -->
-        <div class="m-cat-menu-hint" on-tap="swipeMenu(true)">
-          <i class="icon ion-chevron-right"></i>
-        </div>
-      </div>
-
       <!-- search results -->
       <search-result-list items="searchResults"></search-result-list>
     </div>
 
     <!-- backdrop -->
-    <div class="m-cat-backdrop" ng-class="{'activated': sortActivated || menuOpened}">
+    <div class="m-cat-backdrop" ng-class="{'activated': sortActivated || menuOpened}" ng-click="doTapBackdrop()">
     </div>
 
   </ion-content>
@@ -113,6 +85,36 @@
       <!-- confirm btn -->
       <button class="button button-full button-energized m-cat-screen-confirm" ng-click="doConfirmScreen()">确认</button>
 
+    </div>
+  </ion-content>
+
+  <!-- categories menu -->
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}">
+    <!-- category menu -->
+    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}" style="height: {{ menuHeight }} + 'px'">
+      <div class="m-cat-menu-container">
+        <!-- menu itself -->
+        <div class="m-cat-menu-bar">
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return">
+            <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
+          </div>
+          <div class="m-cat-menu-bar-item" ng-repeat="item in classifications[currentLevel] track by $index" ng-click="doSelectCategory(item)">
+            <div class="m-cat-menu-bar-item-title">
+              {{ item.name }}
+            </div>
+          </div>
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-hide" ng-if="menuOpened" on-tap="swipeMenu(false)">
+            <div class="m-cat-menu-hide-wrapper">
+              <span class="ion-chevron-left"></span>
+              <span class="m-cat-menu-bar-hide-text">关闭</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- icon hint -->
+      <div class="m-cat-menu-hint" on-tap="swipeMenu(true)">
+        <i class="icon ion-chevron-right"></i>
+      </div>
     </div>
   </ion-content>
 

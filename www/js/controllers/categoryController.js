@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', 'localStorageService', 'mmrEventing',
-  function($scope, $rootScope, localStorageService, mmrEventing) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
+  function($scope, $rootScope, localStorageService, mmrEventing, mmrItemFactory) {
 
   // controller defaults
   $scope.sortActivated = false;
@@ -19,15 +19,25 @@ angular.module('mmr.controllers')
   // menu related
   $scope.currentLevel = 0;
   $scope.menuOpened = false;
+  $scope.menuHeight = 0;
+
+  // search related
+  $scope.searchResults = [];
 
   // record which brand and attribute has been selected
   var selectedBrandsIdx = {},
       selectedAttributesIdx = {};
 
+  // init
+  init();
+
   // methods
   $scope.activateSort = function() {
     $scope.screenActivated = false;
     $scope.sortActivated = !$scope.sortActivated;
+
+    // close menu
+    $scope.swipeMenu(false);
   };
 
   $scope.doSelectSorter = function(idx) {
@@ -39,12 +49,17 @@ angular.module('mmr.controllers')
     $scope.sortActivated = false;
     $scope.screenActivated = !$scope.screenActivated;
 
+    // close menu
+    $scope.swipeMenu(false);
+
     // hide the bottom tabs
     $rootScope.$root.ui.tabsHidden = !$rootScope.$root.ui.tabsHidden;
   };
 
   $scope.doSelectBrand = function(idx) {
     toggleStatus(selectedBrandsIdx, idx);
+
+
   };
 
   $scope.doSelectAttribute = function(idx) {
@@ -75,6 +90,14 @@ angular.module('mmr.controllers')
     $scope.menuOpened = open;
   };
 
+  // search related
+  $scope.doSelectCategory = function(item) {
+    console.log(item);
+
+    // close menu
+    $scope.swipeMenu(false);
+  };
+
   // cache bindings
   localStorageService.bind($scope, 'brands');
   localStorageService.bind($scope, 'attributes');
@@ -90,4 +113,19 @@ angular.module('mmr.controllers')
       mapping[idx] = true;
     }
   }
+
+  function init() {
+    mmrItemFactory.search().then(function(res) {
+      $scope.searchResults = res.data;
+
+      // adjust the height of the menubar
+      // $scope.menuHeight = document.querySelector('.m-search-list').clientHeight;
+    }, function(err) {
+
+    });
+  }
+}])
+
+.controller('CategoryMenuCtrl', ['$scope', function($scope) {
+
 }]);

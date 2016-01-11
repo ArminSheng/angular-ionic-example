@@ -59,11 +59,11 @@
     visibility: hidden;
 
     /*animation part*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .list.m-cat-filters-options-list.activated {
@@ -117,11 +117,11 @@
     bottom: 40px;
 
     /*animation part*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .m-cat-screen-options-area.activated {
@@ -158,11 +158,11 @@
     border-radius: 10px;
     margin: 4px;
     /*animation part*/
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .m-cat-screen-brands-item.selected, .m-cat-screen-attrs-item.selected {
@@ -188,15 +188,17 @@
 
 /*menu hint*/
 .m-cat-menu {
-    height: 1000px;
+    height: auto;
     width: 30px;
+    position: fixed;
+    z-index: 12;
 
     /*animation part*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .m-cat-menu.activated {
@@ -211,11 +213,11 @@
     right: 100px;
 
     /*animation part*/
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -ms-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .m-cat-menu.activated > .m-cat-menu-container {
@@ -256,16 +258,43 @@
 .m-cat-menu-bar-item {
     background-color: white;
     padding: 4px;
-    margin: 1px 0;
-    min-height: 40px;
+    border-bottom: 1px solid #999;
+    min-height: 50px;
+
+    /*animation part*/
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.m-cat-menu-bar-item.activated {
+    background-color: #D6A900;
+    color: white;
 }
 
 .m-cat-menu-bar-item-title {
-    padding: 8px 0;
+    padding: 10px 0;
 }
 
 .m-cat-menu-bar-hide {
-    margin-top: 8px;
-    font-size: 18px;
+    padding: 10px;
+}
+
+.m-cat-menu-bar-hide-text {
+    padding-left: 4px;
+}
+
+.m-cat-menu-hide-wrapper {
+    padding-top: 5px;
+}
+
+.m-cat-main {
+
+}
+
+.m-search-list {
+    padding-left: 36px;
 }
 

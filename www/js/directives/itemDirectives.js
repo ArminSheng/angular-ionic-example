@@ -91,4 +91,20 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('searchResultList', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      items: '='
+    },
+    templateUrl: 'templates/directives/search-result-list.html',
+    link: function(scope, element, attrs) {
+
+    }
+  };
+
 }]);

@@ -15,27 +15,59 @@ angular.module('mmr.controllers')
 
   // event handler
   $scope.$on('eventOpenLogin', function($event, data) {
-    $ionicModal.fromTemplateUrl('templates/modal/login.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.loginModal = modal;
+    if($scope.loginModal) {
+      // directly open it
       $scope.loginModal.show();
+    } else {
+      $ionicModal.fromTemplateUrl('templates/modal/login.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.loginModal = modal;
+        $scope.loginModal.show();
 
-      // binding data
-      $scope.loginModal.data = {
-        username: '',
-        password: ''
-      };
+        // binding data
+        $scope.loginModal.data = {
+          username: '',
+          password: '',
+          code: ''
+        };
 
-      $scope.loginModal.doHideLogin = function() {
-        $scope.loginModal.hide();
-        $scope.loginModal = undefined;
-      };
+        $scope.loginModal.viewMode = 1;
 
-      $scope.loginModal.doClick = function() {
-        console.log('clicked');
-      };
-    });
+        $scope.loginModal.doHideLogin = function() {
+          $scope.loginModal.hide();
+          $scope.loginModal = undefined;
+        };
+
+        $scope.loginModal.doClick = function() {
+          console.log('clicked');
+        };
+
+        $scope.loginModal.getSwitchText = function() {
+          if($scope.loginModal.viewMode === 1) {
+            return "手机验证码登陆";
+          } else {
+            return "个人密码登陆";
+          }
+        };
+
+        $scope.loginModal.doSwitchLoginMode = function() {
+          if($scope.loginModal.viewMode === 1) {
+            $scope.loginModal.viewMode = 2;
+          } else {
+            $scope.loginModal.viewMode = 1;
+          }
+        };
+
+        $scope.loginModal.doFetchCode = function() {
+
+        };
+
+        $scope.loginModal.doLogin = function() {
+
+        };
+      });
+    }
   });
 
 }]);

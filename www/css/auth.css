@@ -1,6 +1,7 @@
 .m-auth-login {
     background-image: url('../img/auth/login-bg.png');
     background-size: 100%;
+    background-position: 0 -80px;
 }
 
 .m-auth-login-logo {
@@ -17,8 +18,16 @@
     padding: 0;
     background-color: transparent;
     width: 85%;
-    margin: 16px auto;
+    margin: 16px auto 0 auto;
     border: none;
+}
+
+.m-auth-login-inputs .item-input-inset.m-auth-login-inputs-password {
+    margin-bottom: 20px;
+}
+
+.m-auth-login-inputs .item-input-inset.m-auth-login-inputs-code {
+    padding-bottom: 20px;
 }
 
 .m-auth-login-inputs .item-input-inset .item-input-wrapper {
@@ -37,3 +46,50 @@
     right: 8px;
     top: 12px;
 }
+
+.m-auth-login-clear.m-auth-login-clear-mode2 {
+    right: 35%;
+}
+
+.m-auth-login-switch {
+    width: 90%;
+    text-align: right;
+    color: #333;
+}
+
+.m-auth-login-switch button {
+    font-size: 14px;
+}
+
+.m-auth-login-btn {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.m-auth-login-btn button {
+    width: 85%;
+}
+
+.m-auth-login-register {
+    text-align: center;
+    position: absolute;
+    bottom: 4px;
+    width: 100%;
+}
+
+.m-auth-login-code-btn {
+    position: relative;
+    left: 8px;
+    font-size: 12px;
+    width: 90%;
+    min-height: 44px;
+}
+
+.m-auth-login-code-sent {
+    position: absolute;
+    left: 36px;
+    bottom: -2px;
+    font-size: 12px;
+    color: #666;
+}
+

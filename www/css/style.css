@@ -62,6 +62,11 @@
     background-color: #ffc900;
 }
 
+/*commons*/
+.bar button.button-clear .icon.m-common-back:before {
+    font-size: 20px;
+}
+
 /*home view*/
 .m-home-content {
     background-color: #f7f7f7;

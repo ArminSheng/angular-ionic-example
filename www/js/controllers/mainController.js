@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'messageCenter', 'mmrMetaFactory',
-  function($scope, $rootScope, $ionicHistory, $interval, messageCenter, mmrMetaFactory) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory',
+  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory) {
 
   $scope.myGoBack = function() {
     $rootScope.tabsHidden = "";
@@ -26,7 +26,7 @@ angular.module('mmr.controllers')
 
   // send heartbeat every 30s
   $interval(function() {
-    messageCenter.networkCheck();
+    mmrCommonService.networkCheck();
   }, 30000);
 
   // retrieve meta data

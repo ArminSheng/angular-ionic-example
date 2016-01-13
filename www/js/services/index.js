@@ -1,7 +1,7 @@
 angular.module('mmr.services', [])
 
 // common services defined below
-.factory('messageCenter', ['$rootScope', '$ionicPopup', '$http', 'restService',
+.factory('mmrCommonService', ['$rootScope', '$ionicPopup', '$http', 'restService',
   function($rootScope, $ionicPopup, $http, restService) {
 
   return {

@@ -1,12 +1,12 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicModal', 'mmrEventing', 'Validator', 'messageCenter', 'recommendedItems',
-  function($scope, $rootScope, $ionicHistory, $ionicModal, mmrEventing, Validator, messageCenter, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicModal', 'mmrEventing', 'Validator', 'mmrCommonService', 'recommendedItems',
+  function($scope, $rootScope, $ionicHistory, $ionicModal, mmrEventing, Validator, mmrCommonService, recommendedItems) {
 
   if(recommendedItems.data) {
     $scope.recommendedItems = recommendedItems.data;
   } else {
-    messageCenter.networkDown();
+    mmrCommonService.networkDown();
   }
 
   $scope.doLogin = function() {
@@ -94,6 +94,10 @@ angular.module('mmr.controllers')
       // methods for the register modal
       $scope.registerModal.doHideRegister = function() {
         $scope.registerModal.hide();
+      };
+
+      $scope.registerModal.doFetchCode = function() {
+
       };
 
       $scope.registerModal.doPrecheck = function() {

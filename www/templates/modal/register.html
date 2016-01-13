@@ -1,0 +1,96 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="registerModal.doHideRegister()">登陆</button>
+    </div>
+    <h1 class="title">注册</h1>
+  </ion-header-bar>
+  <ion-content class="m-auth-register">
+
+    <div class="m-auth-register-inputs">
+      <!-- phone -->
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-person placeholder-icon"></i>
+          <input type="text" placeholder="手机号" ng-model="registerModal.data.phone">
+        </label>
+        <span class="m-auth-register-clear" ng-click="registerModal.data.phone = ''">
+          <i class="icon ion-close-round placeholder-icon"></i>
+        </span>
+      </div>
+
+      <!-- password -->
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-locked placeholder-icon"></i>
+          <input type="password" placeholder="密码" ng-model="registerModal.data.password">
+        </label>
+        <span class="m-auth-register-clear" ng-click="registerModal.data.password = ''">
+          <i class="icon ion-close-round placeholder-icon"></i>
+        </span>
+      </div>
+
+      <!-- verification code -->
+      <div class="item item-input-inset m-auth-register-inputs-code">
+        <div class="row row-no-padding">
+          <div class="col col-67">
+            <label class="item-input-wrapper m-auth-register-inputs-code-lbl">
+              <i class="icon ion-locked placeholder-icon"></i>
+              <input type="text" placeholder="验证码" ng-model="registerModal.data.code">
+            </label>
+            <span class="m-auth-login-clear m-auth-login-clear-mode2" ng-click="registerModal.data.code = ''">
+              <i class="icon ion-close-round placeholder-icon"></i>
+            </span>
+          </div>
+          <div class="col col-33">
+            <button class="button button-energized m-auth-login-code-btn" ng-click="registerModal.doFetchCode()">
+              获取验证码
+            </button>
+          </div>
+        </div>
+        <!-- sent hint -->
+        <span class="m-auth-login-code-sent">
+          已向您的手机发送验证码
+        </span>
+      </div>
+    </div>
+
+    <!-- checkbox area -->
+    <div class="m-auth-register-check">
+<!--       <ion-checkbox ng-model="registerModal.term1">
+
+      </ion-checkbox>
+      <ion-checkbox ng-model="registerModal.term2">
+      </ion-checkbox> -->
+      <div class="m-auth-register-check-term">
+        <label class="toggle toggle-energized">
+          <input type="checkbox" ng-model="registerModal.term1">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+        <span class="m-auth-register-check-term-main">我已阅读并同意<span class="m-auth-register-check-term-text">《买卖肉用户协议》</span></span>
+      </div>
+
+      <div class="m-auth-register-check-term">
+        <label class="toggle toggle-energized">
+          <input type="checkbox" ng-model="registerModal.term2">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+        <span class="m-auth-register-check-term-main">我已阅读并同意<span class="m-auth-register-check-term-text">《退货协议》</span></span>
+      </div>
+    </div>
+
+    <!-- register button -->
+    <div class="m-auth-register-btn">
+      <button class="button button-energized" ng-click="registerModal.doRegister()" ng-disabled="!registerModal.doPrecheck()">
+        立即注册
+      </button>
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

@@ -5,7 +5,11 @@ angular.module('mmr.services')
   return {
 
     doOpenLogin: function(data) {
-      $rootScope.$broadcast('eventOpenLogin', data)
+      $rootScope.$broadcast('eventOpenLogin', data);
+    },
+
+    doOpenRegister: function(data) {
+      $rootScope.$broadcast('eventOpenRegister', data);
     },
 
     // inside category view

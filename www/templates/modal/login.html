@@ -41,7 +41,7 @@
           <div class="col col-67">
             <label class="item-input-wrapper">
               <i class="icon ion-locked placeholder-icon"></i>
-              <input type="password" placeholder="验证码" ng-model="loginModal.data.code">
+              <input type="text" placeholder="验证码" ng-model="loginModal.data.code">
             </label>
             <span class="m-auth-login-clear m-auth-login-clear-mode2" ng-click="loginModal.data.code = ''">
               <i class="icon ion-close-round placeholder-icon"></i>
@@ -77,7 +77,7 @@
 
   <!-- register -->
   <div class="m-auth-login-register">
-    <button class="button button-clear button-energized">
+    <button class="button button-clear button-energized" ng-click="loginModal.doRegister()">
       注册
     </button>
   </div>

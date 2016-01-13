@@ -93,3 +93,65 @@
     color: #666;
 }
 
+/*register related*/
+.m-auth-register {
+    padding-top: 20px;
+}
+
+.m-auth-register-inputs .item-input-inset {
+    padding: 0;
+    background-color: transparent;
+    width: 85%;
+    margin: 16px auto 0 auto;
+    border-radius: 8px;
+}
+
+.m-auth-register-inputs .item-input-inset .item-input-wrapper {
+    background: rgba(255, 255, 255, 1);
+    /*border: none;*/
+    height: 45px;
+}
+
+.item-input-wrapper.m-auth-register-inputs-code-lbl {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.m-auth-register-inputs .item-input-inset.m-auth-register-inputs-code {
+    border: none;
+    padding-bottom: 20px;
+}
+
+.m-auth-register-inputs .item-input-inset .item-input-wrapper input {
+    width: 100%;
+}
+
+.m-auth-register-check {
+    margin: 16px auto;
+}
+
+.m-auth-register-check-term {
+    text-align: left;
+    padding: 4px 24px;
+}
+
+.m-auth-register-check-term-main {
+    position: relative;
+    bottom: 10px;
+    left: 6px;
+    font-weight: bold;
+}
+
+.m-auth-register-check-term .m-auth-register-check-term-text {
+    color: #ffc900;
+    padding-left: 8px;
+}
+
+.m-auth-register-btn {
+    text-align: center;
+}
+
+.m-auth-register-btn button {
+    width: 85%;
+}
+

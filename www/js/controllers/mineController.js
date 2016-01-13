@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicModal', 'mmrEventing', 'messageCenter', 'recommendedItems',
-  function($scope, $rootScope, $ionicHistory, $ionicModal, mmrEventing, messageCenter, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicModal', 'mmrEventing', 'Validator', 'messageCenter', 'recommendedItems',
+  function($scope, $rootScope, $ionicHistory, $ionicModal, mmrEventing, Validator, messageCenter, recommendedItems) {
 
   if(recommendedItems.data) {
     $scope.recommendedItems = recommendedItems.data;
@@ -66,8 +66,48 @@ angular.module('mmr.controllers')
         $scope.loginModal.doLogin = function() {
 
         };
+
+        $scope.loginModal.doRegister = function() {
+          mmrEventing.doOpenRegister();
+        };
       });
     }
+  });
+
+  $scope.$on('eventOpenRegister', function($event, data) {
+    $ionicModal.fromTemplateUrl('templates/modal/register.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.registerModal = modal;
+      $scope.registerModal.show();
+
+      // data bindings
+      $scope.registerModal.term1 = false;
+      $scope.registerModal.term2 = false;
+
+      $scope.registerModal.data = {
+        phone: '',
+        password: '',
+        code: ''
+      };
+
+      // methods for the register modal
+      $scope.registerModal.doHideRegister = function() {
+        $scope.registerModal.hide();
+      };
+
+      $scope.registerModal.doPrecheck = function() {
+        if(!Validator.phone($scope.registerModal.data.phone) ||
+           !Validator.password($scope.registerModal.data.password) ||
+           !Validator.verifyCode($scope.registerModal.data.code) ||
+           !$scope.registerModal.term1 ||
+           !$scope.registerModal.term2) {
+          return false;
+        }
+
+        return true;
+      };
+    });
   });
 
 }]);

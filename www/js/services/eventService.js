@@ -4,10 +4,13 @@ angular.module('mmr.services')
 
   return {
 
+    doOpenLogin: function(data) {
+      $rootScope.$broadcast('eventOpenLogin', data)
+    },
+
+    // inside category view
     doOpenFilters: function(data) {
-      $rootScope.$broadcast("eventOpenFilters", {
-        data: data
-      });
+      $rootScope.$broadcast("eventOpenFilters", data);
     }
 
   };

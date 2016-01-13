@@ -1,0 +1,39 @@
+.m-auth-login {
+    background-image: url('../img/auth/login-bg.png');
+    background-size: 100%;
+}
+
+.m-auth-login-logo {
+
+}
+
+.m-auth-login-logo img {
+    max-width: 50%;
+    margin: 80px auto;
+    display: block;
+}
+
+.m-auth-login-inputs .item-input-inset {
+    padding: 0;
+    background-color: transparent;
+    width: 85%;
+    margin: 16px auto;
+    border: none;
+}
+
+.m-auth-login-inputs .item-input-inset .item-input-wrapper {
+    background: rgba(255, 255, 255, 0.6);
+    border: none;
+    height: 45px;
+    border-radius: 8px;
+}
+
+.m-auth-login-inputs .item-input-inset .item-input-wrapper input {
+    width: 100%;
+}
+
+.m-auth-login-clear {
+    position: absolute;
+    right: 8px;
+    top: 12px;
+}

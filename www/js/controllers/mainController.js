@@ -11,7 +11,7 @@ angular.module('mmr.controllers')
   // notification count
   $rootScope.$root = {
     notificationCount: 5,
-    authenticated: true,
+    authenticated: false,
     pinfo: {
       phone: '18501751020',
       deposit: 200.0

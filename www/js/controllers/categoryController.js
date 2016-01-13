@@ -56,7 +56,7 @@ angular.module('mmr.controllers')
     $scope.swipeMenu(false);
 
     // hide the bottom tabs
-    $rootScope.$root.ui.tabsHidden = !$rootScope.$root.ui.tabsHidden;
+    $rootScope.$root.ui.tabsHidden = true;
   };
 
   $scope.doSelectBrand = function(idx) {

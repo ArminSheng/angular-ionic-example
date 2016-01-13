@@ -1,0 +1,41 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="loginModal.doHideLogin()">关闭</button>
+    </div>
+    <h1 class="title">登录</h1>
+  </ion-header-bar>
+  <ion-content class="m-auth-login">
+
+    <div class="m-auth-login-logo">
+      <img ng-src="img/auth/logo.png"/>
+    </div>
+
+    <div class="m-auth-login-inputs">
+      <!-- phone -->
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-person placeholder-icon"></i>
+          <input type="text" placeholder="用户名/手机号" ng-model="loginModal.data.username">
+        </label>
+        <span class="m-auth-login-clear" ng-click="loginModal.data.username = ''">
+          <i class="icon ion-close-round placeholder-icon"></i>
+        </span>
+      </div>
+
+      <!-- password & verification code -->
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-locked placeholder-icon"></i>
+          <input type="password" placeholder="密码" ng-model="loginModal.data.password">
+        </label>
+        <span class="m-auth-login-clear" ng-click="loginModal.data.password = ''">
+          <i class="icon ion-close-round placeholder-icon"></i>
+        </span>
+      </div>
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

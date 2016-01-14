@@ -126,7 +126,8 @@
 }
 
 .m-auth-register-check {
-    margin: 16px auto;
+    margin: 32px auto 16px auto;
+    padding-left: 8px;
 }
 
 .m-auth-register-check-term {
@@ -154,6 +155,14 @@
     width: 85%;
 }
 
+.m-auth-register-check-term .toggle-small {
+    bottom: 7px;
+}
+
+.m-auth-register-check-term .toggle-small input:checked + .track .handle {
+    background: #e6b500;
+}
+
 /*bind old user modal*/
 .m-auth-bind-logo {
 
@@ -161,7 +170,7 @@
 
 .m-auth-bind-logo img {
     max-width: 50%;
-    margin: 40px auto 30px auto;
+    margin: 10% auto 5% auto;
     display: block;
 }
 

@@ -84,7 +84,7 @@ angular.module('mmr.controllers')
               };
 
               $scope.bindModal.doHideBind = function() {
-
+                $scope.bindModal.hide();
               };
             });
           }

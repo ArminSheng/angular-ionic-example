@@ -1,0 +1,95 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="bindModal.doHideBind()">关闭</button>
+    </div>
+    <h1 class="title">绑定老用户</h1>
+  </ion-header-bar>
+  <ion-content class="m-auth-bind">
+
+    <div class="m-auth-bind-logo">
+      <img ng-src="img/auth/logo.png"/>
+    </div>
+
+    <div class="m-auth-bind-inputs">
+
+      <!-- phone hint -->
+      <div class="row m-auth-bind-phone-hint">
+        <div class="col col-20">
+          <img ng-src="img/common/lightbulb.png" class="m-auth-bind-hint-img">
+        </div>
+        <div class="col col-80">
+          <span class="m-auth-bind-hint-text energized">
+            由于网站升级，为了保护您的权益，请在下方完成绑定您的手机号。
+          </span>
+        </div>
+      </div>
+
+      <!-- phone -->
+      <div class="item item-input-inset">
+        <label class="item-input-wrapper">
+          <i class="icon ion-person placeholder-icon"></i>
+          <input type="text" placeholder="手机号" ng-model="bindModal.data.phone">
+        </label>
+        <span class="m-auth-bind-clear" ng-click="bindModal.data.phone = ''">
+          <i class="icon ion-close-round placeholder-icon"></i>
+        </span>
+      </div>
+
+      <!-- old user info -->
+      <div class="m-auth-bind-old-user-info">
+        <div class="row m-auth-bind-phone-hint">
+          <div class="col col-20">
+            <img ng-src="img/common/lightbulb.png" class="m-auth-bind-hint-img">
+          </div>
+          <div class="col col-80">
+            <span class="m-auth-bind-hint-text energized">
+              此手机号已被以下账户绑定，请确定是否为您的统一账号：
+            </span>
+          </div>
+        </div>
+
+        <!-- old user accounts -->
+        <div class="m-auth-bind-old-user-accounts">
+          <div class="m-auth-bind-old-user-account" ng-repeat="account in $root.pinfo.oldUserAccounts track by $index">
+            用户{{ $index + 1 }}： {{ account }}
+          </div>
+        </div>
+      </div>
+
+      <!-- verification code -->
+      <div class="item item-input-inset m-auth-bind-inputs-code">
+        <div class="row row-no-padding">
+          <div class="col col-67">
+            <label class="item-input-wrapper m-auth-register-inputs-code-lbl">
+              <i class="icon ion-locked placeholder-icon"></i>
+              <input type="text" placeholder="验证码" ng-model="registerModal.data.code">
+            </label>
+            <span class="m-auth-login-clear m-auth-login-clear-mode2" ng-click="registerModal.data.code = ''">
+              <i class="icon ion-close-round placeholder-icon"></i>
+            </span>
+          </div>
+          <div class="col col-33">
+            <button class="button button-energized m-auth-login-code-btn" ng-click="registerModal.doFetchCode()">
+              获取验证码
+            </button>
+          </div>
+        </div>
+        <!-- sent hint -->
+        <span class="m-auth-login-code-sent">
+          已向您的手机发送验证码
+        </span>
+      </div>
+    </div>
+
+    <!-- bind button -->
+    <div class="m-auth-bind-btn">
+      <button class="button button-energized" ng-click="bindModal.doBind()">
+        确定绑定
+      </button>
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

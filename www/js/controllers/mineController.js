@@ -64,7 +64,30 @@ angular.module('mmr.controllers')
         };
 
         $scope.loginModal.doLogin = function() {
+          // show the bind modal if necessary
+          if($rootScope.$root.isOldUser) {
+            $ionicModal.fromTemplateUrl('templates/modal/bind-old-user.html', {
+              scope: $scope
+            }).then(function(modal) {
+              $scope.bindModal = modal;
+              $scope.bindModal.show();
 
+              // data bindings
+              $scope.bindModal.data = {
+                phone: '',
+                code: ''
+              };
+
+              // methods for the bind modal
+              $scope.bindModal.doBind = function() {
+
+              };
+
+              $scope.bindModal.doHideBind = function() {
+
+              };
+            });
+          }
         };
 
         $scope.loginModal.doRegister = function() {

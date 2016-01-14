@@ -8,14 +8,24 @@ angular.module('mmr.controllers')
     $ionicHistory.goBack();
   };
 
-  // notification count
   $rootScope.$root = {
+    // notification related
     notificationCount: 5,
+
+    // auth related
+    isOldUser: true,
     authenticated: false,
     pinfo: {
       phone: '18501751020',
-      deposit: 200.0
+      deposit: 200.0,
+      oldUserAccounts: [
+        'mmr-mmr-mmr1@mmr.com',
+        'mmr-mmr-mmr2@mmr.com',
+        'mmr-mmr-mmr3@mmr.com'
+      ]
     },
+
+    // network related
     network: true,
 
     // UI related

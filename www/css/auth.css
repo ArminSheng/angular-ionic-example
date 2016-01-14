@@ -108,7 +108,6 @@
 
 .m-auth-register-inputs .item-input-inset .item-input-wrapper {
     background: rgba(255, 255, 255, 1);
-    /*border: none;*/
     height: 45px;
 }
 
@@ -155,3 +154,75 @@
     width: 85%;
 }
 
+/*bind old user modal*/
+.m-auth-bind-logo {
+
+}
+
+.m-auth-bind-logo img {
+    max-width: 50%;
+    margin: 40px auto 30px auto;
+    display: block;
+}
+
+.m-auth-bind-inputs .item-input-inset {
+    padding: 0;
+    background-color: transparent;
+    width: 85%;
+    margin: 0 auto;
+    border: none;
+}
+
+.m-auth-bind-inputs .item-input-inset .item-input-wrapper {
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #ddd;
+    height: 45px;
+    border-radius: 8px;
+}
+
+.m-auth-bind-clear {
+    position: absolute;
+    right: 8px;
+    top: 12px;
+}
+
+.m-auth-bind-inputs .item-input-inset.m-auth-bind-inputs-code {
+    border: none;
+    padding-bottom: 20px;
+}
+
+.m-auth-bind-btn {
+    text-align: center;
+    padding-top: 24px;
+}
+
+.m-auth-bind-btn button {
+    width: 85%;
+}
+
+.m-auth-bind-phone-hint {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.m-auth-bind-phone-hint .col-20 {
+    text-align: center;
+}
+
+.m-auth-bind-hint-text {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.m-auth-bind-hint-img {
+    height: 40px;
+}
+
+.m-auth-bind-old-user-info {
+    padding-top: 10px;
+}
+
+.m-auth-bind-old-user-accounts {
+    text-align: center;
+    padding-bottom: 20px;
+}

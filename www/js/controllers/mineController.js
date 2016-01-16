@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$interpolate', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrEventing', 'Validator', 'mmrCommonService', 'recommendedItems',
-  function($scope, $rootScope, $interpolate, $ionicHistory, $ionicModal, $ionicPopup, mmrEventing, Validator, mmrCommonService, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$interpolate', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrMineFactory', 'recommendedItems',
+  function($scope, $rootScope, $interpolate, $ionicHistory, $ionicModal, $ionicPopup, mmrEventing, Validator, mmrCommonService, mmrMineFactory, recommendedItems) {
 
   if(recommendedItems.data) {
     $scope.recommendedItems = recommendedItems.data;
@@ -17,7 +17,42 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenPersonalInfo();
   };
 
+  $scope.doOpenMyDeposit = function() {
+    mmrEventing.doOpenMyDeposit();
+  };
+
+  // ----------------------
   // event handler
+  // ----------------------
+
+  // deposit
+  $scope.$on('eventOpenMyDeposit', function($event, data) {
+    if($scope.depositModal) {
+      $scope.depositModal.show();
+    } else {
+      $ionicModal.fromTemplateUrl('templates/modal/my-deposit.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.depositModal = modal;
+        $scope.depositModal.show();
+
+        // binding data
+
+        // methods
+        $scope.depositModal.doHide = function() {
+          $scope.depositModal.hide();
+        };
+
+        init();
+        function init() {
+          $scope.depositModal.depositDetails = mmrMineFactory.depositDetails();
+          console.log($scope.depositModal.depositDetails);
+        }
+      });
+    }
+  });
+
+  // personal information
   $scope.$on('eventOpenPersonalInfo', function($event, data) {
     if($scope.pInfoModal) {
       // directly open it
@@ -108,6 +143,7 @@ angular.module('mmr.controllers')
     }
   });
 
+  // login
   $scope.$on('eventOpenLogin', function($event, data) {
     if($scope.loginModal) {
       // directly open it
@@ -191,6 +227,7 @@ angular.module('mmr.controllers')
     }
   });
 
+  // register
   $scope.$on('eventOpenRegister', function($event, data) {
     $ionicModal.fromTemplateUrl('templates/modal/register.html', {
       scope: $scope

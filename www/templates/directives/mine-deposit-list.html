@@ -1,0 +1,22 @@
+<div class="m-mine-deposit-list">
+  <div class="m-mine-deposit-list-item" ng-repeat="detail in items track by $index">
+    <div class="row">
+      <!-- order id and time -->
+      <div class="col col-80">
+        <span class="m-mine-deposit-list-item-order">
+          订单号：{{ detail.orderId }}
+        </span>
+        <span class="m-mine-deposit-list-item-time">
+          {{ detail.time | date: 'yyyy-MM-dd HH:mm:ss' }}
+        </span>
+      </div>
+
+      <!-- amount and direction -->
+      <div class="col col-20 m-mine-deposit-list-item-amount-container">
+        <span class="m-mine-deposit-list-item-amount" ng-class="{'m-mine-deposit-list-item-amount-in': detail.direction === 'in', 'm-mine-deposit-list-item-amount-out': detail.direction === 'out'}">
+          {{ detail.direction === 'in' ? '+' : '-' }}￥{{ detail.amount }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

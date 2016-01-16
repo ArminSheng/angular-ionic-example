@@ -96,7 +96,7 @@
       <div class="m-mine-order-myitems">
         <!-- row 1 -->
         <div class="row row-no-padding">
-          <div class="col col-25 m-mine-item-area m-mine-item-area-border">
+          <div class="col col-25 m-mine-item-area m-mine-item-area-border" ng-click="doOpenMyDeposit()">
             <img ng-src="img/mine/m-deposit.png" class="m-mine-item-icon"/>
             <span class="m-mine-item-title">账户余额</span>
             <span class="m-mine-item-subtitle">{{ $root.pinfo.deposit | currency: '￥' }}</span>

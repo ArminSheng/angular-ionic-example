@@ -1,3 +1,4 @@
+/*personal info*/
 .m-modal-mine-pinfo .m-modal-mine-avatar img {
     width: 80px;
     float: right;
@@ -13,4 +14,59 @@
 .m-modal-mine-pinfo .ion-chevron-right {
     font-size: 16px;
     color: #aaa;
+}
+
+/*my deposit*/
+.m-modal-mine-deposit {
+    background-color: #e8e8e8;
+}
+
+.m-modal-mine-deposit-banner {
+    text-align: center;
+    padding: 30px 0;
+    background-color: #fff;
+}
+
+.m-modal-mine-deposit-banner-text {
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+.m-modal-mine-deposit-banner-num {
+    font-size: 32px;
+    font-weight: bold;
+    padding-top: 8px;
+}
+
+.m-modal-mine-deposit-details {
+
+}
+
+.m-mine-deposit-list {
+
+}
+
+.m-mine-deposit-list-item {
+    background-color: #fff;
+    margin: 6px 0;
+}
+
+.m-mine-deposit-list-item-order, .m-mine-deposit-list-item-time {
+    display: block;
+}
+
+.m-mine-deposit-list-item-amount-container {
+    padding: 15px 0;
+}
+
+.m-mine-deposit-list-item-amount {
+    font-weight: bold;
+}
+
+.m-mine-deposit-list-item-amount.m-mine-deposit-list-item-amount-in {
+    color: green;
+}
+
+.m-mine-deposit-list-item-amount.m-mine-deposit-list-item-amount-out {
+    color: red;
 }

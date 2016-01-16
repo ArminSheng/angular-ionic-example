@@ -12,6 +12,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('eventOpenPersonalInfo', data);
     },
 
+    doOpenMyDeposit: function(data) {
+      $rootScope.$broadcast('eventOpenMyDeposit', data);
+    },
+
     doOpenRegister: function(data) {
       $rootScope.$broadcast('eventOpenRegister', data);
     },

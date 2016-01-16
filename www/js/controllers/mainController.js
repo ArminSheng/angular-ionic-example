@@ -14,9 +14,13 @@ angular.module('mmr.controllers')
 
     // auth related
     isOldUser: true,
-    authenticated: false,
+    authenticated: true,
     pinfo: {
       phone: '18501751020',
+      username: 'destiny1020',
+      email: 'destiny.jiang@gmail.com',
+      qq: '277727633',
+      birthday: new Date('1987-10-20'),
       deposit: 200.0,
       oldUserAccounts: [
         'mmr-mmr-mmr1@mmr.com',

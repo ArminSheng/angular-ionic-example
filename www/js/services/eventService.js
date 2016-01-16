@@ -8,6 +8,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('eventOpenLogin', data);
     },
 
+    doOpenPersonalInfo: function(data) {
+      $rootScope.$broadcast('eventOpenPersonalInfo', data);
+    },
+
     doOpenRegister: function(data) {
       $rootScope.$broadcast('eventOpenRegister', data);
     },

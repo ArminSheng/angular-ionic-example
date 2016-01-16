@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicModal', 'mmrEventing', 'Validator', 'mmrCommonService', 'recommendedItems',
-  function($scope, $rootScope, $ionicHistory, $ionicModal, mmrEventing, Validator, mmrCommonService, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$interpolate', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrEventing', 'Validator', 'mmrCommonService', 'recommendedItems',
+  function($scope, $rootScope, $interpolate, $ionicHistory, $ionicModal, $ionicPopup, mmrEventing, Validator, mmrCommonService, recommendedItems) {
 
   if(recommendedItems.data) {
     $scope.recommendedItems = recommendedItems.data;
@@ -13,7 +13,79 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenLogin();
   };
 
+  $scope.doModifyPInfo = function() {
+    mmrEventing.doOpenPersonalInfo();
+  };
+
   // event handler
+  $scope.$on('eventOpenPersonalInfo', function($event, data) {
+    if($scope.pInfoModal) {
+      // directly open it
+      $scope.pInfoModal.show();
+    } else {
+      $ionicModal.fromTemplateUrl('templates/modal/personal-info.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.pInfoModal = modal;
+        $scope.pInfoModal.show();
+
+        // binding data
+
+        // methods
+        $scope.pInfoModal.doHidePInfo = function() {
+          $scope.pInfoModal.hide();
+        };
+
+        $scope.pInfoModal.doModifyAvatar = function() {
+
+        };
+
+        $scope.pInfoModal.doModifyAttribute = function(type, origNgModel, title) {
+          // copy the scope value to temp
+          var targetField = origNgModel.substring(origNgModel.lastIndexOf('.') + 1),
+              tempNgModel = targetField + 'Temp';
+          $scope.pInfoModal.temp = $scope.pInfoModal.temp || {};
+          $scope.pInfoModal.temp[tempNgModel] = $interpolate('{{ ' + origNgModel + ' }}')($scope);
+
+          // show the popup for user to input
+          showAttributePopup(type, '$scope.pInfoModal.temp.' + tempNgModel, title).then(function(res) {
+            if(Validator[targetField](res, true)) {
+              // save the attribute into server
+              $rootScope.$root.pinfo[targetField] = res;
+            }
+          });
+        };
+
+        function showAttributePopup(type, ngModel, title) {
+          // remove the prefixing '$scope.'
+          ngModel = ngModel.substring(7);
+
+          return $ionicPopup.show({
+            template: '<input type="' + type + '" ng-model="' + ngModel + '">',
+            title: title,
+            scope: $scope,
+            buttons: [
+              { text: '取消' },
+              {
+                text: '<b>保存</b>',
+                type: 'button-energized',
+                onTap: function(e) {
+                  var fieldValue = $interpolate('{{ ' + ngModel + ' }}')($scope);
+                  if (!fieldValue) {
+                    //don't allow the user to close unless he enters valid value
+                    e.preventDefault();
+                  } else {
+                    return fieldValue;
+                  }
+                }
+              }
+            ]
+          });
+        }
+      });
+    }
+  });
+
   $scope.$on('eventOpenLogin', function($event, data) {
     if($scope.loginModal) {
       // directly open it

@@ -43,7 +43,7 @@
         <i class="icon ion-chevron-right"></i>
       </a>
 
-      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('date', '$root.pinfo.birthday', '请输入新的生日')">
+      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('date', '$root.pinfo.birthday', '请输入新的生日', true)">
         生日
         <span class="item-note">
           {{ $root.pinfo.birthday | date: 'yyyy-MM-dd' }}

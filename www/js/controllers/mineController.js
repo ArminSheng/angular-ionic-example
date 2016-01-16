@@ -40,17 +40,39 @@ angular.module('mmr.controllers')
 
         };
 
-        $scope.pInfoModal.doModifyAttribute = function(type, origNgModel, title) {
+        $scope.pInfoModal.doModifyAttribute = function(type, origNgModel, title, noNeedValidation) {
           // copy the scope value to temp
           var targetField = origNgModel.substring(origNgModel.lastIndexOf('.') + 1),
               tempNgModel = targetField + 'Temp';
           $scope.pInfoModal.temp = $scope.pInfoModal.temp || {};
-          $scope.pInfoModal.temp[tempNgModel] = $interpolate('{{ ' + origNgModel + ' }}')($scope);
+
+          if(type === 'date') {
+            var interpolatedDate = $interpolate('{{ ' + origNgModel + ' }}')($scope);
+            $scope.pInfoModal.temp[tempNgModel] = new Date(interpolatedDate.substring(1, interpolatedDate.indexOf('T')));
+          } else {
+            $scope.pInfoModal.temp[tempNgModel] = $interpolate('{{ ' + origNgModel + ' }}')($scope);
+          }
 
           // show the popup for user to input
           showAttributePopup(type, '$scope.pInfoModal.temp.' + tempNgModel, title).then(function(res) {
-            if(Validator[targetField](res, true)) {
-              // save the attribute into server
+            if(res === undefined) {
+              return;
+            }
+
+            // convert date str to obj
+            if(type === 'date') {
+              res = new Date(res.substring(1, res.indexOf('T')));
+            }
+
+            if(!noNeedValidation) {
+              if(Validator[targetField] && Validator[targetField](res, true)) {
+                // save the attribute into server
+                $rootScope.$root.pinfo[targetField] = res;
+              } else {
+                // when the validation is failed
+              }
+            } else {
+              // when validation is not needed
               $rootScope.$root.pinfo[targetField] = res;
             }
           });

@@ -65,6 +65,38 @@ angular.module('mmr.services')
       }
 
       return true;
+    },
+
+    qq: function(qq, popupWhenFailure) {
+      if(!qq || !/^[0-9]{5,10}$/.test(qq)) {
+
+        if(popupWhenFailure) {
+          $ionicPopup.alert({
+            title: 'QQ号格式验证失败',
+            template: 'QQ号的位数应该在5-10位之间，且只能是数字'
+          })
+        }
+
+        return false;
+      }
+
+      return true;
+    },
+
+    email: function(email, popupWhenFailure) {
+      if(!email || !/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i.test(email)) {
+
+        if(popupWhenFailure) {
+          $ionicPopup.alert({
+            title: '邮箱格式验证失败',
+            template: '请输入合法的邮箱'
+          })
+        }
+
+        return false;
+      }
+
+      return true;
     }
 
   };

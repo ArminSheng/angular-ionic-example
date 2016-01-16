@@ -237,3 +237,34 @@
 .row.m-commodity-margin-top-zero {
     margin-top: 0;
 }
+
+/*notification list*/
+.m-notification-list {
+
+}
+
+.m-notification-list-item-container .m-notification-list-item-time {
+    height: 40px;
+    text-align: center;
+    padding: 10px;
+    background-color: #e8e8e8;
+}
+
+.m-notification-list-item-content {
+    padding: 10px;
+}
+
+.m-notification-list-item-content span {
+    display: block;
+}
+
+.m-notification-list-item-content-link {
+    height: 30px;
+    margin-top: 10px;
+    padding: 5px;
+    border-top: 1px solid #e8e8e8;
+    text-align: right;
+}
+
+
+

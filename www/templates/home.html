@@ -1,4 +1,4 @@
-<ion-view view-title="买卖肉APP首页" hide-back-button="true">
+<ion-view view-title="首页" hide-back-button="true">
   <ion-nav-title>
     <div class="bar bar-header item-input-inset">
       <!-- geolocation -->
@@ -12,7 +12,7 @@
       </label>
       <!-- notification -->
       <div class="m-home-nofitication">
-        <notification-center count="{{ $root.notificationCount }}"></notification-center>
+        <notification-center count="{{ $root.notificationCount }}" target="tab.notification-home"></notification-center>
       </div>
     </div>
   </ion-nav-title>

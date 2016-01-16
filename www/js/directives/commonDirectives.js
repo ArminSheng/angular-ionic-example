@@ -6,20 +6,22 @@ angular.module('mmr.directives')
      + '<span class="badge badge-assertive m-badge">{{ count }}</span>');
 }])
 
-.directive('notificationCenter', [function() {
+.directive('notificationCenter', ['$state', function($state) {
 
   return {
     retrict: 'E',
     replace: true,
     scope: {
-      count: '@'
+      count: '@',
+      target: '@'
     },
     templateUrl: 'templates/directives/notification-center.html',
     link: function(scope, element, attrs) {
 
       // on click event
       scope.doCheckNotification = function() {
-
+        console.log(scope.target);
+        $state.go(scope.target);
       };
     }
   };

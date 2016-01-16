@@ -1,0 +1,26 @@
+<div class="m-notification-list">
+  <div class="m-notification-list-container">
+    <div class="m-notification-list-item-container" ng-repeat="notification in items track by $index">
+      <div class="m-notification-list-item-container">
+        <div class="m-notification-list-item-time">
+          {{ notification.time | date: 'yyyy-MM-dd' }}
+        </div>
+
+        <!-- 物流助手 -->
+        <div class="m-notification-list-item-content" ng-if="notification.type === 0">
+          <span>您于{{ notification.timeBuy | date: 'yyyy年MM月dd日 HH:mm:ss' }}购买的商品</span>
+          <span class="last">已于{{ notification.timeSent | date: 'yyyy年MM月dd日 HH:mm:ss' }}发货，请注意查收！</span>
+
+          <div class="m-notification-list-item-content-link">
+            <a class="button button-small button-clear">查看详情 ></a>
+          </div>
+        </div>
+
+        <!-- 系统消息 -->
+        <div class="m-notification-list-item-content" ng-if="notification.type === 1">
+          {{ notification.text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

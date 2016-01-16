@@ -1,4 +1,4 @@
-<ion-view view-title="买卖肉APP个人中心" hide-back-button="true">
+<ion-view view-title="个人中心">
   <ion-nav-title>
     <div class="row row-no-padding">
       <div class="col col-20">
@@ -10,7 +10,7 @@
       </div>
       <!-- notification -->
       <div class="col col-20 col-offset-20 m-mine-notification">
-        <notification-center count="{{ $root.notificationCount }}"></notification-center>
+        <notification-center count="{{ $root.notificationCount }}" target="tab.notification-mine"></notification-center>
       </div>
     </div>
     </a>

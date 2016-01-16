@@ -110,6 +110,16 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
     }
   })
 
+  .state('tab.notification-home', {
+    url: '/notification',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/notification-center.html',
+        controller: 'NotificationCtrl'
+      }
+    }
+  })
+
   .state('tab.categories', {
     url: '/categories',
     views: {
@@ -148,6 +158,16 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
       }
     }
   })
+
+  .state('tab.notification-mine', {
+    url: '/notification',
+    views: {
+      'tab-mine': {
+        templateUrl: 'templates/notification-center.html',
+        controller: 'NotificationCtrl'
+      }
+    }
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/home');

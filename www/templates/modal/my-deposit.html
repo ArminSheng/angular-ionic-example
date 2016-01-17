@@ -7,7 +7,9 @@
         我的
       </button>
     </div>
-    <h1 class="title">我的余额</h1>
+    <h1 class="title">
+      我的余额
+    </h1>
   </ion-header-bar>
   <ion-content class="m-modal-mine-deposit">
 
@@ -15,7 +17,9 @@
       <!-- banner -->
       <div class="m-modal-mine-deposit-banner">
         <img ng-src="img/mine/m-deposit.png" class="m-modal-mine-deposit-icon"/>
-        <div class="m-modal-mine-deposit-banner-text">可用余额</div>
+        <div class="m-modal-mine-deposit-banner-text">
+          可用余额<i class="icon ion-help-circled energized" ng-click="depositModal.doShowDepositHelp()"></i>
+        </div>
         <div class="m-modal-mine-deposit-banner-num">￥{{ ::$root.pinfo.deposit }}</div>
       </div>
 

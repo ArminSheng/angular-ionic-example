@@ -28,6 +28,14 @@ angular.module('mmr.services', [])
         title: '网络异常',
         template: '请检查网络通信是否通畅'
       });
+    },
+
+    // show help information
+    help: function(title, template) {
+      $ionicPopup.alert({
+        title: title,
+        template: template
+      });
     }
 
   };

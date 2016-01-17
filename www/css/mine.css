@@ -32,6 +32,11 @@
     font-size: 18px;
 }
 
+.m-modal-mine-deposit-banner-text .icon {
+    color: #aaa;
+    padding-left: 8px;
+}
+
 .m-modal-mine-deposit-banner-num {
     font-size: 32px;
     font-weight: bold;

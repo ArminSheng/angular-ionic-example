@@ -43,6 +43,10 @@ angular.module('mmr.controllers')
           $scope.depositModal.hide();
         };
 
+        $scope.depositModal.doShowDepositHelp = function() {
+          mmrCommonService.help('提示：余额的作用', '下单过程中产生的退款均会退回到此余额账户，下单时可直接勾选使用，用于抵扣部分总额，余额在购物时充当现金使用。');
+        };
+
         init();
         function init() {
           $scope.depositModal.depositDetails = mmrMineFactory.depositDetails();

@@ -75,3 +75,65 @@
 .m-mine-deposit-list-item-amount.m-mine-deposit-list-item-amount-out {
     color: red;
 }
+
+/*my coupon*/
+.m-modal-mine-coupon {
+    background-color: #e8e8e8;
+}
+
+.m-modal-mine-coupon-item {
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.m-modal-mine-coupon-item-image-row1 {
+    height: 76px;
+}
+
+.m-modal-mine-coupon-item-image {
+    background-image: url('../img/mine/coupon-bg.png');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    color: #fff;
+}
+
+.m-modal-mine-coupon-item-image .m-modal-mine-coupon-item-money {
+    padding: 18px 0;
+}
+
+.m-modal-mine-coupon-item-image .m-modal-mine-coupon-item-money span {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.m-modal-mine-coupon-item-usage {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.m-modal-mine-coupon-item-usage span {
+    display: block;
+}
+
+.m-modal-mine-coupon-item-range {
+    border-top: 1px solid #e8e8e8;
+    padding: 10px;
+    color: #8e8e8e;
+}
+
+.m-modal-mine-coupon-item-text {
+    padding: 10px;
+}
+
+.m-modal-mine-coupon-item-text span {
+    display: block;
+}
+
+.m-modal-mine-coupon-item-text .m-modal-mine-coupon-item-title {
+    font-weight: bold;
+}
+
+.m-modal-mine-coupon-item-text .m-modal-mine-coupon-item-explain {
+    padding-top: 8px;
+    color: #8e8e8e;
+}

@@ -1,0 +1,63 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="couponModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        我的
+      </button>
+    </div>
+    <h1 class="title">
+      我的优惠券
+    </h1>
+  </ion-header-bar>
+  <ion-content class="m-modal-mine-coupon">
+
+    <div class="m-filter-tabs">
+      <div class="m-filter-item" ng-class="{'active': couponModal.tab === 0}" ng-click="couponModal.switchTab(0)">
+        <span>未使用</span>
+      </div>
+      <div class="m-filter-item" ng-class="{'active': couponModal.tab === 1}" ng-click="couponModal.switchTab(1)">
+        <span>已使用</span>
+      </div>
+      <div class="m-filter-item" ng-class="{'active': couponModal.tab === 2}" ng-click="couponModal.switchTab(2)">
+        <span>已过期</span>
+      </div>
+    </div>
+
+    <div class="m-modal-mine-coupon-list">
+
+      <div class="m-modal-mine-coupon-item" ng-repeat="coupon in couponModal.coupons[couponModal.tab] track by $index">
+        <div class="row m-modal-mine-coupon-item-image-row1">
+          <div class="col col-33 m-modal-mine-coupon-item-image">
+            <div class="row row-no-padding">
+              <div class="col col-50 m-modal-mine-coupon-item-money">
+                <span>￥{{ coupon.amount }}</span>
+              </div>
+              <div class="col col-50">
+                <div class="m-modal-mine-coupon-item-usage">
+                  <span>满{{ coupon.requirementAmount }}元</span>
+                  <span class="m-modal-mine-coupon-item-usage-text">使用</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col col-67 m-modal-mine-coupon-item-text">
+            <span class="m-modal-mine-coupon-item-title">
+              满{{ coupon.requirementAmount }}减{{ coupon.amount }} - {{ coupon.compaign }}
+            </span>
+            <span class="m-modal-mine-coupon-item-explain">
+              {{ couponModal.getExplain(coupon) }}
+            </span>
+          </div>
+        </div>
+        <div class="m-modal-mine-coupon-item-range">
+          适用范围：{{ coupon.range }} 部分商品除外
+        </div>
+      </div>
+
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

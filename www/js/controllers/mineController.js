@@ -21,9 +21,55 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyDeposit();
   };
 
+  $scope.doOpenMyCoupon = function() {
+    mmrEventing.doOpenMyCoupon();
+  };
+
   // ----------------------
   // event handler
   // ----------------------
+
+  // coupon
+  $scope.$on('eventOpenMyCoupon', function($event, data) {
+    if($scope.couponModal) {
+      $scope.couponModal.show();
+    } else {
+      $ionicModal.fromTemplateUrl('templates/modal/my-coupon.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.couponModal = modal;
+        $scope.couponModal.show();
+
+        // binding data
+        $scope.couponModal.tab = 0;
+
+        // methods
+        $scope.couponModal.doHide = function() {
+          $scope.couponModal.hide();
+        };
+
+        $scope.couponModal.switchTab = function(tabIdx) {
+          $scope.couponModal.tab = tabIdx;
+        };
+
+        $scope.couponModal.getExplain = function(coupon) {
+          switch(coupon.status) {
+            case 0:
+              return '请尽快使用';
+            case 1:
+              return coupon.usedTime + ' 已使用';
+            case 2:
+              return coupon.periodEnd + ' 已过期';
+          }
+        };
+
+        init();
+        function init() {
+          $scope.couponModal.coupons = mmrMineFactory.couponDetails();
+        }
+      });
+    }
+  });
 
   // deposit
   $scope.$on('eventOpenMyDeposit', function($event, data) {
@@ -50,7 +96,6 @@ angular.module('mmr.controllers')
         init();
         function init() {
           $scope.depositModal.depositDetails = mmrMineFactory.depositDetails();
-          console.log($scope.depositModal.depositDetails);
         }
       });
     }

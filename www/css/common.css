@@ -2,10 +2,13 @@
 .m-filter-tabs {
     width: 100%;
     height: 43px;
+    display: flex;
+    align-items: center;
+    justfity-content: center;
 }
 
 .m-filter-item {
-    width: 49%;
+    width: 100%;
     height: 100%;
     display: inline-block;
     text-align: center;
@@ -13,7 +16,7 @@
     opacity: 0.5;
 }
 
-.m-filter-item.active{
+.m-filter-item.active {
     border-bottom: 2px solid #ffc900;
     opacity: 1;
 }

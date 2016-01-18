@@ -137,3 +137,10 @@
     padding-top: 8px;
     color: #8e8e8e;
 }
+
+/*mine config*/
+.m-mine-config .ion-chevron-right {
+    font-size: 16px;
+    color: #aaa;
+}
+

@@ -4,6 +4,14 @@ angular.module('mmr.services')
 
   return {
 
+    doOpenConfig: function(data) {
+      $rootScope.$broadcast('eventOpenConfig', data);
+    },
+
+    doBackMine: function(data) {
+      $rootScope.$broadcast('eventBackMine', data);
+    },
+
     doOpenLogin: function(data) {
       $rootScope.$broadcast('eventOpenLogin', data);
     },

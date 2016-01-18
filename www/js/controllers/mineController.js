@@ -1,13 +1,19 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$interpolate', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrMineFactory', 'recommendedItems',
-  function($scope, $rootScope, $interpolate, $ionicHistory, $ionicModal, $ionicPopup, mmrEventing, Validator, mmrCommonService, mmrMineFactory, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'recommendedItems',
+  function($scope, $rootScope, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, recommendedItems) {
+
+  $rootScope.$root.ui.tabsHidden = false;
 
   if(recommendedItems.data) {
     $scope.recommendedItems = recommendedItems.data;
   } else {
     mmrCommonService.networkDown();
   }
+
+  $scope.doOpenConfig = function() {
+    mmrEventing.doOpenConfig();
+  };
 
   $scope.doLogin = function() {
     mmrEventing.doOpenLogin();
@@ -28,6 +34,11 @@ angular.module('mmr.controllers')
   // ----------------------
   // event handler
   // ----------------------
+
+  // config
+  $scope.$on('eventOpenConfig', function($event, data) {
+    $state.go('tab.config-mine');
+  });
 
   // coupon
   $scope.$on('eventOpenMyCoupon', function($event, data) {
@@ -103,176 +114,21 @@ angular.module('mmr.controllers')
 
   // personal information
   $scope.$on('eventOpenPersonalInfo', function($event, data) {
-    if($scope.pInfoModal) {
+    if($rootScope.modals.pInfoModal && !$rootScope.modals.pInfoModal.scope.$$destroyed) {
       // directly open it
-      $scope.pInfoModal.show();
+      $rootScope.modals.pInfoModal.show();
     } else {
-      $ionicModal.fromTemplateUrl('templates/modal/personal-info.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.pInfoModal = modal;
-        $scope.pInfoModal.show();
-
-        // binding data
-
-        // methods
-        $scope.pInfoModal.doHidePInfo = function() {
-          $scope.pInfoModal.hide();
-        };
-
-        $scope.pInfoModal.doModifyAvatar = function() {
-
-        };
-
-        $scope.pInfoModal.doModifyAttribute = function(type, origNgModel, title, noNeedValidation) {
-          // copy the scope value to temp
-          var targetField = origNgModel.substring(origNgModel.lastIndexOf('.') + 1),
-              tempNgModel = targetField + 'Temp';
-          $scope.pInfoModal.temp = $scope.pInfoModal.temp || {};
-
-          if(type === 'date') {
-            var interpolatedDate = $interpolate('{{ ' + origNgModel + ' }}')($scope);
-            $scope.pInfoModal.temp[tempNgModel] = new Date(interpolatedDate.substring(1, interpolatedDate.indexOf('T')));
-          } else {
-            $scope.pInfoModal.temp[tempNgModel] = $interpolate('{{ ' + origNgModel + ' }}')($scope);
-          }
-
-          // show the popup for user to input
-          showAttributePopup(type, '$scope.pInfoModal.temp.' + tempNgModel, title).then(function(res) {
-            if(res === undefined) {
-              return;
-            }
-
-            // convert date str to obj
-            if(type === 'date') {
-              res = new Date(res.substring(1, res.indexOf('T')));
-            }
-
-            if(!noNeedValidation) {
-              if(Validator[targetField] && Validator[targetField](res, true)) {
-                // save the attribute into server
-                $rootScope.$root.pinfo[targetField] = res;
-              } else {
-                // when the validation is failed
-              }
-            } else {
-              // when validation is not needed
-              $rootScope.$root.pinfo[targetField] = res;
-            }
-          });
-        };
-
-        function showAttributePopup(type, ngModel, title) {
-          // remove the prefixing '$scope.'
-          ngModel = ngModel.substring(7);
-
-          return $ionicPopup.show({
-            template: '<input type="' + type + '" ng-model="' + ngModel + '">',
-            title: title,
-            scope: $scope,
-            buttons: [
-              { text: '取消' },
-              {
-                text: '<b>保存</b>',
-                type: 'button-energized',
-                onTap: function(e) {
-                  var fieldValue = $interpolate('{{ ' + ngModel + ' }}')($scope);
-                  if (!fieldValue) {
-                    //don't allow the user to close unless he enters valid value
-                    e.preventDefault();
-                  } else {
-                    return fieldValue;
-                  }
-                }
-              }
-            ]
-          });
-        }
-      });
+      mmrModal.createPersonalInfoModal($scope);
     }
   });
 
   // login
   $scope.$on('eventOpenLogin', function($event, data) {
-    if($scope.loginModal) {
+    if($rootScope.modals.loginModal) {
       // directly open it
-      $scope.loginModal.show();
+      $rootScope.modals.loginModal.show();
     } else {
-      $ionicModal.fromTemplateUrl('templates/modal/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.loginModal = modal;
-        $scope.loginModal.show();
-
-        // binding data
-        $scope.loginModal.data = {
-          username: '',
-          password: '',
-          code: ''
-        };
-
-        $scope.loginModal.viewMode = 1;
-
-        $scope.loginModal.doHideLogin = function() {
-          $scope.loginModal.hide();
-          $scope.loginModal = undefined;
-        };
-
-        $scope.loginModal.doClick = function() {
-          console.log('clicked');
-        };
-
-        $scope.loginModal.getSwitchText = function() {
-          if($scope.loginModal.viewMode === 1) {
-            return "手机验证码登陆";
-          } else {
-            return "个人密码登陆";
-          }
-        };
-
-        $scope.loginModal.doSwitchLoginMode = function() {
-          if($scope.loginModal.viewMode === 1) {
-            $scope.loginModal.viewMode = 2;
-          } else {
-            $scope.loginModal.viewMode = 1;
-          }
-        };
-
-        $scope.loginModal.doFetchCode = function() {
-
-        };
-
-        $scope.loginModal.doLogin = function() {
-          // show the bind modal if necessary
-          if($rootScope.$root.isOldUser) {
-            $ionicModal.fromTemplateUrl('templates/modal/bind-old-user.html', {
-              scope: $scope
-            }).then(function(modal) {
-              $scope.bindModal = modal;
-              $scope.bindModal.show();
-
-              // data bindings
-              $scope.bindModal.data = {
-                phone: '',
-                code: ''
-              };
-
-              // methods for the bind modal
-              $scope.bindModal.doBind = function() {
-
-              };
-
-              $scope.bindModal.doHideBind = function() {
-                $scope.bindModal.hide();
-              };
-            });
-          }
-        };
-
-        $scope.loginModal.doRegister = function() {
-          mmrEventing.doOpenRegister();
-        };
-      });
+      mmrModal.createLoginModal($scope);
     }
   });
 
@@ -316,5 +172,38 @@ angular.module('mmr.controllers')
       };
     });
   });
+
+}])
+
+.controller('ConfigCtrl', ['$scope', '$rootScope', 'mmrModal',
+  function($scope, $rootScope, mmrModal) {
+
+  $rootScope.$root.ui.tabsHidden = true;
+
+  $scope.doOpenPersonalInfo = function() {
+    if($rootScope.modals.pInfoModal && !$rootScope.modals.pInfoModal.scope.$$destroyed) {
+      // directly open it
+      $rootScope.modals.pInfoModal.show();
+    } else {
+      mmrModal.createPersonalInfoModal($scope);
+    }
+  };
+
+  $scope.doOpenAddress = function() {
+
+  };
+
+  $scope.doOpenMyReceipt = function() {
+
+  };
+
+  $scope.doOpenSecurityConfig = function() {
+
+  };
+
+  $scope.doOpenAboutUs = function() {
+
+  };
+
 
 }]);

@@ -2,7 +2,7 @@
 
   <ion-header-bar class="bar-energized">
     <div class="buttons">
-      <button class="button button-clear" ng-click="pInfoModal.doHidePInfo()">
+      <button class="button button-clear" ng-click="modals.pInfoModal.doHidePInfo()">
         <span class="icon ion-chevron-left m-common-back"></span>
         我的
       </button>
@@ -12,14 +12,14 @@
   <ion-content class="m-modal-mine-pinfo">
     <div class="list">
 
-      <a class="item item-icon-right m-modal-mine-avatar" ng-click="pInfoModal.doModifyAvatar()">
+      <a class="item item-icon-right m-modal-mine-avatar" ng-click="modals.pInfoModal.doModifyAvatar()">
         <span>头像</span>
         <img ng-src="{{ $root.pinfo.avatar }}" ng-if="$root.pinfo.avatar"/>
         <img ng-src="img/mine/avatar-bak.png" ng-if="!$root.pinfo.avatar"/>
         <i class="icon ion-chevron-right"></i>
       </a>
 
-      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('text', '$root.pinfo.username', '请输入新的用户名')">
+      <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('text', '$root.pinfo.username', '请输入新的用户名')">
         用户名
         <span class="item-note">
           {{ $root.pinfo.username }}
@@ -27,7 +27,7 @@
         <i class="icon ion-chevron-right"></i>
       </a>
 
-      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('text', '$root.pinfo.email', '请输入新的邮箱')">
+      <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('text', '$root.pinfo.email', '请输入新的邮箱')">
         邮箱
         <span class="item-note">
           {{ $root.pinfo.email }}
@@ -35,7 +35,7 @@
         <i class="icon ion-chevron-right"></i>
       </a>
 
-      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('tel', '$root.pinfo.qq', '请输入新的QQ号')">
+      <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('tel', '$root.pinfo.qq', '请输入新的QQ号')">
         QQ
         <span class="item-note">
           {{ $root.pinfo.qq }}
@@ -43,7 +43,7 @@
         <i class="icon ion-chevron-right"></i>
       </a>
 
-      <a class="item item-icon-right" ng-click="pInfoModal.doModifyAttribute('date', '$root.pinfo.birthday', '请输入新的生日', true)">
+      <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('date', '$root.pinfo.birthday', '请输入新的生日', true)">
         生日
         <span class="item-note">
           {{ $root.pinfo.birthday | date: 'yyyy-MM-dd' }}

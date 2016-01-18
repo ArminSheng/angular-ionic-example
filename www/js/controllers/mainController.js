@@ -4,7 +4,7 @@ angular.module('mmr.controllers')
   function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory) {
 
   $scope.myGoBack = function() {
-    $rootScope.tabsHidden = "";
+    $rootScope.$root.ui.tabsHidden = false;
     $ionicHistory.goBack();
   };
 
@@ -37,6 +37,8 @@ angular.module('mmr.controllers')
       tabsHidden: false
     }
   };
+
+  $rootScope.modals = $rootScope.modals || {};
 
   // send heartbeat every 30s
   $interval(function() {

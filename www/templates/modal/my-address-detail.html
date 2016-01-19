@@ -31,7 +31,7 @@
 
       <div class="item item-input">
         <span class="input-label">固定电话</span>
-        <input type="tel" ng-model="modals.addressDetailModal.address.phoneArea" class="m-modal-mine-address-detail-phone-area">
+        <input type="tel" ng-model="modals.addressDetailModal.address.phoneArea" class="m-modal-mine-address-detail-phone-area" ng-disabled="!modals.addressDetailModal.isEditing">
         <span class="m-modal-mine-address-detail-phone-dash" ng-disabled="!modals.addressDetailModal.isEditing">---</span>
         <input type="tel" ng-model="modals.addressDetailModal.address.phone" class="m-modal-mine-address-detail-phone-fixed" ng-disabled="!modals.addressDetailModal.isEditing">
       </div>

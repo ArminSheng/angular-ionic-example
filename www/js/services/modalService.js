@@ -292,6 +292,23 @@ angular.module('mmr.services')
             $rootScope.modals.changePasswordModal.doChangePassword = function() {
               // validate current fields
 
+              // show the successful msg when finished
+              $ionicPopup.show({
+                template: '<div class="m-msg-cong"><img ng-src="img/common/check.png"/><div>' +
+                '<span class="energized m-msg-cong-title">恭喜您！</span>' +
+                '<span class="m-msg-cong-subtitle">请牢记您的新密码。</span></div></div>',
+                title: '修改密码成功',
+                scope: scope,
+                buttons: [
+                  {
+                    text: '<b>确定</b>',
+                    type: 'button-energized',
+                    onTap: function(e) {
+                      // event handler when user confirm
+                    }
+                  }
+                ]
+              });
             };
           });
         }

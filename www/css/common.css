@@ -46,3 +46,21 @@
 .slide-in-right.ng-leave, .slide-in-right > .ng-leave {
   -webkit-transition: all ease-in-out 250ms;
   transition: all ease-in-out 250ms; }
+
+/*popup msg*/
+.m-msg-cong {
+  text-align: center;
+}
+
+.m-msg-cong img {
+  width: 50px;
+}
+
+.m-msg-cong span {
+  display: block;
+}
+
+.m-msg-cong .m-msg-cong-title {
+  font-weight: bold;
+  padding-bottom: 8px;
+}

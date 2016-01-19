@@ -285,6 +285,14 @@ angular.module('mmr.services')
             // bind data
 
             // methods
+            $rootScope.modals.changePasswordModal.doHide = function() {
+              modal.hide();
+            };
+
+            $rootScope.modals.changePasswordModal.doChangePassword = function() {
+              // validate current fields
+
+            };
           });
         }
       });

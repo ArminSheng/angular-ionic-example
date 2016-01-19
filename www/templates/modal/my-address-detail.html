@@ -60,6 +60,21 @@
 
     </div>
 
+    <!-- operation list -->
+    <div class="list m-modal-mine-address-op-list">
+
+      <a class="item item-icon-left assertive" ng-click="modals.addressDetailModal.removeAddress()">
+        <i class="icon ion-trash-a"></i>
+        删除此地址
+      </a>
+
+       <a class="item item-icon-left" ng-click="modals.addressDetailModal.defaultAddress()" ng-if="!modals.addressDetailModal.address.isDefault">
+        <i class="icon ion-home"></i>
+        将此地址设为默认
+      </a>
+
+    </div>
+
   </ion-content>
 
 </ion-modal-view>

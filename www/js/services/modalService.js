@@ -224,6 +224,31 @@ angular.module('mmr.services')
                 $rootScope.modals.addressDetailModal.doHide();
               }
             };
+
+            $rootScope.modals.addressDetailModal.removeAddress = function() {
+              $ionicPopup.confirm({
+                title: '确定要删除此条地址吗',
+                okText: '删除',
+                cancelText: '取消',
+                okType: 'button-assertive'
+              }).then(function(res) {
+                if(res) {
+                  // delete the address
+                }
+              });
+            };
+
+            $rootScope.modals.addressDetailModal.defaultAddress = function() {
+              $ionicPopup.confirm({
+                title: '确定要将此地址设置为默认地址吗',
+                okText: '确定',
+                cancelText: '取消'
+              }).then(function(res) {
+                if(res) {
+                  // make the address as default
+                }
+              });
+            };
           });
         }
       });

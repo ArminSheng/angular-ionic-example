@@ -252,6 +252,42 @@ angular.module('mmr.services')
           });
         }
       });
+    },
+
+    createSecurityModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-security.html', {
+        scope: scope
+      }).then(function(modal) {
+        $rootScope.modals.securityModal = modal;
+        $rootScope.modals.securityModal.show();
+
+        // bind data
+
+
+        // methods
+        $rootScope.modals.securityModal.doHide = function() {
+          modal.hide();
+        };
+
+        $rootScope.modals.securityModal.doChangePassword = function() {
+          // open the change password modal view
+          createChangePasswordModal(scope);
+        };
+
+        function createChangePasswordModal(scope) {
+          $ionicModal.fromTemplateUrl('templates/modal/my-change-password.html', {
+            scope: scope,
+            animation: 'slide-in-right'
+          }).then(function(modal) {
+            $rootScope.modals.changePasswordModal = modal;
+            $rootScope.modals.changePasswordModal.show();
+
+            // bind data
+
+            // methods
+          });
+        }
+      });
     }
 
   };

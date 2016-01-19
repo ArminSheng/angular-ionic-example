@@ -202,7 +202,11 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenSecurityConfig = function() {
-
+    if($rootScope.modals.securityModal && !$rootScope.modals.securityModal.scope.$$destroyed) {
+      $rootScope.modals.securityModal.show();
+    } else {
+      mmrModal.createSecurityModal($scope);
+    }
   };
 
   $scope.doOpenAboutUs = function() {

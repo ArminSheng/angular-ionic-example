@@ -54,6 +54,27 @@ angular.module('mmr.services')
         mmrCacheFactory.set('classifications', cCache);
       }, function(err) {
       });
+    },
+
+    citiesAndDisctricts: function() {
+      var items = {
+        '南京市': [
+          '雨花区',
+          '玄武区',
+          '江北区'
+        ],
+        '上海市': [
+          '长宁区',
+          '浦东新区',
+          '普陀区',
+          '徐汇区',
+          '卢湾区',
+          '黄浦区'
+        ]
+      };
+
+      mmrCacheFactory.set('cities', Object.keys(items));
+      mmrCacheFactory.set('districts', items);
     }
   };
 

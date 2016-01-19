@@ -144,3 +144,42 @@
     color: #aaa;
 }
 
+/*mine address*/
+.m-modal-mine-address .ion-chevron-right {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.m-modal-mine-address-item-main {
+    white-space: normal;
+}
+
+.m-modal-mine-address-item-row1 {
+    margin-bottom: 6px;
+}
+
+.m-modal-mine-address-item-row1 .m-modal-mine-address-item-phone {
+    float: right;
+}
+
+.m-modal-mine-address-item-row2 .m-modal-mine-address-item-default {
+    color: red;
+}
+
+.m-modal-mine-address-item-cellphone {
+    padding-right: 20px;
+}
+
+.item-input input.m-modal-mine-address-detail-phone-area {
+    max-width: 40px;
+    padding-right: 0;
+}
+
+.m-modal-mine-address-detail-phone-dash {
+    padding: 0 8px;
+}
+
+.item-input input.m-modal-mine-address-detail-phone-fixed {
+    padding-left: 16px;
+}
+

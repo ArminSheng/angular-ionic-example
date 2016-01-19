@@ -190,7 +190,11 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenAddress = function() {
-
+    if($rootScope.modals.addressModal && !$rootScope.modals.addressModal.scope.$$destroyed) {
+      $rootScope.modals.addressModal.show();
+    } else {
+      mmrModal.createAddressModal($scope);
+    }
   };
 
   $scope.doOpenMyReceipt = function() {

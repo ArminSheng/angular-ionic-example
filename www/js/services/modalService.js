@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interpolate', '$ionicModal', '$ionicPopup', 'Validator',
-  function($rootScope, $interpolate, $ionicModal, $ionicPopup, Validator) {
+.factory('mmrModal', ['$rootScope', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator',
+  function($rootScope, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator) {
 
   return {
 
@@ -165,6 +165,65 @@ angular.module('mmr.services')
                 }
               }
             ]
+          });
+        }
+      });
+    },
+
+    createAddressModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-address.html', {
+        scope: scope
+      }).then(function(modal) {
+        $rootScope.modals.addressModal = modal;
+        $rootScope.modals.addressModal.show();
+
+        // bind data
+        $rootScope.modals.addressModal.isEditing = false;
+
+        // methods
+        $rootScope.modals.addressModal.doHide = function() {
+          modal.hide();
+        };
+
+        $rootScope.modals.addressModal.doOpenAddressDetail = function(address) {
+          createAddressDetailModal(scope, address);
+        };
+
+        $rootScope.modals.addressModal.doAdd = function() {
+          createAddressDetailModal(scope, {}, true);
+        };
+
+        function createAddressDetailModal(scope, address, isEditing) {
+          $ionicModal.fromTemplateUrl('templates/modal/my-address-detail.html', {
+            scope: scope,
+            animation: 'slide-in-right'
+          }).then(function(modal) {
+            $rootScope.modals.addressDetailModal = modal;
+            $rootScope.modals.addressDetailModal.show();
+
+            // cache
+            localStorageService.bind($rootScope, 'districts');
+            localStorageService.bind($rootScope, 'cities');
+
+            // bind data
+            $rootScope.modals.addressDetailModal.isEditing = isEditing || false;
+            $rootScope.modals.addressDetailModal.address = angular.copy(address);
+
+            // methods
+            $rootScope.modals.addressDetailModal.doHide = function() {
+              modal.hide();
+            };
+
+            $rootScope.modals.addressDetailModal.doToggleEditing = function() {
+              if(!$rootScope.modals.addressDetailModal.isEditing) {
+                $rootScope.modals.addressDetailModal.isEditing = true;
+              } else {
+                // validate the address
+
+                // save the editings
+                $rootScope.modals.addressDetailModal.doHide();
+              }
+            };
           });
         }
       });

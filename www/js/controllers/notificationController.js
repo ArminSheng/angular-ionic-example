@@ -3,6 +3,8 @@ angular.module('mmr.controllers')
 .controller('NotificationCtrl', ['$scope', '$rootScope', 'localStorageService', 'mmrNotificationFactory',
   function($scope, $rootScope, localStorageService, mmrNotificationFactory) {
 
+  $rootScope.$root.ui.tabsHidden = true;
+
   $scope.tab = 0;
 
   $scope.switchTab = function(tabIdx) {

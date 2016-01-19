@@ -28,6 +28,13 @@ angular.module('mmr.controllers')
         'mmr-mmr-mmr3@mmr.com'
       ]
     },
+    addresses: [
+      { 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1306室', isDefault: true },
+      { 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1308室', isDefault: false },
+      { 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1309室', isDefault: false },
+      { 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1307室', isDefault: false },
+      { 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1310室', isDefault: false }
+    ],
 
     // network related
     network: true,
@@ -49,5 +56,6 @@ angular.module('mmr.controllers')
   mmrMetaFactory.brands();
   mmrMetaFactory.attributes();
   mmrMetaFactory.classification();
+  mmrMetaFactory.citiesAndDisctricts();
 
 }]);

@@ -127,8 +127,6 @@ angular.module('mmr.controllers')
 
   // search related
   $scope.doSelectCategory = function(item) {
-    console.log(item);
-
     // close menu
     $timeout(function() {
       $scope.swipeMenu(false);

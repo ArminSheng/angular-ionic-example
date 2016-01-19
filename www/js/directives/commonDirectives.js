@@ -20,7 +20,6 @@ angular.module('mmr.directives')
 
       // on click event
       scope.doCheckNotification = function() {
-        console.log(scope.target);
         $state.go(scope.target);
       };
     }

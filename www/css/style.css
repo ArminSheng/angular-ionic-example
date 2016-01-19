@@ -63,7 +63,7 @@
 }
 
 /*commons*/
-.bar button.button-clear .icon.m-common-back:before {
+.bar button.button-clear .icon.m-common-back:before, .bar button.button-clear .icon.m-header-icon:before {
     font-size: 20px;
 }
 

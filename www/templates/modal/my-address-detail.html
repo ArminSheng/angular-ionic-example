@@ -1,0 +1,65 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modals.addressDetailModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">
+      地址详情
+    </h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modals.addressDetailModal.doToggleEditing()">
+        {{ modals.addressDetailModal.isEditing ? '保存修改' : '修改地址' }}
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="m-modal-mine-address-detail">
+    <div class="list">
+
+      <label class="item item-input">
+        <span class="input-label">收货人</span>
+        <input type="text" ng-model="modals.addressDetailModal.address.receiver" ng-disabled="!modals.addressDetailModal.isEditing">
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">手机号码</span>
+        <input type="tel" ng-model="modals.addressDetailModal.address.cellphone" ng-disabled="!modals.addressDetailModal.isEditing">
+      </label>
+
+      <div class="item item-input">
+        <span class="input-label">固定电话</span>
+        <input type="tel" ng-model="modals.addressDetailModal.address.phoneArea" class="m-modal-mine-address-detail-phone-area">
+        <span class="m-modal-mine-address-detail-phone-dash" ng-disabled="!modals.addressDetailModal.isEditing">---</span>
+        <input type="tel" ng-model="modals.addressDetailModal.address.phone" class="m-modal-mine-address-detail-phone-fixed" ng-disabled="!modals.addressDetailModal.isEditing">
+      </div>
+
+      <label class="item item-input">
+        <span class="input-label">城市</span>
+        <select ng-model="modals.addressDetailModal.address.city" ng-options="item for item in cities" ng-disabled="!modals.addressDetailModal.isEditing">
+        </select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">地区</span>
+        <select ng-model="modals.addressDetailModal.address.district" ng-options="item for item in districts[modals.addressDetailModal.address.city]" ng-disabled="!modals.addressDetailModal.isEditing">
+        </select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">街道地址</span>
+        <input type="text" ng-model="modals.addressDetailModal.address.street" ng-disabled="!modals.addressDetailModal.isEditing">
+      </label>
+
+       <label class="item item-input">
+        <span class="input-label">备注</span>
+        <input type="text" ng-model="modals.addressDetailModal.address.notice" ng-disabled="!modals.addressDetailModal.isEditing">
+      </label>
+
+    </div>
+
+  </ion-content>
+
+</ion-modal-view>

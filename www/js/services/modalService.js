@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
 .factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator',
-  function($rootScope, $interpolate, $timeout, $ionicModal, $ionicPopup, localStorageService, Validator) {
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator) {
 
   return {
 

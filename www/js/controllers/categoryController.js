@@ -91,6 +91,13 @@ angular.module('mmr.controllers')
 
   $scope.swipeMenu = function(open) {
     $scope.menuOpened = open;
+
+    // control the tab
+    if(open) {
+      $rootScope.$root.ui.tabsHidden = true;
+    } else {
+      $rootScope.$root.ui.tabsHidden = false;
+    }
   };
 
   $scope.doTapBackdrop = function() {
@@ -118,6 +125,11 @@ angular.module('mmr.controllers')
         $scope.showBacktoTopBtn=false;
       }
     }); //apply
+
+    // hide the menu if opened
+    if($scope.menuOpened) {
+      $scope.menuOpened = false;
+    }
   };
 
   $scope.scrollToTop = function() {

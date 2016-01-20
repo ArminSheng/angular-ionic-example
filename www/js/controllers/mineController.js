@@ -45,7 +45,6 @@ angular.module('mmr.controllers')
 
   // more orders
   $scope.$on('eventOpenMoreOrders', function($event, tab) {
-    console.log(tab);
     $state.go('tab.orders-mine', {
       orderType: tab || 0
     });

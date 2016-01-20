@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$ionicHistory', '$cordovaGeolocation', 'mmrCommonService', 'banners', 'areas', 'seckilling', 'homeCommodity',
-  function($scope, $rootScope, $ionicHistory, $cordovaGeolocation, mmrCommonService, banners, areas, seckilling, homeCommodity) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$ionicHistory', '$cordovaGeolocation', 'mmrCommonService', 'mmrLoadingFactory', 'banners', 'areas', 'seckilling', 'homeCommodity',
+  function($scope, $rootScope, $q, $ionicHistory, $cordovaGeolocation, mmrCommonService, mmrLoadingFactory, banners, areas, seckilling, homeCommodity) {
 
   if(banners.data && areas.data) {
     $scope.banners = banners.data;
@@ -15,6 +15,7 @@ angular.module('mmr.controllers')
   $scope.seckilling = seckilling.data;
   $scope.commodities = homeCommodity.data;
 
+  initialize();
   function initialize() {
     var path = './upload/20151231/20151231085342270.jpg';
 

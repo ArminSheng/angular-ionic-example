@@ -22,7 +22,7 @@ angular.module('mmr.controllers')
     var posOptions = {timeout: 10000, enableHighAccuracy: false};
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
       var latitude  = position.coords.latitude;
-      var long = position.coords.longitude;
+      var longitude = position.coords.longitude;
       console.log(latitude, longitude)
       $scope.pos = position;
     }, function(err) {

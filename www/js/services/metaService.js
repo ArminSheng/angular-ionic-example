@@ -51,6 +51,9 @@ angular.module('mmr.services')
         // save into cache
         var cCache = mmrCacheFactory.get('classifications') || {};
         cCache[g] = _.map(res.data, removeTrailing);
+
+        // cCache[g] = cCache[g].concat(cCache[g]);
+
         mmrCacheFactory.set('classifications', cCache);
       }, function(err) {
       });

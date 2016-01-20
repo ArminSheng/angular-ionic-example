@@ -11,8 +11,8 @@
       </a> -->
     </div>
   </ion-nav-title>
-  <ion-content
 
+  <!-- main area -->
   <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" on-scroll="getScrollPosition()">
 
     <!-- item list area -->
@@ -65,7 +65,7 @@
   </ion-content>
 
   <!-- categories menu -->
-  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}">
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}" scrollbar-x="false" scrollbar-y="false" >
     <!-- category menu -->
     <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">

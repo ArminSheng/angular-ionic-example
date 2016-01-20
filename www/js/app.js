@@ -178,6 +178,16 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
         controller: 'ConfigCtrl'
       }
     }
+  })
+
+  .state('tab.orders-mine', {
+    url: '/orders/:orderType',
+    views: {
+      'tab-mine': {
+        templateUrl: 'templates/mine-orders.html',
+        controller: 'OrderCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

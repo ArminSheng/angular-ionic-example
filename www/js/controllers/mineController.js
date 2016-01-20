@@ -35,9 +35,21 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyAddressMgmt();
   };
 
+  $scope.doOpenMoreOrders = function(tab) {
+    mmrEventing.doOpenMoreOrders(tab);
+  };
+
   // ----------------------
   // event handler
   // ----------------------
+
+  // more orders
+  $scope.$on('eventOpenMoreOrders', function($event, tab) {
+    console.log(tab);
+    $state.go('tab.orders-mine', {
+      orderType: tab || 0
+    });
+  });
 
   // address mgmt
   $scope.$on('eventOpenAddressMgmt', function($event, data) {

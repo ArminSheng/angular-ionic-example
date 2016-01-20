@@ -288,6 +288,11 @@
     padding: 10px 0;
 }
 
+.m-cat-menu-bar-item-title.invisible {
+    opacity: 0;
+    border-bottom: none;
+}
+
 .m-cat-menu-bar-hide {
     padding: 10px;
 }

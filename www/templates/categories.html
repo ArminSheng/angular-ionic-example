@@ -67,7 +67,7 @@
   <!-- categories menu -->
   <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}">
     <!-- category menu -->
-    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}" style="height: {{ menuHeight }} + 'px'">
+    <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
         <!-- menu itself -->
         <div class="m-cat-menu-bar">
@@ -75,7 +75,7 @@
             <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
           </div>
           <div class="m-cat-menu-bar-item" ng-repeat="item in classifications[currentLevel] track by $index" ng-click="doSelectCategory(item)">
-            <div class="m-cat-menu-bar-item-title">
+            <div class="m-cat-menu-bar-item-title" ng-class="{'invisible': !menuOpened}">
               {{ item.name }}
             </div>
           </div>

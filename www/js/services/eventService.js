@@ -36,6 +36,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('eventOpenAddressMgmt', data);
     },
 
+    doOpenMoreOrders: function(data) {
+      $rootScope.$broadcast('eventOpenMoreOrders', data);
+    },
+
     // inside category view
     doOpenFilters: function(data) {
       $rootScope.$broadcast("eventOpenFilters", data);

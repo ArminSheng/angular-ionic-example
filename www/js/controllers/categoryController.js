@@ -21,6 +21,9 @@ angular.module('mmr.controllers')
   $scope.menuOpened = false;
   $scope.menuHeight = 0;
 
+  // options bar related
+  $scope.optionsBarOpened = true;
+
   // scroll related
   $scope.showBacktoTopBtn = false;
 
@@ -107,17 +110,31 @@ angular.module('mmr.controllers')
   };
 
   // scroll related
-  var lastTop;
+  var lastTops = [];
   $scope.getScrollPosition = function() {
     var moveData = $ionicScrollDelegate.getScrollPosition().top;
-    if(lastTop) {
-      if(moveData > lastTop) {
+    if(lastTops.length < 3) {
+      lastTops.push(moveData);
+    } else {
+      lastTops.shift();
+      lastTops.push(moveData);
+    }
+
+    if(lastTops.length === 3) {
+      if(lastTops[2] >= lastTops[0]) {
         $rootScope.$root.ui.tabsHidden = true;
+        $scope.optionsBarOpened = false;
       } else {
         $rootScope.$root.ui.tabsHidden = false;
+        $scope.optionsBarOpened = true;
       }
     }
-    lastTop = moveData;
+
+    if(moveData <= 0) {
+      $rootScope.$root.ui.tabsHidden = false;
+      $scope.optionsBarOpened = true;
+    }
+
     $scope.$apply(function(){
       if(moveData > 150){
         $scope.showBacktoTopBtn=true;

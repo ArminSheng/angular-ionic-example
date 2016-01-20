@@ -7,37 +7,13 @@
         <input type="search" placeholder="搜索商品">
       </label>
       <!-- options -->
-      <a class="button button-icon icon ion-android-more-horizontal m-cat-options" ng-click="doCheckOptions()">
-      </a>
+      <!-- <a class="button button-icon icon ion-android-more-horizontal m-cat-options" ng-click="doCheckOptions()">
+      </a> -->
     </div>
   </ion-nav-title>
+  <ion-content
+
   <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" on-scroll="getScrollPosition()">
-
-    <!-- sorting & filters -->
-    <div class="m-cat-filters">
-      <div class="row row-no-padding m-cat-filters-row">
-        <div class="col col-50 m-cat-filters-col-border">
-          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
-            {{ sorters[selectedSortIndex].text }}<span class="ion-chevron-down m-cat-down-icon"></span>
-          </a>
-        </div>
-        <div class="col col-50">
-          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
-            筛选<span class="ion-chevron-down m-cat-down-icon"></span>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- filter options -->
-    <div class="m-cat-filters-options">
-      <div class="list m-cat-filters-options-list" ng-class="{'activated': sortActivated}">
-        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
-          {{ sorter.text }}
-          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedSortIndex === $index"></i>
-        </a>
-      </div>
-    </div>
 
     <!-- item list area -->
     <div class="m-cat-main" ng-class="{'expanded': menuOpened}">
@@ -117,6 +93,34 @@
       </div>
     </div>
   </ion-content>
+
+  <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+    <!-- sorting & filters -->
+    <div class="m-cat-filters">
+      <div class="row row-no-padding m-cat-filters-row">
+        <div class="col col-50 m-cat-filters-col-border">
+          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
+            {{ sorters[selectedSortIndex].text }}<span class="ion-chevron-down m-cat-down-icon"></span>
+          </a>
+        </div>
+        <div class="col col-50">
+          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
+            筛选<span class="ion-chevron-down m-cat-down-icon"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- filter options -->
+    <div class="m-cat-filters-options">
+      <div class="list m-cat-filters-options-list" ng-class="{'activated': sortActivated}">
+        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
+          {{ sorter.text }}
+          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedSortIndex === $index"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 
   <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">
     <img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>

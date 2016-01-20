@@ -3,6 +3,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
 .constant('REST_BASE', 'http://192.168.2.116:8081/mmr/')
+.constant('API_BASE', 'http://demo.0lz.net/mmrou/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
   this.data = {

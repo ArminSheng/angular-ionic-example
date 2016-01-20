@@ -303,6 +303,7 @@
 .m-cat-main {
     position: relative;
     left: 0;
+    top: 44px;
 
     /*animation part*/
     -webkit-transition: all 0.2s ease-in-out;
@@ -385,6 +386,22 @@
 
 .m-cat-main.expanded {
     left: 65px;
+}
+
+.m-cat-options-bar {
+    position: relative;
+    top: 44px;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.m-cat-options-bar.downing {
+    top: 0;
 }
 
 

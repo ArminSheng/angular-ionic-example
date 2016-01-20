@@ -31,9 +31,22 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyCoupon();
   };
 
+  $scope.doAddressMgmt = function() {
+    mmrEventing.doOpenMyAddressMgmt();
+  };
+
   // ----------------------
   // event handler
   // ----------------------
+
+  // address mgmt
+  $scope.$on('eventOpenAddressMgmt', function($event, data) {
+    if($rootScope.modals.addressModal && !$rootScope.modals.addressModal.scope.$$destroyed) {
+      $rootScope.modals.addressModal.show();
+    } else {
+      mmrModal.createAddressModal($scope);
+    }
+  });
 
   // config
   $scope.$on('eventOpenConfig', function($event, data) {
@@ -181,6 +194,7 @@ angular.module('mmr.controllers')
   $rootScope.$root.ui.tabsHidden = true;
 
   $scope.doOpenPersonalInfo = function() {
+    console.log('doOpenPersonalInfo');
     if($rootScope.modals.pInfoModal && !$rootScope.modals.pInfoModal.scope.$$destroyed) {
       // directly open it
       $rootScope.modals.pInfoModal.show();
@@ -210,7 +224,7 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenAboutUs = function() {
-
+    console.log('doOpenAboutUs');
   };
 
 

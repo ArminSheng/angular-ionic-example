@@ -31,7 +31,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
   };
 }])
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -45,6 +45,16 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
+    }
+
+    if(ionic.Platform.isAndroid()) {
+      $rootScope.$root.platform = 'android';
+    } else if(ionic.Platform.isIOS()) {
+      if(window.cordova) {
+        $rootScope.$root.platform = 'ios';
+      } else {
+        $rootScope.$root.platform = 'browser';
+      }
     }
   });
 })

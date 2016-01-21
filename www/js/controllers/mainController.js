@@ -42,7 +42,10 @@ angular.module('mmr.controllers')
     // UI related
     ui: {
       tabsHidden: false
-    }
+    },
+
+    // platform related
+    platform: undefined
   };
 
   $rootScope.modals = $rootScope.modals || {};

@@ -70,7 +70,7 @@
     <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
         <!-- menu itself -->
-        <div class="m-cat-menu-bar">
+        <div class="m-cat-menu-bar" ng-class="{'ios': $root.platform === 'ios'}">
           <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return">
             <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
           </div>

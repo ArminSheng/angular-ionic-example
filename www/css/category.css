@@ -193,6 +193,14 @@
     width: 36px;
 }
 
+.platform-ios.platform-cordova .has-header.m-cat-menu-content {
+    top: 107px;
+}
+
+.platform-ios.platform-cordova .has-header.m-cat-menu-content.downing {
+    top: 65px;
+}
+
 .m-cat-menu-content.activated {
     width: 100px;
 }
@@ -411,7 +419,7 @@
 }
 
 .m-cat-options-bar.ios {
-    top: 65px
+    top: 64px
 }
 
 .m-cat-options-bar.downing {

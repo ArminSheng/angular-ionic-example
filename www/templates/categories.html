@@ -65,7 +65,7 @@
   </ion-content>
 
   <!-- categories menu -->
-  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}" scrollbar-x="false" scrollbar-y="false" calc-height>
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened, 'downing': !optionsBarOpened}" scrollbar-x="false" scrollbar-y="false" calc-height>
     <!-- category menu -->
     <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
@@ -90,7 +90,7 @@
     </div>
   </ion-content>
 
-  <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+  <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened, 'ios': $root.platform === 'ios'}">
     <!-- sorting & filters -->
     <div class="m-cat-filters">
       <div class="row row-no-padding m-cat-filters-row">

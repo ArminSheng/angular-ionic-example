@@ -65,7 +65,7 @@
   </ion-content>
 
   <!-- categories menu -->
-  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}" scrollbar-x="false" scrollbar-y="false" >
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened}" scrollbar-x="false" scrollbar-y="false" calc-height>
     <!-- category menu -->
     <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
@@ -79,17 +79,13 @@
               {{ item.name }}
             </div>
           </div>
-          <div class="m-cat-menu-bar-item m-cat-menu-bar-hide" ng-if="menuOpened" on-tap="swipeMenu(false)">
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-hide" on-tap="swipeMenu(false)">
             <div class="m-cat-menu-hide-wrapper">
               <span class="ion-chevron-left"></span>
               <span class="m-cat-menu-bar-hide-text">关闭</span>
             </div>
           </div>
         </div>
-      </div>
-      <!-- icon hint -->
-      <div class="m-cat-menu-hint" on-tap="swipeMenu(true)">
-        <i class="icon ion-chevron-right"></i>
       </div>
     </div>
   </ion-content>
@@ -120,6 +116,11 @@
         </a>
       </div>
     </div>
+  </div>
+
+  <!-- icon hint -->
+  <div class="m-cat-menu-hint" on-tap="swipeMenu(true)" ng-class="{'activated': menuOpened}">
+    <i class="icon ion-chevron-right"></i>
   </div>
 
   <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">

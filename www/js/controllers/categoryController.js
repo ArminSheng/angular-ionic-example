@@ -167,6 +167,13 @@ angular.module('mmr.controllers')
   localStorageService.bind($scope, 'attributes');
   localStorageService.bind($scope, 'classifications');
 
+  // watchers
+  $scope.$watch(function(scope) {
+    return scope.classifications[scope.currentLevel];
+  }, function(newValue, oldValue, scope) {
+    $('.m-cat-menu-content .scroll').height((50 * (newValue.length + 2)) + 'px');
+  });
+
   // event handlers
 
   // private functions

@@ -1,6 +1,6 @@
 angular.module('mmr.services')
 
-.factory('mmrAreaFactory', ['$http', 'restService', 
+.factory('mmrAreaFactory', ['$http', 'restService',
   function($http, restService) {
 
   return {
@@ -19,7 +19,7 @@ angular.module('mmr.services')
         url: restService['API_REST'] + 'c_salesarea/platform',
         method: 'GET',
         params: {
-          'p': platform || 2  // 1 represents the moblie app
+          'p': platform || 2  // 2 represents the moblie app
         }
       });
     }

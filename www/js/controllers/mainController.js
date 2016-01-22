@@ -38,6 +38,9 @@ angular.module('mmr.controllers')
 
     // network related
     network: true,
+    networkDownStates: {
+
+    },
 
     // UI related
     ui: {

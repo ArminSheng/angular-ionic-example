@@ -8,6 +8,7 @@ angular.module('mmr.services', [])
 
     networkCheck: function() {
       console.log('check network status');
+      var self = this;
       $http({
         url: restService['API_REST'] + 'c_heartbeat/',
         method: 'GET'
@@ -16,10 +17,14 @@ angular.module('mmr.services', [])
           // network is normal
         } else {
           if($rootScope.$root.network) {
-            this.networkCheck();
+            self.networkDown();
           }
         }
-      })
+      }, function(err) {
+        if($rootScope.$root.network) {
+          self.networkDown();
+        }
+      });
     },
 
     networkDown: function() {

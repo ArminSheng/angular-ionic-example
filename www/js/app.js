@@ -59,12 +59,22 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
   });
 })
 
-.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider',
-  function($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider) {
+.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider', '$provide',
+  function($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider, $provide) {
   $ionicConfigProvider.tabs.style('standard');
   $ionicConfigProvider.tabs.position('bottom');
 
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+
+  // add default global timeout
+  $provide.decorator('$httpBackend', function($delegate) {
+    return function (splat) {
+      if (typeof timeout === 'undefined') {
+        arguments[5] = 5000; // Default timeout in milliseconds
+      }
+      return $delegate.apply($delegate, arguments);
+    }
+  });
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -88,20 +98,6 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
         templateUrl: 'templates/home.html',
         controller: 'HomeCtrl',
         resolve: {
-          banners: function(mmrAreaFactory) {
-            return mmrAreaFactory.banners().then(function(res) {
-              return res;
-            }, function(err) {
-              return err;
-            });
-          },
-          areas: function(mmrAreaFactory) {
-            return mmrAreaFactory.areas().then(function(res) {
-              return res;
-            }, function(err) {
-              return err;
-            });
-          },
           seckilling: function(mmrItemFactory) {
             return mmrItemFactory.seckilling().then(function(res) {
               return res;

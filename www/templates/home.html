@@ -20,7 +20,7 @@
 
     <div ng-if="$root.network">
       <!-- slider -->
-      <ion-slide-box on-slide-changed="slideHasChanged($index)">
+      <ion-slide-box on-slide-changed="slideHasChanged($index)" delegate-handle="bannersSlideBox">
         <ion-slide ng-repeat="banner in banners track by $index">
           <div>
             <img class="m-slide-image" ng-src="{{ banner.path }}"/>

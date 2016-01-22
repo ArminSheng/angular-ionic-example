@@ -6,6 +6,7 @@
     top: -3px;
     float: right;
     position: absolute;
+    min-width: 6px;
 }
 
 .m-btn-geo {
@@ -75,7 +76,7 @@
 .m-home-nofitication {
     position: relative;
     top: 4px;
-    left: 9px;
+    left: 12px;
 }
 
 /*mine view*/
@@ -87,7 +88,7 @@
 .m-mine-notification {
     position: relative;
     top: 4px;
-    left: 10px;
+    left: 8px;
 }
 
 .m-mine-pinfo {
@@ -101,11 +102,11 @@
 }
 
 .m-mine-phone {
-    font-size: 14px;        
+    font-size: 14px;
 }
 
 .m-mine-pinfo-link {
-    font-size: 12px;        
+    font-size: 12px;
 }
 
 .row-no-padding .col.m-mine-avatar {

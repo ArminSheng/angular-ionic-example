@@ -1,6 +1,7 @@
 <div class="m-order-list-container">
 
   <div class="m-order-list-item" ng-repeat="item in items track by $index">
+    <!-- order title -->
     <div class="row m-order-item-title">
       <div class="col col-67 m-order-item-id">
         {{ item.orderId }}
@@ -17,7 +18,7 @@
       </div>
       <div class="list">
         <a class="item item-thumbnail-left m-order-suborder-item" ng-repeat="subItem in subOrder.items track by $index">
-          <img ng-src="{{ subItem.imagePath }}"/>
+          <img ng-src="{{ subItem.imagePath }}">
           <h3>{{ subItem.name }}</h3>
           <p>属性：{{ subItem.attribute }}</p>
           <div class="m-order-suborder-item-right">
@@ -30,6 +31,38 @@
           </div>
         </a>
       </div>
+    </div>
+
+    <!-- order summary area -->
+    <div class="row row-no-padding m-order-item-summary">
+      <div class="col col-offset-33 col-67">
+        <div class="row row-no-padding">
+          <div class="col col-offset-20 col-50">
+            订单总金额：
+          </div>
+          <div class="col col-33 m-order-item-total-amount">
+            ¥ {{ item.price }}
+          </div>
+        </div>
+        <div class="row row-no-padding">
+          <div class="col col-offset-20 col-50">
+            实际金额合计：
+          </div>
+          <div class="col col-33 m-order-item-total-amount">
+            ¥ {{ item.price }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- order operations -->
+    <div class="m-order-item-ops">
+      <button class="button button-small button-default">
+        查看订单
+      </button>
+      <button class="button button-small button-energized">
+        去付款
+      </button>
     </div>
   </div>
 

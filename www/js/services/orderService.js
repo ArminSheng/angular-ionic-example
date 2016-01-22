@@ -53,6 +53,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -60,6 +61,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -67,6 +69,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,
@@ -80,6 +83,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -87,6 +91,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -94,6 +99,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,
@@ -144,6 +150,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -151,6 +158,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -158,6 +166,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,
@@ -171,6 +180,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -178,6 +188,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -185,6 +196,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,
@@ -235,6 +247,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -242,6 +255,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -249,6 +263,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,
@@ -262,6 +277,7 @@ angular.module('mmr.services')
           items: [
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 190,
               quantity: 3,
@@ -269,6 +285,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '鲜品',
               price: 200,
               quantity: 4,
@@ -276,6 +293,7 @@ angular.module('mmr.services')
             },
             {
               name: '苏南草象腿950g',
+              imagePath: 'img/item/sample.png',
               attribute: '冻品',
               price: 210,
               quantity: 5,

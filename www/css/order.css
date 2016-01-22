@@ -42,3 +42,21 @@
 .m-order-suborder-item-right .m-order-suborder-item-unit {
   text-align: right;
 }
+
+.m-order-item-summary {
+  text-align: right;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.m-order-item-summary .m-order-item-total-amount {
+  text-align: left;
+}
+
+.m-order-item-summary .row {
+  padding: 5px;
+}
+
+.m-order-item-ops {
+  text-align: right;
+  padding: 10px;
+}

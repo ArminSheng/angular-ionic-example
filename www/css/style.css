@@ -100,6 +100,14 @@
     background-repeat: no-repeat;
 }
 
+.m-mine-phone {
+    font-size: 14px;        
+}
+
+.m-mine-pinfo-link {
+    font-size: 12px;        
+}
+
 .row-no-padding .col.m-mine-avatar {
     padding: 20px;
 }
@@ -110,13 +118,11 @@
 
 .button-small.button-clear.m-mine-pinfo-link {
     color: white;
-    font-size: 16px;
 }
 
 .row-no-padding .col .m-mine-detail {
-    padding: 42px 0;
+    padding: 32px 0;
     position: relative;
-    right: 16px;
 }
 
 .row-no-padding .col .m-mine-detail.m-mine-detail-login {
@@ -134,8 +140,18 @@
 
 .m-mine-phone {
     padding: 0 6px;
-    font-size: 16px;
 }
+
+@media screen and (min-width: 350px) {
+    .m-mine-phone, .m-mine-pinfo-link {
+        font-size: 16px;
+    }
+
+    .row-no-padding .col .m-mine-detail {
+        padding: 42px 0;
+    }
+}
+
 /*my pinfo area end*/
 
 /*my order area start*/

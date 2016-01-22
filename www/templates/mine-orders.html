@@ -1,5 +1,5 @@
 <ion-view view-title="我的订单">
-  <ion-content class="m-mine-config">
+  <ion-content class="m-mine-orders">
 
     <div class="m-filter-tabs">
       <div class="m-filter-item" ng-class="{'active': tab == 0}" ng-click="switchTab(0)">
@@ -20,6 +20,10 @@
       <div class="m-filter-item" ng-class="{'active': tab == 5}" ng-click="switchTab(5)">
         <span>售后中</span>
       </div>
+    </div>
+
+    <div class="m-order-list">
+      <order-list items="orders"></order-list>
     </div>
 
   </ion-content>

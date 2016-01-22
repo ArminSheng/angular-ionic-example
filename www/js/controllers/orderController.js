@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('OrderCtrl', ['$scope', '$rootScope', '$stateParams', 'localStorageService',
-  function($scope, $rootScope, $stateParams, localStorageService) {
+.controller('OrderCtrl', ['$scope', '$rootScope', '$stateParams', 'localStorageService', 'mmrOrderFactory',
+  function($scope, $rootScope, $stateParams, localStorageService, mmrOrderFactory) {
 
   $rootScope.$root.ui.tabsHidden = true;
 
@@ -13,7 +13,11 @@ angular.module('mmr.controllers')
 
   init();
   function init() {
+    // init orders
+    mmrOrderFactory.orders();
+
     // cache bindings
+    localStorageService.bind($scope, 'orders');
   }
 
 }]);

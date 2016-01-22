@@ -1,0 +1,44 @@
+.m-mine-orders {
+  background-color: #e8e8e8;
+}
+
+.m-mine-orders.has-tabs {
+  bottom: 0;
+}
+
+.m-order-list-container {
+
+}
+
+.m-order-list {
+  position: relative;
+  bottom: 10px;
+}
+
+.m-order-list-item {
+  margin: 10px 0;
+  background-color: #fff;
+}
+
+.m-order-item-status {
+  text-align: right;
+}
+
+.m-order-item-title.row {
+  padding: 5px 5px 0 5px;
+  border-bottom: 2px solid #8e8e8e;
+}
+
+.m-order-suborder-title {
+  padding: 5px 10px;
+}
+
+.m-order-suborder-item-right {
+  position: absolute;
+  right: 10px;
+  top: 9px;
+}
+
+.m-order-suborder-item-right .m-order-suborder-item-unit {
+  text-align: right;
+}

@@ -31,13 +31,17 @@ angular.module('mmr.controllers')
 
   // scroll related
   $scope.onScroll = function() {
-    mmrScrollService.onScroll('orderScroll', $scope, function() {
-      console.log('downing');
+    var scrollStatus = mmrScrollService.onScroll('orderScroll', $scope, function(scope) {
+      // console.log('downing');
     }, function() {
-      console.log('uping');
+      // console.log('uping');
     }, function() {
-      console.log('negative');
-    })
+      // console.log('negative');
+    });
+
+    $scope.$apply(function() {
+      $scope.scrollStatus = scrollStatus;
+    });
   };
 
   init();

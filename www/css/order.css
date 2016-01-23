@@ -1,9 +1,62 @@
 .m-mine-orders {
   background-color: #e8e8e8;
+  top: 85px;
+
+  /*animation part*/
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.m-mine-orders.downing {
+  top: 42px;
+}
+
+.platform-ios.platform-cordova .has-header.m-mine-orders {
+  top: 105px;
+}
+
+.platform-ios.platform-cordova .has-header.m-mine-orders.downing {
+  top: 0;
 }
 
 .m-mine-orders.has-tabs {
   bottom: 0;
+}
+
+/*filters anim*/
+.m-mine-orders-filters {
+  top: 63px;
+}
+
+.m-mine-orders-filters.downing {
+  top: 0;
+}
+
+.platform-ios.platform-cordova .m-mine-orders-filters {
+  top: 63px;
+}
+
+.platform-ios.platform-cordova .m-mine-orders-filters.downing {
+  top: 20px;
+}
+
+.m-mine-orders-filters {
+  top: 43px;
+  position: relative;
+
+  /*animation part*/
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.m-mine-orders-filters.downing {
+  bottom: 43px;
 }
 
 .m-order-list-container {

@@ -28,13 +28,17 @@ angular.module('mmr.services')
           lastTops.push(moveData);
         }
 
+        var status = 'downing';
+
         if(lastTops.length === 3) {
           // when downing
           if(lastTops[2] >= lastTops[0]) {
+            status = 'downing';
             if(typeof(onDowning) === 'function') {
               onDowning(scope);
             }
           } else { // when uping
+            status = 'uping';
             if(typeof(onUping) === 'function') {
               onUping(scope);
             }
@@ -43,10 +47,13 @@ angular.module('mmr.services')
 
         // when negative
         if(moveData <= 0) {
+          status = 'negative';
           if(typeof(onNegative) === 'function') {
             onNegative(scope);
           }
         }
+
+        return status;
       }
     }
 

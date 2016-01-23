@@ -1,11 +1,13 @@
 <ion-view view-title="我的订单">
-  <ion-content class="m-mine-orders" delegate-handle="orderScroll" on-scroll="onScroll()">
-
-    <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>
+  <ion-content class="m-mine-orders" delegate-handle="orderScroll" on-scroll="onScroll()" scroll-event-interval="10" ng-class="scrollStatus">
 
     <div class="m-order-list">
       <order-list items="orders" search="search"></order-list>
     </div>
 
   </ion-content>
+
+  <div class="m-mine-orders-filters" ng-class="scrollStatus">
+    <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>
+  </div>
 </ion-view>

@@ -6,7 +6,8 @@ angular.module('mmr.directives')
     retrict: 'E',
     replace: true,
     scope: {
-      items: '='
+      items: '=',
+      search: '='
     },
     templateUrl: 'templates/directives/order-list.html',
     link: function(scope, element, attrs) {

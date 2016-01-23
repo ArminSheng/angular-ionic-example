@@ -1,6 +1,6 @@
 <div class="m-order-list-container">
 
-  <div class="m-order-list-item" ng-repeat="item in items track by $index">
+  <div class="m-order-list-item" ng-repeat="item in items | filter: search track by $index">
     <!-- order title -->
     <div class="row m-order-item-title">
       <div class="col col-67 m-order-item-id">

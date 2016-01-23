@@ -1,5 +1,5 @@
 <ion-view view-title="我的订单">
-  <ion-content class="m-mine-orders">
+  <ion-content class="m-mine-orders" delegate-handle="orderScroll">
 
     <div class="m-filter-tabs">
       <div class="m-filter-item" ng-class="{'active': tab == 0}" ng-click="switchTab(0)">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="m-order-list">
-      <order-list items="orders"></order-list>
+      <order-list items="orders" search="search"></order-list>
     </div>
 
   </ion-content>

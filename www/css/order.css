@@ -55,10 +55,6 @@
   transition: all 0.2s ease-in-out;
 }
 
-.m-mine-orders-filters.downing {
-  bottom: 43px;
-}
-
 .m-order-list-container {
 
 }

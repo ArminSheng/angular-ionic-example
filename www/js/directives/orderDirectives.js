@@ -58,6 +58,22 @@ angular.module('mmr.directives')
 
 }])
 
+.directive('orderSubList', [function() {
+
+  // TODO: add replace: true will cause empty rendering, WHY?
+  return {
+    retrict: 'E',
+    scope: {
+      orders: '='
+    },
+    templateUrl: 'templates/directives/order/order-sub-list.html',
+    link: function(scope, element, attrs) {
+      console.log(scope);
+    }
+  };
+
+}])
+
 .directive('orderDetailBanner', [function() {
 
   return {

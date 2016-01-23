@@ -12,26 +12,7 @@
     </div>
 
     <!-- suborders below -->
-    <div class="m-order-list-suborder" ng-repeat="subOrder in item.subOrders track by $index">
-      <div class="m-order-suborder-title">
-        {{ subOrder.shopName }} &gt;
-      </div>
-      <div class="list">
-        <a class="item item-thumbnail-left m-order-suborder-item" ng-repeat="subItem in subOrder.items track by $index">
-          <img ng-src="{{ subItem.imagePath }}">
-          <h3>{{ subItem.name }}</h3>
-          <p>属性：{{ subItem.attribute }}</p>
-          <div class="m-order-suborder-item-right">
-            <h3 class="m-order-suborder-item-price">
-              ¥ {{ subItem.price }}
-            </h3>
-            <p class="m-order-suborder-item-unit">
-              {{ subItem.quantity }}{{ subItem.unitName }}
-            </p>
-          </div>
-        </a>
-      </div>
-    </div>
+    <order-sub-list orders="item.subOrders"></order-sub-list>
 
     <!-- order summary area -->
     <div class="row row-no-padding m-order-item-summary">

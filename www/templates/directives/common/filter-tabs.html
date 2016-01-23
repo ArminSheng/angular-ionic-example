@@ -1,0 +1,5 @@
+<div class="m-filter-tabs">
+  <div class="m-filter-item" ng-class="{'active': currentTab == $index}" ng-click="switchTab($index)" ng-repeat="tab in tabs track by $index">
+    <span>{{ tab.text }}</span>
+  </div>
+</div>

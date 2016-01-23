@@ -1,22 +1,43 @@
 angular.module('mmr.controllers')
 
-.controller('OrderCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', '$stateParams', 'localStorageService', 'mmrOrderFactory',
-  function($scope, $rootScope, $ionicScrollDelegate, $stateParams, localStorageService, mmrOrderFactory) {
+.controller('OrderCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', '$stateParams', 'localStorageService', 'mmrScrollService', 'mmrOrderFactory',
+  function($scope, $rootScope, $ionicScrollDelegate, $stateParams, localStorageService, mmrScrollService, mmrOrderFactory) {
 
   $rootScope.$root.ui.tabsHidden = true;
 
   $scope.tab = $stateParams.orderType || 0;
 
+  // define tabs
+  $scope.tabs = [
+    { text: '全部' },
+    { text: '待付款' },
+    { text: '待发货' },
+    { text: '待收货' },
+    { text: '待自提' },
+    { text: '售后中' }
+  ];
+
   // search template
   $scope.search = $scope.search || {};
 
-  $scope.switchTab = function(tabIdx) {
-    $scope.tab = tabIdx;
+  $scope.switchTab = function(tab) {
+    $scope.tab = tab;
 
-    $scope.search.status = getStatus(tabIdx);
+    $scope.search.status = getStatus(tab);
 
     // recalculate the height
     $ionicScrollDelegate.$getByHandle('orderScroll').resize();
+  };
+
+  // scroll related
+  $scope.onScroll = function() {
+    mmrScrollService.onScroll('orderScroll', $scope, function() {
+      console.log('downing');
+    }, function() {
+      console.log('uping');
+    }, function() {
+      console.log('negative');
+    })
   };
 
   init();

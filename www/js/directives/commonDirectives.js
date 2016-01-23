@@ -25,4 +25,24 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('filterTabs', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      tabs: '=',
+      currentTab: '@',
+      action: '&'
+    },
+    templateUrl: 'templates/directives/common/filter-tabs.html',
+    link: function(scope, element, attrs) {
+      scope.switchTab = function(tab) {
+        scope.action({'tab': tab});
+      };
+    }
+  };
+
 }]);

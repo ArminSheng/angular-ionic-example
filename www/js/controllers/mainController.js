@@ -3,11 +3,13 @@ angular.module('mmr.controllers')
 .controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory',
   function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory) {
 
+  // back related
   $scope.myGoBack = function() {
     $rootScope.$root.ui.tabsHidden = false;
     $ionicHistory.goBack();
   };
 
+  // system wide configuration and data
   $rootScope.$root = {
     // notification related
     notificationCount: 5,

@@ -321,14 +321,14 @@ angular.module('mmr.services')
         scope: scope,
         animation: 'slide-in-right'
       }).then(function(modal) {
-        $rootScope.modals.orderDetailModal = modal;
-        $rootScope.modals.orderDetailModal.show();
+        $rootScope.$root.modals.orderDetailModal = modal;
+        $rootScope.$root.modals.orderDetailModal.show();
 
         // bind data
-        $rootScope.modals.orderDetailModal.item = item;
+        $rootScope.$root.modals.orderDetailModal.item = item;
 
         // methods
-        $rootScope.modals.orderDetailModal.doHide = function() {
+        $rootScope.$root.modals.orderDetailModal.doHide = function() {
           modal.hide();
         };
       });

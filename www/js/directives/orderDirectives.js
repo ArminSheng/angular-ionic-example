@@ -46,11 +46,11 @@ angular.module('mmr.directives')
 
       // event handlers
       $scope.$on('eventOpenOrderDetail', function($event, data) {
-        if($rootScope.modals.orderDetailModal && !$rootScope.modals.orderDetailModal.scope.$$destroyed) {
+        if($rootScope.$root.modals.orderDetailModal && !$rootScope.$root.modals.orderDetailModal.scope.$$destroyed) {
           // assign the passed in order item
-          $rootScope.modals.orderDetailModal.item = data;
+          $rootScope.$root.modals.orderDetailModal.item = data;
 
-          $rootScope.modals.orderDetailModal.show();
+          $rootScope.$root.modals.orderDetailModal.show();
         } else {
           mmrModal.createOrderDetailModal($scope, data);
         }

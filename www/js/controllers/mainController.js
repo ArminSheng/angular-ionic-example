@@ -50,7 +50,12 @@ angular.module('mmr.controllers')
     },
 
     // platform related
-    platform: undefined
+    platform: undefined,
+
+    // important modals
+    modals: {
+
+    }
   };
 
   $rootScope.modals = $rootScope.modals || {};

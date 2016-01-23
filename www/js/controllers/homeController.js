@@ -75,7 +75,7 @@ angular.module('mmr.controllers')
   }
 
   $timeout(function(){
-    // return false; // <--- comment this to "fix" the problem
+    return false; // <--- comment this to "fix" the problem
     var sv = $ionicScrollDelegate.$getByHandle('seckilling-horizontal').getScrollView();
 
     var container = sv.__container;

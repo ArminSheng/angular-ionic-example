@@ -57,22 +57,22 @@
 
     <!-- order operations -->
     <div class="m-order-item-ops">
-      <button class="button button-small button-default" ng-if="item.status === 2 || item.status === 3">
+      <button class="button button-small button-default" ng-if="item.status === 2 || item.status === 3" ng-click="doApplyService(item)">
         申请售后
       </button>
-      <button class="button button-small button-default">
+      <button class="button button-small button-default" ng-click="doCheckOrder(item)">
         查看订单
       </button>
-      <button class="button button-small button-energized" ng-if="item.status === 0">
+      <button class="button button-small button-energized" ng-if="item.status === 0" ng-click="doPayOrder(item)">
         去付款
       </button>
-      <button class="button button-small button-energized" ng-if="item.status === 2 || item.status === 3">
+      <button class="button button-small button-energized" ng-if="item.status === 2 || item.status === 3" ng-click="doBuyAgain(item)">
         再次购买
       </button>
-      <button class="button button-small button-energized" ng-if="item.status === 3">
+      <button class="button button-small button-energized" ng-if="item.status === 3" ng-click="doCheckSelfCode(item)">
         查看自提码
       </button>
-      <button class="button button-small button-energized" ng-if="item.status === 6">
+      <button class="button button-small button-energized" ng-if="item.status === 6" ng-click="doCheckServiceDetail(item)">
         售后详情
       </button>
     </div>

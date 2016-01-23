@@ -313,6 +313,25 @@ angular.module('mmr.services')
           });
         }
       });
+    },
+
+    // order detail modal view
+    createOrderDetailModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/order-detail.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.modals.orderDetailModal = modal;
+        $rootScope.modals.orderDetailModal.show();
+
+        // bind data
+        $rootScope.modals.orderDetailModal.item = item;
+
+        // methods
+        $rootScope.modals.orderDetailModal.doHide = function() {
+          modal.hide();
+        };
+      });
     }
 
   };

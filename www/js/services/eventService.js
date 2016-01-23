@@ -43,6 +43,10 @@ angular.module('mmr.services')
     // inside category view
     doOpenFilters: function(data) {
       $rootScope.$broadcast("eventOpenFilters", data);
+    },
+
+    doOpenOrderDetail: function(data) {
+      $rootScope.$broadcast("eventOpenOrderDetail", data);
     }
 
   };

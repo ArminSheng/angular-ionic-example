@@ -1,0 +1,26 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modals.orderDetailModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">
+      订单详情
+    </h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modals.orderDetailModal.doOpenHeaderMenu()">
+        <span class="icon ion-more m-header-icon"></span>
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="m-modal-order-detail">
+
+    Test
+    {{ modals | json }}
+
+  </ion-content>
+
+</ion-modal-view>

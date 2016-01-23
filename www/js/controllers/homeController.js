@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$ionicHistory', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'seckilling', 'homeCommodity',
-  function($scope, $rootScope, $q, $ionicHistory, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, seckilling, homeCommodity) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'seckilling', 'homeCommodity',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, seckilling, homeCommodity) {
 
     // use backup images and hint the network error
     // mmrCommonService.networkDown();

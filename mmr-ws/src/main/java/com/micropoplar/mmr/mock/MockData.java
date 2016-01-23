@@ -56,7 +56,7 @@ public class MockData {
 
         for (int i = 0; i < size; i++) {
             results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
-                    "img/item/sample.png", 12.0, 8.8, "箱", next, null));
+                    "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(), null));
         }
 
         return results;
@@ -70,7 +70,8 @@ public class MockData {
 
         for (int i = 0; i < size; i++) {
             results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
-                    "img/item/sample.png", 12.0, 8.8, "箱", next, (i + 1) * 1000));
+                    "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(),
+                    (i + 1) * 1000));
         }
 
         return results;
@@ -84,7 +85,8 @@ public class MockData {
 
         for (int i = 0; i < size; i++) {
             results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技",
-                    "img/item/sample.png", 12.0, 8.8, "箱", next, (i + 1) * 1000));
+                    "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(),
+                    (i + 1) * 1000));
         }
 
         return results;

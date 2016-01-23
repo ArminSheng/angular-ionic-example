@@ -1,6 +1,5 @@
 package com.micropoplar.mmr.vo;
 
-import java.util.Date;
 
 public class ItemVo {
 
@@ -12,7 +11,7 @@ public class ItemVo {
     private Double oprice;
     private Double cprice;
     private String unitName;
-    private Date deadline; // only exists for seckilling item
+    private Long deadline; // only exists for seckilling item
     private Integer salesAmount;
 
     public ItemVo() {
@@ -21,7 +20,7 @@ public class ItemVo {
 
     public ItemVo(Integer id, Integer type, String title, String brand,
             String imagePath, double oprice, double cprice, String unitName,
-            Date deadline, Integer salesAmount) {
+            Long deadline, Integer salesAmount) {
         super();
         this.id = id;
         this.type = type;
@@ -75,11 +74,11 @@ public class ItemVo {
         this.unitName = unitName;
     }
 
-    public Date getDeadline() {
+    public Long getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(Long deadline) {
         this.deadline = deadline;
     }
 

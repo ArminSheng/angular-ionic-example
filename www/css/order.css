@@ -109,3 +109,24 @@
   text-align: right;
   padding: 10px;
 }
+
+/*order detail modal view*/
+.m-order-detail-banner img {
+  width: 100%;
+}
+
+.m-order-detail-address {
+  border-bottom: 3px solid #e8e8e8;
+}
+
+.m-order-detail-address-icon, .m-order-detail-address-receipt-btn {
+  padding: 4% 2%
+}
+
+.m-order-detail-address-icon img {
+  width: 100%;
+}
+
+.m-order-detail-address-row1 {
+  padding-bottom: 5px;
+}

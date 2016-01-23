@@ -46,6 +46,25 @@ angular.module('mmr.services')
       mentioningNumber: '888888',
       earnest: 0,  // 预付金额
 
+      // addresses
+      addresses: {
+        normal: {
+          receiver: 'JPX',
+          cellphone: '18501751020',
+          street: '上海市绿心8888'
+        },
+        receipt: {
+          receiver: 'JRX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        quarantine: {
+          receiver: 'ZZY',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        }
+      },
+
       subOrders: [
         {
           shopId: 123,
@@ -142,6 +161,25 @@ angular.module('mmr.services')
       payDeadline: '2016-01-01 13:12:12',
       mentioningNumber: '888888',
       earnest: 0,  // 预付金额
+
+      // addresses
+      addresses: {
+        normal: {
+          receiver: 'JPX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        receipt: {
+          receiver: 'JRX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        quarantine: {
+          receiver: 'ZZY',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        }
+      },
 
       subOrders: [
         {
@@ -240,6 +278,25 @@ angular.module('mmr.services')
       mentioningNumber: '888888',
       earnest: 0,  // 预付金额
 
+      // addresses
+      addresses: {
+        normal: {
+          receiver: 'JPX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        receipt: {
+          receiver: 'JRX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        quarantine: {
+          receiver: 'ZZY',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        }
+      },
+
       subOrders: [
         {
           shopId: 123,
@@ -337,6 +394,25 @@ angular.module('mmr.services')
       mentioningNumber: '888888',
       earnest: 0,  // 预付金额
 
+      // addresses
+      addresses: {
+        normal: {
+          receiver: 'JPX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        receipt: {
+          receiver: 'JRX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        quarantine: {
+          receiver: 'ZZY',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        }
+      },
+
       subOrders: [
         {
           shopId: 123,
@@ -433,6 +509,25 @@ angular.module('mmr.services')
       payDeadline: '2016-01-01 13:12:12',
       mentioningNumber: '888888',
       earnest: 0,  // 预付金额
+
+      // addresses
+      addresses: {
+        normal: {
+          receiver: 'JPX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        receipt: {
+          receiver: 'JRX',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        },
+        quarantine: {
+          receiver: 'ZZY',
+          cellphone: '18501751020',
+          street: '上海市普陀区曹杨路绿地和创中心8888'
+        }
+      },
 
       subOrders: [
         {

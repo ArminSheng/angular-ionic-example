@@ -1,5 +1,10 @@
 angular.module('mmr.directives')
 
+.run(['$templateCache', function($templateCache) {
+  $templateCache.put('templates/directives/order/order-detail-banner.html',
+    '<div class="m-order-detail-banner"><img ng-src="{{ ::bannerPath }}"/></div>');
+}])
+
 .directive('orderList', [function() {
 
   return {
@@ -46,15 +51,67 @@ angular.module('mmr.directives')
 
       // event handlers
       $scope.$on('eventOpenOrderDetail', function($event, data) {
-        if($rootScope.$root.modals.orderDetailModal && !$rootScope.$root.modals.orderDetailModal.scope.$$destroyed) {
-          // assign the passed in order item
-          $rootScope.$root.modals.orderDetailModal.item = data;
-
-          $rootScope.$root.modals.orderDetailModal.show();
-        } else {
-          mmrModal.createOrderDetailModal($scope, data);
-        }
+        mmrModal.createOrderDetailModal($scope, data);
       });
+    }
+  };
+
+}])
+
+.directive('orderDetailBanner', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      status: '@'
+    },
+    templateUrl: 'templates/directives/order/order-detail-banner.html',
+    link: function(scope, element, attrs) {
+      scope.bannerPath = (function() {
+        switch(scope.status) {
+          case '0':
+            return 'img/common/status-wait-pay.png';
+          case '1':
+            return 'img/common/status-wait-send.png';
+          case '2':
+            return 'img/common/status-wait-receive.png';
+          case '3':
+            return 'img/common/status-wait-receive.png';
+          case '6':
+            return 'img/common/status-wait-service.png';
+        }
+      })();
+    }
+  };
+
+}])
+
+.directive('orderDetailAddress', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      type: '@',
+      address: '='
+    },
+    templateUrl: 'templates/directives/order/order-detail-address.html',
+    link: function(scope, element, attrs) {
+      scope.iconPath = (function() {
+        switch(scope.type) {
+          case 'location':
+            return 'img/common/geo-location.png';
+          case 'receipt':
+            return 'img/common/geo-receipt.png';
+          case 'quarantine':
+            return 'img/common/geo-quarantine.png';
+        }
+      })();
+
+      scope.doCheckReceipt = function() {
+
+      };
     }
   };
 

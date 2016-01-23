@@ -18,7 +18,15 @@
   </ion-header-bar>
   <ion-content class="m-modal-order-detail">
 
-    {{ $root.modals.orderDetailModal.item | json }}
+    <!-- banner image -->
+    <order-detail-banner status="{{ $root.modals.orderDetailModal.item.status }}"></order-detail-banner>
+
+    <!-- address list -->
+    <div class="m-modal-order-detail-address">
+      <order-detail-address type="location" address="$root.modals.orderDetailModal.item.addresses.normal"></order-detail-address>
+      <order-detail-address type="receipt" address="$root.modals.orderDetailModal.item.addresses.receipt"></order-detail-address>
+      <order-detail-address type="quarantine" address="$root.modals.orderDetailModal.item.addresses.quarantine"></order-detail-address>
+    </div>
 
   </ion-content>
 

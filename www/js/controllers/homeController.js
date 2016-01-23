@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'seckilling', 'homeCommodity',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, seckilling, homeCommodity) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'seckilling', 'homeCommodity',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, seckilling, homeCommodity) {
 
     // use backup images and hint the network error
     // mmrCommonService.networkDown();
@@ -73,5 +73,48 @@ angular.module('mmr.controllers')
       }
     }
   }
+
+  $timeout(function(){
+    // return false; // <--- comment this to "fix" the problem
+    var sv = $ionicScrollDelegate.$getByHandle('seckilling-horizontal').getScrollView();
+
+    var container = sv.__container;
+
+    var originaltouchStart = sv.touchStart;
+    var originalmouseDown = sv.mouseDown;
+    var originaltouchMove = sv.touchMove;
+    var originalmouseMove = sv.mouseMove;
+
+    container.removeEventListener('touchstart', sv.touchStart);
+    container.removeEventListener('mousedown', sv.mouseDown);
+    document.removeEventListener('touchmove', sv.touchMove);
+    document.removeEventListener('mousemove', sv.mousemove);
+
+
+    sv.touchStart = function(e) {
+      e.preventDefault = function(){}
+      originaltouchStart.apply(sv, [e]);
+    }
+
+    sv.touchMove = function(e) {
+      e.preventDefault = function(){}
+      originaltouchMove.apply(sv, [e]);
+    }
+
+    sv.mouseDown = function(e) {
+      e.preventDefault = function(){}
+      originalmouseDown.apply(sv, [e]);
+    }
+
+    sv.mouseMove = function(e) {
+      e.preventDefault = function(){}
+      originalmouseMove.apply(sv, [e]);
+    }
+
+    container.addEventListener("touchstart", sv.touchStart, false);
+    container.addEventListener("mousedown", sv.mouseDown, false);
+    document.addEventListener("touchmove", sv.touchMove, false);
+    document.addEventListener("mousemove", sv.mouseMove, false);
+  });
 
 }]);

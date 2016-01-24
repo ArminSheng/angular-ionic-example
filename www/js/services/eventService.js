@@ -28,6 +28,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('eventOpenMyCoupon', data);
     },
 
+    doOpenMyReceipt: function(data) {
+      $rootScope.$broadcast('eventOpenMyReceipt', data);
+    },
+
     doOpenRegister: function(data) {
       $rootScope.$broadcast('eventOpenRegister', data);
     },

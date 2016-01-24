@@ -39,6 +39,10 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMoreOrders(tab);
   };
 
+  $scope.doOpenMyReceipt = function() {
+    mmrEventing.doOpenMyReceipt();
+  };
+
   // ----------------------
   // event handler
   // ----------------------
@@ -146,6 +150,16 @@ angular.module('mmr.controllers')
     }
   });
 
+  //receipt
+  $scope.$on('eventOpenMyReceipt', function($event, data) {
+    if($rootScope.modals.receiptModal && !$rootScope.modals.receiptModal.scope.$$destroyed) {
+      // directly open it
+      $rootScope.modals.receiptModal.show();
+    } else {
+      mmrModal.createMyReceiptModal($scope);
+    }
+  });
+
   // login
   $scope.$on('eventOpenLogin', function($event, data) {
     if($rootScope.modals.loginModal) {
@@ -223,7 +237,13 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenMyReceipt = function() {
-
+      
+      if($rootScope.modals.receiptModal && !$rootScope.modals.receiptModal.scope.$$destroyed) {
+      // directly open it
+      $rootScope.modals.receiptModal.show();
+    } else {
+      mmrModal.createMyReceiptModal($scope);
+    }
   };
 
   $scope.doOpenSecurityConfig = function() {

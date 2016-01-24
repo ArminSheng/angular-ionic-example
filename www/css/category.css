@@ -107,6 +107,7 @@
 
 .scroll-content.m-cat-screen-container-scroll.activated {
     top: 86px;
+    z-index: 100;
 }
 
 .m-cat-screen-options-area {
@@ -192,6 +193,10 @@
     width: 36px;
 }
 
+.m-cat-menu-content.downing {
+    top: 45px;
+}
+
 .platform-ios.platform-cordova .has-header.m-cat-menu-content {
     top: 107px;
 }
@@ -253,7 +258,7 @@
 
 .m-cat-menu-hint {
     position: fixed;
-    top: 350px;
+    top: 50%;
     left: 5px;
     padding: 10px;
     font-size: 18px;

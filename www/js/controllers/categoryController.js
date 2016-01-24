@@ -171,7 +171,18 @@ angular.module('mmr.controllers')
   $scope.$watch(function(scope) {
     return scope.classifications[scope.currentLevel];
   }, function(newValue, oldValue, scope) {
+    // calculate the actual height for the menu
     $('.m-cat-menu-content .scroll').height((50 * (newValue.length + 2)) + 'px');
+
+    // calculate the actual occupied/visible height for the menu
+    $('.m-cat-menu-content').height(calcMenuVisibleHeight());
+  });
+
+  $scope.$watch(function(scope) {
+    return scope.optionsBarOpened;
+  }, function(newValue, oldValue, scope) {
+    // calculate the actual occupied/visible height for the menu
+    $('.m-cat-menu-content').height(calcMenuVisibleHeight());
   });
 
   // event handlers
@@ -194,6 +205,22 @@ angular.module('mmr.controllers')
     }, function(err) {
 
     });
+  }
+
+  var barHeight = 44,
+      filterOptionsHeight = 42,
+      statusBarHeight = 20;
+  function calcMenuVisibleHeight() {
+    var result = $(window).height() - barHeight;
+    if($rootScope.$root.platform === 'ios') {
+      result -= statusBarHeight;
+    }
+
+    if($scope.optionsBarOpened) {
+      result -= filterOptionsHeight;
+    }
+
+    return result + 'px';
   }
 }])
 

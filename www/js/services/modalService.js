@@ -88,7 +88,7 @@ angular.module('mmr.services')
     createMyReceiptModal: function(scope) {
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
         scope:scope
-      }).then(function(modal){
+      }).then(function(modal) {
         $rootScope.modals.receiptModal = modal;
         $rootScope.modals.receiptModal.show();
 
@@ -111,11 +111,11 @@ angular.module('mmr.services')
             case 2:
               return '审核未通过';
           }
-        }
+        };
 
         $rootScope.modals.receiptModal.doAdd = function(tab) {
           createReceiptDetailModal(scope,tab);  
-        }
+        };
 
         init();
         function init() {
@@ -124,30 +124,28 @@ angular.module('mmr.services')
 
         function createReceiptDetailModal(scope,tab) {
           
-          var receiptTemplate;
-          tab==0 ? receiptTemplate="receipt-usual-detail" : receiptTemplate="receipt-special-detail";
+          var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
           
           $ionicModal.fromTemplateUrl('templates/modal/'+receiptTemplate+'.html', {
-                scope: scope,
-                animation: 'slide-in-right'
-              }).then(function(modal) {
-                $rootScope.modals.receiptDetailModal = modal;
-                $rootScope.modals.receiptDetailModal.show();
-                 
-                //methods
-                $rootScope.modals.receiptDetailModal.doHideReceiptUsl = function() {
-                  $rootScope.modals.receiptDetailModal.hide();
-              }
+            scope: scope,
+            animation: 'slide-in-right'
+          }).then(function(modal) {
+            $rootScope.modals.receiptDetailModal = modal;
+            $rootScope.modals.receiptDetailModal.show();
+             
+            //methods
+            $rootScope.modals.receiptDetailModal.doHideReceiptUsl = function() {
+              $rootScope.modals.receiptDetailModal.hide();
+            };
 
-               $rootScope.modals.receiptDetailModal.doCreateReceipt = function() {
-                  //save data
+            $rootScope.modals.receiptDetailModal.doCreateReceipt = function() {
+              //save data
 
-                  $rootScope.modals.receiptDetailModal.hide();
-               }
-            });
-          
+              $rootScope.modals.receiptDetailModal.hide();
+            };
+          });
         }
-      })
+      });
     },
 
     createPersonalInfoModal: function(scope) {

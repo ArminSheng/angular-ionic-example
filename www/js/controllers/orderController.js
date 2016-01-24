@@ -19,6 +19,7 @@ angular.module('mmr.controllers')
 
   // search template
   $scope.search = $scope.search || {};
+  $scope.search.status = getStatus($scope.tab);
 
   $scope.switchTab = function(tab) {
     $scope.tab = tab;
@@ -56,9 +57,9 @@ angular.module('mmr.controllers')
     localStorageService.bind($scope, 'orders');
   }
 
-  function getStatus() {
+  function getStatus(tab) {
     // convert the tabIdx to status
-    switch($scope.tab) {
+    switch(Number(tab)) {
       case 0:
         return '!!';
       case 1:

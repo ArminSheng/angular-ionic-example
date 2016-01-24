@@ -115,6 +115,14 @@
   width: 100%;
 }
 
+.m-modal-order-detail-id {
+  padding: 10px;
+}
+
+.m-modal-order-detail-id-text {
+  float: right;
+}
+
 .m-order-detail-address {
   border-bottom: 3px solid #e8e8e8;
 }
@@ -129,4 +137,57 @@
 
 .m-order-detail-address-row1 {
   padding-bottom: 5px;
+}
+
+/*order detail money area*/
+.m-order-detail-money-container {
+  padding: 10px 0;
+  border-bottom: 3px solid #e8e8e8;
+}
+
+.m-order-detail-money-container span {
+  float: right;
+}
+
+.m-order-detail-money-actual span,
+.m-order-detail-money-payback span {
+  font-weight: bold;
+  color: red;
+}
+
+.m-order-detail-money-container div {
+  padding: 0 10px;
+}
+
+.m-order-detail-money-container div.m-order-detail-money-shipment,
+.m-order-detail-money-container div.m-order-detail-money-coupon {
+  padding-left: 20px;
+}
+
+/*order detail time area*/
+.m-order-detail-time-container {
+  padding: 10px 0;
+  border-bottom: 3px solid #e8e8e8;
+}
+
+.m-order-detail-time-container div {
+  padding: 0 10px;
+}
+
+.m-order-detail-time-container span {
+  float: right;
+}
+
+/*order detail service area*/
+.m-order-detail-service-container {
+  padding: 10px 0;
+  border-bottom: 3px solid #e8e8e8;
+}
+
+.m-order-detail-service-container span {
+  float: right;
+}
+
+.m-order-detail-service-container div {
+  padding: 0 10px;
 }

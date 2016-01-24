@@ -65,6 +65,29 @@ angular.module('mmr.services')
         }
       },
 
+      money: {
+        reserve: '123.55',
+        final: '124.33',
+        shipment: '100.1',
+        coupon: '9999.3',
+        actual: '10000.34',
+        payback: '445'
+      },
+
+      times: {
+        order: new Date(),
+        reserve: new Date(),
+        final: new Date(),
+        send: new Date(),
+        payback: new Date(),
+        service: new Date()
+      },
+
+      service: {
+        reason: '商品质量问题',
+        detail: '不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货'
+      },
+
       subOrders: [
         {
           shopId: 123,

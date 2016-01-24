@@ -21,12 +21,32 @@
     <!-- banner image -->
     <order-detail-banner status="{{ $root.modals.orderDetailModal.item.status }}"></order-detail-banner>
 
+    <!-- order id -->
+    <div class="m-modal-order-detail-id">
+      订单编号：
+      <span class="m-modal-order-detail-id-text">
+        {{ $root.modals.orderDetailModal.item.orderId }}
+      </span>
+    </div>
+
     <!-- address list -->
     <div class="m-modal-order-detail-address">
       <order-detail-address type="location" address="$root.modals.orderDetailModal.item.addresses.normal"></order-detail-address>
       <order-detail-address type="receipt" address="$root.modals.orderDetailModal.item.addresses.receipt"></order-detail-address>
       <order-detail-address type="quarantine" address="$root.modals.orderDetailModal.item.addresses.quarantine"></order-detail-address>
     </div>
+
+    <!-- suborders below -->
+    <order-sub-list orders="$root.modals.orderDetailModal.item.subOrders"></order-sub-list>
+
+    <!-- money area -->
+    <order-detail-money money="$root.modals.orderDetailModal.item.money"></order-detail-money>
+
+    <!-- times area -->
+    <order-detail-times times="$root.modals.orderDetailModal.item.times"></order-detail-times>
+
+    <!-- service area -->
+    <order-detail-service service="$root.modals.orderDetailModal.item.service"></order-detail-service>
 
   </ion-content>
 

@@ -45,9 +45,31 @@ angular.module('mmr.services')
       $rootScope.$broadcast("eventOpenFilters", data);
     },
 
+    // order operations below
     doOpenOrderDetail: function(data) {
       $rootScope.$broadcast("eventOpenOrderDetail", data);
+    },
+
+    doApplyService: function(data) {
+      $rootScope.$broadcast("eventApplyService", data);
+    },
+
+    doPayOrder: function(data) {
+      $rootScope.$broadcast("eventPayOrder", data);
+    },
+
+    doBuyAgain: function(data) {
+      $rootScope.$broadcast("eventBuyAgain", data);
+    },
+
+    doCheckSelfCode: function(data) {
+      $rootScope.$broadcast("eventCheckSelfCode", data);
+    },
+
+    doCheckServiceDetail: function(data) {
+      $rootScope.$broadcast("eventCheckServiceDetail", data);
     }
+    // order operations end
 
   };
 

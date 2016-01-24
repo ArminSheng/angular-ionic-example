@@ -69,7 +69,7 @@ angular.module('mmr.directives')
     controller: function($rootScope, $scope, mmrModal, mmrEventing) {
       // 申请售后
       $scope.doApplyService = function(item) {
-
+        mmrEventing.doApplyService(item);
       };
 
       // 查看订单
@@ -79,22 +79,22 @@ angular.module('mmr.directives')
 
       // 去付款
       $scope.doPayOrder = function(item) {
-
+        mmrEventing.doPayOrder(item);
       };
 
       // 再次购买
       $scope.doBuyAgain = function(item) {
-
+        mmrEventing.doBuyAgain(item);
       };
 
       // 查看自提码
       $scope.doCheckSelfCode = function(item) {
-
+        mmrEventing.doCheckSelfCode(item);
       };
 
       // 售后详情
       $scope.doCheckServiceDetail = function(item) {
-
+        mmrEventing.doCheckServiceDetail(item);
       };
 
       // event handlers
@@ -102,6 +102,41 @@ angular.module('mmr.directives')
         // all orders will try to respond to the event
         if(data.orderId === $scope.item.orderId) {
           mmrModal.createOrderDetailModal($scope, data);
+        }
+      });
+
+      $scope.$on('eventApplyService', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+
+        }
+      });
+
+      $scope.$on('eventPayOrder', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+
+        }
+      });
+
+      $scope.$on('eventBuyAgain', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+
+        }
+      });
+
+      $scope.$on('eventCheckSelfCode', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+
+        }
+      });
+
+      $scope.$on('eventCheckServiceDetail', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+
         }
       });
     }

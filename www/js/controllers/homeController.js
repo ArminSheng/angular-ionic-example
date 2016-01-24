@@ -17,7 +17,7 @@ angular.module('mmr.controllers')
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
       var latitude  = position.coords.latitude;
       var longitude = position.coords.longitude;
-      console.log(latitude, longitude)
+      console.log(latitude, longitude);
       $scope.pos = position;
     }, function(err) {
       // error
@@ -92,24 +92,24 @@ angular.module('mmr.controllers')
 
 
     sv.touchStart = function(e) {
-      e.preventDefault = function(){}
+      e.preventDefault = function(){};
       originaltouchStart.apply(sv, [e]);
-    }
+    };
 
     sv.touchMove = function(e) {
-      e.preventDefault = function(){}
+      e.preventDefault = function(){};
       originaltouchMove.apply(sv, [e]);
-    }
+    };
 
     sv.mouseDown = function(e) {
-      e.preventDefault = function(){}
+      e.preventDefault = function(){};
       originalmouseDown.apply(sv, [e]);
-    }
+    };
 
     sv.mouseMove = function(e) {
-      e.preventDefault = function(){}
+      e.preventDefault = function(){};
       originalmouseMove.apply(sv, [e]);
-    }
+    };
 
     container.addEventListener("touchstart", sv.touchStart, false);
     container.addEventListener("mousedown", sv.mouseDown, false);

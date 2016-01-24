@@ -30,7 +30,7 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
 
     }
-  }
+  };
 }])
 
 .directive('itemRemainTime', ['$interval', function($interval) {
@@ -73,7 +73,7 @@ angular.module('mmr.directives')
         }, 1000, Math.ceil(remainingMillis / 1000));
       }
     }
-  }
+  };
 }])
 
 .directive('commodityGrid', [function() {

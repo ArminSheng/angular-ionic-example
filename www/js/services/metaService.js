@@ -18,7 +18,7 @@ angular.module('mmr.services')
   return {
     brands: function() {
       $http({
-        url: restService['API_REST'] + 'c_brand/all',
+        url: restService.API_REST + 'c_brand/all',
         method: 'GET'
       }).then(function(res) {
         // save into cache
@@ -30,7 +30,7 @@ angular.module('mmr.services')
     // such as: 冻品，鲜品
     attributes: function() {
       $http({
-        url: restService['API_REST'] + 'c_attribute/all',
+        url: restService.API_REST + 'c_attribute/all',
         method: 'GET'
       }).then(function(res) {
         // save into cache
@@ -42,7 +42,7 @@ angular.module('mmr.services')
     classification: function(gen) {
       var g = gen || 0;
       $http({
-        url: restService['API_REST'] + 'c_classification/gen/',
+        url: restService.API_REST + 'c_classification/gen/',
         method: 'GET',
         param: {
           'g': g

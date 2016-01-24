@@ -10,7 +10,7 @@ angular.module('mmr.services', [])
       console.log('check network status');
       var self = this;
       $http({
-        url: restService['API_REST'] + 'c_heartbeat/',
+        url: restService.API_REST + 'c_heartbeat/',
         method: 'GET'
       }).then(function(res) {
         if(res) {

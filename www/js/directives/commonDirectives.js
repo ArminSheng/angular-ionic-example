@@ -2,8 +2,8 @@ angular.module('mmr.directives')
 
 .run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/directives/notification-center.html',
-    '<a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">'
-     + '<span class="badge badge-assertive m-badge">{{ count }}</span>');
+    '<a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">' +
+    '<span class="badge badge-assertive m-badge">{{ count }}</span>');
 }])
 
 .directive('notificationCenter', ['$state', function($state) {

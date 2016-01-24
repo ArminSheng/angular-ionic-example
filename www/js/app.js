@@ -69,11 +69,12 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   // add default global timeout
   $provide.decorator('$httpBackend', function($delegate) {
     return function (splat) {
+      var args = arguments;
       if (typeof timeout === 'undefined') {
-        arguments[5] = 5000; // Default timeout in milliseconds
+        args[5] = 5000; // Default timeout in milliseconds
       }
-      return $delegate.apply($delegate, arguments);
-    }
+      return $delegate.apply($delegate, args);
+    };
   });
 
   // Ionic uses AngularUI Router which uses the concept of states
@@ -110,7 +111,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
               return res;
             }, function(err) {
               return err;
-            })
+            });
           }
         }
       }

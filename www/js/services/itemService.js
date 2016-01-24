@@ -6,7 +6,7 @@ angular.module('mmr.services')
   return {
     seckilling: function(size) {
       return $http({
-        url: restService['API_REST'] + 'c_item/seckilling',
+        url: restService.API_REST + 'c_item/seckilling',
         method: 'GET',
         params: {
           's': size || 10
@@ -17,7 +17,7 @@ angular.module('mmr.services')
     // for home view usage
     homeCommodity: function(size) {
       return $http({
-        url: restService['API_REST'] + 'c_item/homeCommodity',
+        url: restService.API_REST + 'c_item/homeCommodity',
         method: 'GET',
         params: {
           's': size || 10
@@ -28,7 +28,7 @@ angular.module('mmr.services')
     // recommend items
     recommend: function(size) {
       return $http({
-        url: restService['API_REST'] + 'c_item/recommend',
+        url: restService.API_REST + 'c_item/recommend',
         method: 'GET',
         params: {
           's': size || 10
@@ -39,7 +39,7 @@ angular.module('mmr.services')
     // search the items
     search: function(size) {
       return $http({
-        url: restService['API_REST'] + 'c_search/',
+        url: restService.API_REST + 'c_search/',
         method: 'GET',
         params: {
           's': size || 10

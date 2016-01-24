@@ -6,7 +6,7 @@ angular.module('mmr.services')
   return {
     banners: function(platform) {
       return $http({
-        url: restService['API_REST'] + 'c_banner/platform',
+        url: restService.API_REST + 'c_banner/platform',
         method: 'GET',
         params: {
           'p': platform || 2  // 2 represents the moblie app
@@ -16,7 +16,7 @@ angular.module('mmr.services')
 
     areas: function(platform) {
       return $http({
-        url: restService['API_REST'] + 'c_salesarea/platform',
+        url: restService.API_REST + 'c_salesarea/platform',
         method: 'GET',
         params: {
           'p': platform || 2  // 2 represents the moblie app

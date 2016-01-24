@@ -27,6 +27,9 @@ angular.module('mmr.controllers')
 
     // recalculate the height
     $ionicScrollDelegate.$getByHandle('orderScroll').resize();
+
+    // back to top
+    $ionicScrollDelegate.scrollTop(true);
   };
 
   // scroll related

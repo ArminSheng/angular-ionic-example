@@ -1,0 +1,27 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+         <div class="buttons">
+      <button class="button button-clear" ng-click="modals.receiptDetailModal.doHideReceiptUsl()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">我的发票</h1>
+    <button class="button button-clear" ng-click="modals.receiptDetailModal.doCreateReceipt()">
+        保存
+      </button>
+    </ion-header-bar>
+    <ion-content class="m-modal-mine-receipt-add">
+    	<div class="m-modal-mine-receipt-add-head">
+    		<h4>增值税普通发票</h4>
+    		<div class="m-modal-mine-receipt-usual-head-bottom"></div>
+    	</div>
+    	<div class="list">
+
+    		<label class="item item-input">
+       		<span class="input-label">单位名称</span>
+       		<input type="text" placeholder="输入单位名称" ng-model="modals.receiptDetailModal.receiptUsual.companyName">
+     		</label>
+    	</div>
+    </ion-content>
+</ion-modal-view>

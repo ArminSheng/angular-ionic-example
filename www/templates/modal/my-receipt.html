@@ -1,0 +1,53 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-energized">
+         <div class="buttons">
+      <button class="button button-clear" ng-click="modals.receiptModal.doHideReceipt()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        我的
+      </button>
+    </div>
+    <h1 class="title">我的发票</h1>
+    <button class="button button-clear" ng-click="modals.receiptModal.doAdd(modals.receiptModal.tab)">
+        <span class="icon ion-plus m-header-icon"></span>
+      </button>
+    </ion-header-bar>
+    <ion-content class="m-modal-mine-receipt">
+        <div class="m-filter-tabs">
+           <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 0}" ng-click="modals.receiptModal.switchTab(0)">
+              <span>增值税普通发票</span>
+           </div>
+           <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 1}" ng-click="modals.receiptModal.switchTab(1)">
+             <span>增值税专用发票</span>
+            </div>
+        </div>
+
+        <div class="m-modal-mine-receipt-body">
+        	<div class="m-modal-mine-receipt-head">
+        		<span class="m-modal-mine-receipt-head-left">单位名称</span>
+        		<span class="m-modal-mine-receipt-head-right">审核结果</span>
+        	</div>
+        	<div class="m-modal-mine-receipt-list">
+        		<div class="m-modal-mine-receipt-item" ng-repeat="receipt in modals.receiptModal.receipts[modals.receiptModal.tab] track by $index">
+        			<div class="row row-nopadding m-modal-mine-receipt-item-row">
+        				<div class="col col-100 m-modal-mine-receipt-item-info">
+        					<p class="m-modal-mine-receipt-item-info-name">
+        						{{ receipt.companyName }} 
+        						<span class="m-modal-mine-receipt-item-info-term">
+        							{{ modals.receiptModal.getExplain(receipt) }}
+        						</span>
+        					</p>
+        					<p ng-hide="receipt.taxpayer == ''" class="m-modal-mine-receipt-item-info-text">
+        					   <span>{{ receipt.taxpayer }}</span>
+        					   <span>{{ receipt.registerAddress }}</span>
+        					   <span>{{ receipt.phone }}</span>
+        					   <span>{{ receipt.bank }}</span>
+        					   <span>{{ receipt.bankAccount }}</span>
+        					</p>
+        				</div>
+        				
+        			</div>
+        		</div>
+        	</div>
+        </div>
+    </ion-content>
+</ion-modal-view>

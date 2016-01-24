@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory) {
 
   return {
 
@@ -82,6 +82,69 @@ angular.module('mmr.services')
         scope.loginModal.doRegister = function() {
           mmrEventing.doOpenRegister();
         };
+      });
+    },
+
+    createMyReceiptModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
+        scope:scope
+      }).then(function(modal) {
+        $rootScope.modals.receiptModal = modal;
+        $rootScope.modals.receiptModal.show();
+
+        $rootScope.modals.receiptModal.tab = 0;
+        $rootScope.modals.receiptModal.switchTab = function(tabIdx) {
+          $rootScope.modals.receiptModal.tab = tabIdx;
+        };
+
+        //methods
+        $rootScope.modals.receiptModal.doHideReceipt = function() {
+          $rootScope.modals.receiptModal.hide();
+        };
+        
+        $rootScope.modals.receiptModal.getExplain = function(receipt) {
+          switch(receipt.status) {
+            case 0:
+              return '有效';
+            case 1:
+              return '过期';
+            case 2:
+              return '审核未通过';
+          }
+        };
+
+        $rootScope.modals.receiptModal.doAdd = function(tab) {
+          createReceiptDetailModal(scope,tab);  
+        };
+
+        init();
+        function init() {
+          $rootScope.modals.receiptModal.receipts = mmrMineFactory.receiptDetails();
+        }
+
+        function createReceiptDetailModal(scope,tab) {
+          
+          var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
+          
+          $ionicModal.fromTemplateUrl('templates/modal/'+receiptTemplate+'.html', {
+            scope: scope,
+            animation: 'slide-in-right'
+          }).then(function(modal) {
+            $rootScope.modals.receiptDetailModal = modal;
+            $rootScope.modals.receiptDetailModal.show();
+             
+            //methods
+            $rootScope.modals.receiptDetailModal.doHideReceiptUsl = function() {
+              $rootScope.modals.receiptDetailModal.hide();
+            };
+
+            $rootScope.modals.receiptDetailModal.doCreateReceipt = function() {
+              //save data
+
+              $rootScope.modals.receiptDetailModal.hide();
+            };
+          });
+        }
       });
     },
 

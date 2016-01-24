@@ -1,0 +1,62 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+         <div class="buttons">
+      <button class="button button-clear" ng-click="modals.receiptDetailModal.doHideReceiptUsl()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">我的发票</h1>
+    <button class="button button-clear" ng-click="modals.receiptDetailModal.doCreateReceipt()">
+        保存
+      </button>
+    </ion-header-bar>
+    <ion-content class="m-modal-mine-receipt-add">
+      <div class="m-modal-mine-receipt-add-head">
+        <h4>增值税专用发票</h4>
+        <div class="m-modal-mine-receipt-usual-head-bottom"></div>
+      </div>
+      <div class="list">
+
+        <label class="item item-input">
+          <span class="input-label">单位名称</span>
+          <input type="text" placeholder="输入单位名称" ng-model="modals.receiptDetailModal.receiptSpecial.companyName">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">纳税人识别号</span>
+          <input type="text" placeholder="输入纳锐人识别号" ng-model="modals.receiptDetailModal.receiptSpecial.taxpayer">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">注册地址</span>
+          <input type="text" placeholder="输入注册地址" ng-model="modals.receiptDetailModal.receiptSpecial.registerAddress">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">注册电话</span>
+          <input type="text" placeholder="输入电话号码" ng-model="modals.receiptDetailModal.receiptSpecial.phone">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">开户银行</span>
+          <input type="text" placeholder="输入开户银行" ng-model="modals.receiptDetailModal.receiptSpecial.bank">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">银行账户</span>
+          <input type="text" placeholder="输入银行账户" ng-model="modals.receiptDetailModal.receiptSpecial.bankAccount">
+        </label>
+        <label class="item">
+          <span class="input-label">上传凭证</span>
+          <div class="row">
+            <div class="col col-25">
+              <a class="m-modal-mine-receipt-license" ng-click="">
+                <img class="m-modal-mine-receipt-license-img" src="img/mine/m-receipt.png">
+              </a>
+            </div>
+            <div class="col col-25">
+              <a class="m-modal-mine-receipt-license" ng-click="">
+                <i class="icon ion-plus-round"></i>
+              </a>
+            </div>
+          </div>
+        </label>
+      </div>
+    </ion-content>
+</ion-modal-view>

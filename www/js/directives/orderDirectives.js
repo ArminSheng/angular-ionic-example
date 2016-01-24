@@ -48,6 +48,23 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/order-list.html',
     link: function(scope, element, attrs) {
 
+    }
+  };
+
+}])
+
+.directive('orderOperations', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      item: '=',
+      inDetail: '@'
+    },
+    templateUrl: 'templates/directives/order/order-operations.html',
+    link: function(scope, element, attrs) {
+
     },
     controller: function($rootScope, $scope, mmrModal, mmrEventing) {
       // 申请售后
@@ -82,7 +99,10 @@ angular.module('mmr.directives')
 
       // event handlers
       $scope.$on('eventOpenOrderDetail', function($event, data) {
-        mmrModal.createOrderDetailModal($scope, data);
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+          mmrModal.createOrderDetailModal($scope, data);
+        }
       });
     }
   };

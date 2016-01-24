@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var jshint = require('gulp-jshint');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -49,3 +50,15 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('lint', function() {
+  return gulp.src('./www/js/*.js')
+    .pipe(jshint())
+    .on('error', handleError)
+    .pipe(jshint.reporter('jshint-stylish'));
+});
+
+function handleError(err){
+  'use strict';
+  console.log(err.toString());
+}

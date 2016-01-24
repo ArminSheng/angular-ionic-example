@@ -40,7 +40,7 @@
     <order-sub-list orders="$root.modals.orderDetailModal.item.subOrders"></order-sub-list>
 
     <!-- money area -->
-    <order-detail-money money="$root.modals.orderDetailModal.item.money"></order-detail-money>
+    <order-detail-money money="$root.modals.orderDetailModal.item.money" ng-if="!_.isEmpty(root.modals.orderDetailModal.item.money)"></order-detail-money>
 
     <!-- times area -->
     <order-detail-times times="$root.modals.orderDetailModal.item.times"></order-detail-times>

@@ -145,6 +145,10 @@
   border-bottom: 3px solid #e8e8e8;
 }
 
+.m-order-detail-money-container.hidden {
+  display: none;
+}
+
 .m-order-detail-money-container span {
   float: right;
 }
@@ -170,6 +174,10 @@
   border-bottom: 3px solid #e8e8e8;
 }
 
+.m-order-detail-time-container.hidden {
+  display: none;
+}
+
 .m-order-detail-time-container div {
   padding: 0 10px;
 }
@@ -182,6 +190,10 @@
 .m-order-detail-service-container {
   padding: 10px 0;
   border-bottom: 3px solid #e8e8e8;
+}
+
+.m-order-detail-service-container.hidden {
+  display: none;
 }
 
 .m-order-detail-service-container span {

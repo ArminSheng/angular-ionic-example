@@ -7,7 +7,7 @@ angular.module('mmr.directives')
 
   // template for order detail money
   $templateCache.put('templates/directives/order/order-detail-money.html',
-    '<div class="m-order-detail-money-container">' +
+    '<div class="m-order-detail-money-container" ng-class="{\'hidden\': _.isEmpty(money)}">' +
     '<div class="m-order-detail-money-reserve" ng-if="money.reserve">订单预付总金额：<span>{{ ::money.reserve | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-final" ng-if="money.final">订单尾款总金额：<span>{{ ::money.final | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-shipment" ng-if="money.shipment">+ 运费：<span>{{ ::money.shipment | currency: "￥" }}</span></div>' +
@@ -31,7 +31,7 @@ angular.module('mmr.directives')
   $templateCache.put('templates/directives/order/order-detail-service.html',
     '<div class="m-order-detail-service-container">' +
     '<div class="m-order-detail-service-reason" ng-if="service.reason">售后原因：<span>{{ ::service.reason }}</span></div>' +
-    '<div class="m-order-detail-service-detail" ng-if="service.detail">售后原因说明：<div class="m-order-detail-service-detail-text">{{ ::service.detail }}</div></div>' +
+    '<div class="m-order-detail-service-detail" ng-if="service.detail">售后原因说明：<div class="m-order-detail-service-detail">{{ ::service.detail }}</div></div>' +
     '<div class="m-order-detail-service-photos" ng-if="service.photos">凭证照片：<ion-gallery ion-gallery-items="service.photos"></ion-gallery></div>' +
     '</div>');
 }])
@@ -117,7 +117,9 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/order/order-detail-money.html',
     link: function(scope, element, attrs) {
-
+      if(_.isEmpty(scope.money)) {
+        element.addClass('hidden');
+      }
     }
   };
 
@@ -133,7 +135,9 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/order/order-detail-times.html',
     link: function(scope, element, attrs) {
-
+      if(_.isEmpty(scope.times)) {
+        element.addClass('hidden');
+      }
     }
   };
 
@@ -149,7 +153,9 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/order/order-detail-service.html',
     link: function(scope, element, attrs) {
-
+      if(_.isEmpty(scope.service)) {
+        element.addClass('hidden');
+      }
     }
   };
 

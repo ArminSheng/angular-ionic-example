@@ -188,6 +188,9 @@
   float: right;
 }
 
-.m-order-detail-service-container div {
+.m-order-detail-service-container div.m-order-detail-service-reason,
+.m-order-detail-service-container div.m-order-detail-service-detail,
+.m-order-detail-service-container div.m-order-detail-service-detail-text,
+.m-order-detail-service-container div.m-order-detail-service-photos {
   padding: 0 10px;
 }

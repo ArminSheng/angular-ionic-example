@@ -31,7 +31,8 @@ angular.module('mmr.directives')
   $templateCache.put('templates/directives/order/order-detail-service.html',
     '<div class="m-order-detail-service-container">' +
     '<div class="m-order-detail-service-reason" ng-if="service.reason">售后原因：<span>{{ ::service.reason }}</span></div>' +
-    '<div class="m-order-detail-service-detail" ng-if="service.detail">售后原因说明：<div>{{ ::service.detail }}</div></div>' +
+    '<div class="m-order-detail-service-detail" ng-if="service.detail">售后原因说明：<div class="m-order-detail-service-detail-text">{{ ::service.detail }}</div></div>' +
+    '<div class="m-order-detail-service-photos" ng-if="service.photos">凭证照片：<ion-gallery ion-gallery-items="service.photos"></ion-gallery></div>' +
     '</div>');
 }])
 

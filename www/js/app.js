@@ -1,5 +1,5 @@
 // MMR App
-angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
+angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
 .constant('REST_BASE', 'http://192.168.1.139:8081/mmr/')
@@ -59,8 +59,8 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
   });
 })
 
-.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider', '$provide',
-  function($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider, $provide) {
+.config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider', '$provide', 'ionGalleryConfigProvider',
+  function($ionicConfigProvider, $stateProvider, $urlRouterProvider, $httpProvider, localStorageServiceProvider, $provide, ionGalleryConfigProvider) {
   $ionicConfigProvider.tabs.style('standard');
   $ionicConfigProvider.tabs.position('bottom');
 
@@ -203,4 +203,11 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'mmr.controllers', 'mmr.services', 
   localStorageServiceProvider
     .setPrefix('mmr')
     .setNotify(true, true);
+
+  // config the ion gallery
+  ionGalleryConfigProvider.setGalleryConfig({
+    action_label: '关闭',
+    toggle: true,
+    row_size: 5
+  });
 }]);

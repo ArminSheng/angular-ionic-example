@@ -85,7 +85,29 @@ angular.module('mmr.services')
 
       service: {
         reason: '商品质量问题',
-        detail: '不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货'
+        detail: '不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货不太新鲜，希望可以全部退货',
+        photos: [
+          {
+            src: 'img/item/sample.png',
+            sub: 'Title 1'
+          },
+          {
+            src: 'img/item/sample.png',
+            sub: 'Title 2'
+          },
+          {
+            src: 'img/item/sample.png',
+            sub: 'Title 3'
+          },
+          {
+            src: 'img/item/sample.png',
+            sub: 'Title 4'
+          },
+          {
+            src: 'img/item/sample.png',
+            sub: 'Title 5'
+          }
+        ]
       },
 
       subOrders: [

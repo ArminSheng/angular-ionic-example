@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory',
-  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory',
+  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory) {
 
   // back related
   $scope.myGoBack = function() {
@@ -70,5 +70,27 @@ angular.module('mmr.controllers')
   mmrMetaFactory.attributes();
   mmrMetaFactory.classification();
   mmrMetaFactory.citiesAndDisctricts();
+
+  // emit status change events
+  $rootScope.$on('$stateChangeStart', function () {
+    console.log('start state change');
+    $rootScope.$broadcast('loading.show');
+  });
+
+  $rootScope.$on('$stateChangeSuccess', function () {
+    console.log('end state change');
+    $rootScope.$broadcast('loading.hide');
+  });
+
+  // respond to the loading related events
+  $rootScope.$on('loading.show', function() {
+    console.log('show loading');
+    mmrLoadingFactory.show();
+  });
+
+  $rootScope.$on('loading.hide', function() {
+    console.log('hide loading');
+    mmrLoadingFactory.hide();
+  });
 
 }]);

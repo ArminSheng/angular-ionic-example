@@ -45,4 +45,20 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('networkDown', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+
+    },
+    templateUrl: 'templates/directives/common/network-down.html',
+    link: function(scope, element, attrs) {
+
+    }
+  };
+
 }]);

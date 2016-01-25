@@ -67,39 +67,6 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-  // emit events when using $http service
-  $httpProvider.interceptors.push(function($rootScope) {
-    return {
-      //http request show loading
-      request: function(config)
-      {
-        $rootScope.$broadcast('loading.show');
-        return config;
-      },
-
-      //hide loading in case any occurred
-      requestError: function(response)
-      {
-        $rootScope.$broadcast('loading.hide');
-        return response;
-      },
-
-      //Hide loading once got response
-      response: function(response)
-      {
-        $rootScope.$broadcast('loading.hide');
-        return response;
-      },
-
-      //Hide loading if got any response error
-      responseError: function(response)
-      {
-        $rootScope.$broadcast('loading.hide');
-        return response;
-      }
-    };
-  });
-
   // add default global timeout
   $provide.decorator('$httpBackend', function($delegate) {
     return function (splat) {

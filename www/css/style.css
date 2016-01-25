@@ -268,3 +268,18 @@
     color: #aaa;
 }
 /*recommend area end*/
+
+/*network related*/
+.m-no-network {
+    text-align: center;
+    padding-top: 45%;
+}
+
+.m-no-network .m-no-network-sign i {
+    font-size: 6rem;
+}
+
+.m-no-network .m-no-network-sign .m-no-network-sign-text {
+    font-size: 1.2rem;
+    padding-bottom: 5%;
+}

@@ -53,8 +53,9 @@
       首页 地点：{{ pos | json }}
       Error: {{ err | json }}
     </div>
-    <div ng-if="!$root.network">
-      <!-- shown when network is down -->
-    </div>
+
+    <!-- when network is down -->
+    <network-down></network-down>
+
   </ion-content>
 </ion-view>

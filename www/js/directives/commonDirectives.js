@@ -61,4 +61,18 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('animationCallback', [function() {
+
+  return {
+    restrict: 'A',
+    scope: false,
+    link: function(scope, element, attrs) {
+      element.bind('oatransitionend transitionend webkitTransitionEnd', function() {
+        // define callback logic below
+      });
+    }
+  }
+
 }]);

@@ -430,5 +430,27 @@
     top: 0;
 }
 
+/*search panel*/
+.m-cat-search {
+    position: fixed;
+    background-color: red;
+    width: 100%;
+    z-index: 25;
+    opacity: 0;
+    visibility: hidden;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.m-cat-search.activated {
+    opacity: 1;
+    visibility: visible;
+}
+
 
 

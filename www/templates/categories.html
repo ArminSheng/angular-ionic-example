@@ -4,7 +4,7 @@
       <!-- search input -->
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="搜索商品">
+        <input type="search" placeholder="搜索商品" ng-focus="doFocusSearchInput()" ng-blur="doBlurSearchInput()">
       </label>
       <!-- options -->
       <!-- <a class="button button-icon icon ion-android-more-horizontal m-cat-options" ng-click="doCheckOptions()">
@@ -125,6 +125,13 @@
 
   <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">
     <img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>
+  </div>
+
+  <!-- search panel -->
+  <div class="m-cat-search-wrapper">
+    <ion-scroll zooming="true" direction="y" style="width: 100%" class="m-cat-search" ng-class="{'activated': searchInputFocused}" animation-callback>
+      <div style="height: 5000px" >Test</div>
+    </ion-scroll>
   </div>
 
 </ion-view>

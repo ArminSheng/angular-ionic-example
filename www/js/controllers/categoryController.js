@@ -29,6 +29,7 @@ angular.module('mmr.controllers')
 
   // search related
   $scope.searchResults = [];
+  $scope.searchInputFocused = false;
 
   // record which brand and attribute has been selected
   var selectedBrandsIdx = {},
@@ -162,6 +163,18 @@ angular.module('mmr.controllers')
     }, 500);
   };
 
+  $scope.doFocusSearchInput = function() {
+    console.log('focus');
+    $scope.searchInputFocused = true;
+    $rootScope.$root.ui.tabsHidden = true;
+  };
+
+  $scope.doBlurSearchInput = function() {
+    console.log('blur');
+    $scope.searchInputFocused = false;
+    $rootScope.$root.ui.tabsHidden = false;
+  };
+
   // cache bindings
   localStorageService.bind($scope, 'brands');
   localStorageService.bind($scope, 'attributes');
@@ -183,6 +196,15 @@ angular.module('mmr.controllers')
   }, function(newValue, oldValue, scope) {
     // calculate the actual occupied/visible height for the menu
     $('.m-cat-menu-content').height(calcMenuVisibleHeight());
+  });
+
+  $scope.$watch(function(scope) {
+    return scope.searchInputFocused;
+  }, function(newValue, oldValue, scope) {
+    // calculate the actual occupied/visible height for the menu
+    if(newValue) {
+      $('.m-cat-search').height(calcSearchPanelVisibleHeight(10));
+    }
   });
 
   // event handlers
@@ -218,6 +240,19 @@ angular.module('mmr.controllers')
 
     if($scope.optionsBarOpened) {
       result -= filterOptionsHeight;
+    }
+
+    return result + 'px';
+  }
+
+  function calcSearchPanelVisibleHeight(offset) {
+    var result = $(window).height() - barHeight;
+    if($rootScope.$root.platform === 'ios') {
+      result -= statusBarHeight;
+    }
+
+    if(offset) {
+      result += offset;
     }
 
     return result + 'px';

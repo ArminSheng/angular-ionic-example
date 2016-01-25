@@ -35,6 +35,10 @@ angular.module('mmr.services', [])
       });
     },
 
+    networkUp: function() {
+      $rootScope.$root.network = true;
+    },
+
     // show help information
     help: function(title, template) {
       $ionicPopup.alert({

@@ -3,11 +3,7 @@ angular.module('mmr.controllers')
 .controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory',
   function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory) {
 
-    // use backup images and hint the network error
-    // mmrCommonService.networkDown();
-
-  initialize();
-  function initialize() {
+  $scope.initialize = function() {
     // load geo position
     var posOptions = {timeout: 10000, enableHighAccuracy: false};
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
@@ -35,7 +31,11 @@ angular.module('mmr.controllers')
       }
 
       $scope.banners = res.data;
-      $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
+
+      // in case the network is restored
+      $timeout(function() {
+        $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
+      }, 1000);
     }, function(err) {
       errorFlag = true;
     });
@@ -86,6 +86,8 @@ angular.module('mmr.controllers')
 
       if(errorFlag) {
         mmrCommonService.networkDown();
+      } else {
+        mmrCommonService.networkUp();
       }
     }
   }
@@ -133,4 +135,5 @@ angular.module('mmr.controllers')
     document.addEventListener("mousemove", sv.mouseMove, false);
   });
 
+  $scope.initialize();
 }]);

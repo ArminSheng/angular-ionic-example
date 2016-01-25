@@ -52,12 +52,12 @@ angular.module('mmr.directives')
   return {
     retrict: 'E',
     replace: true,
-    scope: {
-
-    },
+    scope: false,
     templateUrl: 'templates/directives/common/network-down.html',
     link: function(scope, element, attrs) {
-
+      scope.doReload = function() {
+        scope.initialize();
+      };
     }
   };
 

@@ -2,7 +2,8 @@
 angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-.constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
+// .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
+.constant('REST_BASE', 'http://192.168.1.139:8081/mmr/')
 .constant('API_BASE', 'http://demo.0lz.net/mmrou/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
@@ -66,6 +67,39 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
   $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
+  // emit events when using $http service
+  $httpProvider.interceptors.push(function($rootScope) {
+    return {
+      //http request show loading
+      request: function(config)
+      {
+        $rootScope.$broadcast('loading.show');
+        return config;
+      },
+
+      //hide loading in case any occurred
+      requestError: function(response)
+      {
+        $rootScope.$broadcast('loading.hide');
+        return response;
+      },
+
+      //Hide loading once got response
+      response: function(response)
+      {
+        $rootScope.$broadcast('loading.hide');
+        return response;
+      },
+
+      //Hide loading if got any response error
+      responseError: function(response)
+      {
+        $rootScope.$broadcast('loading.hide');
+        return response;
+      }
+    };
+  });
+
   // add default global timeout
   $provide.decorator('$httpBackend', function($delegate) {
     return function (splat) {
@@ -97,23 +131,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     views: {
       'tab-home': {
         templateUrl: 'templates/home.html',
-        controller: 'HomeCtrl',
-        resolve: {
-          seckilling: function(mmrItemFactory) {
-            return mmrItemFactory.seckilling().then(function(res) {
-              return res;
-            }, function(err) {
-              return err;
-            });
-          },
-          homeCommodity: function(mmrItemFactory) {
-            return mmrItemFactory.homeCommodity().then(function(res) {
-              return res;
-            }, function(err) {
-              return err;
-            });
-          }
-        }
+        controller: 'HomeCtrl'
       }
     }
   })

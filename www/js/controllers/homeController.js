@@ -1,14 +1,10 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'seckilling', 'homeCommodity',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, seckilling, homeCommodity) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory) {
 
     // use backup images and hint the network error
     // mmrCommonService.networkDown();
-
-  // seckilling processing
-  $scope.seckilling = seckilling.data;
-  $scope.commodities = homeCommodity.data;
 
   initialize();
   function initialize() {
@@ -33,6 +29,11 @@ angular.module('mmr.controllers')
     var q1 = mmrAreaFactory.banners();
     promises.push(q1);
     q1.then(function(res) {
+      if(res.status === 0) {
+        errorFlag = true;
+        return;
+      }
+
       $scope.banners = res.data;
       $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
     }, function(err) {
@@ -42,6 +43,11 @@ angular.module('mmr.controllers')
     var q2 = mmrAreaFactory.areas();
     promises.push(q2);
     q2.then(function(res) {
+      if(res.status === 0) {
+        errorFlag = true;
+        return;
+      }
+
       $scope.areas = res.data;
     }, function(err) {
       errorFlag = true;
@@ -50,6 +56,11 @@ angular.module('mmr.controllers')
     var q3 = mmrItemFactory.seckilling();
     promises.push(q3);
     q3.then(function(res) {
+      if(res.status === 0) {
+        errorFlag = true;
+        return;
+      }
+
       $scope.seckilling = res.data;
     }, function(err) {
       errorFlag = true;
@@ -58,6 +69,11 @@ angular.module('mmr.controllers')
     var q4 = mmrItemFactory.homeCommodity();
     promises.push(q4);
     q4.then(function(res) {
+      if(res.status === 0) {
+        errorFlag = true;
+        return;
+      }
+
       $scope.commodities = res.data;
     }, function(err) {
       errorFlag = true;

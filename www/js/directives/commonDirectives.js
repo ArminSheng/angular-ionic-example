@@ -73,6 +73,6 @@ angular.module('mmr.directives')
         // define callback logic below
       });
     }
-  }
+  };
 
 }]);

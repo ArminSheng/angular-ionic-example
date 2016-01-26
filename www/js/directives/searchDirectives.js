@@ -29,7 +29,7 @@ angular.module('mmr.directives')
           } else {
             // not to delete
           }
-        })
+        });
 
       };
 

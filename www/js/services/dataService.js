@@ -27,7 +27,7 @@ angular.module('mmr.services')
         }, function(err) {
           errorFlag = true;
         });
-      })
+      });
 
       $q.all(arguments).then(responseCore);
 
@@ -41,7 +41,7 @@ angular.module('mmr.services')
           dfd.resolve(results);
           mmrCommonService.networkUp();
         }
-      };
+      }
 
       return dfd.promise;
     }

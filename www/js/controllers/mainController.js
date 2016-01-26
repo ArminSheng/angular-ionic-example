@@ -60,11 +60,11 @@ angular.module('mmr.controllers')
     // search related
     search: {
       keywords: [
-        { text: '羊肉5', detail: '' },
-        { text: '羊肉4', detail: '' },
-        { text: '羊肉3', detail: '' },
-        { text: '羊肉2', detail: '' },
-        { text: '羊肉1', detail: '' }
+        { text: '羊肉5', detail: '', time: new Date() },
+        { text: '羊肉4', detail: '', time: new Date() },
+        { text: '羊肉3', detail: '', time: new Date() },
+        { text: '羊肉2', detail: '', time: new Date() },
+        { text: '羊肉1', detail: '', time: new Date() }
       ]
     }
   };

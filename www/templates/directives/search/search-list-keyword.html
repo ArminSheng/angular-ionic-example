@@ -1,6 +1,10 @@
 <div class="m-search-list-keyword-wrapper">
-  <div class="list m-search-list-keyword">
-    <a class="item m-search-list-keyword-item" ng-click="doSelectSearchKeyword(keyword)" ng-repeat="keyword in keywords track by $index">
+  <div class="m-search-list-hint">
+    <span>历史搜索</span>
+  </div>
+  <div class="list m-search-list-keyword" ng-if="keywords && keywords.length > 0">
+    <!-- keywords list -->
+    <a class="item m-search-list-keyword-item" ng-click="doSelectSearchKeyword(keyword)" ng-repeat="keyword in keywords | orderBy: 'time' : true track by $index">
       <div class="m-search-list-keyword-item-text">
         {{ keyword.text }}
       </div>
@@ -8,11 +12,17 @@
         {{ keyword.detail }}
       </div>
     </a>
+
+    <!-- clear button -->
+    <div class="m-search-list-keyword-clear" ng-if="keywords && keywords.length > 0">
+      <button class="button button-small button-energized" ng-click="doDeleteSearchRecord()">
+        清除搜索记录
+      </button>
+    </div>
   </div>
-  <!-- clear button -->
-  <div class="m-search-list-keyword-clear" ng-if="keywords && keywords.length > 0">
-    <button class="button button-small button-energized" ng-click="doDeleteSearchRecord()">
-      清除搜索记录
-    </button>
+  <div class="m-search-list-empty" ng-if="!keywords || keywords.length === 0">
+    <i class="icon ion-clipboard"></i>
+    <span>暂时没有搜索记录噢</span>
+    <span>去搜搜试试吧～</span>
   </div>
 </div>

@@ -178,7 +178,29 @@ angular.module('mmr.controllers')
   };
 
   $scope.doSearch = function(keyword) {
-    console.log(keyword);
+    var keywords = $rootScope.$root.search.keywords;
+    // try to find the existing if any
+    var existed = _.find(keywords, { text: keyword });
+    if(existed) {
+      // update the time
+      existed.time = new Date();
+
+      // sort the keywords by time
+      keywords = _.sortBy(keywords, function(o) {
+        return -o.time.getTime();
+      });
+    } else {
+      // try to add new one into queue
+      keywords.unshift({
+        text: keyword,
+        detail: '',
+        time: new Date()
+      });
+
+      if(keywords.length > 15) {
+        keywords.pop();
+      }
+    }
   };
 
   // cache bindings

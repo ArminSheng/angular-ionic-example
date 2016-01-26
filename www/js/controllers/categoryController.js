@@ -164,15 +164,21 @@ angular.module('mmr.controllers')
   };
 
   $scope.doFocusSearchInput = function() {
-    console.log('focus');
     $scope.searchInputFocused = true;
     $rootScope.$root.ui.tabsHidden = true;
+
+    // hide the sort/screen
+    $scope.sortActivated = false;
+    $scope.screenActivated = false;
   };
 
-  $scope.doBlurSearchInput = function() {
-    console.log('blur');
+  $scope.doBlurSearchInput = function($event) {
     $scope.searchInputFocused = false;
     $rootScope.$root.ui.tabsHidden = false;
+  };
+
+  $scope.doSearch = function(keyword) {
+    console.log(keyword);
   };
 
   // cache bindings

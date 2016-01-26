@@ -431,6 +431,10 @@
 }
 
 /*search panel*/
+.m-cat-search-form {
+
+}
+
 .m-cat-search {
     position: fixed;
     background-color: #fff;
@@ -455,6 +459,10 @@
 .m-cat-search-cancel {
     position: relative;
     left: 5px;
+}
+
+.platform-ios.platform-cordova .m-cat-search.scroll-view.ionic-scroll.scroll-y.activated {
+    top: 64px;
 }
 
 

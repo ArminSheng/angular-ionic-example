@@ -4,10 +4,13 @@
       <!-- search input -->
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="搜索商品" ng-focus="doFocusSearchInput()">
+        <form action="." ng-submit="$event.preventDefault();doSearch(searchKeyword)" class="m-cat-search-form">
+          <input type="hidden">
+          <input type="search" placeholder="搜索商品" ng-click="doFocusSearchInput()" ng-model="searchKeyword" tabindex="-1">
+        </form>
       </label>
       <!-- cancel button -->
-      <button class="button button-small button-clear m-cat-search-cancel" ng-if="searchInputFocused" ng-click="doBlurSearchInput()">
+      <button class="button button-small button-clear m-cat-search-cancel" ng-if="searchInputFocused" ng-click="doBlurSearchInput();$event.stopPropagation()">
         取消
       </button>
     </div>

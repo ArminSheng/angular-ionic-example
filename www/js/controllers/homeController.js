@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService) {
 
   $scope.initialize = function() {
     // load geo position
@@ -18,79 +18,96 @@ angular.module('mmr.controllers')
     });
 
     // load data
-    mmrLoadingFactory.show();
-
-    var errorFlag = false,
-        promises = [];
-    var q1 = mmrAreaFactory.banners();
-    promises.push(q1);
-    q1.then(function(res) {
-      if(res.status === 0) {
-        errorFlag = true;
-        return;
-      }
-
-      $scope.banners = res.data;
+    mmrDataService.request(
+      mmrAreaFactory.banners(),
+      mmrAreaFactory.areas(),
+      mmrItemFactory.seckilling(),
+      mmrItemFactory.homeCommodity()
+    ).then(function(res) {
+      $scope.banners = res[0];
+      $scope.areas = res[1];
+      $scope.seckilling = res[2];
+      $scope.commodities = res[3];
 
       // in case the network is restored
       $timeout(function() {
         $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
       }, 1000);
     }, function(err) {
-      errorFlag = true;
+      console.log(err);
     });
 
-    var q2 = mmrAreaFactory.areas();
-    promises.push(q2);
-    q2.then(function(res) {
-      if(res.status === 0) {
-        errorFlag = true;
-        return;
-      }
 
-      $scope.areas = res.data;
-    }, function(err) {
-      errorFlag = true;
-    });
+    // mmrLoadingFactory.show();
 
-    var q3 = mmrItemFactory.seckilling();
-    promises.push(q3);
-    q3.then(function(res) {
-      if(res.status === 0) {
-        errorFlag = true;
-        return;
-      }
+    // var errorFlag = false,
+    //     promises = [];
+    // var q1 = mmrAreaFactory.banners();
+    // promises.push(q1);
+    // q1.then(function(res) {
+    //   if(res.status === 0) {
+    //     errorFlag = true;
+    //     return;
+    //   }
 
-      $scope.seckilling = res.data;
-    }, function(err) {
-      errorFlag = true;
-    });
+    //   $scope.banners = res.data;
 
-    var q4 = mmrItemFactory.homeCommodity();
-    promises.push(q4);
-    q4.then(function(res) {
-      if(res.status === 0) {
-        errorFlag = true;
-        return;
-      }
 
-      $scope.commodities = res.data;
-    }, function(err) {
-      errorFlag = true;
-    });
+    // }, function(err) {
+    //   errorFlag = true;
+    // });
 
-    $q.all(promises).then(response, response);
+    // var q2 = mmrAreaFactory.areas();
+    // promises.push(q2);
+    // q2.then(function(res) {
+    //   if(res.status === 0) {
+    //     errorFlag = true;
+    //     return;
+    //   }
 
-    function response() {
-      mmrLoadingFactory.hide();
+    //   $scope.areas = res.data;
+    // }, function(err) {
+    //   errorFlag = true;
+    // });
 
-      if(errorFlag) {
-        mmrCommonService.networkDown();
-      } else {
-        mmrCommonService.networkUp();
-      }
-    }
-  }
+    // var q3 = mmrItemFactory.seckilling();
+    // promises.push(q3);
+    // q3.then(function(res) {
+    //   if(res.status === 0) {
+    //     errorFlag = true;
+    //     return;
+    //   }
+
+    //   $scope.seckilling = res.data;
+    // }, function(err) {
+    //   errorFlag = true;
+    // });
+
+    // var q4 = mmrItemFactory.homeCommodity();
+    // promises.push(q4);
+    // q4.then(function(res) {
+    //   if(res.status === 0) {
+    //     errorFlag = true;
+    //     return;
+    //   }
+
+    //   $scope.commodities = res.data;
+    // }, function(err) {
+    //   errorFlag = true;
+    // });
+
+    // $q.all(promises).then(response, response);
+
+    // function response() {
+    //   mmrLoadingFactory.hide();
+
+    //   if(errorFlag) {
+    //     mmrCommonService.networkDown();
+    //   } else {
+    //     mmrCommonService.networkUp();
+    //   }
+    // }
+  };
 
   $timeout(function(){
     return false; // <--- comment this to "fix" the problem

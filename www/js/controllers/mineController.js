@@ -1,15 +1,18 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'recommendedItems',
-  function($scope, $rootScope, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, recommendedItems) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService',
+  function($scope, $rootScope, $q, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService) {
 
-  $rootScope.$root.ui.tabsHidden = false;
+  $scope.initialize = function() {
+    $rootScope.$root.ui.tabsHidden = false;
 
-  if(recommendedItems.data) {
-    $scope.recommendedItems = recommendedItems.data;
-  } else {
-    mmrCommonService.networkDown();
-  }
+    // load data
+    mmrDataService.request(mmrItemFactory.recommend()).then(function(res) {
+      $scope.recommendedItems = res[0];
+    }, function(err) {
+      console.log(err);
+    });
+  };
 
   $scope.doOpenConfig = function() {
     mmrEventing.doOpenConfig();
@@ -211,6 +214,8 @@ angular.module('mmr.controllers')
     });
   });
 
+  $scope.initialize();
+
 }])
 
 .controller('ConfigCtrl', ['$scope', '$rootScope', 'mmrModal',
@@ -237,7 +242,7 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenMyReceipt = function() {
-      
+
       if($rootScope.modals.receiptModal && !$rootScope.modals.receiptModal.scope.$$destroyed) {
       // directly open it
       $rootScope.modals.receiptModal.show();
@@ -257,6 +262,5 @@ angular.module('mmr.controllers')
   $scope.doOpenAboutUs = function() {
     console.log('doOpenAboutUs');
   };
-
 
 }]);

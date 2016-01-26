@@ -138,16 +138,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     views: {
       'tab-mine': {
         templateUrl: 'templates/mine.html',
-        controller: 'MineCtrl',
-        resolve: {
-          recommendedItems: function(mmrItemFactory) {
-            return mmrItemFactory.recommend().then(function(res) {
-              return res;
-            }, function(err) {
-              return err;
-            });
-          }
-        }
+        controller: 'MineCtrl'
       }
     }
   })

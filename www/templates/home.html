@@ -19,6 +19,10 @@
   <ion-content class="m-home-content">
 
     <div ng-if="$root.network">
+
+      <ion-refresher pulling-text="上拉更新页面..." on-refresh="initialize()">
+      </ion-refresher>
+
       <!-- slider -->
       <ion-slide-box on-slide-changed="slideHasChanged($index)" delegate-handle="bannersSlideBox">
         <ion-slide ng-repeat="banner in banners track by $index">

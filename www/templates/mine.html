@@ -19,6 +19,10 @@
   <ion-content class="m-mine-body" scrollbar-x="false" scrollbar-y="false">
 
     <div ng-if="$root.network">
+
+      <ion-refresher pulling-text="上拉更新页面..." on-refresh="initialize()">
+      </ion-refresher>
+
       <!-- avatar & personal info & address mgmt -->
       <div class="m-mine-pinfo">
         <div class="row row-no-padding">

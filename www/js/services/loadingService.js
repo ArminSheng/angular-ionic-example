@@ -6,7 +6,8 @@ angular.module('mmr.services')
   return {
     show: function() {
       $ionicLoading.show({
-        template: '正在加载中...'
+        template: '正在加载中...',
+        duration: 10000
       });
     },
 

@@ -11,6 +11,9 @@ angular.module('mmr.controllers')
       $scope.recommendedItems = res[0];
     }, function(err) {
       console.log(err);
+    }).finally(function() {
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
     });
   };
 

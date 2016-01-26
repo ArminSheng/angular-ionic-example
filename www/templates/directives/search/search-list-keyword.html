@@ -1,0 +1,18 @@
+<div class="m-search-list-keyword-wrapper">
+  <div class="list m-search-list-keyword">
+    <a class="item m-search-list-keyword-item" ng-click="doSelectSearchKeyword(keyword)" ng-repeat="keyword in keywords track by $index">
+      <div class="m-search-list-keyword-item-text">
+        {{ keyword.text }}
+      </div>
+      <div class="m-search-list-keyword-item-detail">
+        {{ keyword.detail }}
+      </div>
+    </a>
+  </div>
+  <!-- clear button -->
+  <div class="m-search-list-keyword-clear" ng-if="keywords && keywords.length > 0">
+    <button class="button button-small button-energized" ng-click="doDeleteSearchRecord()">
+      清除搜索记录
+    </button>
+  </div>
+</div>

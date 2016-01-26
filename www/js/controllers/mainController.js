@@ -55,6 +55,17 @@ angular.module('mmr.controllers')
     // important modals
     modals: {
 
+    },
+
+    // search related
+    search: {
+      keywords: [
+        { text: '羊肉5', detail: '' },
+        { text: '羊肉4', detail: '' },
+        { text: '羊肉3', detail: '' },
+        { text: '羊肉2', detail: '' },
+        { text: '羊肉1', detail: '' }
+      ]
     }
   };
 

@@ -433,7 +433,7 @@
 /*search panel*/
 .m-cat-search {
     position: fixed;
-    background-color: red;
+    background-color: #fff;
     width: 100%;
     z-index: 25;
     opacity: 0;
@@ -450,6 +450,11 @@
 .m-cat-search.activated {
     opacity: 1;
     visibility: visible;
+}
+
+.m-cat-search-cancel {
+    position: relative;
+    left: 5px;
 }
 
 

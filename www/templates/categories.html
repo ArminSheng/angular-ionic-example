@@ -4,11 +4,12 @@
       <!-- search input -->
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <input type="search" placeholder="搜索商品" ng-focus="doFocusSearchInput()" ng-blur="doBlurSearchInput()">
+        <input type="search" placeholder="搜索商品" ng-focus="doFocusSearchInput()">
       </label>
-      <!-- options -->
-      <!-- <a class="button button-icon icon ion-android-more-horizontal m-cat-options" ng-click="doCheckOptions()">
-      </a> -->
+      <!-- cancel button -->
+      <button class="button button-small button-clear m-cat-search-cancel" ng-if="searchInputFocused" ng-click="doBlurSearchInput()">
+        取消
+      </button>
     </div>
   </ion-nav-title>
 
@@ -130,7 +131,9 @@
   <!-- search panel -->
   <div class="m-cat-search-wrapper">
     <ion-scroll zooming="true" direction="y" style="width: 100%" class="m-cat-search" ng-class="{'activated': searchInputFocused}" animation-callback>
-      <div style="height: 5000px" >Test</div>
+      <div style="height: 1000px;" class="m-cat-search-keywords">
+        <search-list-keyword keywords="$root.search.keywords"></search-list-keyword>
+      </div>
     </ion-scroll>
   </div>
 

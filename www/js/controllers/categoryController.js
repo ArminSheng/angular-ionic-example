@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrEventing', 'mmrItemFactory',
-  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrEventing, mmrItemFactory) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory',
+  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory) {
 
   // controller defaults
   $scope.sortActivated = false;
@@ -35,10 +35,15 @@ angular.module('mmr.controllers')
   var selectedBrandsIdx = {},
       selectedAttributesIdx = {};
 
-  // init
-  init();
-
   // methods
+  $scope.initialize = function() {
+    mmrDataService.request(mmrItemFactory.search()).then(function(res) {
+      $scope.searchResults = res[0];
+    }, function(err) {
+
+    });
+  };
+
   $scope.activateSort = function() {
     $scope.screenActivated = false;
     $scope.sortActivated = !$scope.sortActivated;
@@ -246,17 +251,6 @@ angular.module('mmr.controllers')
     }
   }
 
-  function init() {
-    mmrItemFactory.search().then(function(res) {
-      $scope.searchResults = res.data;
-
-      // adjust the height of the menubar
-      // $scope.menuHeight = document.querySelector('.m-search-list').clientHeight;
-    }, function(err) {
-
-    });
-  }
-
   var barHeight = 44,
       filterOptionsHeight = 42,
       statusBarHeight = 20;
@@ -285,6 +279,8 @@ angular.module('mmr.controllers')
 
     return result + 'px';
   }
+
+  $scope.initialize();
 }])
 
 .controller('CategoryMenuCtrl', ['$scope', function($scope) {

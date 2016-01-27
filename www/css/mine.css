@@ -243,18 +243,19 @@
     color: inherit;
     border: 1px solid #ddd;
     border-radius: 3px;
-    padding: 10px;
-    display: inline-block;
+    width: 100%;
+    display: inline-flex;
     text-align: center;
     color: #ddd;
-    height: 72px;
+   
+    justify-content: center;
 }
 
 .m-modal-mine-receipt-license i {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    font-size: 35px;
+    width: 100%;
+    height: 78px;
+    display: block;
+    font-size: 55px;
 }
 
 .m-modal-mine-receipt-add .list .item:last-child {
@@ -267,6 +268,104 @@
 }
 
 .m-modal-mine-receipt-license-img {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
+    min-height: 78px;
+    max-height: 80px;
+}
+
+/*apply service*/
+.m-modal-mine-applyServ-bar-footer, .m-modal-mine-applyServ-bar-footer .button {
+   padding: 0; 
+   margin: 0;
+}
+
+.m-item-input {
+    padding: 6px 16px 10px 16px;
+    color: #444;
+}
+
+.m-item .item-input {
+    border: 0;
+}
+
+.m-item-input textarea {
+    border: 1px solid #eee;
+    border-radius: 8px;
+    width: 100%;
+    height: 140px;
+    padding: 15px 10px;
+}
+
+.m-item-input div {
+    padding-left: 0;
+}
+
+/*my collect*/
+..m-modal-mine-collect-view .bar-header {
+    display: flex;
+}
+
+.m-modal-mine-collect-view .m-header-buttons {
+    flex:2;
+}
+
+.m-modal-mine-collect-view .buttons {
+    flex:1;
+}
+
+.m-modal-mine-collect-view .buttons:first-child {
+    text-align: left;
+}
+
+.m-modal-mine-collect-view .buttons:last-child .button {
+    text-align: right;
+    position: absolute;
+    right: 10px;
+}
+
+.m-collect-product-list-container .list, .m-collect-shop-list-container .list {
+    background: #e8e8e8;
+}
+
+.m-collect-product-list-container .list .item {
+    margin: 5px;
+}
+
+.m-collect-shop-list-container .list .item {
+    margin: 5px;
+    display: flex;
+    display: -webkit-flex;
+    -webkit-align-content:center;
+    -webkit-flex-wrap: wrap;
+    align-content:center;
+    flex-wrap: wrap;
+}
+
+.m-header-buttons {
+    margin: 0 5px;
+}
+
+@media screen and (min-width: 370px) {
+    .m-header-buttons {
+        margin: 0 5px;
+    }
+}
+
+.m-header-buttons .button {
+    border-color: #fff;
+}
+
+.m-header-buttons .button.active {
+    background-color: #fff;
+    border-color: #fff;
+    color: #ffc900;
+}
+
+.m-collect-list-item-amount, .m-collect-list-item-name {
+    padding-left: 10px;
+}
+
+.m-collect-product-list-item-controls {
+    text-align: right;
 }

@@ -1,0 +1,31 @@
+<ion-modal-view class="m-modal-mine-collect-view">
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+            <button class="button button-clear" ng-click="collectModal.doHide()">
+                <span class="icon ion-chevron-left m-common-back"></span>
+                我的
+            </button>
+        </div>        
+        <div class="button-bar m-header-buttons">
+			<a class="button" ng-class="{'active': collectModal.tab === 0}" ng-click="collectModal.switchTab(0)">商品</a>
+		    <a class="button" ng-class="{'active': collectModal.tab === 1}" ng-click="collectModal.switchTab(1)">店铺</a>
+		</div>
+        
+        <div class="buttons">
+			<button class="button button-clear" ng-click="collectModal.doHide()">
+				<span class="icon ion-more m-header-icon"></span>
+			</button>
+		</div>
+	</ion-header-bar>
+
+	<ion-content class="m-modal-mine-collect-content">
+		
+		<div ng-show="collectModal.tab === 0">
+			<collect-product-list items="collectModal.products[1]"></collect-product-list>
+		</div>
+		<div ng-show="collectModal.tab === 1">
+			<collect-shop-list items="collectModal.products[1]"></collect-shop-list>
+		</div>
+
+	</ion-content>
+</ion-modal-view>

@@ -108,7 +108,7 @@ angular.module('mmr.directives')
       $scope.$on('eventApplyService', function($event, data) {
         // all orders will try to respond to the event
         if(data.orderId === $scope.item.orderId) {
-
+          mmrModal.createApplyServiceModal($scope, data);
         }
       });
 

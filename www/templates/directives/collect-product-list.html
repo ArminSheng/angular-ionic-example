@@ -1,0 +1,60 @@
+<div class="m-collect-product-list-container">
+	<div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened, 'ios': $root.platform === 'ios'}">
+    	<!-- sorting & filters -->
+		<div class="m-cat-filters">
+		    <div class="row row-no-padding m-cat-filters-row">
+		        <div class="col col-50 m-cat-filters-col-border">
+		          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
+		            智能排序<span class="ion-chevron-down m-cat-down-icon"></span>
+		          </a>
+		        </div>
+		        <div class="col col-50">
+		          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
+		            筛选<span class="ion-chevron-down m-cat-down-icon"></span>
+		          </a>
+		        </div>
+		      </div>
+		</div>
+
+		<!-- filter options -->
+		<div class="m-cat-filters-options">
+		      <div class="list m-cat-filters-options-list" ng-class="{'activated': sortActivated}">
+		        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
+		          {{ sorter.text }}
+		          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedSortIndex === $index"></i>
+		        </a>
+		      </div>
+		</div>
+  	</div>
+	<div class="list">
+		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items">
+			<img src="img/item/sample.png">
+			<h2>猪排骨</h2>
+			<p>
+        		微杨科技
+		        <span class="m-search-list-item-amount">
+		          销量:
+		          <span class="m-search-list-item-amount-text">
+		            100
+		          </span>
+		        </span>        		
+     		</p>
+		    <div class="m-search-list-item-prices">
+			    <span class="m-search-list-item-current-price">
+			        ￥50/箱
+			    </span>
+			    <span class="m-search-list-item-original-price">
+			        ￥80/箱
+			    </span>
+		    </div> 
+		    <!-- control group -->
+			<div class="m-search-list-item-controls m-collect-product-list-item-controls">
+		        <span class="ion-ios-minus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, -1); $event.stopPropagation();"></span>
+
+		        <span class="m-search-list-item-controls-num">{{ item.cartAmount || 0 }}</span>
+
+		        <span class="ion-ios-plus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, 1); $event.stopPropagation();"></span>
+	      </div>    		
+		</a>
+	</div>
+</div>

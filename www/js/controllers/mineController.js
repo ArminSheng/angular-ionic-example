@@ -49,6 +49,11 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyReceipt();
   };
 
+  $scope.doOpenMyCollect = function(tab) {
+    mmrEventing.doOpenMyCollect(tab);
+  };
+
+
   // ----------------------
   // event handler
   // ----------------------
@@ -57,6 +62,33 @@ angular.module('mmr.controllers')
   $scope.$on('eventOpenMoreOrders', function($event, tab) {
     $state.go('tab.orders-mine', {
       orderType: tab || 0
+    });
+  });
+
+  // open products collect or shops
+  $scope.$on('eventOpenMyCollect', function($event, tab) {
+    $ionicModal.fromTemplateUrl('templates/modal/my-collect.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.collectModal = modal;
+      $scope.collectModal.show();
+      
+      //methods
+      $scope.collectModal.doHide = function() {
+        $scope.collectModal.hide();
+      };       
+
+      $scope.collectModal.switchTab = function(tabIdx) {
+        $scope.collectModal.tab = tabIdx;
+      };
+
+      init();
+      function init() {
+        $scope.collectModal.products = mmrMineFactory.receiptDetails();
+
+      }
+
+      $scope.collectModal.switchTab(tab);
     });
   });
 

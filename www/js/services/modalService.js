@@ -395,6 +395,45 @@ angular.module('mmr.services')
           modal.hide();
         };
       });
+    },
+
+    // apply service modal view
+    createApplyServiceModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/apply-service.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.$root.modals.applyServiceModal = modal;
+        $rootScope.$root.modals.applyServiceModal.show();
+
+        //bind data
+        $rootScope.$root.modals.applyServiceModal.item = item;
+        $rootScope.$root.modals.applyServiceModal.applyServNum = '01123344';
+
+        //methods
+        $rootScope.$root.modals.applyServiceModal.doHide = function() {
+          modal.hide();
+        };
+
+        $rootScope.$root.modals.applyServiceModal.doSubmit = function(applyServNum) {
+          $ionicPopup.show({
+            template: '<div class="m-msg-cong">' +         
+                '<span class="m-msg-cong-subtitle">售后订单处理编号为：'+applyServNum+'</span>' +
+                '<span class="m-msg-cong-subtitle">请在个人中心-我的售后中查询处理进度</span></div>',
+            title: '您的售后申请已提交',
+            scope: scope,
+            buttons: [
+              {
+                text: '<b>查看我的售后</b>',
+                    type: 'button-energized',
+                    onTap: function(e) {
+                      // event handler when user confirm
+                    }
+              }
+            ]
+          });
+        };
+      });
     }
 
   };

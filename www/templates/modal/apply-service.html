@@ -1,0 +1,46 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$root.modals.applyServiceModal.doHide()">
+				<span class="icon ion-chevron-left m-common-back"></span>我的订单
+			</button>
+		</div>
+		<h1 class="title">售后申请</h1>
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$root.modals.applyServiceModal.doOpenHeaderMenu()">
+				<span class="icon ion-more m-header-icon"></span>
+			</button>
+		</div>
+	</ion-header-bar>
+	<ion-content class="m-modal-mine-applyServ">
+		<div class="list m-item">
+			<label class="item item-input item-select">
+				<div class="input-label">选择售后原因</div>
+				<select><option>售后原因</option><optionselected>售后原因</option><option>售后原因</option></select>
+			</label>
+			<div class="m-item-input">
+				<p class="input-label">售后原因说明</p>
+				<textarea placeholder="请输入售后原因"></textarea>
+			</div>
+			<div class="m-item-input">
+				<p class="input-label">选择售后原因</p>
+					<div class="row">
+			            <div class="col col-25">
+			              <a class="m-modal-mine-receipt-license" ng-click="">
+			                <img class="m-modal-mine-receipt-license-img" src="img/mine/m-receipt.png">
+			              </a>
+			            </div>
+			            <div class="col col-25">
+			              <a class="m-modal-mine-receipt-license" ng-click="">
+			                <img class="m-modal-mine-receipt-license-img" src="img/mine/plus-image.png">
+			              </a>
+			            </div>
+             		</div>
+			</div>
+			
+		</div>
+	</ion-content>
+	<div class="bar bar-footer m-modal-mine-applyServ-bar-footer">
+		<button class="button button-energized button-full" ng-click="$root.modals.applyServiceModal.doSubmit($root.modals.applyServiceModal.applyServNum)">确认提交售后</button>
+	</div>
+</ion-modal-view>

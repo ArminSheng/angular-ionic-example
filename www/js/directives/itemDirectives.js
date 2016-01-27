@@ -156,7 +156,7 @@ angular.module('mmr.directives')
           mmrModal.createShopDetailModal(scope, item);
         }
         
-      }
+      };
     }
   };
 }]);

@@ -29,22 +29,22 @@
 	<div class="list">
 		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items">
 			<img src="img/item/sample.png">
-			<h2>猪排骨</h2>
+			<h2>{{ item.title }}</h2>
 			<p>
-        		微杨科技
+        		{{ item.brand }}
 		        <span class="m-search-list-item-amount">
 		          销量:
 		          <span class="m-search-list-item-amount-text">
-		            100
+		            {{ item.salesAmount }}
 		          </span>
 		        </span>        		
      		</p>
 		    <div class="m-search-list-item-prices">
 			    <span class="m-search-list-item-current-price">
-			        ￥50/箱
+			        {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
 			    </span>
 			    <span class="m-search-list-item-original-price">
-			        ￥80/箱
+			        {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
 			    </span>
 		    </div> 
 		    <!-- control group -->

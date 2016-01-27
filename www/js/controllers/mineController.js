@@ -67,29 +67,12 @@ angular.module('mmr.controllers')
 
   // open products collect or shops
   $scope.$on('eventOpenMyCollect', function($event, tab) {
-    $ionicModal.fromTemplateUrl('templates/modal/my-collect.html', {
-      scope: $scope
-    }).then(function(modal) {
-      $scope.collectModal = modal;
-      $scope.collectModal.show();
-      
-      //methods
-      $scope.collectModal.doHide = function() {
-        $scope.collectModal.hide();
-      };       
-
-      $scope.collectModal.switchTab = function(tabIdx) {
-        $scope.collectModal.tab = tabIdx;
-      };
-
-      init();
-      function init() {
-        $scope.collectModal.products = mmrMineFactory.receiptDetails();
-
-      }
-
-      $scope.collectModal.switchTab(tab);
-    });
+    if ($rootScope.modals.collectModal && !$rootScope.modals.collectModal.scope.$$destroyed) {
+      $rootScope.modals.collectModal.switchTab(tab);
+      $rootScope.modals.collectModal.show();
+    } else{
+      mmrModal.createMyCollectModal($scope,tab);
+    }
   });
 
   // address mgmt

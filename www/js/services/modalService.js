@@ -1,7 +1,8 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory) {
+
 
   return {
 
@@ -145,6 +146,36 @@ angular.module('mmr.services')
             };
           });
         }
+      });
+    },
+
+    createMyCollectModal: function(scope,tab) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-collect.html', {
+        scope: scope
+      }).then(function(modal) {
+        $rootScope.modals.collectModal = modal;
+        $rootScope.modals.collectModal.show();
+        
+        //methods
+        $rootScope.modals.collectModal.doHide = function() {
+          $rootScope.modals.collectModal.hide();
+        };       
+
+        $rootScope.modals.collectModal.switchTab = function(tabIdx) {
+          $rootScope.modals.collectModal.tab = tabIdx;
+        };
+
+        init();
+        function init() {
+          mmrItemFactory.search().then(function(res) {
+            $rootScope.modals.collectModal.products = res.data;
+          }, function(err) {
+
+          });
+          //$rootScope.modals.collectModal.products = mmrMineFactory.receiptDetails();
+        }
+        
+        $rootScope.modals.collectModal.switchTab(tab);
       });
     },
 

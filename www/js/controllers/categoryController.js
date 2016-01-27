@@ -213,7 +213,7 @@ angular.module('mmr.controllers')
     _.forEach($scope.tags, function(tag) {
       _.forEach(tag.items, function(item) {
         item.selected = false;
-      })；
+      });
     });
   });
 

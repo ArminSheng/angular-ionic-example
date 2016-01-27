@@ -71,6 +71,15 @@ angular.module('mmr.controllers')
 
   $rootScope.modals = $rootScope.modals || {};
 
+  $rootScope.sorters = $rootScope.sorters || {};
+  $rootScope.sorters.common = [
+    { 'text': '智能排序' },
+    { 'text': '价格从高到低' },
+    { 'text': '价格从低到高' },
+    { 'text': '销量从高到低' },
+    { 'text': '销量从低到高' }
+  ];
+
   // send heartbeat every 30s
   $interval(function() {
     mmrCommonService.networkCheck();

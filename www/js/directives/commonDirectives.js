@@ -75,4 +75,31 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('sorter', ['mmrEventing', function(mmrEventing) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      eventName: '@',
+      sorters: '=',
+      sortActivated: '=',
+      activateSort: '&',
+      additionalClass: '@'
+    },
+    templateUrl: 'templates/directives/common/sorter.html',
+    link: function(scope, element, attrs) {
+      scope.selectedSortIndex = 0;
+
+      scope.doSelectSorter = function(idx) {
+        mmrEventing.doSelectSorter(scope.eventName, idx);
+
+        scope.selectedSortIndex = idx;
+        scope.sortActivated = false;
+      };
+    }
+  };
+
 }]);

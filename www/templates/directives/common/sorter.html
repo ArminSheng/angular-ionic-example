@@ -1,0 +1,14 @@
+<div class="m-sorter-wrapper" ng-class="additionalClass">
+  <a class="button button-small button-clear m-sorter-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort({})">
+    {{ sorters[selectedSortIndex].text }}<span class="ion-chevron-down m-sort-down-icon"></span>
+  </a>
+  <!-- filter options -->
+  <div class="m-sorter-options">
+    <div class="list m-sorter-options-list" ng-class="{'activated': sortActivated}">
+      <a class="item item-icon-right m-sorter-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
+        {{ sorter.text }}
+        <i class="icon ion-checkmark-circled m-color-theme-fg m-sort-option-icon" ng-if="selectedSortIndex === $index"></i>
+      </a>
+    </div>
+  </div>
+</div>

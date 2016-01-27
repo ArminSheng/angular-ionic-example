@@ -69,7 +69,7 @@
   </ion-content>
 
   <!-- categories menu -->
-  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened, 'downing': !optionsBarOpened}" scrollbar-x="false" scrollbar-y="false" calc-height>
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened, 'downing': !optionsBarOpened}" scrollbar-x="false" scrollbar-y="false">
     <!-- category menu -->
     <div class="m-cat-menu" on-swipe-right="swipeMenu(true)" on-swipe-left="swipeMenu(false)" ng-class="{'activated': menuOpened}">
       <div class="m-cat-menu-container">
@@ -99,10 +99,9 @@
     <div class="m-cat-filters">
       <div class="row row-no-padding m-cat-filters-row">
         <div class="col col-50 m-cat-filters-col-border">
-          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
-            {{ sorters[selectedSortIndex].text }}<span class="ion-chevron-down m-cat-down-icon"></span>
-          </a>
+          <sorter event-name="{{ sortEventName }}" sorters="sorters.common" sort-activated="sortActivated" activate-sort="activateSort()" additional-class="m-cat-sorter"></sorter>
         </div>
+
         <div class="col col-50">
           <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
             筛选<span class="ion-chevron-down m-cat-down-icon"></span>
@@ -111,15 +110,6 @@
       </div>
     </div>
 
-    <!-- filter options -->
-    <div class="m-cat-filters-options">
-      <div class="list m-cat-filters-options-list" ng-class="{'activated': sortActivated}">
-        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
-          {{ sorter.text }}
-          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedSortIndex === $index"></i>
-        </a>
-      </div>
-    </div>
   </div>
 
   <!-- icon hint -->

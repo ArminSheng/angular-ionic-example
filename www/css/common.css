@@ -62,7 +62,55 @@
   padding-bottom: 8px;
 }
 
-/*scroll bar*/
-/*.scroll-bar-indicator {
-  display: none;
-}*/
+/*sorter related*/
+.m-sort-down-icon {
+    position: relative;
+    left: 2px;
+    font-size: 8px;
+}
+
+.button-clear.m-sorter-text {
+    color: black;
+    font-size: 14px;
+}
+
+.button-clear.m-sorter-text.text-activated {
+    color: orange;
+    font-weight: bold;
+}
+
+.m-sorter-options {
+    position: relative;
+}
+
+.list.m-sorter-options-list {
+    height: 0px;
+    width: 100%;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+
+    /*animation part*/
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.list.m-sorter-options-list.activated {
+    opacity: 1;
+    top: 86px;
+    visibility: visible;
+}
+
+.item.m-sorter-option {
+    padding: 10px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.icon.m-sort-option-icon {
+    font-size: 20px;
+}

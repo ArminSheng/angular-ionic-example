@@ -50,34 +50,39 @@ angular.module('mmr.services')
 
     // inside category view
     doOpenFilters: function(data) {
-      $rootScope.$broadcast("eventOpenFilters", data);
+      $rootScope.$broadcast('eventOpenFilters', data);
     },
 
     // order operations below
     doOpenOrderDetail: function(data) {
-      $rootScope.$broadcast("eventOpenOrderDetail", data);
+      $rootScope.$broadcast('eventOpenOrderDetail', data);
     },
 
     doApplyService: function(data) {
-      $rootScope.$broadcast("eventApplyService", data);
+      $rootScope.$broadcast('eventApplyService', data);
     },
 
     doPayOrder: function(data) {
-      $rootScope.$broadcast("eventPayOrder", data);
+      $rootScope.$broadcast('eventPayOrder', data);
     },
 
     doBuyAgain: function(data) {
-      $rootScope.$broadcast("eventBuyAgain", data);
+      $rootScope.$broadcast('eventBuyAgain', data);
     },
 
     doCheckSelfCode: function(data) {
-      $rootScope.$broadcast("eventCheckSelfCode", data);
+      $rootScope.$broadcast('eventCheckSelfCode', data);
     },
 
     doCheckServiceDetail: function(data) {
-      $rootScope.$broadcast("eventCheckServiceDetail", data);
-    }
+      $rootScope.$broadcast('eventCheckServiceDetail', data);
+    },
     // order operations end
+
+    // sorters and screeners
+    doSelectSorter: function(eventName, data) {
+      $rootScope.$broadcast(eventName, data);
+    }
 
   };
 

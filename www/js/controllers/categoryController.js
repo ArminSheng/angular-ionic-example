@@ -3,17 +3,11 @@ angular.module('mmr.controllers')
 .controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory',
   function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory) {
 
-  // controller defaults
+  // sort related
+  $scope.sortEventName = 'eventCategorySort';
   $scope.sortActivated = false;
-  $scope.selectedSortIndex = 0;
-  $scope.sorters = [
-    { 'text': '智能排序' },
-    { 'text': '价格从高到低' },
-    { 'text': '价格从低到高' },
-    { 'text': '销量从高到低' },
-    { 'text': '销量从低到高' }
-  ];
 
+  // screen related
   $scope.screenActivated = false;
 
   // menu related
@@ -52,11 +46,6 @@ angular.module('mmr.controllers')
     $scope.swipeMenu(false);
   };
 
-  $scope.doSelectSorter = function(idx) {
-    $scope.selectedSortIndex = idx;
-    $scope.sortActivated = false;
-  };
-
   $scope.activateScreen = function() {
     $scope.sortActivated = false;
     $scope.screenActivated = !$scope.screenActivated;
@@ -70,8 +59,6 @@ angular.module('mmr.controllers')
 
   $scope.doSelectBrand = function(idx) {
     toggleStatus(selectedBrandsIdx, idx);
-
-
   };
 
   $scope.doSelectAttribute = function(idx) {
@@ -241,6 +228,9 @@ angular.module('mmr.controllers')
   });
 
   // event handlers
+  $scope.$on($scope.sortEventName, function($event, data) {
+    // after selecting the new sorting method
+  });
 
   // private functions
   function toggleStatus(mapping, idx) {

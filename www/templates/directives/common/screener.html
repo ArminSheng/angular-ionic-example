@@ -1,0 +1,29 @@
+<div class="m-screener-wrapper">
+  <a class="button button-small button-clear m-screener-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
+    筛选<span class="ion-chevron-down m-screen-down-icon"></span>
+  </a>
+
+  <!-- screen options -->
+  <ion-content class="m-screen-container-scroll m-screen-options-area" ng-class="{'activated': screenActivated}">
+    <div class="m-screen-container">
+
+      <div class="m-screen-tag" ng-repeat="tag in tags track by $index">
+        <div class="m-screen-tag-title">
+          {{ tag.title }}
+        </div>
+        <div class="m-screen-tag-items">
+          <span class="m-screen-tag-item" ng-repeat="item in tag.items track by $index" ng-click="doSelectItem($parent.$index, $index, item)" ng-class="{'selected': item.selected}">
+            {{ item.name }}
+          </span>
+        </div>
+      </div>
+
+      <!-- reset btn -->
+      <button class="button button-outline button-energized m-screen-reset" ng-click="doResetScreen()">重置</button>
+
+      <!-- confirm btn -->
+      <button class="button button-full button-energized m-screen-confirm" ng-click="doConfirmScreen()">确认</button>
+
+    </div>
+  </ion-content>
+</div>

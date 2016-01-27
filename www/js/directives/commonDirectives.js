@@ -102,4 +102,59 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('screener', ['$rootScope', 'mmrEventing',
+  function($rootScope, mmrEventing) {
+
+  var calcContentHeight = function() {
+    // minus barHeight and optionsHeight and some offset
+    var result = $(window).height() - 44 - 42 - 20;
+    if($rootScope.$root.platform === 'ios') {
+      result -= 20;
+    }
+
+    return result;
+  };
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      eventPrefix: '@',
+      tags: '=',
+      screenActivated: '=',
+      activateScreen: '&',
+      additionalClass: '@'
+    },
+    templateUrl: 'templates/directives/common/screener.html',
+    link: function(scope, element, attrs) {
+      element.find('.m-screen-container-scroll').height(calcContentHeight());
+
+      scope.doSelectItem = function(outerIdx, innerIdx, item) {
+        // init and assignment
+        item.selected = item.selected || false;
+        if(item.selected) {
+          item.selected = false;
+        } else {
+          item.selected = true;
+        }
+
+        mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'SelectItem', {
+          outer: outerIdx,
+          inner: innerIdx,
+          item: item
+        });
+      };
+
+      scope.doResetScreen = function() {
+        mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'Reset', {});
+      };
+
+      scope.doConfirmScreen = function() {
+        mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'Confirm', {});
+      };
+    }
+  };
+
 }]);

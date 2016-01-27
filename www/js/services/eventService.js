@@ -82,6 +82,10 @@ angular.module('mmr.services')
     // sorters and screeners
     doSelectSorter: function(eventName, data) {
       $rootScope.$broadcast(eventName, data);
+    },
+
+    doBroadcastScreenEvent: function(eventName, data) {
+      $rootScope.$broadcast(eventName, data);
     }
 
   };

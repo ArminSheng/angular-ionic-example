@@ -1,13 +1,14 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory',
-  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory', 'mmrCacheFactory',
+  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory) {
 
   // sort related
   $scope.sortEventName = 'eventCategorySort';
   $scope.sortActivated = false;
 
   // screen related
+  $scope.screenEventPrefix = 'eventCategoryScreen';
   $scope.screenActivated = false;
 
   // menu related
@@ -24,10 +25,6 @@ angular.module('mmr.controllers')
   // search related
   $scope.searchResults = [];
   $scope.searchInputFocused = false;
-
-  // record which brand and attribute has been selected
-  var selectedBrandsIdx = {},
-      selectedAttributesIdx = {};
 
   // methods
   $scope.initialize = function() {
@@ -55,34 +52,6 @@ angular.module('mmr.controllers')
 
     // hide the bottom tabs
     $rootScope.$root.ui.tabsHidden = true;
-  };
-
-  $scope.doSelectBrand = function(idx) {
-    toggleStatus(selectedBrandsIdx, idx);
-  };
-
-  $scope.doSelectAttribute = function(idx) {
-    toggleStatus(selectedAttributesIdx, idx);
-  };
-
-  $scope.checkStatus = function(type, idx) {
-    if(type === 'brand') {
-      return !!selectedBrandsIdx[idx];
-    } else {
-      return !!selectedAttributesIdx[idx];
-    }
-  };
-
-  $scope.doResetScreen = function() {
-    selectedBrandsIdx = {};
-    selectedAttributesIdx = {};
-  };
-
-  $scope.doConfirmScreen = function() {
-    // confirm logic
-
-    // hide the screen popup
-    $scope.activateScreen();
   };
 
   $scope.swipeMenu = function(open) {
@@ -196,8 +165,11 @@ angular.module('mmr.controllers')
   };
 
   // cache bindings
-  localStorageService.bind($scope, 'brands');
-  localStorageService.bind($scope, 'attributes');
+  $scope.tags = [
+    { title: '品牌', items: mmrCacheFactory.get('brands') },
+    { title: '产品属性', items: mmrCacheFactory.get('attributes') }
+  ];
+
   localStorageService.bind($scope, 'classifications');
 
   // watchers
@@ -232,14 +204,25 @@ angular.module('mmr.controllers')
     // after selecting the new sorting method
   });
 
-  // private functions
-  function toggleStatus(mapping, idx) {
-    if(mapping[idx]) {
-      delete mapping[idx];
-    } else {
-      mapping[idx] = true;
-    }
-  }
+  $scope.$on($scope.screenEventPrefix + 'SelectItem', function($event, data) {
+
+  });
+
+  $scope.$on($scope.screenEventPrefix + 'Reset', function($event, data) {
+    // make all selected flag to false
+    _.forEach($scope.tags, function(tag) {
+      _.forEach(tag.items, function(item) {
+        item.selected = false;
+      })
+    });
+  });
+
+  $scope.$on($scope.screenEventPrefix + 'Confirm', function($event, data) {
+    // confirm logic
+
+    // hide the screen popup
+    $scope.activateScreen();
+  });
 
   var barHeight = 44,
       filterOptionsHeight = 42,

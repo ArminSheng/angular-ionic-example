@@ -49,6 +49,11 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyReceipt();
   };
 
+  $scope.doOpenMyCollect = function(tab) {
+    mmrEventing.doOpenMyCollect(tab);
+  };
+
+
   // ----------------------
   // event handler
   // ----------------------
@@ -58,6 +63,16 @@ angular.module('mmr.controllers')
     $state.go('tab.orders-mine', {
       orderType: tab || 0
     });
+  });
+
+  // open products collect or shops
+  $scope.$on('eventOpenMyCollect', function($event, tab) {
+    if ($rootScope.modals.collectModal && !$rootScope.modals.collectModal.scope.$$destroyed) {
+      $rootScope.modals.collectModal.switchTab(tab);
+      $rootScope.modals.collectModal.show();
+    } else{
+      mmrModal.createMyCollectModal($scope,tab);
+    }
   });
 
   // address mgmt

@@ -117,4 +117,38 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('collectProductList', ['$timeout', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      items: '='
+    },
+    templateUrl: 'templates/directives/collect-product-list.html',
+    link: function(scope, element, attrs) {
+      scope.doChangeNumber = function(item, offset) {
+        item.cartAmount = item.cartAmount || 0;
+        item.cartAmount += offset;
+        if(item.cartAmount < 0) {
+          item.cartAmount = 0;
+        }
+      };
+    }
+  };
+}])
+
+.directive('collectShopList', ['$timeout', function($timeout) {
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      items: '='
+    },
+    templateUrl: 'templates/directives/collect-shop-list.html',
+    link: function(scope, element, attrs) {
+      
+    }
+  };
 }]);

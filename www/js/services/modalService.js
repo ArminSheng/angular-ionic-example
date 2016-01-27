@@ -1,7 +1,8 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory) {
+
 
   return {
 
@@ -145,6 +146,36 @@ angular.module('mmr.services')
             };
           });
         }
+      });
+    },
+
+    createMyCollectModal: function(scope,tab) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-collect.html', {
+        scope: scope
+      }).then(function(modal) {
+        $rootScope.modals.collectModal = modal;
+        $rootScope.modals.collectModal.show();
+        
+        //methods
+        $rootScope.modals.collectModal.doHide = function() {
+          $rootScope.modals.collectModal.hide();
+        };       
+
+        $rootScope.modals.collectModal.switchTab = function(tabIdx) {
+          $rootScope.modals.collectModal.tab = tabIdx;
+        };
+
+        init();
+        function init() {
+          mmrItemFactory.search().then(function(res) {
+            $rootScope.modals.collectModal.products = res.data;
+          }, function(err) {
+
+          });
+          //$rootScope.modals.collectModal.products = mmrMineFactory.receiptDetails();
+        }
+        
+        $rootScope.modals.collectModal.switchTab(tab);
       });
     },
 
@@ -393,6 +424,45 @@ angular.module('mmr.services')
         // methods
         $rootScope.$root.modals.orderDetailModal.doHide = function() {
           modal.hide();
+        };
+      });
+    },
+
+    // apply service modal view
+    createApplyServiceModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/apply-service.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.$root.modals.applyServiceModal = modal;
+        $rootScope.$root.modals.applyServiceModal.show();
+
+        //bind data
+        $rootScope.$root.modals.applyServiceModal.item = item;
+        $rootScope.$root.modals.applyServiceModal.applyServNum = '01123344';
+
+        //methods
+        $rootScope.$root.modals.applyServiceModal.doHide = function() {
+          modal.hide();
+        };
+
+        $rootScope.$root.modals.applyServiceModal.doSubmit = function(applyServNum) {
+          $ionicPopup.show({
+            template: '<div class="m-msg-cong">' +         
+                '<span class="m-msg-cong-subtitle">售后订单处理编号为：'+applyServNum+'</span>' +
+                '<span class="m-msg-cong-subtitle">请在个人中心-我的售后中查询处理进度</span></div>',
+            title: '您的售后申请已提交',
+            scope: scope,
+            buttons: [
+              {
+                text: '<b>查看我的售后</b>',
+                    type: 'button-energized',
+                    onTap: function(e) {
+                      // event handler when user confirm
+                    }
+              }
+            ]
+          });
         };
       });
     }

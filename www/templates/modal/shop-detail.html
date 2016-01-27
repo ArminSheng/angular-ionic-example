@@ -1,0 +1,30 @@
+<ion-modal-view class="m-modal-shop-detail-view">
+	<ion-header-bar class="bar-energized">
+		<div class="bar item-input-inset">
+		    <!-- geolocation -->
+	      	<button class="button button-clear" ng-click="shopDetailModal.doHide()">
+	            <span class="icon ion-chevron-left m-common-back"></span>
+	     	 </button>
+	      	<!-- search input -->
+	     	 <label class="item-input-wrapper">
+		        <i class="icon ion-ios-search placeholder-icon"></i>
+		        <input type="search" placeholder="搜索店内商品">
+	      	</label>
+	     	<!-- notification -->
+	      	<div class="m-home-cart">
+		        <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
+		        	<span class="badge badge-assertive m-badge">6</span>
+		        </a>
+	      	</div>
+	      	<div class="buttons">
+				<button class="button button-clear" ng-click="modals.collectModal.doHide()">
+					<span class="icon ion-more m-header-icon"></span>
+				</button>
+		   	</div>
+    	</div>
+	</ion-header-bar>
+	<ion-content class="m-modal-mine-collect-content">
+		{{ shopDetailModal.item.title }}
+		
+	</ion-content>
+</ion-modal-view>

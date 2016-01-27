@@ -139,7 +139,7 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('collectShopList', ['$timeout', function($timeout) {
+.directive('collectShopList', ['mmrModal', '$timeout', function(mmrModal, $timeout) {
   return {
     restrict: 'E',
     replace: true,
@@ -148,7 +148,15 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/collect-shop-list.html',
     link: function(scope, element, attrs) {
-      
+      scope.doOpenShopDetail = function(item) {
+        if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
+          scope.shopDetailModal.item = item;
+          scope.shopDetailModal.show();
+        } else{
+          mmrModal.createShopDetailModal(scope, item);
+        }
+        
+      }
     }
   };
 }]);

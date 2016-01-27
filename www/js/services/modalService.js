@@ -52,7 +52,7 @@ angular.module('mmr.services')
         scope.loginModal.doFetchCode = function() {
 
         };
-
+        
         scope.loginModal.doLogin = function() {
           // show the bind modal if necessary
           if($rootScope.$root.isOldUser) {
@@ -176,6 +176,22 @@ angular.module('mmr.services')
         }
         
         $rootScope.modals.collectModal.switchTab(tab);
+      });
+    },
+
+    createShopDetailModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/shop-detail.html', {
+        scope: scope
+      }).then(function(modal) {
+        scope.shopDetailModal = modal;
+        
+        scope.shopDetailModal.item = item;
+        scope.shopDetailModal.show();
+
+        //methods
+        scope.shopDetailModal.doHide = function() {
+          scope.shopDetailModal.hide();
+        };
       });
     },
 

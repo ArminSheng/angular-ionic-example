@@ -161,18 +161,14 @@ angular.module('mmr.directives')
 
 .directive('categoryMenu', ['$rootScope', function($rootScope) {
 
-  var barHeight = 44,
-      filterOptionsHeight = 42,
-      statusBarHeight = 20;
-
   function calcMenuVisibleHeight(scope) {
-    var result = $(window).height() - barHeight;
+    var result = $(window).height() - $rootScope.$root.ui.heights.headerBarHeight;
     if($rootScope.$root.platform === 'ios') {
-      result -= statusBarHeight;
+      result -= $rootScope.$root.ui.heights.statusBarHeight;
     }
 
     if(scope.optionsBarOpened) {
-      result -= filterOptionsHeight;
+      result -= $rootScope.$root.ui.heights.optionsBarHeight;
     }
 
     return result + 'px';

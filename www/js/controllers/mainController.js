@@ -46,7 +46,12 @@ angular.module('mmr.controllers')
 
     // UI related
     ui: {
-      tabsHidden: false
+      tabsHidden: false,
+      heights: {
+        statusBarHeight: 20,
+        headerBarHeight: 44,
+        optionsBarHeight: 42
+      }
     },
 
     // platform related

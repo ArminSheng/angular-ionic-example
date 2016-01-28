@@ -173,14 +173,6 @@ angular.module('mmr.controllers')
   localStorageService.bind($scope, 'classifications');
 
   // watchers
-  $scope.$watch(function(scope) {
-    return scope.searchInputFocused;
-  }, function(newValue, oldValue, scope) {
-    // calculate the actual occupied/visible height for the menu
-    if(newValue) {
-      $('.m-cat-search').height(calcSearchPanelVisibleHeight(10));
-    }
-  });
 
   // event handlers
   $scope.$on($scope.sortEventName, function($event, data) {
@@ -206,19 +198,6 @@ angular.module('mmr.controllers')
     // hide the screen popup
     $scope.activateScreen();
   });
-
-  function calcSearchPanelVisibleHeight(offset) {
-    var result = $(window).height() - barHeight;
-    if($rootScope.$root.platform === 'ios') {
-      result -= statusBarHeight;
-    }
-
-    if(offset) {
-      result += offset;
-    }
-
-    return result + 'px';
-  }
 
   $scope.initialize();
 }])

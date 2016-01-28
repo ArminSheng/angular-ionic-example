@@ -32,7 +32,7 @@
   </ion-content>
 
   <!-- categories menu -->
-  <category-menu menu-opened="menuOpened" options-bar-opened="optionsBarOpened" swipe-menu="swipeMenu()" items="classifications[currentLevel]" additional-class="m-cat-menu-category"></category-menu>
+  <category-menu menu-opened="menuOpened" options-bar-opened="optionsBarOpened" swipe-menu="swipeMenu(open)" items="classifications[currentLevel]" additional-class="m-cat-menu-category"></category-menu>
 
   <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
     <!-- sorting & filters -->
@@ -50,11 +50,6 @@
 
   </div>
 
-  <!-- icon hint -->
-  <div class="m-cat-menu-hint" on-tap="swipeMenu(true)" ng-class="{'activated': menuOpened}">
-    <i class="icon ion-chevron-right"></i>
-  </div>
-
   <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">
     <img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>
   </div>
@@ -63,7 +58,7 @@
   <div class="m-cat-search-wrapper">
     <ion-scroll zooming="true" direction="y" style="width: 100%" class="m-cat-search" ng-class="{'activated': searchInputFocused}" animation-callback>
       <div style="height: 1000px;" class="m-cat-search-keywords">
-        <search-list-keyword keywords="$root.search.keywords"></search-list-keyword>
+        <search-list-keyword keywords="$root.search.keywords" search-input-focused="searchInputFocused"></search-list-keyword>
       </div>
     </ion-scroll>
   </div>

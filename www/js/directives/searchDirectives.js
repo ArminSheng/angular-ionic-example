@@ -2,17 +2,32 @@ angular.module('mmr.directives')
 
 .directive('searchListKeyword', ['$rootScope', '$ionicPopup',
   function($rootScope, $ionicPopup) {
+
+  function calcSearchPanelVisibleHeight(offset) {
+    var result = $(window).height() - $rootScope.$root.ui.heights.headerBarHeight;
+    if($rootScope.$root.platform === 'ios') {
+      result -= $rootScope.$root.ui.heights.statusBarHeight;
+    }
+
+    if(offset) {
+      result += offset;
+    }
+
+    return result + 'px';
+  }
+
   return {
     restrict: 'E',
     replace: true,
     scope: {
-      keywords: '='
+      keywords: '=',
+      searchInputFocused: '='
     },
     templateUrl: 'templates/directives/search/search-list-keyword.html',
     link: function(scope, element, attrs) {
 
       scope.doSelectSearchKeyword = function(keyword) {
-        console.log(keyword);
+
       };
 
       scope.doDeleteSearchRecord = function() {
@@ -30,8 +45,16 @@ angular.module('mmr.directives')
             // not to delete
           }
         });
-
       };
+
+      scope.$watch(function(scope) {
+        return scope.searchInputFocused;
+      }, function(newValue, oldValue, scope) {
+        // calculate the actual occupied/visible height for the menu
+        if(newValue) {
+          $('.m-cat-search').height(calcSearchPanelVisibleHeight(10));
+        }
+      });
 
     }
   };

@@ -4,6 +4,28 @@ angular.module('mmr.directives')
   $templateCache.put('templates/directives/notification-center.html',
     '<a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">' +
     '<span class="badge badge-assertive m-badge">{{ count }}</span>');
+
+  $templateCache.put('templates/directives/common/back-to-top-area.html',
+    '<div class="m-cat-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +
+    '<img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>' +
+    '</div>');
+}])
+
+.directive('backToTopArea', [function() {
+
+  return {
+    retrict: 'E',
+    replace: true,
+    scope: {
+      show: '=',
+      scrollToTop: '&'
+    },
+    templateUrl: 'templates/directives/common/back-to-top-area.html',
+    link: function(scope, element, attrs) {
+
+    }
+  };
+
 }])
 
 .directive('notificationCenter', ['$state', function($state) {

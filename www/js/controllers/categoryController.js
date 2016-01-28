@@ -98,9 +98,9 @@ angular.module('mmr.controllers')
           } else {
             $scope.showBacktoTopBtn = false;
           }
-        }); //apply
+        });
       }
-    })
+    });
 
     // hide the menu if opened
     if($scope.menuOpened) {

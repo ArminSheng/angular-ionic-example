@@ -1,4 +1,13 @@
 <div class="m-search-list-keyword-wrapper">
+  <div class="m-search-list-hint m-search-list-hit-title">
+    <span>热搜</span>
+  </div>
+  <div class="m-search-list-hot">
+    <span class="badge badge-energized m-search-list-hot-item" ng-repeat="item in hotKeywords">
+      {{ item }}
+    </span>
+  </div>
+
   <div class="m-search-list-hint">
     <span>历史搜索</span>
   </div>

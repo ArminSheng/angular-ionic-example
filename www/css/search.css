@@ -4,8 +4,12 @@
 }
 
 .m-search-list-hint {
-  padding: 10px 16px;
+  padding: 10px 16px 6px 16px;
   color: #aaa;
+}
+
+.m-search-list-hit-title {
+  border-bottom: 1px solid #ddd;
 }
 
 .m-search-list-keyword .m-search-list-keyword-item {
@@ -39,4 +43,15 @@
 .m-search-list-empty span {
   display: block;
   margin: 20px;
+}
+
+/*hot keywords area*/
+.m-search-list-hot {
+  padding: 10px 10px 5px;
+}
+
+.m-search-list-hot-item {
+  display: inline-block;
+  white-space: normal;
+  margin: 2px;
 }

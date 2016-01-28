@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory',
-  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService',
+  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService) {
 
   // back related
   $scope.myGoBack = function() {
@@ -95,6 +95,9 @@ angular.module('mmr.controllers')
   mmrMetaFactory.attributes();
   mmrMetaFactory.classification();
   mmrMetaFactory.citiesAndDisctricts();
+
+  // hot items
+  mmrSearchService.hotKeywords();
 
   // emit status change events
   $rootScope.$on('$stateChangeStart', function () {

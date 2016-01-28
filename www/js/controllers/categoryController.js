@@ -171,6 +171,7 @@ angular.module('mmr.controllers')
   ];
 
   localStorageService.bind($scope, 'classifications');
+  localStorageService.bind($scope, 'hotKeywords');
 
   // watchers
 

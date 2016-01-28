@@ -20,6 +20,7 @@ angular.module('mmr.directives')
     restrict: 'E',
     replace: true,
     scope: {
+      hotKeywords: '=',
       keywords: '=',
       searchInputFocused: '='
     },

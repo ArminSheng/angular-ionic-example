@@ -1,8 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory) {
-
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing) {
 
   return {
 
@@ -52,7 +51,7 @@ angular.module('mmr.services')
         scope.loginModal.doFetchCode = function() {
 
         };
-        
+
         scope.loginModal.doLogin = function() {
           // show the bind modal if necessary
           if($rootScope.$root.isOldUser) {
@@ -102,7 +101,7 @@ angular.module('mmr.services')
         $rootScope.modals.receiptModal.doHideReceipt = function() {
           $rootScope.modals.receiptModal.hide();
         };
-        
+
         $rootScope.modals.receiptModal.getExplain = function(receipt) {
           switch(receipt.status) {
             case 0:
@@ -115,7 +114,7 @@ angular.module('mmr.services')
         };
 
         $rootScope.modals.receiptModal.doAdd = function(tab) {
-          createReceiptDetailModal(scope,tab);  
+          createReceiptDetailModal(scope,tab);
         };
 
         init();
@@ -124,16 +123,16 @@ angular.module('mmr.services')
         }
 
         function createReceiptDetailModal(scope,tab) {
-          
+
           var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
-          
+
           $ionicModal.fromTemplateUrl('templates/modal/'+receiptTemplate+'.html', {
             scope: scope,
             animation: 'slide-in-right'
           }).then(function(modal) {
             $rootScope.modals.receiptDetailModal = modal;
             $rootScope.modals.receiptDetailModal.show();
-             
+
             //methods
             $rootScope.modals.receiptDetailModal.doHideReceiptUsl = function() {
               $rootScope.modals.receiptDetailModal.hide();
@@ -149,32 +148,86 @@ angular.module('mmr.services')
       });
     },
 
-    createMyCollectModal: function(scope,tab) {
+    createMyCollectModal: function(scope, tab) {
       $ionicModal.fromTemplateUrl('templates/modal/my-collect.html', {
         scope: scope
       }).then(function(modal) {
         $rootScope.modals.collectModal = modal;
-        $rootScope.modals.collectModal.show();
-        
-        //methods
-        $rootScope.modals.collectModal.doHide = function() {
-          $rootScope.modals.collectModal.hide();
-        };       
+        modal.show();
 
-        $rootScope.modals.collectModal.switchTab = function(tabIdx) {
-          $rootScope.modals.collectModal.tab = tabIdx;
+        // binding data
+        modal.sortEventName = 'eventCollectSort';
+        modal.sortActivated = false;
+        modal.screenEventPrefix = 'eventCollectScreen';
+
+        modal.screenActivated = false;
+
+        modal.tags = [
+          { title: '品牌', items: mmrCacheFactory.get('brands') },
+          { title: '产品属性', items: mmrCacheFactory.get('attributes') }
+        ];
+
+        //methods
+        modal.doHide = function() {
+          modal.hide();
         };
+
+        modal.switchTab = function(tabIdx) {
+          modal.tab = tabIdx;
+        };
+
+        modal.doTapBackdrop = function() {
+          // reset all
+          modal.sortActivated = false;
+        };
+
+        // sorter related
+        modal.activateSort = function() {
+          modal.screenActivated = false;
+          modal.sortActivated = !modal.sortActivated;
+        };
+
+        // screener related
+        modal.activateScreen = function() {
+          modal.sortActivated = false;
+          modal.screenActivated = !modal.screenActivated;
+        };
+
+        // event handler
+        scope.$on(modal.sortEventName, function($event, data) {
+          // process on sorting event
+        });
+
+        scope.$on(modal.screenEventPrefix + 'SelectItem', function($event, data) {
+
+        });
+
+        scope.$on(modal.screenEventPrefix + 'Reset', function($event, data) {
+          // make all selected flag to false
+          _.forEach(modal.tags, function(tag) {
+            _.forEach(tag.items, function(item) {
+              item.selected = false;
+            });
+          });
+        });
+
+        scope.$on(modal.screenEventPrefix + 'Confirm', function($event, data) {
+          // confirm logic
+
+          // hide the screen popup
+          modal.activateScreen();
+        });
 
         init();
         function init() {
-          mmrItemFactory.search().then(function(res) {
-            $rootScope.modals.collectModal.products = res.data;
-          }, function(err) {
+          // mmrItemFactory.search().then(function(res) {
+          //   $rootScope.modals.collectModal.products = res.data;
+          // }, function(err) {
 
-          });
-          //$rootScope.modals.collectModal.products = mmrMineFactory.receiptDetails();
+          // });
+          $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav();
         }
-        
+
         $rootScope.modals.collectModal.switchTab(tab);
       });
     },
@@ -184,14 +237,40 @@ angular.module('mmr.services')
         scope: scope
       }).then(function(modal) {
         scope.shopDetailModal = modal;
-        
-        scope.shopDetailModal.item = item;
         scope.shopDetailModal.show();
+
+        //bind data
+        scope.sortEventName = 'eventCategorySort';
+        scope.sortActivated = false;
 
         //methods
         scope.shopDetailModal.doHide = function() {
           scope.shopDetailModal.hide();
         };
+
+        scope.activateSort = function() {
+          //scope.screenActivated = false;
+          scope.sortActivated = !scope.sortActivated;
+
+          // close menu
+          //scope.swipeMenu(false);
+        };
+
+        scope.$on(scope.sortEventName, function($event, data) {
+          // after selecting the new sorting method
+
+        });
+
+        scope.shopDetailModal.switchTab = function(tabIdx) {
+          scope.shopDetailModal.tab = tabIdx;
+        };
+
+        init();
+        function init() {
+          scope.shopDetailModal.shop = item;
+          //scope.shopDetailModal.shopInfo = item;
+        }
+        scope.shopDetailModal.switchTab(0);
       });
     },
 
@@ -464,7 +543,7 @@ angular.module('mmr.services')
 
         $rootScope.$root.modals.applyServiceModal.doSubmit = function(applyServNum) {
           $ionicPopup.show({
-            template: '<div class="m-msg-cong">' +         
+            template: '<div class="m-msg-cong">' +
                 '<span class="m-msg-cong-subtitle">售后订单处理编号为：'+applyServNum+'</span>' +
                 '<span class="m-msg-cong-subtitle">请在个人中心-我的售后中查询处理进度</span></div>',
             title: '您的售后申请已提交',

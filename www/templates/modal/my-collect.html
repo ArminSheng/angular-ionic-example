@@ -1,31 +1,51 @@
 <ion-modal-view class="m-modal-mine-collect-view">
-	<ion-header-bar class="bar-energized">
-		<div class="buttons">
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
             <button class="button button-clear" ng-click="modals.collectModal.doHide()">
                 <span class="icon ion-chevron-left m-common-back"></span>
                 我的
             </button>
-        </div>        
+        </div>
         <div class="button-bar m-header-buttons">
-			<a class="button" ng-class="{'active': modals.collectModal.tab === 0}" ng-click="modals.collectModal.switchTab(0)">商品</a>
-		    <a class="button" ng-class="{'active': modals.collectModal.tab === 1}" ng-click="modals.collectModal.switchTab(1)">店铺</a>
-		</div>
-        
+      <a class="button" ng-class="{'active': modals.collectModal.tab === 0}" ng-click="modals.collectModal.switchTab(0)">商品</a>
+        <a class="button" ng-class="{'active': modals.collectModal.tab === 1}" ng-click="modals.collectModal.switchTab(1)">店铺</a>
+    </div>
+
         <div class="buttons">
-			<button class="button button-clear" ng-click="modals.collectModal.doHide()">
-				<span class="icon ion-more m-header-icon"></span>
-			</button>
-		</div>
-	</ion-header-bar>
+      <button class="button button-clear" ng-click="modals.collectModal.doHide()">
+        <span class="icon ion-more m-header-icon"></span>
+      </button>
+    </div>
+  </ion-header-bar>
 
-	<ion-content class="m-modal-mine-collect-content">
-		
-		<div ng-show="modals.collectModal.tab === 0">
-			<collect-product-list items="modals.collectModal.products"></collect-product-list>
-		</div>
-		<div ng-show="modals.collectModal.tab === 1">
-			<collect-shop-list items="modals.collectModal.products"></collect-shop-list>
-		</div>
+  <ion-content class="m-modal-mine-collect-content">
+      <!-- options bar -->
+    <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+      <!-- sorting & filters -->
+      <div class="m-cat-filters">
+        <div class="row row-no-padding m-cat-filters-row">
+          <div class="col col-50 m-cat-filters-col-border">
+            <sorter event-name="{{ modals.collectModal.sortEventName }}" sorters="sorters.common" sort-activated="modals.collectModal.sortActivated" activate-sort="modals.collectModal.activateSort()" additional-class="m-collect-sorter"></sorter>
+          </div>
 
-	</ion-content>
+          <div class="col col-50">
+            <screener event-prefix="{{ modals.collectModal.screenEventPrefix }}" tags="modals.collectModal.tags" screen-activated="modals.collectModal.screenActivated" activate-screen="modals.collectModal.activateScreen()" additional-class="m-collect-screener"></screener>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div ng-show="modals.collectModal.tab === 0">
+
+      <collect-product-list items="modals.collectModal.myFav[1]"></collect-product-list>
+    </div>
+    <div ng-show="modals.collectModal.tab === 1">
+      <collect-shop-list items="modals.collectModal.myFav[0]"></collect-shop-list>
+    </div>
+
+    <!-- backdrop -->
+    <div class="m-cat-backdrop" ng-class="{'activated': modals.collectModal.sortActivated}" ng-click="modals.collectModal.doTapBackdrop()">
+    </div>
+
+  </ion-content>
 </ion-modal-view>

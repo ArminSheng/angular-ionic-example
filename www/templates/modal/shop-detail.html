@@ -13,7 +13,7 @@
 	     	<!-- notification -->
 	      	<div class="m-home-cart">
 		        <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
-		        	<span class="badge badge-assertive m-badge">6</span>
+		        	<span class="badge badge-assertive m-badge">0</span>
 		        </a>
 	      	</div>
 	      	<div class="buttons">
@@ -23,8 +23,61 @@
 		   	</div>
     	</div>
 	</ion-header-bar>
-	<ion-content class="m-modal-mine-collect-content">
-		{{ shopDetailModal.item.title }}
-		
+	<ion-content class="m-modal-mine-shop-detail-content">
+		<div class="m-modal-mine-shop-banner" ng-class="{'hide-slow': shopDetailModal.tab === 1}">
+			<div class="m-modal-mine-shop-banner-info row">
+				<div class="col col-60">
+					<div class="m-modal-mine-shop-banner-name">
+						<img class="m-modal-mine-shop-banner-brand" src="img/common/shop-brand.png">
+						<div class="m-modal-mine-shop-banner-text">
+							<h4 class="m-modal-mine-shop-banner-text-head">{{ shopDetailModal.shop.shopName }}</h4>
+							<p class="m-modal-mine-shop-banner-text-grade">
+								总评分：4.8分
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="col col-40">
+					<button class="button button-energized m-button-favorite"><i class="icon ion-star"></i>收藏</button>
+				</div>
+			</div>
+		</div>	
+		<div class="m-filter-tabs">
+           <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 0}" ng-click="shopDetailModal.switchTab(0)">
+              <span>店铺首页</span>
+           </div>
+           <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 1}" ng-click="shopDetailModal.switchTab(1)">
+            	<span>全部商品</span>
+            </div>
+        </div>	
+        <div class="m-modal-mine-shop-index" ng-show="shopDetailModal.tab === 0">
+        	<div class="m-modal-mine-shop-index-adv">
+        		<img src="img/common/adv.png">
+        		<img src="img/common/adv.png">
+        	</div>
+        	<div class="m-modal-mine-shop-index-intro">
+        		<p class="m-modal-mine-shop-index-intro-title">精品推荐</p>
+        		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+        	</div>
+        	<div class="m-modal-mine-shop-index-intro">
+        		<p class="m-modal-mine-shop-index-intro-title">促销公告</p>
+        		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+        	</div>
+        </div>
+        <div class="m-modal-mine-shop-all" ng-show="shopDetailModal.tab === 1">
+        	<div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+			    <!-- sorting & filters -->
+			    <div class="m-cat-filters">
+			      <div class="row row-no-padding m-cat-filters-row">
+			        <div class="col col-50 m-cat-filters-col-border">
+			          <sorter event-name="{{ sortEventName }}" sorters="sorters.common" sort-activated="sortActivated" activate-sort="activateSort()" additional-class="m-cat-sorter"></sorter>
+			        </div>
+			        <div class="col col-50">
+			          <screener event-prefix="{{ screenEventPrefix }}" tags="tags" screen-activated="screenActivated" activate-screen="activateScreen()" additional-class="m-cat-screener"></screener>
+			        </div>
+			      </div>
+			    </div>
+  			</div>
+        </div>
 	</ion-content>
 </ion-modal-view>

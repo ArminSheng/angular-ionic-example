@@ -9,52 +9,69 @@ angular.module('mmr.services')
 
   return {
 
-    onScroll: function(handler, scope, onDowning, onUping, onNegative) {
-      var scrollHandler = $ionicScrollDelegate.$getByHandle(handler);
-      if(scrollHandler) {
-        var moveData = scrollHandler.getScrollPosition().top,
-            lastTops;
+    /**
+    / handler: the handler name defined on the ion-content and the like
+    / onDowning: callback when scrolling down
+    / onUping: callback when scrolling up
+    / onNegative: callback when scrolling position is negative
+    / threshold: trigger onMeetThreshold callback when passing this threshold
+    / onThreshold: callback when threshold is met, should pass a boolean indicating whether it is now greater than threshold or not
+    */
+    onScroll: function(config) {
+      if(config.handler) {
+        var handler = config.handler;
+        var scrollHandler = $ionicScrollDelegate.$getByHandle(handler);
+        if(scrollHandler) {
+          var moveData = scrollHandler.getScrollPosition().top,
+              lastTops;
 
-        if(!lastTopsMappings[handler]) {
-          lastTops = lastTopsMappings[handler] = [];
-        } else {
-          lastTops = lastTopsMappings[handler];
-        }
+          if(!lastTopsMappings[handler]) {
+            lastTops = lastTopsMappings[handler] = [];
+          } else {
+            lastTops = lastTopsMappings[handler];
+          }
 
-        if(lastTops.length < 3) {
-          lastTops.push(moveData);
-        } else {
-          lastTops.shift();
-          lastTops.push(moveData);
-        }
+          if(lastTops.length < 3) {
+            lastTops.push(moveData);
+          } else {
+            lastTops.shift();
+            lastTops.push(moveData);
+          }
 
-        var status = 'downing';
+          var status = 'downing';
 
-        if(lastTops.length === 3) {
-          // when downing
-          if(lastTops[2] >= lastTops[0]) {
-            status = 'downing';
-            if(typeof(onDowning) === 'function') {
-              onDowning(scope);
-            }
-          } else { // when uping
-            status = 'uping';
-            if(typeof(onUping) === 'function') {
-              onUping(scope);
+          if(lastTops.length === 3) {
+            // when downing
+            if(lastTops[2] >= lastTops[0]) {
+              status = 'downing';
+              if(typeof(config.onDowning) === 'function') {
+                config.onDowning();
+              }
+            } else { // when uping
+              status = 'uping';
+              if(typeof(config.onUping) === 'function') {
+                config.onUping();
+              }
             }
           }
-        }
 
-        // when negative
-        if(moveData <= 0) {
-          status = 'negative';
-          if(typeof(onNegative) === 'function') {
-            onNegative(scope);
+          // when negative
+          if(moveData <= 0) {
+            status = 'negative';
+            if(typeof(config.onNegative) === 'function') {
+              config.onNegative();
+            }
           }
+
+          if(config.threshold && typeof(config.onThreshold) === 'function') {
+            config.onThreshold((moveData > config.threshold) ? true : false);
+          }
+
+          return status;
         }
 
-        return status;
       }
+
     }
 
   };

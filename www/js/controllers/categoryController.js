@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory', 'mmrCacheFactory',
-  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory', 'mmrCacheFactory', 'mmrScrollService',
+  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory, mmrScrollService) {
 
   // sort related
   $scope.sortEventName = 'eventCategorySort';
@@ -73,37 +73,34 @@ angular.module('mmr.controllers')
 
   // scroll related
   var lastTops = [];
-  $scope.getScrollPosition = function() {
-    var moveData = $ionicScrollDelegate.getScrollPosition().top;
-    if(lastTops.length < 3) {
-      lastTops.push(moveData);
-    } else {
-      lastTops.shift();
-      lastTops.push(moveData);
-    }
-
-    if(lastTops.length === 3) {
-      if(lastTops[2] >= lastTops[0]) {
+  $scope.onScroll = function() {
+    var threshold = 150;
+    mmrScrollService.onScroll({
+      handler: 'searchScroll',
+      scope: $scope,
+      onDowning: function() {
         $rootScope.$root.ui.tabsHidden = true;
         $scope.optionsBarOpened = false;
-      } else {
+      },
+      onUping: function() {
         $rootScope.$root.ui.tabsHidden = false;
         $scope.optionsBarOpened = true;
+      },
+      onNegative: function() {
+        $rootScope.$root.ui.tabsHidden = false;
+        $scope.optionsBarOpened = true;
+      },
+      threshold: threshold,
+      onThreshold: function(isGreaterThanThreshold) {
+        $scope.$apply(function() {
+          if(isGreaterThanThreshold) {
+            $scope.showBacktoTopBtn = true;
+          } else {
+            $scope.showBacktoTopBtn = false;
+          }
+        }); //apply
       }
-    }
-
-    if(moveData <= 0) {
-      $rootScope.$root.ui.tabsHidden = false;
-      $scope.optionsBarOpened = true;
-    }
-
-    $scope.$apply(function(){
-      if(moveData > 150){
-        $scope.showBacktoTopBtn=true;
-      }else{
-        $scope.showBacktoTopBtn=false;
-      }
-    }); //apply
+    })
 
     // hide the menu if opened
     if($scope.menuOpened) {

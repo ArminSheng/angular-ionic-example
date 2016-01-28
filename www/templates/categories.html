@@ -17,7 +17,7 @@
   </ion-nav-title>
 
   <!-- main area -->
-  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" on-scroll="getScrollPosition()">
+  <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" delegate-handle="searchScroll" on-scroll="onScroll()">
 
     <!-- item list area -->
     <div class="m-cat-main" ng-class="{'expanded': menuOpened}">
@@ -34,6 +34,7 @@
   <!-- categories menu -->
   <category-menu menu-opened="menuOpened" options-bar-opened="optionsBarOpened" swipe-menu="swipeMenu(open)" items="classifications[currentLevel]" additional-class="m-cat-menu-category"></category-menu>
 
+  <!-- options bar -->
   <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
     <!-- sorting & filters -->
     <div class="m-cat-filters">
@@ -50,6 +51,7 @@
 
   </div>
 
+  <!-- back to top btn -->
   <div class="m-cat-to-top-area" ng-class="{'activated': showBacktoTopBtn}" ng-click="scrollToTop()">
     <img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>
   </div>

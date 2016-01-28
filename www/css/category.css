@@ -150,12 +150,16 @@
     transition: all 0.5s ease-in-out;
 }
 
-.m-cat-options-bar.ios {
-    top: 64px
+.platform-ios.platform-cordova .m-cat-options-bar {
+    top: 64px;
 }
 
 .m-cat-options-bar.downing {
     top: 0;
+}
+
+.platform-ios.platform-cordova .m-cat-options-bar.downing {
+    top: 20px;
 }
 
 /*search panel*/

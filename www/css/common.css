@@ -107,6 +107,10 @@
     visibility: visible;
 }
 
+.platform-ios.platform-cordova .list.m-sorter-options-list.activated {
+    top: 106px;
+}
+
 .item.m-sorter-option {
     padding: 10px;
     font-size: 14px;
@@ -207,11 +211,11 @@
     top: 45px;
 }
 
-.platform-ios.platform-cordova .has-header.m-cat-menu-content {
+.platform-ios.platform-cordova .m-cat-menu-content {
     top: 107px;
 }
 
-.platform-ios.platform-cordova .has-header.m-cat-menu-content.downing {
+.platform-ios.platform-cordova .m-cat-menu-content.downing {
     top: 65px;
 }
 

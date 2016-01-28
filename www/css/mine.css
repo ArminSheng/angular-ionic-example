@@ -275,7 +275,7 @@
 }
 
 /*apply service*/
-.m-modal-mine-applyServ-bar-footer, .m-modal-mine-applyServ-bar-footer .button {
+.m-modal-mine-apply-service-bar-footer, .m-modal-mine-apply-service-bar-footer .button {
    padding: 0; 
    margin: 0;
 }
@@ -302,7 +302,7 @@
 }
 
 /*my collect*/
-..m-modal-mine-collect-view .bar-header {
+.m-modal-mine-collect-view .bar-header {
     display: flex;
 }
 
@@ -330,6 +330,7 @@
 
 .m-collect-product-list-container .list .item {
     margin: 5px;
+    border: 0;
 }
 
 .m-collect-shop-list-container .list .item {
@@ -346,11 +347,6 @@
     margin: 0 5px;
 }
 
-@media screen and (min-width: 370px) {
-    .m-header-buttons {
-        margin: 0 5px;
-    }
-}
 
 .m-header-buttons .button {
     border-color: #fff;
@@ -370,6 +366,10 @@
     text-align: right;
 }
 
+.m-collect-sorter .list.m-sorter-options-list.activated {
+    top: 42px;
+}
+
 /* shop detail */
 .m-modal-shop-detail-view .item-input-inset {
     background-color: transparent;
@@ -381,4 +381,122 @@
 
 .m-modal-shop-detail-view .item-input-inset, .m-modal-shop-detail-view .bar-energized {
     padding: 0;
+}
+
+.m-modal-mine-shop-banner {
+    position: relative;
+    background: url('../img/common/shop-banner.png') no-repeat;
+    background-size: 100% 100%;
+    height: 110px;
+    color: #fff;
+    transition:height 0.3s;
+    -webkit-transition: height 0.3s;
+    overflow: hidden;
+}
+
+.hide-slow {
+    height: 0!important;
+    transition:height 0.3s;
+    -webkit-transition: height 0.3s;
+}
+
+.m-modal-mine-shop-banner .m-modal-mine-shop-banner-img {
+    width: 100%;
+}
+
+.m-modal-mine-shop-banner-info {
+    height: 65px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+}
+
+.m-modal-mine-shop-banner-info .m-button-favorite {
+    float: right;
+    top: 8px;
+    right: 10px;
+    font-size: 14px;
+    min-height: 40px;
+    line-height: 40px;
+}
+
+.m-modal-mine-shop-banner-info .col {
+    -webkit-align-content:center;
+    -webkit-flex-wrap: wrap;
+    align-content:center;
+    flex-wrap: wrap;
+}
+
+.m-modal-mine-shop-banner-brand {
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 5px;
+    width: 80px;
+    position: relative;
+    top: 6px;
+    font-size: 12px;
+}
+
+.m-modal-mine-shop-banner-name {
+    height: 100%;
+}
+
+.m-modal-mine-shop-banner-text {
+    display: inline-block;
+    width: 50%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.m-modal-mine-shop-banner-text-head, .m-modal-mine-shop-banner-text-grade {
+    color: #fff;
+    margin: 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    
+}
+
+.m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active {
+    color: #ffc900;
+}
+
+.m-modal-mine-shop-index-adv {
+    width: 100%;
+    background-color: #eee;
+    padding: 5px;
+}
+
+.m-modal-mine-shop-index-adv img {
+    width: 100%;
+}
+
+.m-modal-mine-shop-index-intro-title {
+    background: url('../img/common/title-bg.png');
+    background-size: 100%;
+    line-height: 39px;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.m-modal-mine-shop-index-intro .title-bg {
+    width: 100%;
+}
+
+@media screen and (min-width: 370px) {
+    .m-header-buttons {
+        margin: 0 5px;
+    }
+    .m-modal-mine-shop-banner {
+        height: 130px;
+    }
+
+    .m-modal-mine-shop-banner-brand {
+        width: 100px;
+    }
+
+    .m-modal-mine-shop-banner-text {
+        font-size: ;
+    }
 }

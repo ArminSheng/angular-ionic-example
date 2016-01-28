@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService',
-  function($scope, $rootScope, $q, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
+  function($scope, $rootScope, $q, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;

@@ -1,13 +1,13 @@
 <div class="m-collect-shop-list-container">
 	<div class="list">
 		<a class="item item-thumbnail-left m-collect-shop-item" ng-repeat="item in items" ng-click="doOpenShopDetail(item)">
-			<img src="img/common/shop-brand.png">
-			<h2 class="m-collect-list-item-name">上海买卖肉专卖店</h2>
+			<img ng-src="{{ item.brandImg }}">
+			<h2 class="m-collect-list-item-name">{{ item.shopName }}</h2>
 			<p>
 		        <span class="m-collect-list-item-amount">
 		          入驻时间：
 		          <span class="m-collect-list-item-amount-text">
-		            2015-06-01
+		            {{ item.signUpTime }}
 		          </span>
 		        </span>        		
      		</p>

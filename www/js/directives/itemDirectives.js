@@ -93,7 +93,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('searchResultList', ['$timeout', function($timeout) {
+.directive('searchResultList', [function() {
 
   return {
     retrict: 'E',
@@ -119,7 +119,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('collectProductList', ['$timeout', function($timeout) {
+.directive('collectProductList', [function() {
   return {
     restrict: 'E',
     replace: true,
@@ -139,7 +139,7 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('collectShopList', ['mmrModal', '$timeout', function(mmrModal, $timeout) {
+.directive('collectShopList', ['mmrModal', function(mmrModal) {
   return {
     restrict: 'E',
     replace: true,

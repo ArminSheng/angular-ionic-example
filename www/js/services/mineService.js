@@ -52,6 +52,190 @@ angular.module('mmr.services')
     { status: 0, companyName: '上海买卖肉食品有限公司', taxpayer: '243648139573957', registerAddress: '上海市普陀区曹杨路450号', phone: '18616524565', bank: '交通银行', bankAccount: '6217003860001085170', license: []}
   ];
 
+  var favShops = [
+    { 
+      shopName: '中粮旗舰店', 
+      signUpTime: '2015-12-01',
+      brandImg: 'img/common/shop-brand.png',
+      products: [
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 210,
+              quantity: 5,
+              unitName: '箱'
+            }
+          ] 
+    },
+    { 
+      shopName: '上海中粮专卖店', 
+      signUpTime: '2015-12-01', 
+      brandImg: 'img/common/shop-brand.png',
+      products: [
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 210,
+              quantity: 5,
+              unitName: '箱'
+            }
+          ] 
+    },
+    { 
+      shopName: '上海中粮旗舰店', 
+      signUpTime: '2015-12-01', 
+      brandImg: 'img/common/shop-brand.png',
+      products: [
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 210,
+              quantity: 5,
+              unitName: '箱'
+            }
+          ] 
+    },
+    { 
+      shopName: '中粮旗舰店', 
+      signUpTime: '2015-12-01', 
+      brandImg: 'img/common/shop-brand.png',
+      products: [
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 210,
+              quantity: 5,
+              unitName: '箱'
+            }
+          ] 
+    }
+  ],
+  favProducts = [
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '冻品',
+        price: 190,
+        quantity: 3,
+        unitName: '箱',
+        brand: '买卖肉'
+      },
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '鲜品',
+        price: 200,
+        quantity: 4,
+        unitName: '箱',
+        brand: '买卖肉'
+      },
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '冻品',
+        price: 210,
+        quantity: 5,
+        unitName: '箱',
+        brand: '买卖肉'
+      },
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '冻品',
+        price: 190,
+        quantity: 3,
+        unitName: '箱',
+        brand: '买卖肉'
+      },
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '鲜品',
+        price: 200,
+        quantity: 4,
+        unitName: '箱',
+        brand: '买卖肉'
+      },
+      {
+        name: '苏北草鸭腿950g',
+        imagePath: 'img/item/sample.png',
+        attribute: '冻品',
+        price: 210,
+        quantity: 5,
+        unitName: '箱',
+        brand: '买卖肉'
+      }
+
+  ];
+
   return {
     depositDetails: function() {
       // save into cache
@@ -73,6 +257,12 @@ angular.module('mmr.services')
       mmrCacheFactory.set('receiptDetails.receiptUsual', receiptUsual);
       mmrCacheFactory.set('receiptDetails.receiptSpecial', receiptSpecial);
       return [receiptUsual, receiptSpecial];
+    },
+
+    myFav: function() {
+      mmrCacheFactory.set('myFav.favShops', favShops);
+      mmrCacheFactory.set('myFav.favProducts', favProducts);
+      return [favShops, favProducts];
     }
   };
 

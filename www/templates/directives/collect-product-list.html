@@ -1,50 +1,24 @@
 <div class="m-collect-product-list-container">
-	<div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened, 'ios': $root.platform === 'ios'}">
-    	<!-- sorting & filters -->
-		<div class="m-cat-filters">
-		    <div class="row row-no-padding m-cat-filters-row">
-		        <div class="col col-50 m-cat-filters-col-border">
-		          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': sortActivated}" ng-click="activateSort()">
-		            智能排序<span class="ion-chevron-down m-cat-down-icon"></span>
-		          </a>
-		        </div>
-		        <div class="col col-50">
-		          <a class="button button-small button-clear m-cat-filters-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
-		            筛选<span class="ion-chevron-down m-cat-down-icon"></span>
-		          </a>
-		        </div>
-		      </div>
-		</div>
-
-		<!-- filter options -->
-		<div class="m-cat-filters-options">
-		      <div class="list m-cat-filters-options-list" ng-class="{'activated': sortActivated}">
-		        <a class="item item-icon-right m-cat-filters-option" href="#" ng-repeat="sorter in sorters track by $index" ng-click="doSelectSorter($index)">
-		          {{ sorter.text }}
-		          <i class="icon ion-checkmark-circled m-color-theme-fg m-cat-filters-option-icon" ng-if="selectedSortIndex === $index"></i>
-		        </a>
-		      </div>
-		</div>
-  	</div>
+	
 	<div class="list">
 		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items">
 			<img src="img/item/sample.png">
-			<h2>{{ item.title }}</h2>
+			<h2>{{ item.name }}</h2>
 			<p>
         		{{ item.brand }}
 		        <span class="m-search-list-item-amount">
 		          销量:
 		          <span class="m-search-list-item-amount-text">
-		            {{ item.salesAmount }}
+		            {{ item.quantity }}
 		          </span>
 		        </span>        		
      		</p>
 		    <div class="m-search-list-item-prices">
 			    <span class="m-search-list-item-current-price">
-			        {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
+			        {{ item.price | currency: '￥' }}/{{ item.unitName }}
 			    </span>
 			    <span class="m-search-list-item-original-price">
-			        {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
+			        {{ item.price | currency: '￥' }}/{{ item.unitName }}
 			    </span>
 		    </div> 
 		    <!-- control group -->

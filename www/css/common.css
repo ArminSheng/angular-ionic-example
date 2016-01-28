@@ -164,7 +164,7 @@
 }
 
 .m-screen-tag-items {
-
+  text-align: left;
 }
 
 .m-screen-tag-item {
@@ -194,4 +194,140 @@
 
 .m-screen-confirm {
 
+}
+
+/*menu related*/
+.m-cat-menu-content {
+    position: absolute;
+    top: 87px;
+    width: 36px;
+}
+
+.m-cat-menu-content.downing {
+    top: 45px;
+}
+
+.platform-ios.platform-cordova .has-header.m-cat-menu-content {
+    top: 107px;
+}
+
+.platform-ios.platform-cordova .has-header.m-cat-menu-content.downing {
+    top: 65px;
+}
+
+.m-cat-menu-content.activated {
+    width: 100px;
+}
+
+.m-cat-menu {
+    height: auto;
+    width: 30px;
+    position: fixed;
+    z-index: 12;
+    overflow-y: visible;
+
+    /*animation part*/
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.m-cat-menu.activated {
+    width: 100px;
+}
+
+.m-cat-menu .m-cat-menu-container {
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    position: relative;
+    right: 100px;
+
+    /*animation part*/
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.m-cat-menu.activated > .m-cat-menu-container {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    right: 0;
+}
+
+.m-cat-menu-bar {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+}
+
+.m-cat-menu-hint {
+    position: fixed;
+    top: 50%;
+    left: 5px;
+    padding: 10px;
+    font-size: 18px;
+}
+
+.m-cat-menu-hint.activated {
+    opacity: 0;
+}
+
+.m-cat-menu.activated > .m-cat-menu-hint {
+    display: none;
+}
+
+.m-cat-menu-bar-return {
+    display: block;
+
+}
+
+.m-cat-menu-bar-item.m-cat-menu-bar-item-return {
+    display: block;
+}
+
+.m-cat-menu-bar-item {
+    background-color: white;
+    padding: 4px;
+    border-bottom: 1px solid #999;
+    min-height: 50px;
+    height: 50px;
+
+    /*animation part*/
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.m-cat-menu-bar-item.activated {
+    background-color: #D6A900;
+    color: white;
+}
+
+.m-cat-menu-bar-item-title {
+    padding: 10px 0;
+}
+
+.m-cat-menu-bar-item-title.invisible {
+    opacity: 0;
+    border-bottom: none;
+}
+
+.m-cat-menu-bar-hide {
+    padding: 10px;
+}
+
+.m-cat-menu-bar-hide-text {
+    padding-left: 4px;
+}
+
+.m-cat-menu-hide-wrapper {
+    padding-top: 5px;
 }

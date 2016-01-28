@@ -1,0 +1,26 @@
+<div class="m-menu-content-wrapper" ng-class="additionalClass">
+  <ion-content class="m-cat-menu-content" ng-class="{'activated': menuOpened, 'downing': !optionsBarOpened}" scrollbar-x="false" scrollbar-y="false">
+    <!-- category menu -->
+    <div class="m-cat-menu" on-swipe-right="swipeMenu({ open: true })" on-swipe-left="swipeMenu({ open: false })" ng-class="{'activated': menuOpened}">
+      <div class="m-cat-menu-container">
+        <!-- menu itself -->
+        <div class="m-cat-menu-bar" ng-class="{'ios': $root.platform === 'ios'}">
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return">
+            <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
+          </div>
+          <div class="m-cat-menu-bar-item" ng-repeat="item in items track by $index" ng-click="doSelectCategory(item)">
+            <div class="m-cat-menu-bar-item-title" ng-class="{'invisible': !menuOpened}">
+              {{ item.name }}
+            </div>
+          </div>
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-hide" on-tap="swipeMenu({ open: false })">
+            <div class="m-cat-menu-hide-wrapper">
+              <span class="ion-chevron-left"></span>
+              <span class="m-cat-menu-bar-hide-text">关闭</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</div>

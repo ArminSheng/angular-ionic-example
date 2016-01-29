@@ -77,7 +77,6 @@ angular.module('mmr.controllers')
     var threshold = 150;
     mmrScrollService.onScroll({
       handler: 'searchScroll',
-      scope: $scope,
       onDowning: function() {
         $rootScope.$root.ui.tabsHidden = true;
         $scope.optionsBarOpened = false;

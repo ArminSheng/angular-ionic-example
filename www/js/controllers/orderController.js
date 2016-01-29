@@ -35,16 +35,31 @@ angular.module('mmr.controllers')
 
   // scroll related
   $scope.onScroll = function() {
+    var threshold = 150;
     var scrollStatus = mmrScrollService.onScroll(
       {
         handler: 'orderScroll',
-        scope: $scope
+        threshold: threshold,
+        onThreshold: function(isGreaterThanThreshold) {
+          $scope.$apply(function() {
+            if(isGreaterThanThreshold) {
+              $scope.showBacktoTopBtn = true;
+            } else {
+              $scope.showBacktoTopBtn = false;
+            }
+          });
+        }
       }
     );
 
     $scope.$apply(function() {
       $scope.scrollStatus = scrollStatus;
     });
+  };
+
+  $scope.scrollToTop = function() {
+    $ionicScrollDelegate.$getByHandle('orderScroll').scrollTop(true);
+    $scope.showBacktoTopBtn = false;
   };
 
   init();

@@ -67,27 +67,6 @@
     padding-left: 36px;
 }
 
-.m-cat-to-top-area {
-    position: fixed;
-    right: 15px;
-    bottom: -50px;
-
-    /*animation part*/
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-}
-
-.m-cat-to-top-area.activated {
-    bottom: 50px;
-}
-
-.m-cat-to-top-area > img {
-    width: 45px;
-}
-
 /*item detail*/
 .item.m-search-list-item {
     padding-bottom: 8px;

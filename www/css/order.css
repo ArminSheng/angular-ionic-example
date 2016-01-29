@@ -207,3 +207,8 @@
 .m-order-detail-service-container div.m-order-detail-service-photos {
   padding: 0 10px;
 }
+
+/*customize back to top area*/
+.m-mine-orders-back-to-top.m-back-to-top-area.activated {
+    bottom: 20px;
+}

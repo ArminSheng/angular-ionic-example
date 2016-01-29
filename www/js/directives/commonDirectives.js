@@ -6,8 +6,8 @@ angular.module('mmr.directives')
     '<span class="badge badge-assertive m-badge">{{ count }}</span>');
 
   $templateCache.put('templates/directives/common/back-to-top-area.html',
-    '<div class="m-cat-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +
-    '<img class="m-cat-to-top-img" ng-src="img/common/to-top.png"></img>' +
+    '<div class="m-back-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +
+    '<img class="m-back-to-top-img" ng-src="img/common/to-top.png"></img>' +
     '</div>');
 }])
 
@@ -18,11 +18,14 @@ angular.module('mmr.directives')
     replace: true,
     scope: {
       show: '=',
-      scrollToTop: '&'
+      scrollToTop: '&',
+      additionalClass: '@'
     },
     templateUrl: 'templates/directives/common/back-to-top-area.html',
     link: function(scope, element, attrs) {
-
+      if(scope.additionalClass) {
+        element.addClass(scope.additionalClass);
+      }
     }
   };
 

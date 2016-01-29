@@ -335,3 +335,25 @@
 .m-cat-menu-hide-wrapper {
     padding-top: 5px;
 }
+
+/*back to top area*/
+.m-back-to-top-area {
+    position: fixed;
+    right: 15px;
+    bottom: -50px;
+
+    /*animation part*/
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+.m-back-to-top-area.activated {
+    bottom: 50px;
+}
+
+.m-back-to-top-area > img {
+    width: 45px;
+}

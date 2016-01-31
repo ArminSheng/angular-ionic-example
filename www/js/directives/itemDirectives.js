@@ -155,7 +155,7 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       scope.doOpenShopDetail = function(item) {
         if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
-          scope.shopDetailModal.item = item;
+          scope.shopDetailModal.shop = item;
           scope.shopDetailModal.show();
         } else{
           mmrModal.createShopDetailModal(scope, item);

@@ -53,8 +53,71 @@ angular.module('mmr.services')
   ];
 
   var favShops = [
-    { 
-      shopName: '中粮旗舰店', 
+    {
+      shopName: '中粮旗舰店',
+      signUpTime: '2015-12-01',
+      brandImg: 'img/common/shop-brand.png',
+      products: [
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 190,
+              quantity: 3,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '鲜品',
+              price: 200,
+              quantity: 4,
+              unitName: '箱'
+            },
+            {
+              name: '苏北草鸭腿950g',
+              imagePath: 'img/item/sample.png',
+              attribute: '冻品',
+              price: 210,
+              quantity: 5,
+              unitName: '箱'
+            }
+          ]
+    },
+    {
+      shopName: '上海中粮专卖店',
       signUpTime: '2015-12-01',
       brandImg: 'img/common/shop-brand.png',
       products: [
@@ -82,11 +145,11 @@ angular.module('mmr.services')
               quantity: 5,
               unitName: '箱'
             }
-          ] 
+          ]
     },
-    { 
-      shopName: '上海中粮专卖店', 
-      signUpTime: '2015-12-01', 
+    {
+      shopName: '上海中粮旗舰店',
+      signUpTime: '2015-12-01',
       brandImg: 'img/common/shop-brand.png',
       products: [
             {
@@ -113,11 +176,11 @@ angular.module('mmr.services')
               quantity: 5,
               unitName: '箱'
             }
-          ] 
+          ]
     },
-    { 
-      shopName: '上海中粮旗舰店', 
-      signUpTime: '2015-12-01', 
+    {
+      shopName: '中粮旗舰店',
+      signUpTime: '2015-12-01',
       brandImg: 'img/common/shop-brand.png',
       products: [
             {
@@ -144,38 +207,7 @@ angular.module('mmr.services')
               quantity: 5,
               unitName: '箱'
             }
-          ] 
-    },
-    { 
-      shopName: '中粮旗舰店', 
-      signUpTime: '2015-12-01', 
-      brandImg: 'img/common/shop-brand.png',
-      products: [
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 210,
-              quantity: 5,
-              unitName: '箱'
-            }
-          ] 
+          ]
     }
   ],
   favProducts = [

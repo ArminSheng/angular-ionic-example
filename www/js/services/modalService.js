@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrSearchService',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrSearchService) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService) {
 
   return {
 
@@ -161,11 +161,8 @@ angular.module('mmr.services')
         modal.screenEventPrefix = 'eventCollectScreen';
 
         modal.screenActivated = false;
-
-        modal.tags = [
-          { title: '品牌', items: mmrCacheFactory.get('brands') },
-          { title: '产品属性', items: mmrCacheFactory.get('attributes') }
-        ];
+        // backdrop isShow
+        modal.isShow = false;
 
         //methods
         modal.doHide = function() {
@@ -185,21 +182,32 @@ angular.module('mmr.services')
         modal.activateSort = function() {
           modal.screenActivated = false;
           modal.sortActivated = !modal.sortActivated;
+          modal.isShow = modal.sortActivated;
+
         };
 
         // screener related
         modal.activateScreen = function() {
           modal.sortActivated = false;
           modal.screenActivated = !modal.screenActivated;
+          modal.isShow = modal.sortActivated;
         };
 
         // event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // process on sorting event
+
+          // close bacdrop
+          modal.isShow = false;
         });
 
         scope.$on(modal.screenEventPrefix + 'SelectItem', function($event, data) {
 
+        });
+
+        scope.$on('eventHideBackdrop', function($event) {
+          modal.sortActivated = false;
+          modal.screenActivated = false;
         });
 
         scope.$on(modal.screenEventPrefix + 'Reset', function($event, data) {
@@ -240,37 +248,158 @@ angular.module('mmr.services')
         scope.shopDetailModal.show();
 
         //bind data
-        scope.sortEventName = 'eventCategorySort';
-        scope.sortActivated = false;
+        scope.shopDetailModal.classifications = [
+          { name: '牛肉' },
+          { name: '羊肉' },
+          { name: '猪肉' },
+          { name: '牛胫骨' },
+          { name: 'category4' },
+          { name: 'category4' },
+          { name: 'category4' },
+          { name: 'category4' },
+          { name: 'category4' },
+          { name: 'category4' },
+          { name: 'category5' }
+        ];
+
+        scope.shopDetailModal.hotKeywords = [
+          '热词','排骨','猪肉','牛排'
+        ];
+
+        modal.sortEventName = 'eventProductsSort';
+        modal.sortActivated = false;
+        modal.screenEventPrefix = 'eventProductsScreen';
+        modal.screenActivated = false;
+        modal.sorters = [
+          { 'text': '智能排序' },
+          { 'text': '价格从高到低' },
+          { 'text': '价格从低到高' },
+          { 'text': '销量从高到低' },
+          { 'text': '销量从低到高' }
+        ];
+
+        modal.tags = [
+          { title: '品牌', items: mmrCacheFactory.get('brands') },
+          { title: '产品属性', items: mmrCacheFactory.get('attributes') }
+        ];
+
+        // backdrop isShow
+        modal.isShow = false;
+
+        // menu related
+        modal.currentLevel = 0;
+        modal.menuOpened = false;
+        modal.menuHeight = 0;
 
         //methods
-        scope.shopDetailModal.doHide = function() {
-          scope.shopDetailModal.hide();
+        modal.doHide = function() {
+          modal.hide();
         };
 
-        scope.activateSort = function() {
-          //scope.screenActivated = false;
-          scope.sortActivated = !scope.sortActivated;
+        // search related
+        modal.searchResults = [];
+        modal.searchInputFocused = false;
 
+        modal.doFocusSearchInput = function() {
+          modal.searchInputFocused = true;
+          //$rootScope.$root.ui.tabsHidden = true;
+
+          // hide the sort/screen/menu
+          modal.sortActivated = false;
+          modal.screenActivated = false;
+          modal.menuOpened = false;
+          modal.isShow = false;
+        };
+
+        modal.doBlurSearchInput = function($event) {
+          modal.searchInputFocused = false;
+        };
+
+        // sorter related
+        modal.activateSort = function() {
+          modal.screenActivated = false;
+          modal.sortActivated = !modal.sortActivated;
+          modal.isShow = modal.sortActivated;
           // close menu
           //scope.swipeMenu(false);
         };
 
-        scope.$on(scope.sortEventName, function($event, data) {
+        modal.swipeMenu = function(open) {
+          modal.menuOpened = open;
+          modal.isShow = open;
+          // control the tab
+
+        };
+
+        // screener related
+        modal.activateScreen = function() {
+          modal.sortActivated = false;
+          modal.screenActivated = !modal.screenActivated;
+          modal.isShow = modal.sortActivated;
+        };
+
+        // scroll related
+        scope.scrollToTop = function() {
+          $ionicScrollDelegate.scrollTop(true);
+          modal.showBacktoTopBtn = false;
+        };
+
+        modal.onScroll = function() {
+          mmrScrollService.onScroll({
+            handler: 'shopItemsScroll',
+            threshold: 150,
+            onThreshold: function(isGreaterThanThreshold) {
+              scope.$apply(function() {
+                if(isGreaterThanThreshold) {
+                  modal.showBacktoTopBtn = true;
+                } else {
+                  modal.showBacktoTopBtn = false;
+                }
+              });
+            }
+          });
+        };
+
+        //event handler
+        scope.$on(modal.sortEventName, function($event, data) {
           // after selecting the new sorting method
+          modal.isShow = false;
+        });
+
+        scope.$on('eventHideBackdrop', function($event) {
+          modal.sortActivated = false;
+          modal.screenActivated = false;
+          modal.menuOpened = false;
+        });
+
+        scope.$on(modal.screenEventPrefix + 'SelectItem', function($event, data) {
 
         });
 
-        scope.shopDetailModal.switchTab = function(tabIdx) {
-          scope.shopDetailModal.tab = tabIdx;
+        scope.$on(modal.screenEventPrefix + 'Reset', function($event, data) {
+          // make all selected flag to false
+          _.forEach(modal.tags, function(tag) {
+            _.forEach(tag.items, function(item) {
+              item.selected = false;
+            });
+          });
+        });
+
+        scope.$on(modal.screenEventPrefix + 'Confirm', function($event, data) {
+          // confirm logic
+          // hide the screen popup
+          modal.activateScreen();
+        });
+
+        modal.switchTab = function(tabIdx) {
+          modal.tab = tabIdx;
         };
 
-        init();
-        function init() {
-          scope.shopDetailModal.shop = item;
-          //scope.shopDetailModal.shopInfo = item;
-        }
-        scope.shopDetailModal.switchTab(0);
+        // init();
+        // function init() {
+        // }
+        modal.shop = item;
+        modal.switchTab(0);
       });
     },
 

@@ -1,8 +1,195 @@
 .m-modal-item-detail {
   bottom: 50px;
+  background-color: #e8e8e8;
+}
+
+.m-modal-item-detail-title,
+.m-modal-item-detail-spec,
+.m-modal-item-detail-review,
+.m-modal-item-detail-shop {
+  background-color: #fff;
+  margin-bottom: 4px;
+  padding: 10px;
+}
+
+.m-modal-item-detail-title {
+  position: relative;
+  bottom: 5px;
+  margin-bottom: 0;
+}
+
+.m-modal-item-detail-title-row1-text h4 {
+  position: relative;
+  top: 0.3rem;
+}
+
+/*price area*/
+.m-modal-item-detail-title .m-modal-item-detail-title-row2 .m-modal-item-detail-title-row2-price {
+  font-size: 1.6rem;
+  color: #ff0000;
+}
+
+.m-modal-item-detail-title .m-modal-item-detail-title-row2 {
+  display: flex;
+  align-items: center;
+}
+
+.m-modal-item-detail-title-row2-ns {
+  margin-left: 20px;
+}
+
+.m-modal-item-detail-title-row2-reserve {
+  margin-left: 4px;
+}
+
+.m-modal-item-detail-title-row2-ns img,
+.m-modal-item-detail-title-row2-reserve img {
+  width: 3.0rem;
+}
+
+.m-modal-item-detail-title-row3 {
+  color: #8e8e8e;
+  padding-top: 0.5rem;
+}
+
+/*spec area*/
+.m-modal-item-detail-spec-text span,
+.m-modal-item-detail-spec-place span,
+.m-modal-item-detail-spec-attr span {
+  display: inline-block;
+  width: 25%;
+}
+
+.m-modal-item-detail-spec-text,
+.m-modal-item-detail-spec-place,
+.m-modal-item-detail-spec-attr {
+  font-weight: bold;
+}
+
+.m-modal-item-detail-spec-reserve {
+  padding-top: 0.8rem;
+  font-size: 0.6rem;
+  color: #3e3e3e;
+}
+
+.m-modal-item-detail-spec-reserve .m-modal-item-detail-spec-reserve-key {
+  font-weight: bold;
+}
+
+/*review area*/
+.m-modal-item-detail-review-title {
+  padding-bottom: 0.5rem;
+}
+
+.m-modal-item-detail-review-title span {
+  font-weight: bold;
+  font-size: 1.0rem;
+}
+
+.m-modal-item-detail-review-title .icon,
+.m-modal-item-detail-shop-title-link .icon {
+  color: #999;
+}
+
+.m-modal-item-detail-review-title .icon {
+  float: right;
+}
+
+.m-modal-item-detail-review.activated {
+  border-color: #ccc;
+  background-color: #d9d9d9;
+}
+
+.m-modal-item-detail-review-summary {
+  font-weight: bold;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.m-modal-item-detail-review-summary-rate {
+  color: #ff0000;
+}
+
+.m-modal-item-detail-review-summary-number {
+  color: #8e8e8e;
+  padding-left: 1.0rem;
+}
+
+.m-modal-item-detail-review-sample {
+  padding-top: 0.7rem;
+}
+
+.m-modal-item-detail-review-sample-info span {
+  display: inline-block;
+  color: #8e8e8e;
+}
+
+.m-modal-item-detail-review-sample-info-phone {
+  width: 30%;
+}
+
+.m-modal-item-detail-review-sample-content {
+  padding-top: 0.2rem;
+}
+
+.m-modal-item-detail-shop-title.activated {
+  border-color: #ccc;
+  background-color: #d9d9d9;
+}
+
+.m-modal-item-detail-shop-title-brand img {
+  max-width: 100%;
+  margin: 4px;
+}
+
+.row-no-padding > .col.m-modal-item-detail-shop-title-info {
+  padding: 1.0rem;
+  position: relative;
+  top: 0.4rem;
+}
+
+.m-modal-item-detail-shop-title-info span {
+  display: block;
+}
+
+.m-modal-item-detail-shop-title-info-open {
+  font-size: 0.6rem;
+  color: #8e8e8e;
+}
+
+.m-modal-item-detail-shop-title-info span.m-modal-item-detail-shop-title-link {
+  display: inline;
+  float: right;
+  position: relative;
+  bottom: 2.0rem;
+}
+
+/*rating area*/
+.m-modal-item-detail-shop-ratings-item {
+  text-align: center;
+}
+
+.m-modal-item-detail-shop-ratings-item.m-modal-item-detail-shop-ratings-item-border-right {
+  border-right: 1px solid #e8e8e8;
+}
+
+.m-modal-item-detail-shop-rating-item-score {
+  font-weight: bold;
+}
+
+/*links area*/
+.m-modal-item-detail-shop-links {
+  padding-top: 1.0rem;
+  text-align: center;
+}
+
+.m-modal-item-detail-shop-links button {
+  margin: 0 0.5rem 0.5rem 0.5rem;
 }
 
 /*details area*/
 .m-item-detail-images .m-item-detail-image img {
   max-width: 100%;
 }
+
+

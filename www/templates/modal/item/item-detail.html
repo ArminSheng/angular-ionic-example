@@ -30,11 +30,11 @@
     <!-- title area -->
     <div class="m-modal-item-detail-title">
       <!-- title text and fav -->
-      <div class="m-modal-item-detail-title-row1">
-        <div class="m-modal-item-detail-title-row1-text">
-          [{{ itemModal.item.category }}] {{ itemModal.item.title }}
+      <div class="row row-no-padding m-modal-item-detail-title-row1">
+        <div class="col col-75 m-modal-item-detail-title-row1-text">
+          <h4>[{{ itemModal.item.category }}] {{ itemModal.item.title }}</h4>
         </div>
-        <div class="m-modal-item-detail-title-row1-fav">
+        <div class="col col-25 m-modal-item-detail-title-row1-fav">
           <fav-icon fav="itemModal.item.fav"></fav-icon>
         </div>
       </div>
@@ -57,7 +57,7 @@
         <div class="col col-33 m-modal-item-detail-title-row3-inventory">
           库存：{{ itemModal.item.inventoryAmount }}{{ itemModal.item.unitName }}
         </div>
-        <div class="col col-33 m-modal-item-detail-title-row3-sales">
+        <div class="col col-offset-10 col-33 m-modal-item-detail-title-row3-sales">
           销量：{{ itemModal.item.salesAmount }}{{ itemModal.item.unitName }}
         </div>
       </div>
@@ -78,10 +78,16 @@
         <span class="m-modal-item-detail-spec-key">商品属性：</span>
         {{ itemModal.item.attribute }}
       </div>
+
+      <!-- reserve instruction -->
+      <div class="m-modal-item-detail-spec-reserve">
+        <span class="m-modal-item-detail-spec-reserve-key">预订商品退款说明：</span>
+        本商品为预定商品，预定金额为预计成交金额的20%，根据实际到货数量在规定时间内完成尾款支付后发货，若过期不付尾款或取消订单将按照预计成交金额的10%收取违约金。
+      </div>
     </div>
 
     <!-- reviews -->
-    <div class="m-modal-item-detail-review">
+    <div class="m-modal-item-detail-review" ng-click="itemModal.doLoadMoreReviews()">
       <div class="m-modal-item-detail-review-title">
         <span>商品评价</span>
         <i class="icon ion-chevron-right"></i>
@@ -96,8 +102,8 @@
       <!-- sample review area -->
       <div class="m-modal-item-detail-review-sample">
         <div class="m-modal-item-detail-review-sample-info">
-          <span>{{ itemModal.item.review.last.name }}</span>
-          <span>{{ itemModal.item.review.last.date }}</span>
+          <span class="m-modal-item-detail-review-sample-info-phone">{{ itemModal.item.review.last.name }}</span>
+          <span class="m-modal-item-detail-review-sample-info-date">{{ itemModal.item.review.last.date }}</span>
         </div>
         <div class="m-modal-item-detail-review-sample-content">
           <span>{{ itemModal.item.review.last.content }}</span>
@@ -108,40 +114,40 @@
     <!-- shop area -->
     <div class="m-modal-item-detail-shop">
       <!-- title area -->
-      <div class="row m-modal-item-detail-shop-title">
+      <div class="row row-no-padding m-modal-item-detail-shop-title" ng-click="itemModal.doEnterShop()">
         <div class="col col-25 m-modal-item-detail-shop-title-brand">
           <img ng-src="{{ itemModal.item.shop.logoPath }}"/>
         </div>
-        <div class="col col-50 m-modal-item-detail-shop-title-info">
+        <div class="col col-75 m-modal-item-detail-shop-title-info">
           <span class="m-modal-item-detail-shop-title-info-name">
             {{ itemModal.item.shop.name }}
           </span>
           <span class="m-modal-item-detail-shop-title-info-open">
-            {{ itemModal.item.shop.open }}
+            开店时间：{{ itemModal.item.shop.open }}
           </span>
-        </div>
-        <div class="col col-10 m-modal-item-detail-shop-title-link">
-          <i class="icon ion-chevron-right"></i>
+          <span class="m-modal-item-detail-shop-title-link">
+            <i class="icon ion-chevron-right"></i>
+          </span>
         </div>
       </div>
 
       <!-- ratings area -->
-      <div class="row m-modal-item-detail-shop-ratings">
-        <div class="col col-33 m-modal-item-detail-shop-ratings-item">
+      <div class="row row-no-padding m-modal-item-detail-shop-ratings">
+        <div class="col col-33 m-modal-item-detail-shop-ratings-item m-modal-item-detail-shop-ratings-item-border-right">
           描述
-          <span class="m-modal-item-detail-shop-rating-item-score">
+          <span class="m-modal-item-detail-shop-rating-item-score energized">
             {{ itemModal.item.shop.ratings.description }}
           </span>
         </div>
-        <div class="col col-33 m-modal-item-detail-shop-ratings-item">
+        <div class="col col-33 m-modal-item-detail-shop-ratings-item m-modal-item-detail-shop-ratings-item-border-right">
           服务
-          <span class="m-modal-item-detail-shop-rating-item-score">
+          <span class="m-modal-item-detail-shop-rating-item-score energized">
             {{ itemModal.item.shop.ratings.service }}
           </span>
         </div>
         <div class="col col-33 m-modal-item-detail-shop-ratings-item">
           物流
-          <span class="m-modal-item-detail-shop-rating-item-score">
+          <span class="m-modal-item-detail-shop-rating-item-score energized">
             {{ itemModal.item.shop.ratings.logistics }}
           </span>
         </div>

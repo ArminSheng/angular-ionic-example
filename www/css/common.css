@@ -359,3 +359,23 @@
 .m-back-to-top-area > img {
     width: 45px;
 }
+
+/*slides container*/
+.m-slide-container {
+    background-color: #fff;
+}
+
+/*fav icon*/
+.m-fav-icon {
+    border-left: 1px solid #eeeeee;
+}
+
+.m-fav-icon span {
+    display: block;
+    text-align: center;
+}
+
+.m-fav-icon .m-fav-icon-img .icon {
+    font-size: 1.8rem;
+    color: #ffc900;
+}

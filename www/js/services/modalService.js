@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrSearchService',
+  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrSearchService) {
 
   return {
 
@@ -558,6 +558,28 @@ angular.module('mmr.services')
               }
             ]
           });
+        };
+      });
+    },
+
+    createItemDetailModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/item/item-detail.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+
+        // bind data
+        scope.itemModal = scope.itemModal || {};
+        scope.itemModal.item = mmrSearchService.itemDetail(item);
+
+        // bind methods
+        scope.itemModal.doHide = function() {
+          modal.hide();
+        };
+
+        scope.itemModal.doOpenHeaderMenu = function() {
+
         };
       });
     }

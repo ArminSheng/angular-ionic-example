@@ -9,6 +9,13 @@ angular.module('mmr.directives')
     '<div class="m-back-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +
     '<img class="m-back-to-top-img" ng-src="img/common/to-top.png"></img>' +
     '</div>');
+
+  // fav icon
+  $templateCache.put('templates/directives/common/fav-icon.html',
+    '<div class="m-fav-icon" ng-class="{{ additionalClass }}" ng-click="toggleFavStatus()">' +
+    '<span class="m-fav-icon-img"><i class="icon" ng-class="{\'ion-ios-star-outline\': !fav, \'ion-ios-star\': fav}"></i></span>' +
+    '<span class="m-fav-icon-text">{{ fav ? \'取消收藏\' : \'关注收藏\' }}</span>' +
+    '</div>');
 }])
 
 .directive('backToTopArea', [function() {
@@ -231,6 +238,27 @@ angular.module('mmr.directives')
       });
 
     }
+  };
+
+}])
+
+.directive('favIcon', [function() {
+
+  return {
+
+    restrict: 'E',
+    replace: true,
+    scope: {
+      fav: '=',
+      additionalClass: '@'
+    },
+    templateUrl: 'templates/directives/common/fav-icon.html',
+    link: function(scope, element, attrs) {
+      scope.toggleFavStatus = function() {
+        scope.fav = !scope.fav;
+      };
+    }
+
   };
 
 }]);

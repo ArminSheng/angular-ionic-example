@@ -1,0 +1,169 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="itemModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">
+      商品详情
+    </h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="itemModal.doOpenHeaderMenu()">
+        <span class="icon ion-more m-header-icon"></span>
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content class="m-modal-item-detail">
+
+    <!-- slider -->
+    <ion-slide-box delegate-handle="itemDetailSlideBox">
+      <ion-slide ng-repeat="banner in itemModal.item.banners track by $index">
+        <div class="m-slide-container">
+          <img class="m-slide-image" ng-src="{{ banner.path }}"/>
+        </div>
+      </ion-slide>
+    </ion-slide-box>
+
+    <!-- title area -->
+    <div class="m-modal-item-detail-title">
+      <!-- title text and fav -->
+      <div class="m-modal-item-detail-title-row1">
+        <div class="m-modal-item-detail-title-row1-text">
+          [{{ itemModal.item.category }}] {{ itemModal.item.title }}
+        </div>
+        <div class="m-modal-item-detail-title-row1-fav">
+          <fav-icon fav="itemModal.item.fav"></fav-icon>
+        </div>
+      </div>
+
+      <!-- price and icons -->
+      <div class="m-modal-item-detail-title-row2">
+        <span class="m-modal-item-detail-title-row2-price">
+          {{ itemModal.item.cprice | currency: '¥' }}/{{ itemModal.item.unitName }}
+        </span>
+        <span class="m-modal-item-detail-title-row2-ns" ng-if="itemModal.item.isNonStandard">
+          <img ng-src="img/item/item-non-standard.png"/>
+        </span>
+        <span class="m-modal-item-detail-title-row2-reserve" ng-if="itemModal.item.isReserved">
+          <img ng-src="img/item/item-reserved.png"/>
+        </span>
+      </div>
+
+      <!-- inventory and sales -->
+      <div class="row row-no-padding m-modal-item-detail-title-row3">
+        <div class="col col-33 m-modal-item-detail-title-row3-inventory">
+          库存：{{ itemModal.item.inventoryAmount }}{{ itemModal.item.unitName }}
+        </div>
+        <div class="col col-33 m-modal-item-detail-title-row3-sales">
+          销量：{{ itemModal.item.salesAmount }}{{ itemModal.item.unitName }}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- spec -->
+    <div class="m-modal-item-detail-spec">
+      <div class="m-modal-item-detail-spec-text">
+        <span class="m-modal-item-detail-spec-key">规格：</span>
+        {{ itemModal.item.spec }}
+      </div>
+      <div class="m-modal-item-detail-spec-place">
+        <span class="m-modal-item-detail-spec-key">产地：</span>
+        {{ itemModal.item.place }}
+      </div>
+      <div class="m-modal-item-detail-spec-attr">
+        <span class="m-modal-item-detail-spec-key">商品属性：</span>
+        {{ itemModal.item.attribute }}
+      </div>
+    </div>
+
+    <!-- reviews -->
+    <div class="m-modal-item-detail-review">
+      <div class="m-modal-item-detail-review-title">
+        <span>商品评价</span>
+        <i class="icon ion-chevron-right"></i>
+      </div>
+      <!-- summary area -->
+      <div class="m-modal-item-detail-review-summary">
+        <span>好评</span>
+        <span class="m-modal-item-detail-review-summary-rate">{{ itemModal.item.review.rate }}%</span>
+        <span class="m-modal-item-detail-review-summary-number">{{ itemModal.item.review.number }}人评价</span>
+      </div>
+
+      <!-- sample review area -->
+      <div class="m-modal-item-detail-review-sample">
+        <div class="m-modal-item-detail-review-sample-info">
+          <span>{{ itemModal.item.review.last.name }}</span>
+          <span>{{ itemModal.item.review.last.date }}</span>
+        </div>
+        <div class="m-modal-item-detail-review-sample-content">
+          <span>{{ itemModal.item.review.last.content }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- shop area -->
+    <div class="m-modal-item-detail-shop">
+      <!-- title area -->
+      <div class="row m-modal-item-detail-shop-title">
+        <div class="col col-25 m-modal-item-detail-shop-title-brand">
+          <img ng-src="{{ itemModal.item.shop.logoPath }}"/>
+        </div>
+        <div class="col col-50 m-modal-item-detail-shop-title-info">
+          <span class="m-modal-item-detail-shop-title-info-name">
+            {{ itemModal.item.shop.name }}
+          </span>
+          <span class="m-modal-item-detail-shop-title-info-open">
+            {{ itemModal.item.shop.open }}
+          </span>
+        </div>
+        <div class="col col-10 m-modal-item-detail-shop-title-link">
+          <i class="icon ion-chevron-right"></i>
+        </div>
+      </div>
+
+      <!-- ratings area -->
+      <div class="row m-modal-item-detail-shop-ratings">
+        <div class="col col-33 m-modal-item-detail-shop-ratings-item">
+          描述
+          <span class="m-modal-item-detail-shop-rating-item-score">
+            {{ itemModal.item.shop.ratings.description }}
+          </span>
+        </div>
+        <div class="col col-33 m-modal-item-detail-shop-ratings-item">
+          服务
+          <span class="m-modal-item-detail-shop-rating-item-score">
+            {{ itemModal.item.shop.ratings.service }}
+          </span>
+        </div>
+        <div class="col col-33 m-modal-item-detail-shop-ratings-item">
+          物流
+          <span class="m-modal-item-detail-shop-rating-item-score">
+            {{ itemModal.item.shop.ratings.logistics }}
+          </span>
+        </div>
+      </div>
+
+      <!-- links area -->
+      <div class="m-modal-item-detail-shop-links">
+        <button class="button button-outline button-energized" ng-click="itemModal.doContactShop()">
+          联系客服
+        </button>
+        <button class="button button-outline button-energized" ng-click="itemModal.doEnterShop()">
+          进店逛逛
+        </button>
+      </div>
+    </div>
+
+    <!-- details area -->
+    <item-detail-images images="itemModal.item.detailImages"></item-detail-images>
+
+  </ion-content>
+
+  <!-- bottom cart area -->
+  <bottom-cart></bottom-cart>
+
+</ion-modal-view>

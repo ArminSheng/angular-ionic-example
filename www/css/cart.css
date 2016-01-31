@@ -1,0 +1,34 @@
+.m-cart-bottom {
+  position: absolute;
+  bottom: 0;
+  height: 50px;
+}
+
+.m-cart-bottom-counts {
+  padding: 5px;
+  display: flex;
+  height: 55px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.m-cart-bottom-counts-plus img,
+.m-cart-bottom-counts-minus img {
+  width: 100%;
+}
+
+.col.m-cart-bottom-counts-count {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.m-cart-operations .m-cart-operations-btn {
+  display: flex;
+  width: 50%;
+  height: 50px;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}

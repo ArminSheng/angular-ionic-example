@@ -1,0 +1,8 @@
+.m-modal-item-detail {
+  bottom: 50px;
+}
+
+/*details area*/
+.m-item-detail-images .m-item-detail-image img {
+  max-width: 100%;
+}

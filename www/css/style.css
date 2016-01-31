@@ -13,9 +13,13 @@
     margin-right: 10px;
 }
 
+.m-slide-container {
+    text-align: center;
+}
+
 .m-slide-image {
     height: 180px;
-    width: 100%;
+    max-width: 100%;
 }
 
 .row.m-no-padding {

@@ -3,6 +3,11 @@ angular.module('mmr.directives')
 .run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/directives/item-remain-time.html',
     '<span class="m-sec-killing-item-remain-time"></span>');
+
+  $templateCache.put('templates/directives/item/item-detail-images.html',
+    '<div class="m-item-detail-images">' +
+    '<div class="m-item-detail-image" ng-repeat="image in images"><img ng-src="{{ image.path }}"/></div>' +
+    '</div>');
 }])
 
 .directive('seckillingList', [function() {
@@ -93,7 +98,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('searchResultList', [function() {
+.directive('searchResultList', ['mmrModal', function(mmrModal) {
 
   return {
     retrict: 'E',
@@ -104,7 +109,7 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/search-result-list.html',
     link: function(scope, element, attrs) {
       scope.doOpenDetail = function(item) {
-        // go to detail page
+        mmrModal.createItemDetailModal(scope, item);
       };
 
       scope.doChangeNumber = function(item, offset) {
@@ -155,8 +160,24 @@ angular.module('mmr.directives')
         } else{
           mmrModal.createShopDetailModal(scope, item);
         }
-        
+
       };
     }
   };
+}])
+
+.directive('itemDetailImages', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      images: '='
+    },
+    templateUrl: 'templates/directives/item/item-detail-images.html',
+    link: function(scope, element, attrs) {
+
+    }
+  };
+
 }]);

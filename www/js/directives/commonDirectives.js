@@ -109,6 +109,23 @@ angular.module('mmr.directives')
 
 }])
 
+.directive('backdrop', ['mmrEventing', function(mmrEventing) {
+  return {
+    retrict: 'E',
+    replace: 'true',
+    scope: {
+      isShow: '='
+    },
+    templateUrl: 'templates/directives/common/backdrop.html',
+    link: function(scope, element, attrs) {
+      scope.doHideBackdrop = function() {
+        scope.isShow = false;
+        mmrEventing.doHideBackdrop();
+      };
+    }
+  };
+}])
+
 .directive('sorter', ['mmrEventing', function(mmrEventing) {
 
   return {
@@ -127,7 +144,6 @@ angular.module('mmr.directives')
 
       scope.doSelectSorter = function(idx) {
         mmrEventing.doSelectSorter(scope.eventName, idx);
-
         scope.selectedSortIndex = idx;
         scope.sortActivated = false;
       };
@@ -193,7 +209,7 @@ angular.module('mmr.directives')
 
 .directive('categoryMenu', ['$rootScope', function($rootScope) {
 
-  function calcMenuVisibleHeight(scope) {
+  function calcMenuVisibleHeight(scope, offset) {
     var result = $(window).height() - $rootScope.$root.ui.heights.headerBarHeight;
     if($rootScope.$root.platform === 'ios') {
       result -= $rootScope.$root.ui.heights.statusBarHeight;
@@ -201,6 +217,11 @@ angular.module('mmr.directives')
 
     if(scope.optionsBarOpened) {
       result -= $rootScope.$root.ui.heights.optionsBarHeight;
+    }
+
+    var offsetNumber = _.parseInt(offset);
+    if(offsetNumber && _.isNumber(offsetNumber)) {
+      result -= offsetNumber;
     }
 
     return result + 'px';
@@ -214,10 +235,12 @@ angular.module('mmr.directives')
       optionsBarOpened: '=',
       swipeMenu: '&',
       items: '=',
-      additionalClass: '@'
+      additionalClass: '@',
+      offset: '@'
     },
     templateUrl: 'templates/directives/common/category-menu.html',
     link: function(scope, element, attrs) {
+      console.log(scope.offset);
 
       // watchers
       scope.$watch(function(scope) {
@@ -227,14 +250,14 @@ angular.module('mmr.directives')
         $('.m-cat-menu-content .scroll').height((50 * (newValue.length + 2)) + 'px');
 
         // calculate the actual occupied/visible height for the menu
-        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope));
+        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));
       });
 
       scope.$watch(function(scope) {
         return scope.optionsBarOpened;
       }, function(newValue, oldValue, scope) {
         // calculate the actual occupied/visible height for the menu
-        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope));
+        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));
       });
 
     }

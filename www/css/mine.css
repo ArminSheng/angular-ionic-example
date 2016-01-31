@@ -247,7 +247,7 @@
     display: inline-flex;
     text-align: center;
     color: #ddd;
-   
+
     justify-content: center;
 }
 
@@ -276,7 +276,7 @@
 
 /*apply service*/
 .m-modal-mine-apply-service-bar-footer, .m-modal-mine-apply-service-bar-footer .button {
-   padding: 0; 
+   padding: 0;
    margin: 0;
 }
 
@@ -324,6 +324,11 @@
     right: 10px;
 }
 
+.m-modal-mine-shop-all .m-collect-product-list-container {
+    padding-left: 36px;
+    transition: all 0.2s ease-in-out;
+}
+
 .m-collect-product-list-container .list, .m-collect-shop-list-container .list {
     background: #e8e8e8;
 }
@@ -331,6 +336,10 @@
 .m-collect-product-list-container .list .item {
     margin: 5px;
     border: 0;
+}
+
+.m-modal-mine-shop-all {
+    background: #e8e8e8;
 }
 
 .m-collect-shop-list-container .list .item {
@@ -446,7 +455,6 @@
     display: inline-block;
     width: 50%;
     text-overflow: ellipsis;
-    overflow: hidden;
 }
 
 .m-modal-mine-shop-banner-text-head, .m-modal-mine-shop-banner-text-grade {
@@ -454,12 +462,20 @@
     margin: 0;
     width: 100%;
     text-overflow: ellipsis;
-    
+    white-space: nowrap;
 }
 
-.m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active {
-    color: #ffc900;
+.m-modal-mine-shop-detail-content { background: #e8e8e8; }
+
+.m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active { color: #ffc900; }
+
+.m-filter-tabs.active-products {
+    border-bottom: 1px solid #eee;
+    position: relative;
+    z-index: 30;
 }
+
+.active-products .m-filter-item { border-bottom: 0 }
 
 .m-modal-mine-shop-index-adv {
     width: 100%;
@@ -484,6 +500,18 @@
     width: 100%;
 }
 
+.shop-detail-search {
+    top: 45px;
+}
+
+.move-right {
+    padding-left: 100px !important;
+}
+
+.m-shop-menu-category ion-content {
+    top: 129px;
+}
+
 @media screen and (min-width: 370px) {
     .m-header-buttons {
         margin: 0 5px;
@@ -494,9 +522,5 @@
 
     .m-modal-mine-shop-banner-brand {
         width: 100px;
-    }
-
-    .m-modal-mine-shop-banner-text {
-        font-size: ;
     }
 }

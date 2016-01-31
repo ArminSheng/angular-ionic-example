@@ -86,6 +86,10 @@ angular.module('mmr.services')
 
     doBroadcastScreenEvent: function(eventName, data) {
       $rootScope.$broadcast(eventName, data);
+    },
+
+    doHideBackdrop: function() {
+      $rootScope.$broadcast('eventHideBackdrop');
     }
 
   };

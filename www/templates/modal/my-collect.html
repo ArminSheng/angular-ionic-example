@@ -19,7 +19,7 @@
   </ion-header-bar>
 
   <ion-content class="m-modal-mine-collect-content">
-      <!-- options bar -->
+    <!-- options bar -->
     <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
       <!-- sorting & filters -->
       <div class="m-cat-filters">
@@ -36,16 +36,14 @@
     </div>
 
     <div ng-show="modals.collectModal.tab === 0">
-
       <collect-product-list items="modals.collectModal.myFav[1]"></collect-product-list>
     </div>
     <div ng-show="modals.collectModal.tab === 1">
       <collect-shop-list items="modals.collectModal.myFav[0]"></collect-shop-list>
+      <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
     </div>
 
-    <!-- backdrop -->
-    <div class="m-cat-backdrop" ng-class="{'activated': modals.collectModal.sortActivated}" ng-click="modals.collectModal.doTapBackdrop()">
-    </div>
+
 
   </ion-content>
 </ion-modal-view>

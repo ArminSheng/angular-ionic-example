@@ -5,11 +5,17 @@
 	      	<button class="button button-clear" ng-click="shopDetailModal.doHide()">
 	            <span class="icon ion-chevron-left m-common-back"></span>
 	     	 </button>
-	      	<!-- search input -->
-	     	 <label class="item-input-wrapper">
-		        <i class="icon ion-ios-search placeholder-icon"></i>
-		        <input type="search" placeholder="搜索店内商品">
-	      	</label>
+	     	 <form action="." ng-submit="$event.preventDefault();doSearch(searchKeyword)" class="m-cat-search-form">
+		      	<!-- search input -->
+		     	 	<label class="item-input-wrapper">
+			        <i class="icon ion-ios-search placeholder-icon"></i>
+			        <input type="search" placeholder="搜索店内商品" ng-click="shopDetailModal.doFocusSearchInput()">
+		      	</label>
+	      	</form>
+	      	<!-- cancel button -->
+		      <button class="button button-small button-clear m-cat-search-cancel" ng-if="shopDetailModal.searchInputFocused" ng-click="shopDetailModal.doBlurSearchInput();$event.stopPropagation()">
+		        取消
+		      </button>
 	     	<!-- notification -->
 	      	<div class="m-home-cart">
 		        <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
@@ -17,13 +23,13 @@
 		        </a>
 	      	</div>
 	      	<div class="buttons">
-				<button class="button button-clear" ng-click="modals.collectModal.doHide()">
+				<button class="button button-clear" ng-click="shopDetailModal.doHide()">
 					<span class="icon ion-more m-header-icon"></span>
 				</button>
 		   	</div>
     	</div>
 	</ion-header-bar>
-	<ion-content class="m-modal-mine-shop-detail-content">
+	<ion-content class="m-modal-mine-shop-detail-content" delegate-handle="shopItemsScroll" on-scroll="shopDetailModal.onScroll()">
 		<div class="m-modal-mine-shop-banner" ng-class="{'hide-slow': shopDetailModal.tab === 1}">
 			<div class="m-modal-mine-shop-banner-info row">
 				<div class="col col-60">
@@ -41,43 +47,63 @@
 					<button class="button button-energized m-button-favorite"><i class="icon ion-star"></i>收藏</button>
 				</div>
 			</div>
-		</div>	
-		<div class="m-filter-tabs">
+		</div>
+		<div class="m-filter-tabs" ng-class="{'active-products': shopDetailModal.tab === 1}">
            <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 0}" ng-click="shopDetailModal.switchTab(0)">
               <span>店铺首页</span>
            </div>
            <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 1}" ng-click="shopDetailModal.switchTab(1)">
             	<span>全部商品</span>
             </div>
-        </div>	
-        <div class="m-modal-mine-shop-index" ng-show="shopDetailModal.tab === 0">
-        	<div class="m-modal-mine-shop-index-adv">
-        		<img src="img/common/adv.png">
-        		<img src="img/common/adv.png">
-        	</div>
-        	<div class="m-modal-mine-shop-index-intro">
-        		<p class="m-modal-mine-shop-index-intro-title">精品推荐</p>
-        		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
-        	</div>
-        	<div class="m-modal-mine-shop-index-intro">
-        		<p class="m-modal-mine-shop-index-intro-title">促销公告</p>
-        		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
-        	</div>
-        </div>
-        <div class="m-modal-mine-shop-all" ng-show="shopDetailModal.tab === 1">
-        	<div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
-			    <!-- sorting & filters -->
-			    <div class="m-cat-filters">
-			      <div class="row row-no-padding m-cat-filters-row">
-			        <div class="col col-50 m-cat-filters-col-border">
-			          <sorter event-name="{{ sortEventName }}" sorters="sorters.common" sort-activated="sortActivated" activate-sort="activateSort()" additional-class="m-cat-sorter"></sorter>
-			        </div>
-			        <div class="col col-50">
-			          <screener event-prefix="{{ screenEventPrefix }}" tags="tags" screen-activated="screenActivated" activate-screen="activateScreen()" additional-class="m-cat-screener"></screener>
-			        </div>
-			      </div>
-			    </div>
-  			</div>
-        </div>
+    </div>
+    <div class="m-modal-mine-shop-index" ng-show="shopDetailModal.tab === 0">
+    	<div class="m-modal-mine-shop-index-adv">
+    		<img src="img/common/adv.png">
+    		<img src="img/common/adv.png">
+    	</div>
+    	<div class="m-modal-mine-shop-index-intro">
+    		<p class="m-modal-mine-shop-index-intro-title">精品推荐</p>
+    		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+    	</div>
+    	<div class="m-modal-mine-shop-index-intro">
+    		<p class="m-modal-mine-shop-index-intro-title">促销公告</p>
+    		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+    	</div>
+    </div>
+
+    <div class="m-modal-mine-shop-all" ng-show="shopDetailModal.tab === 1">
+
+      <!-- options bar -->
+	    <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+	      <!-- sorting & filters -->
+	      <div class="m-cat-filters">
+	        <div class="row row-no-padding m-cat-filters-row">
+	          <div class="col col-50 m-cat-filters-col-border">
+	            <sorter event-name="{{ shopDetailModal.sortEventName }}" sorters="shopDetailModal.sorters" sort-activated="shopDetailModal.sortActivated" activate-sort="shopDetailModal.activateSort()" additional-class="m-shop-sorter"></sorter>
+	          </div>
+
+	          <div class="col col-50">
+	            <screener event-prefix="{{ shopDetailModal.screenEventPrefix }}" tags="shopDetailModal.tags" screen-activated="shopDetailModal.screenActivated" activate-screen="shopDetailModal.activateScreen()" additional-class="m-shop-screener"></screener>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	    <collect-product-list items="shopDetailModal.shop.products" ng-class="{'move-right':shopDetailModal.menuOpened}"></collect-product-list>
+	    <backdrop is-show='shopDetailModal.isShow'></backdrop>
+    </div>
 	</ion-content>
+	<!-- categories menu -->
+	<category-menu menu-opened="shopDetailModal.menuOpened" options-bar-opened="true" swipe-menu="shopDetailModal.swipeMenu(open)" items="shopDetailModal.classifications" additional-class="m-shop-menu-category" ng-show="shopDetailModal.tab === 1" offset="{{ $root.ui.heights.optionsBarHeight }}"></category-menu>
+
+	<!-- back to top btn -->
+  <back-to-top-area show="shopDetailModal.showBacktoTopBtn" scroll-to-top="scrollToTop()"></back-to-top-area>
+
+  <!-- search panel -->
+  <div class="m-cat-search-wrapper">
+    <ion-scroll zooming="true" direction="y" class="m-cat-search shop-detail-search" ng-class="{'activated': shopDetailModal.searchInputFocused}" animation-callback>
+      <div style="height: 1000px;" class="m-cat-search-keywords">
+        <search-list-keyword hot-keywords="shopDetailModal.hotKeywords" keywords="$root.search.keywords" search-input-focused="shopDetailModal.searchInputFocused"></search-list-keyword>
+      </div>
+    </ion-scroll>
+  </div>
 </ion-modal-view>

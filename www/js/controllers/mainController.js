@@ -89,11 +89,11 @@ angular.module('mmr.controllers')
       // shops and items
       reservedOrders: [
         // {
-        //   shopId: 123,
-        //   shopName: '上海双汇有限公司',
+        //   id: 123,
+        //   name: '上海双汇有限公司',
         //   items: [
         //     {
-        //       itemId: 1,
+        //       id: 1,
         //       name: 'xxx',
         //       imagePath: 'xxx',
         //       attribute: '冻品',
@@ -160,22 +160,114 @@ angular.module('mmr.controllers')
 
   $rootScope.$on('doIncreaseItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[data.itemId] = mappings[data.itemId] || 0;
-    mappings[data.itemId] = mappings[data.itemId] + 1;
+    mappings[data.item.id] = mappings[data.item.id] || 0;
+    mappings[data.item.id] = mappings[data.item.id] + 1;
+
+    changeCartItems(data.item, mappings[data.item.id]);
   });
 
   $rootScope.$on('doDecreaseItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[data.itemId] = mappings[data.itemId] || 0;
-    if(mappings[data.itemId] && mappings[data.itemId] > 0) {
-      mappings[data.itemId] = mappings[data.itemId] - 1;
+    mappings[data.item.id] = mappings[data.item.id] || 0;
+    if(mappings[data.item.id] && mappings[data.item.id] > 0) {
+      mappings[data.item.id] = mappings[data.item.id] - 1;
     }
+
+    changeCartItems(data.item, mappings[data.item.id]);
   });
 
   $rootScope.$on('doSetItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[data.itemId] = mappings[data.itemId] || 0;
-    mappings[data.itemId] = data.newCount;
+    mappings[data.item.id] = mappings[data.item.id] || 0;
+    mappings[data.item.id] = data.newCount;
+
+    changeCartItems(data.item, mappings[data.item.id]);
   });
+
+  function changeCartItems(item, newCount) {
+    var shopItems, needRemoveShop;
+    if(item.isReserved) {
+      // reserve case
+      shopItems = findShopItems($rootScope.$root.cart.reservedOrders, item);
+      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount);
+
+      if(needRemoveShop) {
+        $rootScope.$root.cart.reservedOrders.splice(shopItems.idx, 1);
+      }
+    } else {
+      // non-reserve case
+      shopItems = findShopItems($rootScope.$root.cart.normalOrders, item);
+      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount);
+
+      if(needRemoveShop) {
+        $rootScope.$root.cart.normalOrders.splice(shopItems.idx, 1);
+      }
+    }
+  }
+
+  function changeCartItemsCore(shopItems, item, newCount) {
+    var isEmpty = false;
+
+    shopItems.id = shopItems.id || item.shop.id;
+    shopItems.name = shopItems.name || item.shop.item;
+    shopItems.items = shopItems.items || [];
+
+    // remove reserved item from items
+    if(newCount === 0) {
+      var removedIdx = _.findIndex(shopItems.items, function(o) { return o.id === item.id; });
+      if(removedIdx >= 0) {
+        shopItems.items.splice(removedIdx, 1);
+        if(shopItems.items.length === 0) {
+          isEmpty = true;
+        }
+      }
+    } else {
+      // add or change quantity
+      var changeIdx = _.findIndex(shopItems.items, function(o) { return o.id === item.id; });
+      if(changeIdx >= 0) {
+        // change quantity
+        shopItems.items[changeIdx].quantity = newCount;
+      } else {
+        // add item
+        addNewCartItem(shopItems.items, item, newCount);
+      }
+    }
+
+    return isEmpty;
+  }
+
+  function addNewCartItem(itemArray, item, newCount) {
+    // construct the cart item instance
+    var cartItem = {};
+
+    cartItem.id = item.id;
+    cartItem.name = item.title;
+    cartItem.imagePath = item.banners[0]; // first banner image as default
+    cartItem.attribute = item.attribute;
+    cartItem.price = item.cprice;
+    cartItem.quantity = newCount;
+    cartItem.unitName = item.unitName;
+
+    itemArray.push(cartItem);
+
+    return cartItem;
+  }
+
+  function findShopItems(shopItemsArray, item) {
+    var shopIdx = _.findIndex(shopItemsArray, function(o) { return o.id === item.shop.id; });
+    if(shopIdx >= 0) {
+      return { idx: shopIdx, items: shopItemsArray[shopIdx] };
+    } else {
+      // create a new one and return it
+      var newShopItems = {};
+
+      newShopItems.id = item.shop.id;
+      newShopItems.name = item.shop.name;
+      newShopItems.items = [];
+
+      shopItemsArray.push(newShopItems);
+      return { idx: shopItemsArray.length - 1, items: newShopItems };
+    }
+  }
 
 }]);

@@ -27,14 +27,13 @@ angular.module('mmr.directives')
     restrict: 'E',
     replace: true,
     scope: {
-      itemId: '@',
-      upperLimit: '@'
+      item: '='
     },
     templateUrl: 'templates/directives/cart/cart-count.html',
     link: function(scope, element, attrs) {
       // workaround for showing zero at the first time
       $timeout(function() {
-        scope.currentCount = $rootScope.$root.cart.itemsCount[scope.itemId] || 0;
+        scope.currentCount = $rootScope.$root.cart.itemsCount[scope.item.id] || 0;
         scope.currentCountTemp = scope.currentCount;
       });
 
@@ -50,24 +49,24 @@ angular.module('mmr.directives')
 
         // emit the event
         mmrEventing.doDecreaseItemCount(scope, {
-          itemId: scope.itemId
+          item: scope.item
         });
       };
 
       scope.doCountPlus = function($event) {
         // emit the event
         mmrEventing.doIncreaseItemCount(scope, {
-          itemId: scope.itemId
+          item: scope.item
         });
       };
 
       scope.doValidateCount = function() {
-        if(!Validator.number(scope.currentCountTemp, scope.upperLimit, true)) {
+        if(!Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
           // restore to last valid number
           scope.currentCountTemp = scope.currentCount;
         } else {
           mmrEventing.doSetItemCount(scope, {
-            itemId: scope.itemId,
+            item: scope.item,
             newCount: scope.currentCountTemp
           });
         }
@@ -75,7 +74,7 @@ angular.module('mmr.directives')
 
       // watchers
       scope.$watch(function() {
-        return $rootScope.$root.cart.itemsCount[scope.itemId];
+        return $rootScope.$root.cart.itemsCount[scope.item.id];
       }, function(newValue, oldValue, scope) {
         scope.currentCount = newValue;
         scope.currentCountTemp = newValue;

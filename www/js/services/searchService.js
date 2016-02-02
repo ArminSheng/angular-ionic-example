@@ -27,6 +27,7 @@ angular.module('mmr.services')
     };
 
     item.shop = {
+      id: 123,
       logoPath: 'img/item/sample.png',
       name: '上海双汇食品有限公司',
       open: '2015年11月11日',

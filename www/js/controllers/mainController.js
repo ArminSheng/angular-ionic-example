@@ -71,6 +71,15 @@ angular.module('mmr.controllers')
         { text: '羊肉2', detail: '', time: new Date() },
         { text: '羊肉1', detail: '', time: new Date() }
       ]
+    },
+
+    // cart related
+    cart: {
+      amount: 1244.3,
+      totalCount: 10,
+      reservedCount: 7,
+      normalCount: 3,
+      checkedCount: 6
     }
   };
 

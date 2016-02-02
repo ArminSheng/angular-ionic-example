@@ -28,7 +28,15 @@
 
 /*filters anim*/
 .m-mine-orders-filters {
-  top: 63px;
+  top: 43px;
+  position: relative;
+
+  /*animation part*/
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 .m-mine-orders-filters.downing {
@@ -41,18 +49,6 @@
 
 .platform-ios.platform-cordova .m-mine-orders-filters.downing {
   top: 20px;
-}
-
-.m-mine-orders-filters {
-  top: 43px;
-  position: relative;
-
-  /*animation part*/
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
 }
 
 .m-order-list-container {

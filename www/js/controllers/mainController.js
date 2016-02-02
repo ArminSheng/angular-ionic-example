@@ -84,7 +84,30 @@ angular.module('mmr.controllers')
       // items count: id ---> count
       itemsCount: {
 
-      }
+      },
+
+      // shops and items
+      reservedOrders: [
+        // {
+        //   shopId: 123,
+        //   shopName: '上海双汇有限公司',
+        //   items: [
+        //     {
+        //       itemId: 1,
+        //       name: 'xxx',
+        //       imagePath: 'xxx',
+        //       attribute: '冻品',
+        //       price: 190,
+        //       quantity: 3,
+        //       unitName: '箱'
+        //     }
+        //   ]
+        // }
+      ],
+
+      normalOrders: [
+
+      ]
     }
   };
 
@@ -135,24 +158,24 @@ angular.module('mmr.controllers')
     mmrLoadingFactory.hide();
   });
 
-  $rootScope.$on('doIncreaseItemCount', function($event, itemId) {
+  $rootScope.$on('doIncreaseItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[itemId] = mappings[itemId] || 0;
-    mappings[itemId] = mappings[itemId] + 1;
+    mappings[data.itemId] = mappings[data.itemId] || 0;
+    mappings[data.itemId] = mappings[data.itemId] + 1;
   });
 
-  $rootScope.$on('doDecreaseItemCount', function($event, itemId) {
+  $rootScope.$on('doDecreaseItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[itemId] = mappings[itemId] || 0;
-    if(mappings[itemId] && mappings[itemId] > 0) {
-      mappings[itemId] = mappings[itemId] - 1;
+    mappings[data.itemId] = mappings[data.itemId] || 0;
+    if(mappings[data.itemId] && mappings[data.itemId] > 0) {
+      mappings[data.itemId] = mappings[data.itemId] - 1;
     }
   });
 
-  $rootScope.$on('doSetItemCount', function($event, itemId, newCount) {
+  $rootScope.$on('doSetItemCount', function($event, data) {
     var mappings = $rootScope.$root.cart.itemsCount;
-    mappings[itemId] = mappings[itemId] || 0;
-    mappings[itemId] = newCount;
+    mappings[data.itemId] = mappings[data.itemId] || 0;
+    mappings[data.itemId] = data.newCount;
   });
 
 }]);

@@ -93,16 +93,16 @@ angular.module('mmr.services')
     },
 
     // item minus/plus from/to cart
-    doIncreaseItemCount: function(scope, itemId) {
-      scope.$emit('doIncreaseItemCount', itemId);
+    doIncreaseItemCount: function(scope, data) {
+      scope.$emit('doIncreaseItemCount', data);
     },
 
-    doDecreaseItemCount: function(scope, itemId) {
-      scope.$emit('doDecreaseItemCount', itemId);
+    doDecreaseItemCount: function(scope, data) {
+      scope.$emit('doDecreaseItemCount', data);
     },
 
-    doSetItemCount: function(scope, itemId, newCount) {
-      scope.$emit('doSetItemCount', itemId, newCount);
+    doSetItemCount: function(scope, data) {
+      scope.$emit('doSetItemCount', data);
     }
 
   };

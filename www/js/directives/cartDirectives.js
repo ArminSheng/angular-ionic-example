@@ -49,12 +49,16 @@ angular.module('mmr.directives')
         }
 
         // emit the event
-        mmrEventing.doDecreaseItemCount(scope, scope.itemId);
+        mmrEventing.doDecreaseItemCount(scope, {
+          itemId: scope.itemId
+        });
       };
 
       scope.doCountPlus = function($event) {
         // emit the event
-        mmrEventing.doIncreaseItemCount(scope, scope.itemId);
+        mmrEventing.doIncreaseItemCount(scope, {
+          itemId: scope.itemId
+        });
       };
 
       scope.doValidateCount = function() {
@@ -62,7 +66,10 @@ angular.module('mmr.directives')
           // restore to last valid number
           scope.currentCountTemp = scope.currentCount;
         } else {
-          mmrEventing.doSetItemCount(scope, scope.itemId, scope.currentCountTemp);
+          mmrEventing.doSetItemCount(scope, {
+            itemId: scope.itemId,
+            newCount: scope.currentCountTemp
+          });
         }
       };
 

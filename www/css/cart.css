@@ -5,7 +5,8 @@
   height: 50px;
 }
 
-.m-cart-bottom-counts {
+/*cart count component*/
+.m-cart-counts {
   padding: 5px;
   display: flex;
   height: 55px;
@@ -14,12 +15,38 @@
   text-align: center;
 }
 
-.m-cart-bottom-counts-plus img,
-.m-cart-bottom-counts-minus img {
+.m-cart-counts-plus img,
+.m-cart-counts-minus img {
   width: 100%;
 }
 
-.col.m-cart-bottom-counts-count {
+.m-cart-counts-minus,
+.m-cart-counts-plus {
+  height: 100%;
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+  bottom: 0.2rem;
+}
+
+.m-cart-counts-minus {
+  background-image: url('../img/common/minus.png');
+}
+
+.m-cart-counts-plus {
+  background-image: url('../img/common/plus.png');
+}
+
+.m-cart-counts-minus.activated {
+  background-image: url('../img/common/minus-filled.png');
+}
+
+.m-cart-counts-plus.activated {
+  background-image: url('../img/common/plus-filled.png');
+}
+
+.col.m-cart-counts-count {
   text-align: center;
   margin-bottom: 5%;
 }

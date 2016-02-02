@@ -1,16 +1,6 @@
 <div class="row row-no-padding m-cart-bottom">
   <div class="col col-33">
-    <div class="row row-no-padding m-cart-bottom-counts">
-      <div class="col col-33 m-cart-bottom-counts-minus" ng-click="doCountMinus()">
-        <img ng-src="img/common/minus.png"/>
-      </div>
-      <div class="col col-33 m-cart-bottom-counts-count">
-        0
-      </div>
-      <div class="col col-33 m-cart-bottom-counts-plus" ng-click="doCountPlus()">
-        <img ng-src="img/common/plus.png"/>
-      </div>
-    </div>
+    <cart-count item-id="{{ item.id }}"></cart-count>
   </div>
   <div class="col col-67 m-cart-operations">
     <div class="row row-no-padding">

@@ -79,7 +79,12 @@ angular.module('mmr.controllers')
       totalCount: 10,
       reservedCount: 7,
       normalCount: 3,
-      checkedCount: 6
+      checkedCount: 6,
+
+      // items count: id ---> count
+      itemsCount: {
+
+      }
     }
   };
 
@@ -128,6 +133,20 @@ angular.module('mmr.controllers')
   $rootScope.$on('loading.hide', function() {
     console.log('hide loading');
     mmrLoadingFactory.hide();
+  });
+
+  $rootScope.$on('doIncreaseItem', function($event, itemId) {
+    var mappings = $rootScope.$root.cart.itemsCount;
+    mappings[itemId] = mappings[itemId] || 0;
+    mappings[itemId] = mappings[itemId] + 1;
+  });
+
+  $rootScope.$on('doDecreaseItem', function($event, itemId) {
+    var mappings = $rootScope.$root.cart.itemsCount;
+    mappings[itemId] = mappings[itemId] || 0;
+    if(mappings[itemId] && mappings[itemId] > 0) {
+      mappings[itemId] = mappings[itemId] - 1;
+    }
   });
 
 }]);

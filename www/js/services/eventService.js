@@ -90,6 +90,15 @@ angular.module('mmr.services')
 
     doHideBackdrop: function() {
       $rootScope.$broadcast('eventHideBackdrop');
+    },
+
+    // item minus/plus from/to cart
+    doIncreaseItem: function(scope, itemId) {
+      scope.$emit('doIncreaseItem', itemId);
+    },
+
+    doDecreaseItem: function(scope, itemId) {
+      scope.$emit('doDecreaseItem', itemId);
     }
 
   };

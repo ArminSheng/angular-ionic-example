@@ -1,13 +1,7 @@
 angular.module('mmr.directives')
 
 .run(['$templateCache', function($templateCache) {
-  $templateCache.put('templates/directives/item-remain-time.html',
-    '<span class="m-sec-killing-item-remain-time"></span>');
 
-  $templateCache.put('templates/directives/item/item-detail-images.html',
-    '<div class="m-item-detail-images">' +
-    '<div class="m-item-detail-image" ng-repeat="image in images"><img ng-src="{{ image.path }}"/></div>' +
-    '</div>');
 }])
 
 .directive('bottomCart', [function() {
@@ -16,11 +10,49 @@ angular.module('mmr.directives')
     restrict: 'E',
     replace: true,
     scope: {
-
+      item: '='
     },
     templateUrl: 'templates/directives/cart/bottom-cart.html',
     link: function(scope, element, attrs) {
 
+    }
+  };
+
+}])
+
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing',
+  function($rootScope, $timeout, mmrEventing) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      itemId: '@'
+    },
+    templateUrl: 'templates/directives/cart/cart-count.html',
+    link: function(scope, element, attrs) {
+      scope.doCountMinus = function($event) {
+        // TODO: this is only workaround for the activated class not added
+        var element = $($event.target);
+        if(element && !element.hasClass('activated')) {
+          element.addClass('activated');
+          $timeout(function() {
+            element.removeClass('activated');
+          }, 200);
+        }
+
+        // emit the event
+        mmrEventing.doDecreaseItem(scope, scope.itemId);
+      };
+
+      scope.doCountPlus = function($event) {
+        // emit the event
+        mmrEventing.doIncreaseItem(scope, scope.itemId);
+      };
+
+      scope.getItemCount = function() {
+        return $rootScope.$root.cart.itemsCount[scope.itemId] || 0;
+      };
     }
   };
 

@@ -114,6 +114,7 @@ angular.module('mmr.services')
         {
           shopId: 123,
           shopName: '上海双汇有限公司',
+          subOrderId: 'MMR20160101000001-1',
           items: [
             {
               name: '苏北草鸭腿950g',
@@ -144,6 +145,7 @@ angular.module('mmr.services')
         {
           shopId: 124,
           shopName: '上海JPX有限公司',
+          subOrderId: 'MMR20160101000001-2',
           items: [
             {
               name: '苏南草象腿950g',
@@ -230,6 +232,7 @@ angular.module('mmr.services')
         {
           shopId: 123,
           shopName: '上海双汇有限公司',
+          subOrderId: 'MMR20160101000002-1',
           items: [
             {
               name: '苏北草鸭腿950g',
@@ -260,6 +263,7 @@ angular.module('mmr.services')
         {
           shopId: 124,
           shopName: '上海JPX有限公司',
+          subOrderId: 'MMR20160101000002-2',
           items: [
             {
               name: '苏南草象腿950g',
@@ -346,6 +350,7 @@ angular.module('mmr.services')
         {
           shopId: 123,
           shopName: '上海双汇有限公司',
+          subOrderId: 'MMR20160101000003-1',
           items: [
             {
               name: '苏北草鸭腿950g',
@@ -376,6 +381,7 @@ angular.module('mmr.services')
         {
           shopId: 124,
           shopName: '上海JPX有限公司',
+          subOrderId: 'MMR20160101000003-2',
           items: [
             {
               name: '苏南草象腿950g',
@@ -462,6 +468,7 @@ angular.module('mmr.services')
         {
           shopId: 123,
           shopName: '上海双汇有限公司',
+          subOrderId: 'MMR20160101000004-1',
           items: [
             {
               name: '苏北草鸭腿950g',
@@ -492,6 +499,7 @@ angular.module('mmr.services')
         {
           shopId: 124,
           shopName: '上海JPX有限公司',
+          subOrderId: 'MMR20160101000004-2',
           items: [
             {
               name: '苏南草象腿950g',
@@ -578,6 +586,7 @@ angular.module('mmr.services')
         {
           shopId: 123,
           shopName: '上海双汇有限公司',
+          subOrderId: 'MMR20160101000005-1',
           items: [
             {
               name: '苏北草鸭腿950g',
@@ -608,6 +617,7 @@ angular.module('mmr.services')
         {
           shopId: 124,
           shopName: '上海JPX有限公司',
+          subOrderId: 'MMR20160101000005-2',
           items: [
             {
               name: '苏南草象腿950g',

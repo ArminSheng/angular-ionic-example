@@ -4,7 +4,7 @@
       {{ subOrder.shopName }} &gt;
     </div>
     <div class="list">
-      <a class="item item-thumbnail-left m-order-suborder-item" ng-repeat="subItem in subOrder.items track by $index">
+      <a class="item item-thumbnail-left m-order-suborder-item" ng-repeat="subItem in getShownItems(subOrder) track by $index">
         <img ng-src="{{ subItem.imagePath }}">
         <h3>{{ subItem.name }}</h3>
         <p>属性：{{ subItem.attribute }}</p>
@@ -16,6 +16,9 @@
             {{ subItem.quantity }}{{ subItem.unitName }}
           </p>
         </div>
+      </a>
+      <a class="item m-order-suborder-more" ng-click="doShowMore(subOrder)" ng-if="doShowMore(subOrder, true)">
+        <h4>显示更多...</h4>
       </a>
     </div>
   </div>

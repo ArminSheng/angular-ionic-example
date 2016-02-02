@@ -146,6 +146,11 @@ angular.module('mmr.directives')
 
 .directive('orderSubList', [function() {
 
+  // sub order id ---> whether to show all items
+  var expandedMapping = {
+
+  };
+
   // TODO: add replace: true will cause empty rendering, WHY?
   // ANSWER: ng-repeat should not be the top level element when replace is TRUE
   return {
@@ -156,7 +161,22 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/order/order-sub-list.html',
     link: function(scope, element, attrs) {
+      scope.doShowMore = function(subOrder, readonly) {
+        if(!readonly) {
+          expandedMapping[subOrder.subOrderId] = true;
+        } else {
+          return !expandedMapping[subOrder.subOrderId];
+        }
+      };
 
+      scope.getShownItems = function(subOrder) {
+        if(expandedMapping[subOrder.subOrderId]) {
+          return subOrder.items;
+        } else {
+          // default to show 2 items
+          return subOrder.items.slice(0, 2);
+        }
+      };
     }
   };
 

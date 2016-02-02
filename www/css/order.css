@@ -92,6 +92,11 @@
   text-align: right;
 }
 
+.m-order-suborder-more {
+  text-align: center;
+  background-color: #e8e8e8;
+}
+
 .m-order-item-summary {
   text-align: right;
   border-bottom: 1px solid #e8e8e8;

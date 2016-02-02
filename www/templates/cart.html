@@ -1,5 +1,10 @@
-<ion-view view-title="购物车" hide-back-button="true">
-  <ion-content>
+<ion-view view-title="购物车({{ cart.counts.total }})" hide-back-button="true">
+  <ion-content class="m-cart" delegate-handle="cartScroll" on-scroll="onScroll()" scroll-event-interval="10" >
     购物车
   </ion-content>
+
+  <div class="m-cart-filters" ng-class="scrollStatus">
+    <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>
+  </div>
+
 </ion-view>

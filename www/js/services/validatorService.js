@@ -9,7 +9,8 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '手机号格式验证失败',
-            template: '手机号的格式应该符合中国大陆地区手机号码的格式'
+            template: '手机号的格式应该符合中国大陆地区手机号码的格式',
+            okType: 'button-energized'
           });
         }
 
@@ -25,7 +26,8 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '密码格式验证失败',
-            template: '密码的长度应该在6-16之间，且只能包含英文或者数字'
+            template: '密码的长度应该在6-16之间，且只能包含英文或者数字',
+            okType: 'button-energized'
           });
         }
 
@@ -41,7 +43,8 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '验证码格式验证失败',
-            template: '验证码的长度应该为6，且只能包含数字'
+            template: '验证码的长度应该为6，且只能包含数字',
+            okType: 'button-energized'
           });
         }
 
@@ -57,7 +60,8 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '用户名格式验证失败',
-            template: '用户名的长度应该在3-16之间，且只能包含汉字，英文或者数字'
+            template: '用户名的长度应该在3-16之间，且只能包含汉字，英文或者数字',
+            okType: 'button-energized'
           });
         }
 
@@ -73,7 +77,8 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: 'QQ号格式验证失败',
-            template: 'QQ号的位数应该在5-10位之间，且只能是数字'
+            template: 'QQ号的位数应该在5-10位之间，且只能是数字',
+            okType: 'button-energized'
           });
         }
 
@@ -89,7 +94,39 @@ angular.module('mmr.services')
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '邮箱格式验证失败',
-            template: '请输入合法的邮箱'
+            template: '请输入合法的邮箱',
+            okType: 'button-energized'
+          });
+        }
+
+        return false;
+      }
+
+      return true;
+    },
+
+    number: function(number, upperLimit, popupWhenFailure) {
+      number = Number(number);
+      if(!_.isNumber(number) || _.isNaN(number)) {
+
+        if(popupWhenFailure) {
+          $ionicPopup.alert({
+            title: '数值不正确',
+            template: '请输入合法的数值',
+            okType: 'button-energized'
+          });
+        }
+
+        return false;
+      }
+
+      // check whether within in the correct range
+      if(number > upperLimit) {
+        if(popupWhenFailure) {
+          $ionicPopup.alert({
+            title: '数值超过了库存值',
+            template: '请输入不超过库存值的数值',
+            okType: 'button-energized'
           });
         }
 

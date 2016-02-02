@@ -135,18 +135,24 @@ angular.module('mmr.controllers')
     mmrLoadingFactory.hide();
   });
 
-  $rootScope.$on('doIncreaseItem', function($event, itemId) {
+  $rootScope.$on('doIncreaseItemCount', function($event, itemId) {
     var mappings = $rootScope.$root.cart.itemsCount;
     mappings[itemId] = mappings[itemId] || 0;
     mappings[itemId] = mappings[itemId] + 1;
   });
 
-  $rootScope.$on('doDecreaseItem', function($event, itemId) {
+  $rootScope.$on('doDecreaseItemCount', function($event, itemId) {
     var mappings = $rootScope.$root.cart.itemsCount;
     mappings[itemId] = mappings[itemId] || 0;
     if(mappings[itemId] && mappings[itemId] > 0) {
       mappings[itemId] = mappings[itemId] - 1;
     }
+  });
+
+  $rootScope.$on('doSetItemCount', function($event, itemId, newCount) {
+    var mappings = $rootScope.$root.cart.itemsCount;
+    mappings[itemId] = mappings[itemId] || 0;
+    mappings[itemId] = newCount;
   });
 
 }]);

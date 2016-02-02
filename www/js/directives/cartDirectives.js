@@ -20,17 +20,24 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing',
-  function($rootScope, $timeout, mmrEventing) {
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator',
+  function($rootScope, $timeout, mmrEventing, Validator) {
 
   return {
     restrict: 'E',
     replace: true,
     scope: {
-      itemId: '@'
+      itemId: '@',
+      upperLimit: '@'
     },
     templateUrl: 'templates/directives/cart/cart-count.html',
     link: function(scope, element, attrs) {
+      // workaround for showing zero at the first time
+      $timeout(function() {
+        scope.currentCount = $rootScope.$root.cart.itemsCount[scope.itemId] || 0;
+        scope.currentCountTemp = scope.currentCount;
+      });
+
       scope.doCountMinus = function($event) {
         // TODO: this is only workaround for the activated class not added
         var element = $($event.target);
@@ -42,17 +49,31 @@ angular.module('mmr.directives')
         }
 
         // emit the event
-        mmrEventing.doDecreaseItem(scope, scope.itemId);
+        mmrEventing.doDecreaseItemCount(scope, scope.itemId);
       };
 
       scope.doCountPlus = function($event) {
         // emit the event
-        mmrEventing.doIncreaseItem(scope, scope.itemId);
+        mmrEventing.doIncreaseItemCount(scope, scope.itemId);
       };
 
-      scope.getItemCount = function() {
-        return $rootScope.$root.cart.itemsCount[scope.itemId] || 0;
+      scope.doValidateCount = function() {
+        if(!Validator.number(scope.currentCountTemp, scope.upperLimit, true)) {
+          // restore to last valid number
+          scope.currentCountTemp = scope.currentCount;
+        } else {
+          mmrEventing.doSetItemCount(scope, scope.itemId, scope.currentCountTemp);
+        }
       };
+
+      // watchers
+      scope.$watch(function() {
+        return $rootScope.$root.cart.itemsCount[scope.itemId];
+      }, function(newValue, oldValue, scope) {
+        scope.currentCount = newValue;
+        scope.currentCountTemp = newValue;
+      });
+
     }
   };
 

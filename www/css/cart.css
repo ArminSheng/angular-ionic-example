@@ -167,6 +167,11 @@
   left: 0.3rem;
 }
 
+.m-cart-summary-component > span.m-cart-summary-component-amount {
+  position: relative;
+  bottom: 0.1rem;
+}
+
 /*customize back to top area*/
 .m-cart-back-to-top.m-back-to-top-area.activated {
     bottom: 100px;

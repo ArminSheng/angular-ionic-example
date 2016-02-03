@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService',
-  function($rootScope, $timeout, $interpolate, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService) {
 
   return {
 
@@ -710,6 +710,12 @@ angular.module('mmr.services')
         scope.itemModal.doOpenHeaderMenu = function() {
 
         };
+
+        // event handlers
+        scope.$on('doStateToCart', function($event, data) {
+          scope.itemModal.doHide();
+          $state.go('tab.cart');
+        });
       });
     }
 

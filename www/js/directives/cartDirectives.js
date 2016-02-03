@@ -2,6 +2,12 @@ angular.module('mmr.directives')
 
 .run(['$templateCache', function($templateCache) {
 
+  $templateCache.put('templates/directives/cart/cart-summary.html',
+    '<div class="m-cart-summary-component stable-bg" ng-click="doOpenCart()">' +
+    '<span><i class="icon ion-ios-cart-outline"></i><span class="badge badge-assertive">{{ $root.cart.totalCount }}</span></span>' +
+    '<span>{{ $root.cart.amount | currency: \'¥\' }}</span>' +
+    '</div>');
+
 }])
 
 .directive('bottomCart', ['$rootScope', 'mmrEventing',
@@ -132,6 +138,25 @@ angular.module('mmr.directives')
         return mmrCommonService.confirm('确认移除', '确定要将此商品从购物车中移除吗？');
       }
 
+    }
+  };
+
+}])
+
+.directive('cartSummary', ['$rootScope', 'mmrEventing',
+  function($rootScope, mmrEventing) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '='
+    },
+    templateUrl: 'templates/directives/cart/cart-summary.html',
+    link: function(scope, element, attrs) {
+      scope.doOpenCart = function() {
+        mmrEventing.doStateToCart(scope.item);
+      };
     }
   };
 

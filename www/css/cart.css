@@ -73,6 +73,12 @@
   background-color: #e8e8e8;
 }
 
+.m-cart-back-icon {
+  position: absolute;
+  left: 0;
+  padding: 0 20px 0 0;
+}
+
 .m-cart-filters {
   top: 43px;
   position: relative;
@@ -142,6 +148,23 @@
 .m-cart-pay {
   font-size: 1.0rem;
   color: #fff;
+}
+
+/*cart summary in item detail*/
+.m-cart-summary-component > span {
+  display: block;
+  text-align: center;
+}
+
+.m-cart-summary-component > span .icon {
+  font-size: 2.0rem;
+}
+
+.m-cart-summary-component > span .badge {
+  padding: 1px 5px;
+  position: relative;
+  bottom: 0.3rem;
+  left: 0.3rem;
 }
 
 /*customize back to top area*/

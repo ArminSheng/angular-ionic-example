@@ -1,22 +1,18 @@
 angular.module('mmr.controllers')
 
-.controller('CartCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService',
-  function($scope, $rootScope, $ionicHistory, $ionicScrollDelegate, mmrScrollService) {
+.controller('CartCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal',
+  function($scope, $rootScope, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal) {
 
   $scope.tab = $scope.tab || 0;
-  $scope.cart = {
-    counts: {
-      reserve: 0,
-      normal: 0,
-      total: 0
-    }
-  };
 
   // define tabs
   $scope.tabs = [
     { text: '预定商品(' + $rootScope.$root.cart.reservedCount + ')' },
     { text: '普通商品(' + $rootScope.$root.cart.normalCount + ')' }
   ];
+
+  // last item
+  $scope.lastItem = undefined;
 
   $scope.switchTab = function(tab) {
     $scope.tab = tab;
@@ -55,5 +51,16 @@ angular.module('mmr.controllers')
     $ionicScrollDelegate.$getByHandle('cartScroll').scrollTop(true);
     $scope.showBacktoTopBtn = false;
   };
+
+  // business logic
+  $scope.doOpenLastItemDetail = function() {
+    mmrModal.createItemDetailModal($scope, $scope.lastItem);
+    $scope.lastItem = undefined;
+  };
+
+  // event handlers
+  $rootScope.$on('doStateToCart', function($event, data) {
+    $scope.lastItem = data;
+  });
 
 }]);

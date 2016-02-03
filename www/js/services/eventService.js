@@ -107,6 +107,11 @@ angular.module('mmr.services')
 
     doAddItemToCart: function(scope, data) {
       scope.$emit('doAddItemToCart', data);
+    },
+
+    // state transfers
+    doStateToCart: function(data) {
+      $rootScope.$broadcast('doStateToCart', data);
     }
 
   };

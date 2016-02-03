@@ -1,4 +1,10 @@
 <ion-view view-title="购物车({{ $root.cart.totalCount }})" hide-back-button="true">
+  <ion-nav-title>
+    <span class="m-cart-back-icon" ng-if="lastItem" ng-click="doOpenLastItemDetail()">
+      <i class="icon ion-chevron-left m-common-back"></i>
+    </span>
+    购物车({{ $root.cart.totalCount }})
+  </ion-nav-title>
   <ion-content class="m-cart anim-common" delegate-handle="cartScroll" on-scroll="onScroll()" scroll-event-interval="10" ng-class="scrollStatus">
     购物车
   </ion-content>

@@ -4,7 +4,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomCart', [function() {
+.directive('bottomCart', ['$rootScope', 'mmrEventing',
+  function($rootScope, mmrEventing) {
 
   return {
     restrict: 'E',
@@ -14,14 +15,26 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/cart/bottom-cart.html',
     link: function(scope, element, attrs) {
+      scope.doAddToCart = function() {
+        // check whether count is greater than 0
+        var count = $rootScope.$root.cart.itemsCount[scope.item.id];
+        if(count && count > 0) {
+          mmrEventing.doAddItemToCart(scope, {
+            item: scope.item
+          });
+        }
+      };
 
+      scope.doBuyImmediately = function() {
+
+      };
     }
   };
 
 }])
 
-.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator',
-  function($rootScope, $timeout, mmrEventing, Validator) {
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService',
+  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService) {
 
   return {
     restrict: 'E',
@@ -48,9 +61,26 @@ angular.module('mmr.directives')
         }
 
         // emit the event
-        mmrEventing.doDecreaseItemCount(scope, {
-          item: scope.item
-        });
+        if(scope.currentCount > 0) {
+          if(mmrCartService.isItemInCart(scope.item)) {
+            if(scope.currentCount === 1) { // current count
+              setToZeroConfirm().then(function(res) {
+                if(res) {
+                  mmrEventing.doDecreaseItemCount(scope, {
+                    item: scope.item
+                  });
+                }
+              });
+            } else {
+              mmrEventing.doDecreaseItemCount(scope, {
+                item: scope.item
+              });
+            }
+          } else {
+            // just change the count
+            mmrCartService.setItemCount(scope.item, scope.currentCount - 1);
+          }
+        }
       };
 
       scope.doCountPlus = function($event) {
@@ -58,6 +88,15 @@ angular.module('mmr.directives')
         mmrEventing.doIncreaseItemCount(scope, {
           item: scope.item
         });
+
+        if(mmrCartService.isItemInCart(scope.item)) {
+          mmrEventing.doIncreaseItemCount(scope, {
+            item: scope.item
+          });
+        } else {
+          // just change the count
+          mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
+        }
       };
 
       scope.doValidateCount = function() {
@@ -65,10 +104,18 @@ angular.module('mmr.directives')
           // restore to last valid number
           scope.currentCountTemp = scope.currentCount;
         } else {
-          mmrEventing.doSetItemCount(scope, {
-            item: scope.item,
-            newCount: scope.currentCountTemp
-          });
+          if(scope.currentCountTemp === 0) {
+            setToZeroConfirm().then(function(res) {
+              if(res) {
+                mmrEventing.doSetItemCount(scope, {
+                  item: scope.item,
+                  newCount: scope.currentCountTemp
+                });
+              } else {
+                scope.currentCountTemp = scope.currentCount;
+              }
+            });
+          }
         }
       };
 
@@ -79,6 +126,11 @@ angular.module('mmr.directives')
         scope.currentCount = newValue;
         scope.currentCountTemp = newValue;
       });
+
+      // private functions
+      function setToZeroConfirm() {
+        return mmrCommonService.confirm('确认移除', '确定要将此商品从购物车中移除吗？');
+      }
 
     }
   };

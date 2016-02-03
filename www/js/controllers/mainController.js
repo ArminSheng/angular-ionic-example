@@ -86,6 +86,11 @@ angular.module('mmr.controllers')
 
       },
 
+      // items ID ---> true : exists
+      itemsId: {
+
+      },
+
       // shops and items
       reservedOrders: [
         // {
@@ -184,12 +189,22 @@ angular.module('mmr.controllers')
     changeCartItems(data.item, mappings[data.item.id]);
   });
 
-  function changeCartItems(item, newCount) {
+  $rootScope.$on('doAddItemToCart', function($event, data) {
+    var mappings = $rootScope.$root.cart.itemsCount;
+
+    changeCartItems(data.item, mappings[data.item.id], true);
+
+    // popup the msg
+    mmrCommonService.help('添加成功', '您选择的商品已成功添加到购物车');
+  });
+
+  function changeCartItems(item, newCount, canAdd) {
     var shopItems, needRemoveShop;
+    var itemsIdMapping = $rootScope.$root.cart.itemsId;
     if(item.isReserved) {
       // reserve case
       shopItems = findShopItems($rootScope.$root.cart.reservedOrders, item);
-      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount);
+      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount, itemsIdMapping, canAdd);
 
       if(needRemoveShop) {
         $rootScope.$root.cart.reservedOrders.splice(shopItems.idx, 1);
@@ -197,7 +212,7 @@ angular.module('mmr.controllers')
     } else {
       // non-reserve case
       shopItems = findShopItems($rootScope.$root.cart.normalOrders, item);
-      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount);
+      needRemoveShop = changeCartItemsCore(shopItems.items, item, newCount, itemsIdMapping, canAdd);
 
       if(needRemoveShop) {
         $rootScope.$root.cart.normalOrders.splice(shopItems.idx, 1);
@@ -205,7 +220,7 @@ angular.module('mmr.controllers')
     }
   }
 
-  function changeCartItemsCore(shopItems, item, newCount) {
+  function changeCartItemsCore(shopItems, item, newCount, itemsIdMapping, canAdd) {
     var isEmpty = false;
 
     shopItems.id = shopItems.id || item.shop.id;
@@ -217,6 +232,8 @@ angular.module('mmr.controllers')
       var removedIdx = _.findIndex(shopItems.items, function(o) { return o.id === item.id; });
       if(removedIdx >= 0) {
         shopItems.items.splice(removedIdx, 1);
+        // remove mapping from itemsId
+        itemsIdMapping[item.id] = false;
         if(shopItems.items.length === 0) {
           isEmpty = true;
         }
@@ -227,16 +244,16 @@ angular.module('mmr.controllers')
       if(changeIdx >= 0) {
         // change quantity
         shopItems.items[changeIdx].quantity = newCount;
-      } else {
+      } else if(canAdd) {
         // add item
-        addNewCartItem(shopItems.items, item, newCount);
+        addNewCartItem(shopItems.items, item, newCount, itemsIdMapping);
       }
     }
 
     return isEmpty;
   }
 
-  function addNewCartItem(itemArray, item, newCount) {
+  function addNewCartItem(itemArray, item, newCount, itemsIdMapping) {
     // construct the cart item instance
     var cartItem = {};
 
@@ -249,6 +266,9 @@ angular.module('mmr.controllers')
     cartItem.unitName = item.unitName;
 
     itemArray.push(cartItem);
+
+    // put item id into itemsId mappings
+    itemsIdMapping[item.id] = true;
 
     return cartItem;
   }

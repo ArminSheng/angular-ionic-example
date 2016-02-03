@@ -43,7 +43,19 @@ angular.module('mmr.services', [])
     help: function(title, template) {
       $ionicPopup.alert({
         title: title,
-        template: template
+        template: template,
+        okType: 'button-energized'
+      });
+    },
+
+    // general confirm popup
+    confirm: function(title, template) {
+      return $ionicPopup.confirm({
+        title: title,
+        template: template,
+        cancelText: '取消',
+        okText: '确认移除',
+        okType: 'button-assertive'
       });
     }
 

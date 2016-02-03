@@ -103,6 +103,10 @@ angular.module('mmr.services')
 
     doSetItemCount: function(scope, data) {
       scope.$emit('doSetItemCount', data);
+    },
+
+    doAddItemToCart: function(scope, data) {
+      scope.$emit('doAddItemToCart', data);
     }
 
   };

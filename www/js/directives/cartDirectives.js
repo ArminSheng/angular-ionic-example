@@ -10,8 +10,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomCart', ['$rootScope', 'mmrEventing',
-  function($rootScope, mmrEventing) {
+.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService',
+  function($rootScope, mmrEventing, mmrCartService) {
 
   return {
     restrict: 'E',
@@ -22,13 +22,7 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/cart/bottom-cart.html',
     link: function(scope, element, attrs) {
       scope.doAddToCart = function() {
-        // check whether count is greater than 0
-        var count = $rootScope.$root.cart.itemsCount[scope.item.id];
-        if(count && count > 0) {
-          mmrEventing.doAddItemToCart(scope, {
-            item: scope.item
-          });
-        }
+        mmrCartService.addItemToCart(scope, scope.item);
       };
 
       scope.doBuyImmediately = function() {

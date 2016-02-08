@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrCartService', ['$rootScope',
-  function($rootScope) {
+.factory('mmrCartService', ['$rootScope', 'mmrEventing',
+  function($rootScope, mmrEventing) {
 
   return {
 
@@ -11,6 +11,18 @@ angular.module('mmr.services')
 
     setItemCount: function(item, newCount) {
       $rootScope.$root.cart.itemsCount[item.id] = newCount;
+    },
+
+    getItemCount: function(item) {
+      return $rootScope.$root.cart.itemsCount[item.id] || 0;
+    },
+
+    addItemToCart: function(scope, item) {
+      // check whether count is greater than 0
+      this.setItemCount(item, this.getItemCount(item) + 1);
+      mmrEventing.doAddItemToCart(scope, {
+        item: scope.item
+      });
     }
 
   };

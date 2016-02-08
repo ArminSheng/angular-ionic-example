@@ -63,4 +63,14 @@ angular.module('mmr.controllers')
     $scope.lastItem = data;
   });
 
+  // watchers
+  $scope.$watch(function(scope) {
+    return $rootScope.$root.cart.totalCount;
+  }, function(newValue, oldValue, scope) {
+    $scope.tabs = [
+      { text: '预定商品(' + $rootScope.$root.cart.reservedCount + ')' },
+      { text: '普通商品(' + $rootScope.$root.cart.normalCount + ')' }
+    ];
+  });
+
 }]);

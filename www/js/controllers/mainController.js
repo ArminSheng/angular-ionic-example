@@ -194,8 +194,16 @@ angular.module('mmr.controllers')
 
     changeCartItems(data.item, mappings[data.item.id], true);
 
+    $rootScope.$root.cart.totalCount += 1;
+    if(data.item.isReserved) {
+      $rootScope.$root.cart.reservedCount += 1;
+    } else {
+      $rootScope.$root.cart.normalCount += 1;
+    }
+    $rootScope.$root.cart.amount += data.item.cprice;
+
     // popup the msg
-    mmrCommonService.help('添加成功', '您选择的商品已成功添加到购物车');
+    // mmrCommonService.help('添加成功', '您选择的商品已成功添加到购物车');
   });
 
   function changeCartItems(item, newCount, canAdd) {

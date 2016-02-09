@@ -157,11 +157,17 @@ angular.module('mmr.directives')
     retrict: 'E',
     replace: true,
     scope: {
-      orders: '='
+      orders: '=',
+      isReserved: '@',
+      isCartMode: '@'
     },
     templateUrl: 'templates/directives/order/order-sub-list.html',
     link: function(scope, element, attrs) {
       scope.doShowMore = function(subOrder, readonly) {
+        if(scope.isCartMode) {
+          return false;
+        }
+
         if(!readonly) {
           expandedMapping[subOrder.subOrderId] = true;
         } else {
@@ -170,7 +176,7 @@ angular.module('mmr.directives')
       };
 
       scope.getShownItems = function(subOrder) {
-        if(expandedMapping[subOrder.subOrderId]) {
+        if(scope.isCartMode || expandedMapping[subOrder.subOrderId]) {
           return subOrder.items;
         } else {
           // default to show 2 items

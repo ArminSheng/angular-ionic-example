@@ -26,17 +26,31 @@ angular.module('mmr.services')
       }
     };
 
-    item.shop = {
-      id: 123,
-      logoPath: 'img/item/sample.png',
-      name: '上海双汇食品有限公司',
-      open: '2015年11月11日',
-      ratings: {
-        description: 4.8,
-        service: 4.6,
-        logistics: 4.2
-      }
-    };
+    if(item.id % 2 === 0) {
+      item.shop = {
+        id: 123,
+        logoPath: 'img/item/sample.png',
+        name: '上海双汇食品有限公司',
+        open: '2015年11月11日',
+        ratings: {
+          description: 4.8,
+          service: 4.6,
+          logistics: 4.2
+        }
+      };
+    } else {
+      item.shop = {
+        id: 124,
+        logoPath: 'img/item/sample.png',
+        name: '上海丸子食品有限公司',
+        open: '2015年11月11日',
+        ratings: {
+          description: 4.8,
+          service: 4.6,
+          logistics: 4.2
+        }
+      };
+    }
 
     item.banners = [
       { path: 'img/item/sample.png' },

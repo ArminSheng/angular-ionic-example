@@ -98,6 +98,7 @@
 
 .has-header.m-cart {
   top: 86px;
+  bottom: 106px;
 }
 
 .has-header.m-cart.downing {
@@ -107,7 +108,7 @@
 /*bottom cart summary arae*/
 .m-cart-summary {
   position: fixed;
-  bottom: 52px;
+  bottom: 48px;
 }
 
 .row.m-cart-summary {
@@ -174,5 +175,5 @@
 
 /*customize back to top area*/
 .m-cart-back-to-top.m-back-to-top-area.activated {
-    bottom: 100px;
+    bottom: 108px;
 }

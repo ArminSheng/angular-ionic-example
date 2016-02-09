@@ -75,13 +75,58 @@
 }
 
 .m-order-suborder-title {
-  padding: 5px 10px;
+  background-color: #fff;
+  padding: 0.4rem 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.item.m-order-suborder-check {
+  border: none;
+  padding: 16px 0 16px 16px;
+  width: 2.2rem;
+}
+
+.item.m-order-suborder-check .checkbox {
+  left: -0.4rem;
+}
+
+.m-order-suborder-title-reserve {
+  width: 2.0rem;
+  margin-left: 0.6rem;
+}
+
+.m-order-suborder-title-status {
+  margin-left: auto;
 }
 
 .m-order-suborder-item-right {
   position: absolute;
   right: 10px;
   top: 9px;
+}
+
+.m-order-suborder-item-check {
+  position: absolute;
+  height: 100%;
+  border: none;
+  padding: 16px 0 16px 16px;
+  width: 100%;
+}
+
+.m-order-suborder-item-container, .m-order-suborder-item-list {
+  position: relative;
+  top: 1px;
+}
+
+.m-order-suborder-item {
+  position: relative;
+  bottom: 1px;
+}
+
+.m-order-suborder-item-container.is-cart-mode .item-thumbnail-left, .item-thumbnail-left .item-content {
+  margin-left: 2.8rem;
+  border: none;
 }
 
 .m-order-suborder-item-right .m-order-suborder-item-unit {

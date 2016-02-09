@@ -6,7 +6,8 @@
     购物车({{ $root.cart.totalCount }})
   </ion-nav-title>
   <ion-content class="m-cart anim-common" delegate-handle="cartScroll" on-scroll="onScroll()" scroll-event-interval="10" ng-class="scrollStatus">
-    购物车
+    <!-- cart orders -->
+    <order-sub-list orders="getOrders(tab)" is-reserved="tab === 0" is-cart-mode="true"></order-sub-list>
   </ion-content>
 
   <div class="m-cart-filters anim-common" ng-class="scrollStatus">
@@ -19,7 +20,7 @@
   <!-- bottom summary area -->
   <div class="row row-no-padding m-cart-summary">
     <div class="col col-25">
-      <ion-checkbox ng-model="selectedAll" class="m-cart-summary-select-all">全选</ion-checkbox>
+      <ion-checkbox ng-model="selectedAll" class="checkbox-energized m-cart-summary-select-all">全选</ion-checkbox>
     </div>
     <div class="col m-centered-div m-cart-total-amount">
       共计：<span class="m-cart-total-amount-text">{{ $root.cart.amount | currency: '¥' }}</span>

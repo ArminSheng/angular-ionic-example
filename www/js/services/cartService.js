@@ -23,6 +23,14 @@ angular.module('mmr.services')
       mmrEventing.doAddItemToCart(scope, {
         item: scope.item
       });
+    },
+
+    generateCartOrders: function(isNormalOrder) {
+      if(isNormalOrder) {
+        return $rootScope.$root.cart.normalOrders;
+      } else {
+        return $rootScope.$root.cart.reservedOrders;
+      }
     }
 
   };

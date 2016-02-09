@@ -1,8 +1,9 @@
 angular.module('mmr.controllers')
 
-.controller('CartCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal',
-  function($scope, $rootScope, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal) {
+.controller('CartCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService',
+  function($scope, $rootScope, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService) {
 
+  $rootScope.$root.ui.tabsHidden = false;
   $scope.tab = $scope.tab || 0;
 
   // define tabs
@@ -56,6 +57,10 @@ angular.module('mmr.controllers')
   $scope.doOpenLastItemDetail = function() {
     mmrModal.createItemDetailModal($scope, $scope.lastItem);
     $scope.lastItem = undefined;
+  };
+
+  $scope.getOrders = function(tab) {
+    return mmrCartService.generateCartOrders(tab === 1);
   };
 
   // event handlers

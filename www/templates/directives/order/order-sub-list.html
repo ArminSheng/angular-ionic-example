@@ -1,22 +1,28 @@
 <div class="m-order-list-suborder-container">
   <div class="m-order-list-suborder" ng-repeat="subOrder in orders track by $index">
     <div class="m-order-suborder-title">
-      {{ subOrder.shopName }} &gt;
+      <ion-checkbox class="checkbox-energized m-order-suborder-check" ng-if="isCartMode"></ion-checkbox>
+      <span>{{ subOrder.name }} &gt;</span>
+      <img class="m-order-suborder-title-reserve" ng-src="img/item/item-reserved.png" ng-if="isReserved"/>
+      <span class="m-order-suborder-title-status">{{ subOrder.isEditing ? '完成' : '编辑' }}</span>
     </div>
-    <div class="list">
-      <a class="item item-thumbnail-left m-order-suborder-item" ng-repeat="subItem in getShownItems(subOrder) track by $index">
-        <img ng-src="{{ subItem.imagePath }}">
-        <h3>{{ subItem.name }}</h3>
-        <p>属性：{{ subItem.attribute }}</p>
-        <div class="m-order-suborder-item-right">
-          <h3 class="m-order-suborder-item-price">
-            ¥ {{ subItem.price }}
-          </h3>
-          <p class="m-order-suborder-item-unit">
-            {{ subItem.quantity }}{{ subItem.unitName }}
-          </p>
-        </div>
-      </a>
+    <div class="list m-order-suborder-item-list">
+      <div class="m-order-suborder-item-container" ng-class="{'is-cart-mode': isCartMode}" ng-repeat="subItem in getShownItems(subOrder) track by $index">
+        <ion-checkbox class="checkbox-energized m-order-suborder-item-check" ng-if="isCartMode"></ion-checkbox>
+        <a class="item item-thumbnail-left m-order-suborder-item">
+          <img ng-src="{{ subItem.imagePath }}">
+          <h3>{{ subItem.name }}</h3>
+          <p>属性：{{ subItem.attribute }}</p>
+          <div class="m-order-suborder-item-right">
+            <h3 class="m-order-suborder-item-price">
+              ¥ {{ subItem.price }}
+            </h3>
+            <p class="m-order-suborder-item-unit">
+              {{ subItem.quantity }}{{ subItem.unitName }}
+            </p>
+          </div>
+        </a>
+      </div>
       <a class="item m-order-suborder-more" ng-click="doShowMore(subOrder)" ng-if="doShowMore(subOrder, true)">
         <h4>显示更多...</h4>
       </a>

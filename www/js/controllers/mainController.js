@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService',
-  function($scope, $rootScope, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService',
+  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService) {
 
   // back related
   $scope.myGoBack = function() {
@@ -149,6 +149,9 @@ angular.module('mmr.controllers')
 
   $rootScope.$on('$stateChangeSuccess', function () {
     console.log('end state change');
+    if($state.current.name === 'tab.cart') {
+      $rootScope.$root.ui.tabsHidden = false;
+    }
     $rootScope.$broadcast('loading.hide');
   });
 
@@ -267,7 +270,7 @@ angular.module('mmr.controllers')
 
     cartItem.id = item.id;
     cartItem.name = item.title;
-    cartItem.imagePath = item.banners[0]; // first banner image as default
+    cartItem.imagePath = item.banners[0].path || ''; // first banner image as default
     cartItem.attribute = item.attribute;
     cartItem.price = item.cprice;
     cartItem.quantity = newCount;

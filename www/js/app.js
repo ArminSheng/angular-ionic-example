@@ -61,6 +61,17 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
       }
     }
   });
+
+  // add utils for the whole app
+  window.mmr = window.mmr || {};
+  window.mmr.random = window.mmr.random || {};
+  window.mmr.random.randomBoolean = function() {
+    if(Math.random() > 0.5) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 })
 
 .config(['$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$httpProvider', 'localStorageServiceProvider', '$provide', 'ionGalleryConfigProvider',

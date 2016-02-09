@@ -113,7 +113,7 @@ angular.module('mmr.services')
       subOrders: [
         {
           shopId: 123,
-          shopName: '上海双汇有限公司',
+          name: '上海双汇有限公司',
           subOrderId: 'MMR20160101000001-1',
           items: [
             {
@@ -144,7 +144,7 @@ angular.module('mmr.services')
         },
         {
           shopId: 124,
-          shopName: '上海JPX有限公司',
+          name: '上海JPX有限公司',
           subOrderId: 'MMR20160101000001-2',
           items: [
             {
@@ -231,7 +231,7 @@ angular.module('mmr.services')
       subOrders: [
         {
           shopId: 123,
-          shopName: '上海双汇有限公司',
+          name: '上海双汇有限公司',
           subOrderId: 'MMR20160101000002-1',
           items: [
             {
@@ -262,7 +262,7 @@ angular.module('mmr.services')
         },
         {
           shopId: 124,
-          shopName: '上海JPX有限公司',
+          name: '上海JPX有限公司',
           subOrderId: 'MMR20160101000002-2',
           items: [
             {
@@ -349,7 +349,7 @@ angular.module('mmr.services')
       subOrders: [
         {
           shopId: 123,
-          shopName: '上海双汇有限公司',
+          name: '上海双汇有限公司',
           subOrderId: 'MMR20160101000003-1',
           items: [
             {
@@ -380,7 +380,7 @@ angular.module('mmr.services')
         },
         {
           shopId: 124,
-          shopName: '上海JPX有限公司',
+          name: '上海JPX有限公司',
           subOrderId: 'MMR20160101000003-2',
           items: [
             {
@@ -467,7 +467,7 @@ angular.module('mmr.services')
       subOrders: [
         {
           shopId: 123,
-          shopName: '上海双汇有限公司',
+          name: '上海双汇有限公司',
           subOrderId: 'MMR20160101000004-1',
           items: [
             {
@@ -498,7 +498,7 @@ angular.module('mmr.services')
         },
         {
           shopId: 124,
-          shopName: '上海JPX有限公司',
+          name: '上海JPX有限公司',
           subOrderId: 'MMR20160101000004-2',
           items: [
             {
@@ -585,7 +585,7 @@ angular.module('mmr.services')
       subOrders: [
         {
           shopId: 123,
-          shopName: '上海双汇有限公司',
+          name: '上海双汇有限公司',
           subOrderId: 'MMR20160101000005-1',
           items: [
             {
@@ -616,7 +616,7 @@ angular.module('mmr.services')
         },
         {
           shopId: 124,
-          shopName: '上海JPX有限公司',
+          name: '上海JPX有限公司',
           subOrderId: 'MMR20160101000005-2',
           items: [
             {

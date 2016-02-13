@@ -183,6 +183,36 @@ angular.module('mmr.directives')
           return subOrder.items.slice(0, 2);
         }
       };
+
+      // click on check all for one shop
+      scope.doCheckSubOrder = function(subOrder) {
+        subOrder.checked = !!subOrder.checked;
+
+        // iterate for all items below
+        if(subOrder.checked) {
+          _.forEach(subOrder.items, function(element) {
+            element.checked = true;
+          });
+        } else {
+          _.forEach(subOrder.items, function(element) {
+            element.checked = false;
+          });
+        }
+      };
+
+      // click on check for one item
+      scope.doCheckSubOrderItem = function(subOrder, subItem) {
+        subItem.checked = !!subItem.checked;
+        if(!subItem.checked) {
+          subOrder.checked = false;
+        } else {
+          // check whether to check at shop level
+          if(_.every(subOrder.items, {'checked': true})) {
+            subOrder.checked = true;
+          }
+        }
+
+      };
     }
   };
 

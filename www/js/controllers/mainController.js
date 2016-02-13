@@ -75,6 +75,7 @@ angular.module('mmr.controllers')
 
     // cart related
     cart: {
+      allChecked: false,
       amount: 0,
       totalCount: 0,
       reservedCount: 0,

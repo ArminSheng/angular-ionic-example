@@ -1,14 +1,14 @@
 <div class="m-order-list-suborder-container">
   <div class="m-order-list-suborder" ng-repeat="subOrder in orders track by $index">
     <div class="m-order-suborder-title">
-      <ion-checkbox class="checkbox-energized m-order-suborder-check" ng-if="isCartMode"></ion-checkbox>
+      <ion-checkbox class="checkbox-energized m-order-suborder-check" ng-if="isCartMode" ng-click="doCheckSubOrder(subOrder)" ng-model="subOrder.checked"></ion-checkbox>
       <span>{{ subOrder.name }} &gt;</span>
       <img class="m-order-suborder-title-reserve" ng-src="img/item/item-reserved.png" ng-if="isReserved"/>
       <span class="m-order-suborder-title-status">{{ subOrder.isEditing ? '完成' : '编辑' }}</span>
     </div>
     <div class="list m-order-suborder-item-list">
       <div class="m-order-suborder-item-container" ng-class="{'is-cart-mode': isCartMode}" ng-repeat="subItem in getShownItems(subOrder) track by $index">
-        <ion-checkbox class="checkbox-energized m-order-suborder-item-check" ng-if="isCartMode"></ion-checkbox>
+        <ion-checkbox class="checkbox-energized m-order-suborder-item-check" ng-if="isCartMode" ng-click="doCheckSubOrderItem(subOrder, subItem)" ng-model="subItem.checked"></ion-checkbox>
         <a class="item item-thumbnail-left m-order-suborder-item">
           <img ng-src="{{ subItem.imagePath }}">
           <h3>{{ subItem.name }}</h3>

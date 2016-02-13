@@ -21,7 +21,7 @@ angular.module('mmr.services')
       if(config.handler) {
         var handler = config.handler;
         var scrollHandler = $ionicScrollDelegate.$getByHandle(handler);
-        if(scrollHandler) {
+        if(scrollHandler && scrollHandler.getScrollPosition()) {
           var moveData = scrollHandler.getScrollPosition().top,
               lastTops;
 

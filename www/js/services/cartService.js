@@ -31,6 +31,10 @@ angular.module('mmr.services')
       } else {
         return $rootScope.$root.cart.reservedOrders;
       }
+    },
+
+    checkAllCartItems: function() {
+
     }
 
   };

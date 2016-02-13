@@ -74,6 +74,10 @@
   border-bottom: 2px solid #8e8e8e;
 }
 
+.m-order-list-suborder {
+  margin: 6px 0;
+}
+
 .m-order-suborder-title {
   background-color: #fff;
   padding: 0.4rem 0.8rem;
@@ -85,6 +89,7 @@
   border: none;
   padding: 16px 0 16px 16px;
   width: 2.2rem;
+  right: 0.3rem;
 }
 
 .item.m-order-suborder-check .checkbox {
@@ -112,6 +117,7 @@
   border: none;
   padding: 16px 0 16px 16px;
   width: 100%;
+  right: 0.5rem;
 }
 
 .m-order-suborder-item-container, .m-order-suborder-item-list {

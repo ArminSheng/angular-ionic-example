@@ -63,6 +63,11 @@ angular.module('mmr.controllers')
     return mmrCartService.generateCartOrders(tab === 1);
   };
 
+  // check all
+  $scope.doCheckAll = function() {
+    mmrCartService.checkAllCartItems();
+  };
+
   // event handlers
   $rootScope.$on('doStateToCart', function($event, data) {
     $scope.lastItem = data;

@@ -127,6 +127,15 @@ angular.module('mmr.controllers')
     { 'text': '销量从低到高' }
   ];
 
+  // retrieve cart item number
+  $rootScope.getCartItemCount = function() {
+    if($rootScope.$root.cart.totalCount >= 100) {
+      return '99+';
+    }
+
+    return $rootScope.$root.cart.totalCount;
+  };
+
   // send heartbeat every 30s
   $interval(function() {
     mmrCommonService.networkCheck();

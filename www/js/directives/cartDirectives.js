@@ -84,11 +84,6 @@ angular.module('mmr.directives')
       };
 
       scope.doCountPlus = function($event) {
-        // emit the event
-        mmrEventing.doIncreaseItemCount(scope, {
-          item: scope.item
-        });
-
         if(mmrCartService.isItemInCart(scope.item)) {
           mmrEventing.doIncreaseItemCount(scope, {
             item: scope.item
@@ -97,6 +92,11 @@ angular.module('mmr.directives')
           // just change the count
           mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
         }
+      };
+
+      scope.doRemoveItem = function($event) {
+        scope.currentCountTemp = 0;
+        scope.doValidateCount();
       };
 
       scope.doValidateCount = function() {
@@ -125,6 +125,8 @@ angular.module('mmr.directives')
       }, function(newValue, oldValue, scope) {
         scope.currentCount = newValue;
         scope.currentCountTemp = newValue;
+
+        mmrCartService.updateCheckedInformation(scope.item.isReserved ? 0 : 1);
       });
 
       // private functions

@@ -66,6 +66,7 @@ angular.module('mmr.controllers')
   // check all
   $scope.doCheckAll = function(tab) {
     mmrCartService.checkAllCartItems(tab);
+    mmrCartService.updateCheckedInformation(tab);
   };
 
   // check out

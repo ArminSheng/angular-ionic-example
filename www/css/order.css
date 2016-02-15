@@ -144,6 +144,10 @@
   background-color: #e8e8e8;
 }
 
+.m-order-suborder-editing {
+  margin-top: 10%;
+}
+
 .m-order-item-summary {
   text-align: right;
   border-bottom: 1px solid #e8e8e8;

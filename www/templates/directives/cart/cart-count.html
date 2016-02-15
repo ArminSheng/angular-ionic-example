@@ -1,9 +1,12 @@
 <div class="row row-no-padding m-cart-counts">
-  <div class="col col-33 m-cart-counts-minus" ng-click="doCountMinus($event)">
+  <div class="col col-25 m-cart-counts-minus" ng-click="doCountMinus($event)">
   </div>
-  <div class="col col-33 m-cart-counts-count">
+  <div class="col col-25 m-cart-counts-count">
     <input type="tel" class="m-cart-counts-count-input" ng-model="currentCountTemp" ng-blur="doValidateCount()">
   </div>
-  <div class="col col-33 m-cart-counts-plus" ng-click="doCountPlus($event)">
+  <div class="col col-25 m-cart-counts-plus" ng-click="doCountPlus($event)">
+  </div>
+  <div class="col col-25 m-cart-counts-delete" ng-click="doRemoveItem($event)">
+    删除
   </div>
 </div>

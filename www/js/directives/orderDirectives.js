@@ -184,6 +184,10 @@ angular.module('mmr.directives')
         }
       };
 
+      scope.doToggleEdit = function(subOrder) {
+        subOrder.isEditing = !subOrder.isEditing;
+      };
+
       // click on check all for one shop
       scope.doCheckSubOrder = function(subOrder) {
         subOrder.checked = !!subOrder.checked;

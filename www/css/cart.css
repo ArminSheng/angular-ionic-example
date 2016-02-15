@@ -32,10 +32,12 @@
 
 .m-cart-counts-minus {
   background-image: url('../img/common/minus.png');
+  background-size: 70%;
 }
 
 .m-cart-counts-plus {
   background-image: url('../img/common/plus.png');
+  background-size: 70%;
 }
 
 .m-cart-counts-minus.activated {
@@ -56,6 +58,12 @@
   margin: 0;
   padding: 0;
   text-align: center;
+}
+
+.m-cart-counts-delete {
+  background-color: #ff0000;
+  color: #fff;
+  padding: 1rem 0.2rem;
 }
 
 .m-cart-operations .m-cart-operations-btn {

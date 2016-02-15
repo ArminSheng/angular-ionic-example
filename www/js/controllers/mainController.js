@@ -208,14 +208,6 @@ angular.module('mmr.controllers')
 
     changeCartItems(data.item, mappings[data.item.id], true);
 
-    $rootScope.$root.cart.totalCount += 1;
-    if(data.item.isReserved) {
-      $rootScope.$root.cart.reservedCount += 1;
-    } else {
-      $rootScope.$root.cart.normalCount += 1;
-    }
-    $rootScope.$root.cart.amount += data.item.cprice;
-
     // popup the msg
     // mmrCommonService.help('添加成功', '您选择的商品已成功添加到购物车');
   });
@@ -231,6 +223,10 @@ angular.module('mmr.controllers')
       if(needRemoveShop) {
         $rootScope.$root.cart.reservedOrders.splice(shopItems.idx, 1);
       }
+
+      if(newCount === 0) {
+        updateQuantity(item, newCount);
+      }
     } else {
       // non-reserve case
       shopItems = findShopItems($rootScope.$root.cart.normalOrders, item);
@@ -238,6 +234,10 @@ angular.module('mmr.controllers')
 
       if(needRemoveShop) {
         $rootScope.$root.cart.normalOrders.splice(shopItems.idx, 1);
+      }
+
+      if(newCount === 0) {
+        updateQuantity(item, newCount);
       }
     }
   }
@@ -265,7 +265,7 @@ angular.module('mmr.controllers')
       var changeIdx = _.findIndex(shopItems.items, function(o) { return o.id === item.id; });
       if(changeIdx >= 0) {
         // change quantity
-        shopItems.items[changeIdx].quantity = newCount;
+        updateQuantity(shopItems.items[changeIdx], newCount);
       } else if(canAdd) {
         // add item
         addNewCartItem(shopItems.items, item, newCount, itemsIdMapping);
@@ -286,11 +286,15 @@ angular.module('mmr.controllers')
     cartItem.price = item.cprice;
     cartItem.quantity = newCount;
     cartItem.unitName = item.unitName;
+    cartItem.isReserved = item.isReserved;
+    cartItem.shop = item.shop;
 
     itemArray.push(cartItem);
 
     // put item id into itemsId mappings
     itemsIdMapping[item.id] = true;
+
+    updateQuantity(cartItem, newCount, true);
 
     return cartItem;
   }
@@ -310,6 +314,26 @@ angular.module('mmr.controllers')
       shopItemsArray.push(newShopItems);
       return { idx: shopItemsArray.length - 1, items: newShopItems };
     }
+  }
+
+  function updateQuantity(item, newCount, directAdd) {
+    var offset = 0;
+    if(directAdd) {
+      offset = newCount;
+    } else {
+      offset = newCount - item.quantity;
+    }
+
+    $rootScope.$root.cart.totalCount += offset;
+    if(item.isReserved) {
+      $rootScope.$root.cart.reservedCount += offset;
+    } else {
+      $rootScope.$root.cart.normalCount += offset;
+    }
+    $rootScope.$root.cart.amount += (offset * item.price);
+
+    // update itself
+    item.quantity = newCount;
   }
 
 }]);

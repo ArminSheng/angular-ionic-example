@@ -64,8 +64,13 @@ angular.module('mmr.controllers')
   };
 
   // check all
-  $scope.doCheckAll = function() {
-    mmrCartService.checkAllCartItems();
+  $scope.doCheckAll = function(tab) {
+    mmrCartService.checkAllCartItems(tab);
+  };
+
+  // check out
+  $scope.doCheckout = function(tab) {
+
   };
 
   // event handlers

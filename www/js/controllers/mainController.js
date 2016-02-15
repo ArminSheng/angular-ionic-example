@@ -75,12 +75,13 @@ angular.module('mmr.controllers')
 
     // cart related
     cart: {
-      allChecked: false,
       amount: 0,
       totalCount: 0,
       reservedCount: 0,
       normalCount: 0,
+      allChecked: false,
       checkedCount: 0,
+      checkedAmount: 0,
 
       // items count: id ---> count
       itemsCount: {

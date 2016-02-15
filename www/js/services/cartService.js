@@ -33,8 +33,68 @@ angular.module('mmr.services')
       }
     },
 
-    checkAllCartItems: function() {
+    checkAllCartItems: function(type) {
+      if(type === 0) {
+        if($rootScope.$root.cart.allChecked) {
+          doCheckAll($rootScope.$root.cart.reservedOrders, true);
+        } else {
+          doCheckAll($rootScope.$root.cart.reservedOrders, false);
+        }
+      } else if(type === 1) {
+        if($rootScope.$root.cart.allChecked) {
+          doCheckAll($rootScope.$root.cart.normalOrders, true);
+        } else {
+          doCheckAll($rootScope.$root.cart.normalOrders, false);
+        }
+      }
 
+      function doCheckAll(collection, status) {
+        _.forEach(collection, function(element) {
+          element.checked = status;
+          _.forEach(element.items, function(item) {
+            item.checked = status;
+          });
+        });
+      }
+    },
+
+    // 0: reserved, 1: normal
+    updateCheckedInformation: function(type) {
+      if(type === 0) {
+        doFillCheckAll($rootScope.$root.cart.reservedOrders);
+        doUpdateCheckedInfo($rootScope.$root.cart.reservedOrders);
+      } else if(type === 1) {
+        doFillCheckAll($rootScope.$root.cart.normalOrders);
+        doUpdateCheckedInfo($rootScope.$root.cart.normalOrders);
+      }
+
+      function doFillCheckAll(collection) {
+        var allChecked = true;
+        _.forEach(collection, function(element) {
+          allChecked = _.every(element.items, {'checked': true});
+          if(!allChecked) {
+            return false;
+          }
+        });
+
+        $rootScope.$root.cart.allChecked = allChecked;
+      }
+
+      function doUpdateCheckedInfo(collection) {
+        var checkedCount = 0,
+            checkedAmount = 0;
+        _.forEach(collection, function(element) {
+          _.forEach(element.items, function(item) {
+            if(item.checked) {
+              checkedCount += item.quantity;
+              checkedAmount += item.price * item.quantity;
+            }
+          });
+        });
+
+        $rootScope.$root.cart.checkedCount = checkedCount;
+        $rootScope.$root.cart.checkedAmount = checkedAmount;
+      }
     }
 
   };

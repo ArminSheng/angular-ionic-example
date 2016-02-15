@@ -144,7 +144,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('orderSubList', [function() {
+.directive('orderSubList', ['mmrCartService', function(mmrCartService) {
 
   // sub order id ---> whether to show all items
   var expandedMapping = {
@@ -198,6 +198,9 @@ angular.module('mmr.directives')
             element.checked = false;
           });
         }
+
+        // check whether to check 'checkall'
+        mmrCartService.updateCheckedInformation(scope.isReserved ? 0 : 1);
       };
 
       // click on check for one item
@@ -212,6 +215,8 @@ angular.module('mmr.directives')
           }
         }
 
+        // check whether to check 'checkall'
+        mmrCartService.updateCheckedInformation(scope.isReserved ? 0 : 1);
       };
     }
   };

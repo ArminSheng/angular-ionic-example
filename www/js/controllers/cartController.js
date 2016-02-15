@@ -8,8 +8,8 @@ angular.module('mmr.controllers')
 
   // define tabs
   $scope.tabs = [
-    { text: '预定商品(' + $rootScope.$root.cart.reservedCount + ')' },
-    { text: '普通商品(' + $rootScope.$root.cart.normalCount + ')' }
+    { text: '预定商品(' + $rootScope.$root.cart.counts[0] + ')' },
+    { text: '普通商品(' + $rootScope.$root.cart.counts[0] + ')' }
   ];
 
   // last item
@@ -71,7 +71,9 @@ angular.module('mmr.controllers')
 
   // check out
   $scope.doCheckout = function(tab) {
-
+    if(mmrCartService.isCheckoutable(tab)) {
+      mmrModal.createGenerateOrderModal($scope, mmrCartService.generateCheckedOrders(tab));
+    }
   };
 
   // event handlers
@@ -84,8 +86,8 @@ angular.module('mmr.controllers')
     return $rootScope.$root.cart.totalCount;
   }, function(newValue, oldValue, scope) {
     $scope.tabs = [
-      { text: '预定商品(' + $rootScope.$root.cart.reservedCount + ')' },
-      { text: '普通商品(' + $rootScope.$root.cart.normalCount + ')' }
+      { text: '预定商品(' + $rootScope.$root.cart.counts[0] + ')' },
+      { text: '普通商品(' + $rootScope.$root.cart.counts[1] + ')' }
     ];
   });
 

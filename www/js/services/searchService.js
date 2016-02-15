@@ -9,7 +9,12 @@ angular.module('mmr.services')
     item.fav = false;
 
     item.isNonStandard = true;
-    item.isReserved = true;
+    if(item.id % 2 === 0) {
+      item.isReserved = true;
+    } else {
+      item.isReserved = false;
+    }
+
     item.inventoryAmount = 10000;
 
     item.spec = '约2000只每箱';

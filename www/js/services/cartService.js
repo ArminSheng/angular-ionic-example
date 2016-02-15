@@ -35,13 +35,13 @@ angular.module('mmr.services')
 
     checkAllCartItems: function(type) {
       if(type === 0) {
-        if($rootScope.$root.cart.allChecked) {
+        if($rootScope.$root.cart.allChecked[type]) {
           doCheckAll($rootScope.$root.cart.reservedOrders, true);
         } else {
           doCheckAll($rootScope.$root.cart.reservedOrders, false);
         }
       } else if(type === 1) {
-        if($rootScope.$root.cart.allChecked) {
+        if($rootScope.$root.cart.allChecked[type]) {
           doCheckAll($rootScope.$root.cart.normalOrders, true);
         } else {
           doCheckAll($rootScope.$root.cart.normalOrders, false);
@@ -77,7 +77,7 @@ angular.module('mmr.services')
           }
         });
 
-        $rootScope.$root.cart.allChecked = allChecked;
+        $rootScope.$root.cart.allChecked[type] = allChecked;
       }
 
       function doUpdateCheckedInfo(collection) {
@@ -92,9 +92,24 @@ angular.module('mmr.services')
           });
         });
 
-        $rootScope.$root.cart.checkedCount = checkedCount;
-        $rootScope.$root.cart.checkedAmount = checkedAmount;
+        $rootScope.$root.cart.checkedCounts[type] = checkedCount;
+        $rootScope.$root.cart.checkedAmounts[type] = checkedAmount;
       }
+    },
+
+    generateCheckedOrders: function(tab) {
+      return {
+        isReserved: tab === 0
+      };
+    },
+
+    isCheckoutable: function(tab) {
+
+    },
+
+    // get total amount by the
+    getTotalAmount: function(tab) {
+      return $rootScope.$root.cart.amounts[tab];
     }
 
   };

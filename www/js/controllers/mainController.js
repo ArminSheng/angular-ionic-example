@@ -75,13 +75,27 @@ angular.module('mmr.controllers')
 
     // cart related
     cart: {
-      amount: 0,
       totalCount: 0,
-      reservedCount: 0,
-      normalCount: 0,
-      allChecked: false,
-      checkedCount: 0,
-      checkedAmount: 0,
+      amounts: {
+        '0': 0,
+        '1': 0
+      },
+      counts: {
+        '0': 0,
+        '1': 0
+      },
+      allChecked: {
+        '0': false,
+        '1': false
+      },
+      checkedCounts: {
+        '0': 0,
+        '1': 0
+      },
+      checkedAmounts: {
+        '0': 0,
+        '1': 0
+      },
 
       // items count: id ---> count
       itemsCount: {
@@ -317,7 +331,8 @@ angular.module('mmr.controllers')
   }
 
   function updateQuantity(item, newCount, directAdd) {
-    var offset = 0;
+    var offset = 0,
+        category = item.isReserved ? 0 : 1;
     if(directAdd) {
       offset = newCount;
     } else {
@@ -325,12 +340,8 @@ angular.module('mmr.controllers')
     }
 
     $rootScope.$root.cart.totalCount += offset;
-    if(item.isReserved) {
-      $rootScope.$root.cart.reservedCount += offset;
-    } else {
-      $rootScope.$root.cart.normalCount += offset;
-    }
-    $rootScope.$root.cart.amount += (offset * item.price);
+    $rootScope.$root.cart.counts[category] += offset;
+    $rootScope.$root.cart.amounts[category] += (offset * item.price);
 
     // update itself
     item.quantity = newCount;

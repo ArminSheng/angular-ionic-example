@@ -717,6 +717,25 @@ angular.module('mmr.services')
           $state.go('tab.cart');
         });
       });
+    },
+
+    createGenerateOrderModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/generate-order.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.$root.modals.genOrderModal = modal;
+
+        // bind methods
+        modal.doHide = function() {
+          modal.hide();
+        };
+
+        modal.doOpenHeaderMenu = function() {
+
+        };
+      });
     }
 
   };

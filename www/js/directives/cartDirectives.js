@@ -5,7 +5,7 @@ angular.module('mmr.directives')
   $templateCache.put('templates/directives/cart/cart-summary.html',
     '<div class="m-cart-summary-component stable-bg" ng-click="doOpenCart()">' +
     '<span><i class="icon ion-ios-cart-outline"></i><span ng-if="$root.cart.totalCount !== 0" class="badge badge-assertive">{{ $root.cart.totalCount }}</span></span>' +
-    '<span class="m-cart-summary-component-amount">{{ $root.cart.amount | currency: \'¥\' }}</span>' +
+    '<span class="m-cart-summary-component-amount">{{ getTotalAmount() | currency: \'¥\' }}</span>' +
     '</div>');
 
 }])
@@ -139,8 +139,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('cartSummary', ['$rootScope', 'mmrEventing',
-  function($rootScope, mmrEventing) {
+.directive('cartSummary', ['$rootScope', 'mmrEventing', 'mmrCartService',
+  function($rootScope, mmrEventing, mmrCartService) {
 
   return {
     restrict: 'E',
@@ -152,6 +152,11 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       scope.doOpenCart = function() {
         mmrEventing.doStateToCart(scope.item);
+      };
+
+      // get total amount by item category: 0: reserved, 1: normal
+      scope.getTotalAmount = function() {
+        return mmrCartService.getTotalAmount(scope.item.isReserved ? 0 : 1);
       };
     }
   };

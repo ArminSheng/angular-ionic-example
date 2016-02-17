@@ -204,7 +204,7 @@ angular.module('mmr.directives')
         }
 
         // check whether to check 'checkall'
-        mmrCartService.updateCheckedInformation(scope.isReserved ? 0 : 1);
+        mmrCartService.updateCheckedInformation(scope.isReservedBoolean ? 0 : 1);
       };
 
       // click on check for one item
@@ -220,8 +220,19 @@ angular.module('mmr.directives')
         }
 
         // check whether to check 'checkall'
-        mmrCartService.updateCheckedInformation(scope.isReserved ? 0 : 1);
+        mmrCartService.updateCheckedInformation(scope.isReservedBoolean ? 0 : 1);
       };
+
+      // watchers
+      scope.$watch(function() {
+        return scope.isReserved;
+      }, function(newValue, oldValue, scope) {
+        if(scope.isReserved === 'false') {
+          scope.isReservedBoolean = false;
+        } else {
+          scope.isReservedBoolean = true;
+        }
+      });
     }
   };
 

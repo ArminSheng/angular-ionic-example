@@ -139,7 +139,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   })
 
   .state('tab.cart', {
-    url: '/cart',
+    url: '/cart/:tab',
     views: {
       'tab-cart': {
         templateUrl: 'templates/cart.html',

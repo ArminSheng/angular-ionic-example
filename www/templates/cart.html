@@ -6,8 +6,10 @@
     购物车({{ $root.cart.totalCount }})
   </ion-nav-title>
   <ion-content class="m-cart anim-common" delegate-handle="cartScroll" on-scroll="onScroll()" scroll-event-interval="10" ng-class="scrollStatus">
-    <!-- cart orders -->
-    <order-sub-list orders="getOrders(tab)" is-reserved="tab === 0" is-cart-mode="true"></order-sub-list>
+    <!-- cart reserved orders -->
+    <order-sub-list orders="getOrders(0)" is-reserved="true" is-cart-mode="true" ng-if="tab === 0"></order-sub-list>
+    <!-- cart normal orders -->
+    <order-sub-list orders="getOrders(1)" is-reserved="false" is-cart-mode="true" ng-if="tab === 1"></order-sub-list>
   </ion-content>
 
   <div class="m-cart-filters anim-common" ng-class="scrollStatus">

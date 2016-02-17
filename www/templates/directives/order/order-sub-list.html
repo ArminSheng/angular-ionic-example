@@ -3,7 +3,9 @@
     <div class="m-order-suborder-title">
       <ion-checkbox class="checkbox-energized m-order-suborder-check" ng-if="isCartMode" ng-click="doCheckSubOrder(subOrder)" ng-model="subOrder.checked"></ion-checkbox>
       <span>{{ subOrder.name }} &gt;</span>
-      <img class="m-order-suborder-title-reserve" ng-src="img/item/item-reserved.png" ng-if="isReserved"/>
+      <span ng-show="{{ isReserved === 'true' ? true : false }}">
+        <img class="m-order-suborder-title-reserve" ng-src="img/item/item-reserved.png"/>
+      </span>
       <span class="m-order-suborder-title-status" ng-click="doToggleEdit(subOrder)">{{ subOrder.isEditing ? '完成' : '编辑' }}</span>
     </div>
     <div class="list m-order-suborder-item-list">

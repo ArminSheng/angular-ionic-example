@@ -714,7 +714,9 @@ angular.module('mmr.services')
         // event handlers
         scope.$on('doStateToCart', function($event, data) {
           scope.itemModal.doHide();
-          $state.go('tab.cart');
+          $state.go('tab.cart', {
+            tab: item.isReserved ? 0 : 1
+          });
         });
       });
     },

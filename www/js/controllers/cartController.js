@@ -1,10 +1,10 @@
 angular.module('mmr.controllers')
 
-.controller('CartCtrl', ['$scope', '$rootScope', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService',
-  function($scope, $rootScope, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService) {
+.controller('CartCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService',
+  function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService) {
 
   $rootScope.$root.ui.tabsHidden = false;
-  $scope.tab = $scope.tab || 0;
+  $scope.tab = Number($stateParams.tab) || 0;
 
   // define tabs
   $scope.tabs = [

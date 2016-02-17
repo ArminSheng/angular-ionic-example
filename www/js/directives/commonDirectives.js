@@ -240,8 +240,6 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/common/category-menu.html',
     link: function(scope, element, attrs) {
-      console.log(scope.offset);
-
       // watchers
       scope.$watch(function(scope) {
         return scope.items;

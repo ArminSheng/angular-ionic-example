@@ -98,13 +98,45 @@ angular.module('mmr.services')
     },
 
     generateCheckedOrders: function(tab) {
+
+      function generateOrders() {
+        if(tab === 0) {
+          return $rootScope.$root.cart.reservedOrders;
+        } else if(tab === 1) {
+          return $rootScope.$root.cart.normalOrders;
+        }
+      }
+
+      function generateMoney() {
+        function calculateActualMoney(money) {
+          return money.total + (money.shipment || 0) - (money.coupon || 0);
+        }
+
+        var result = {
+          total: $rootScope.$root.cart.checkedAmounts[tab],
+          shipment: 0,
+          coupon: 0
+        };
+
+        result.summary = calculateActualMoney(result); // bottom summary area in gen modal
+
+        return result;
+      }
+
       return {
-        isReserved: tab === 0
+        isReserved: tab === 0,
+        orders: generateOrders(),
+        money: generateMoney()
       };
     },
 
     isCheckoutable: function(tab) {
-
+      if($rootScope.$root.cart.checkedCounts[tab] > 0 &&
+         $rootScope.$root.cart.checkedAmounts[tab] > 0) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // get total amount by the

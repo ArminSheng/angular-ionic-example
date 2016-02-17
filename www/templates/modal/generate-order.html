@@ -16,6 +16,19 @@
     <!-- cart orders -->
     <order-sub-list orders="$root.modals.genOrderModal.orders.orders" is-reserved="$root.modals.genOrderModal.orders.isReserved" is-cart-mode="false"></order-sub-list>
 
+    <!-- money info -->
+    <order-detail-money money="$root.modals.genOrderModal.orders.money"></order-detail-money>
+
   </ion-content>
+
+  <!-- bottom bar -->
+  <div class="row row-no-padding m-gen-order-summary">
+    <div class="col col-67 m-centered-div m-gen-order-total-amount">
+      实付金额：<span class="m-gen-order-total-amount-text">{{ $root.modals.genOrderModal.orders.money.summary | currency: '¥' }}</span>
+    </div>
+    <div class="col col-33 energized-bg m-centered-div m-gen-order-btn" ng-click="$root.modals.genOrderModal.doGenerate()">
+      生成订单
+    </div>
+  </div>
 
 </ion-modal-view>

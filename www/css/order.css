@@ -266,5 +266,26 @@
 
 /*customize back to top area*/
 .m-mine-orders-back-to-top.m-back-to-top-area.activated {
-    bottom: 20px;
+  bottom: 20px;
+}
+
+/*generate order modal*/
+.m-gen-order-summary {
+  position: fixed;
+  bottom: 0;
+  height: 2.8rem;
+}
+
+.row-no-padding > .col.m-gen-order-total-amount {
+  text-align: right;
+  padding-right: 0.6rem;
+  justify-content: flex-end;
+}
+
+.m-gen-order-total-amount-text {
+  color: #ff0000;
+}
+
+.m-gen-order-btn {
+  color: #fff;
 }

@@ -8,10 +8,11 @@ angular.module('mmr.directives')
   // template for order detail money
   $templateCache.put('templates/directives/order/order-detail-money.html',
     '<div class="m-order-detail-money-container" ng-class="{\'hidden\': _.isEmpty(money)}">' +
+    '<div class="m-order-detail-money-total" ng-if="money.total">订单总金额：<span>{{ ::money.total | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-reserve" ng-if="money.reserve">订单预付总金额：<span>{{ ::money.reserve | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-final" ng-if="money.final">订单尾款总金额：<span>{{ ::money.final | currency: "￥" }}</span></div>' +
-    '<div class="m-order-detail-money-shipment" ng-if="money.shipment">+ 运费：<span>{{ ::money.shipment | currency: "￥" }}</span></div>' +
-    '<div class="m-order-detail-money-coupon" ng-if="money.coupon">- 优惠：<span>{{ ::money.coupon | currency: "￥" }}</span></div>' +
+    '<div class="m-order-detail-money-shipment" ng-if="money.shipment >= 0">+ 运费：<span>{{ ::money.shipment | currency: "￥" }}</span></div>' +
+    '<div class="m-order-detail-money-coupon" ng-if="money.coupon >= 0">- 优惠：<span>{{ ::money.coupon | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-actual" ng-if="money.actual">订单实付金额：<span>{{ ::money.actual | currency: "￥" }}</span></div>' +
     '<div class="m-order-detail-money-payback" ng-if="money.payback">退款金额：<span>{{ ::money.payback | currency: "￥" }}</span></div>' +
     '</div>');
@@ -231,6 +232,16 @@ angular.module('mmr.directives')
           scope.isReservedBoolean = false;
         } else {
           scope.isReservedBoolean = true;
+        }
+      });
+
+      scope.$watch(function() {
+        return scope.isCartMode;
+      }, function(newValue, oldValue, scope) {
+        if(scope.isCartMode === 'false') {
+          scope.isCartModeBoolean = false;
+        } else {
+          scope.isCartModeBoolean = true;
         }
       });
     }

@@ -721,13 +721,16 @@ angular.module('mmr.services')
       });
     },
 
-    createGenerateOrderModal: function(scope) {
+    createGenerateOrderModal: function(scope, orders) {
       $ionicModal.fromTemplateUrl('templates/modal/generate-order.html', {
         scope: scope,
         animation: 'slide-in-right'
       }).then(function(modal) {
         modal.show();
         $rootScope.$root.modals.genOrderModal = modal;
+
+        // bind data
+        $rootScope.$root.modals.genOrderModal.orders = orders;
 
         // bind methods
         modal.doHide = function() {

@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet) {
 
   return {
 
@@ -739,6 +739,56 @@ angular.module('mmr.services')
 
         modal.doOpenHeaderMenu = function() {
 
+        };
+
+        modal.doModifyDelivery = function() {
+          var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: '送货上门' },
+              { text: '自提' }
+            ],
+            titleText: '修改配送方式',
+            cancelText: '取消',
+            cancel: function() {
+            },
+            buttonClicked: function(index) {
+              switch(index) {
+                case 0:
+                modal.orders.delivery = '送货上门';
+                  break;
+                case 1:
+                modal.orders.delivery = '自提';
+                  break;
+              }
+
+              return true;
+            }
+          });
+        };
+
+        modal.doModifyReceipt = function() {
+          var hideSheet = $ionicActionSheet.show({
+            buttons: [
+              { text: '增值税普通发票' },
+              { text: '增值税专用发票' }
+            ],
+            titleText: '修改发票',
+            cancelText: '取消',
+            cancel: function() {
+            },
+            buttonClicked: function(index) {
+              switch(index) {
+                case 0:
+                  modal.orders.receipt = '增值税普通发票';
+                  break;
+                case 1:
+                  modal.orders.receipt = '增值税专用发票';
+                  break;
+              }
+
+              return true;
+            }
+          });
         };
       });
     }

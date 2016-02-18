@@ -70,12 +70,16 @@ angular.module('mmr.services')
 
       function doFillCheckAll(collection) {
         var allChecked = true;
-        _.forEach(collection, function(element) {
-          allChecked = _.every(element.items, {'checked': true});
-          if(!allChecked) {
-            return false;
-          }
-        });
+        if(collection.length === 0) {
+          allChecked = false;
+        } else {
+          _.forEach(collection, function(element) {
+            allChecked = _.every(element.items, {'checked': true});
+            if(!allChecked) {
+              return false;
+            }
+          });
+        }
 
         $rootScope.$root.cart.allChecked[type] = allChecked;
       }

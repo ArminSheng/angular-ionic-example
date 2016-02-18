@@ -100,6 +100,7 @@ angular.module('mmr.directives')
       };
 
       scope.doValidateCount = function() {
+        scope.currentCountTemp = Number(scope.currentCountTemp);
         if(!Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
           // restore to last valid number
           scope.currentCountTemp = scope.currentCount;
@@ -114,6 +115,11 @@ angular.module('mmr.directives')
               } else {
                 scope.currentCountTemp = scope.currentCount;
               }
+            });
+          } else {
+            mmrEventing.doSetItemCount(scope, {
+              item: scope.item,
+              newCount: scope.currentCountTemp
             });
           }
         }

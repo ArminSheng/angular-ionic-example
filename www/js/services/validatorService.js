@@ -121,7 +121,7 @@ angular.module('mmr.services')
       }
 
       // check whether within in the correct range
-      if(number > upperLimit) {
+      if(upperLimit && number > upperLimit) {
         if(popupWhenFailure) {
           $ionicPopup.alert({
             title: '数值超过了库存值',

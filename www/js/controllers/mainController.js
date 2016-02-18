@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService',
-  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService',
+  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService) {
 
   // back related
   $scope.myGoBack = function() {
@@ -229,6 +229,7 @@ angular.module('mmr.controllers')
   function changeCartItems(item, newCount, canAdd) {
     var shopItems, needRemoveShop;
     var itemsIdMapping = $rootScope.$root.cart.itemsId;
+    var tab = item.isReserved ? 0 : 1;
     if(item.isReserved) {
       // reserve case
       shopItems = findShopItems($rootScope.$root.cart.reservedOrders, item);
@@ -240,6 +241,7 @@ angular.module('mmr.controllers')
 
       if(newCount === 0) {
         updateQuantity(item, newCount);
+        mmrCartService.updateCheckedInformation(tab);
       }
     } else {
       // non-reserve case
@@ -252,6 +254,7 @@ angular.module('mmr.controllers')
 
       if(newCount === 0) {
         updateQuantity(item, newCount);
+        mmrCartService.updateCheckedInformation(tab);
       }
     }
   }

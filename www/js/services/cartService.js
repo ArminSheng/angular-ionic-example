@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrCartService', ['$rootScope', 'mmrEventing',
-  function($rootScope, mmrEventing) {
+.factory('mmrCartService', ['$rootScope', 'mmrEventing', 'mmrAddressService',
+  function($rootScope, mmrEventing, mmrAddressService) {
 
   return {
 
@@ -126,7 +126,10 @@ angular.module('mmr.services')
       return {
         isReserved: tab === 0,
         orders: generateOrders(),
-        money: generateMoney()
+        money: generateMoney(),
+        delivery: '送货上门',
+        receipt: '增值税普通发票',
+        addresses: mmrAddressService.defaultAddresses()
       };
     },
 

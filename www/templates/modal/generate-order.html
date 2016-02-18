@@ -13,6 +13,36 @@
   </ion-header-bar>
   <ion-content class="m-modal-gen-order">
 
+    <!-- addresses related -->
+    <div class="list m-modal-gen-order-list">
+      <!-- delivery info -->
+      <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyDelivery()">
+        配送方式
+        <span class="item-note">
+          {{ $root.modals.genOrderModal.orders.delivery }}
+        </span>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+      <order-detail-address type="location" address="$root.modals.genOrderModal.orders.addresses.normal"></order-detail-address>
+
+      <!-- receipt info -->
+      <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyReceipt()">
+        需要发票
+        <span class="item-note">
+          {{ $root.modals.genOrderModal.orders.receipt }}
+        </span>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+      <order-detail-address type="receipt" address="$root.modals.genOrderModal.orders.addresses.receipt"></order-detail-address>
+
+      <!-- quarantine info -->
+      <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyQuarantine()">
+        需要检疫证
+        <i class="icon ion-chevron-right"></i>
+      </a>
+      <order-detail-address type="quarantine" address="$root.modals.genOrderModal.orders.addresses.quarantine"></order-detail-address>
+    </div>
+
     <!-- cart orders -->
     <order-sub-list orders="$root.modals.genOrderModal.orders.orders" is-reserved="$root.modals.genOrderModal.orders.isReserved" is-cart-mode="false"></order-sub-list>
 
@@ -21,14 +51,15 @@
 
   </ion-content>
 
-  <!-- bottom bar -->
-  <div class="row row-no-padding m-gen-order-summary">
-    <div class="col col-67 m-centered-div m-gen-order-total-amount">
-      实付金额：<span class="m-gen-order-total-amount-text">{{ $root.modals.genOrderModal.orders.money.summary | currency: '¥' }}</span>
+  <ion-footer-bar>
+    <div class="row row-no-padding m-gen-order-summary">
+      <div class="col col-67 m-centered-div m-gen-order-total-amount">
+        实付金额：<span class="m-gen-order-total-amount-text">{{ $root.modals.genOrderModal.orders.money.summary | currency: '¥' }}</span>
+      </div>
+      <div class="col col-33 energized-bg m-centered-div m-gen-order-btn" ng-click="$root.modals.genOrderModal.doGenerate()">
+        生成订单
+      </div>
     </div>
-    <div class="col col-33 energized-bg m-centered-div m-gen-order-btn" ng-click="$root.modals.genOrderModal.doGenerate()">
-      生成订单
-    </div>
-  </div>
+  </ion-footer-bar>
 
 </ion-modal-view>

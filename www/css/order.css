@@ -273,13 +273,14 @@
 .m-gen-order-summary {
   position: fixed;
   bottom: 0;
-  height: 2.8rem;
+  height: 46px;
 }
 
 .row-no-padding > .col.m-gen-order-total-amount {
   text-align: right;
   padding-right: 0.6rem;
   justify-content: flex-end;
+  background-color: #fff;
 }
 
 .m-gen-order-total-amount-text {
@@ -288,4 +289,13 @@
 
 .m-gen-order-btn {
   color: #fff;
+}
+
+.m-modal-gen-order .ion-chevron-right {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.list.m-modal-gen-order-list {
+  margin-bottom: 0;
 }

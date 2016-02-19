@@ -332,7 +332,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('orderDetailAddress', [function() {
+.directive('orderDetailAddress', ['mmrModal', function(mmrModal) {
 
   return {
     retrict: 'E',
@@ -356,6 +356,14 @@ angular.module('mmr.directives')
 
       scope.doCheckReceipt = function() {
 
+      };
+
+      scope.doOpenAddressList = function() {
+        if(scope.type && scope.type === 'receipt') {
+          return;
+        }
+
+        mmrModal.createAddressModal(scope, scope.address, scope.type);
       };
     }
   };

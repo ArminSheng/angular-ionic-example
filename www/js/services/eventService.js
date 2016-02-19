@@ -112,6 +112,11 @@ angular.module('mmr.services')
     // state transfers
     doStateToCart: function(data) {
       $rootScope.$broadcast('doStateToCart', data);
+    },
+
+    // address related
+    doChangeAddress: function(data) {
+      $rootScope.$broadcast('doChangeAddress', data);
     }
 
   };

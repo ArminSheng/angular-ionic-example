@@ -2,7 +2,7 @@
 
   <ion-header-bar class="bar-energized">
     <div class="buttons">
-      <button class="button button-clear" ng-click="modals.addressModal.doHide()">
+      <button class="button button-clear" ng-click="$root.modals.addressModal.doHide()">
         <span class="icon ion-chevron-left m-common-back"></span>
         返回
       </button>
@@ -11,7 +11,7 @@
       我的地址
     </h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="modals.addressModal.doAdd()">
+      <button class="button button-clear" ng-click="$root.modals.addressModal.doAdd()">
         <span class="icon ion-plus m-header-icon"></span>
       </button>
     </div>
@@ -19,31 +19,35 @@
   <ion-content class="m-modal-mine-address">
 
     <div class="list m-modal-mine-address-list">
-
-      <a class="item item-icon-right m-modal-mine-address-item" ng-repeat="address in $root.addresses track by $index" ng-click="modals.addressModal.doOpenAddressDetail(address)">
-        <div class="m-modal-mine-address-item-main">
-          <div class="m-modal-mine-address-item-row1">
-            {{ address.receiver }}
-            <span class="m-modal-mine-address-item-phone">
-              <span class="m-modal-mine-address-item-cellphone">
-                {{ address.cellphone }}
-              </span>
-              <span class="m-modal-mine-address-item-fixedphone">
-                {{ address.phoneArea }}-{{ address.phone }}
-              </span>
-            </span>
+      <div class="m-modal-mine-address-item" ng-repeat="address in $root.addresses track by $index">
+        <div class="row row-no-padding">
+          <div class="col col-20 m-modal-mine-address-item-checkbox" ng-if="$root.modals.addressModal.currentAddress" ng-click="$root.modals.addressModal.doSelectAddress(address, $index)">
+            <ion-checkbox ng-model="$root.modals.addressModal.addressCheckboxes[$index]"></ion-checkbox>
           </div>
-          <div class="m-modal-mine-address-item-row2">
-            <span class="m-modal-mine-address-item-default" ng-if="address.isDefault">[默认]</span>
-            {{ address.city }}{{ address.district }}{{ address.street }}
+          <div class="col" ng-class="{'col-80': $root.modals.addressModal.currentAddress, 'col-100': !$root.modals.addressModal.currentAddress}">
+            <a class="item item-icon-right m-modal-mine-address-item" ng-click="$root.modals.addressModal.doOpenAddressDetail(address)">
+              <div class="m-modal-mine-address-item-main">
+                <div class="m-modal-mine-address-item-row1">
+                  {{ address.receiver }}
+                  <span class="m-modal-mine-address-item-phone">
+                    <span class="m-modal-mine-address-item-cellphone">
+                      {{ address.cellphone }}
+                    </span>
+                    <span class="m-modal-mine-address-item-fixedphone">
+                      {{ address.phoneArea }}-{{ address.phone }}
+                    </span>
+                  </span>
+                </div>
+                <div class="m-modal-mine-address-item-row2">
+                  <span class="m-modal-mine-address-item-default" ng-if="address.isDefault">[默认]</span>
+                  {{ address.city }}{{ address.district }}{{ address.street }}
+              </div>
+              </div>
+              <i class="icon ion-chevron-right"></i>
+            </a>
+          </div>
         </div>
-        </div>
-        <i class="icon ion-chevron-right"></i>
-      </a>
       </div>
-
-    </div>
-
     </div>
 
   </ion-content>

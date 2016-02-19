@@ -23,6 +23,12 @@ angular.module('mmr.services')
         receipt: receiptAddress,
         quarantine: quarantineAddress
       };
+    },
+
+    generateAddressCheckboxes: function(currentAddress) {
+      return _.map($rootScope.$root.addresses, function(address) {
+        return address.id === currentAddress.id;
+      });
     }
 
   };

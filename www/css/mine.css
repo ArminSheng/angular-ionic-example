@@ -150,6 +150,20 @@
     color: #aaa;
 }
 
+.m-modal-mine-address-item-checkbox {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.m-modal-mine-address-item-checkbox > label {
+    border: none;
+}
+
+.m-modal-mine-address-item {
+    border-left: none;
+}
+
 .m-modal-mine-address-item-main {
     font-size: 14px;
     white-space: normal;

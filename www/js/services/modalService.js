@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService) {
 
   return {
 
@@ -488,26 +488,45 @@ angular.module('mmr.services')
       });
     },
 
-    createAddressModal: function(scope) {
+    createAddressModal: function(scope, currentAddress, addressType) {
       $ionicModal.fromTemplateUrl('templates/modal/my-address.html', {
         scope: scope
       }).then(function(modal) {
-        $rootScope.modals.addressModal = modal;
-        $rootScope.modals.addressModal.show();
+        $rootScope.$root.modals.addressModal = modal;
+        modal.show();
 
         // bind data
-        $rootScope.modals.addressModal.isEditing = false;
+        modal.currentAddress = currentAddress;
+        if(currentAddress) {
+          modal.addressCheckboxes = mmrAddressService.generateAddressCheckboxes(currentAddress);
+        }
+
+        modal.isEditing = false;
 
         // methods
-        $rootScope.modals.addressModal.doHide = function() {
+        modal.doHide = function() {
           modal.hide();
         };
 
-        $rootScope.modals.addressModal.doOpenAddressDetail = function(address) {
+        modal.doSelectAddress = function(address, $index) {
+          modal.addressCheckboxes = _.map(modal.addressCheckboxes, function(element) {
+            return false;
+          });
+          modal.addressCheckboxes[$index] = true;
+
+          // emit the event and close the modal
+          mmrEventing.doChangeAddress({
+            address: address,
+            type: addressType
+          });
+          modal.doHide();
+        };
+
+        modal.doOpenAddressDetail = function(address) {
           createAddressDetailModal(scope, address);
         };
 
-        $rootScope.modals.addressModal.doAdd = function() {
+        modal.doAdd = function() {
           createAddressDetailModal(scope, {}, true);
         };
 
@@ -516,23 +535,23 @@ angular.module('mmr.services')
             scope: scope,
             animation: 'slide-in-right'
           }).then(function(modal) {
-            $rootScope.modals.addressDetailModal = modal;
-            $rootScope.modals.addressDetailModal.show();
+            $rootScope.$root.modals.addressDetailModal = modal;
+            modal.show();
 
             // cache
             localStorageService.bind($rootScope, 'districts');
             localStorageService.bind($rootScope, 'cities');
 
             // bind data
-            $rootScope.modals.addressDetailModal.isEditing = isEditing || false;
-            $rootScope.modals.addressDetailModal.address = angular.copy(address);
+            modal.isEditing = isEditing || false;
+            modal.address = angular.copy(address);
 
             // methods
-            $rootScope.modals.addressDetailModal.doHide = function() {
+            modal.doHide = function() {
               modal.hide();
             };
 
-            $rootScope.modals.addressDetailModal.doToggleEditing = function() {
+            modal.doToggleEditing = function() {
               if(!$rootScope.modals.addressDetailModal.isEditing) {
                 $rootScope.modals.addressDetailModal.isEditing = true;
               } else {
@@ -543,7 +562,7 @@ angular.module('mmr.services')
               }
             };
 
-            $rootScope.modals.addressDetailModal.removeAddress = function() {
+            modal.removeAddress = function() {
               $ionicPopup.confirm({
                 title: '确定要删除此条地址吗',
                 okText: '删除',
@@ -556,7 +575,7 @@ angular.module('mmr.services')
               });
             };
 
-            $rootScope.modals.addressDetailModal.defaultAddress = function() {
+            modal.defaultAddress = function() {
               $ionicPopup.confirm({
                 title: '确定要将此地址设置为默认地址吗',
                 okText: '确定',
@@ -722,6 +741,7 @@ angular.module('mmr.services')
     },
 
     createGenerateOrderModal: function(scope, orders) {
+      var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/generate-order.html', {
         scope: scope,
         animation: 'slide-in-right'
@@ -761,6 +781,8 @@ angular.module('mmr.services')
                   break;
               }
 
+              self.createAddressModal(scope, orders.addresses.normal, 'normal');
+
               return true;
             }
           });
@@ -790,6 +812,17 @@ angular.module('mmr.services')
             }
           });
         };
+
+        // event handler
+        $rootScope.$on('doChangeAddress', function($event, data) {
+          if(data && data.type && data.address) {
+            if(data.type === 'normal') {
+              modal.orders.addresses.normal = data.address;
+            } else if(data.type === 'quarantine') {
+              modal.orders.addresses.quarantine = data.address;
+            }
+          }
+        });
       });
     }
 

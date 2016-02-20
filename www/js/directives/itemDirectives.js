@@ -44,17 +44,32 @@ angular.module('mmr.directives')
       minuteMillis = 60000,
       secondMillis = 1000;
 
-  var translate = function(millis) {
+  var translate = function(millis, prefix, ignoreZero) {
     if(millis > 0) {
       var dayRemain = Math.floor(millis / dayMillis),
           hourRemain = Math.floor(millis / hourMillis % 24),
           minuteRemain = Math.floor(millis / minuteMillis % 60),
           secondRemain = Math.floor(millis / secondMillis % 60);
 
-      return '剩余<span style="color: red">' + dayRemain +
-      '</span>天<span style="color: red">' + hourRemain +
-      '</span>时<span style="color: red">' + minuteRemain +
-      '</span>分<span style="color: red">' + secondRemain + '</span>秒';
+      var result = prefix;
+      var ignoreStop = false;
+      if(dayRemain > 0) {
+        result += ('<span style="color: red">' + dayRemain + '</span>天');
+        ignoreStop = true;
+      }
+      if(hourRemain > 0 || ignoreStop) {
+        result += ('<span style="color: red">' + hourRemain + '</span>时');
+        ignoreStop = true;
+      }
+      if(minuteRemain > 0 || ignoreStop) {
+        result += ('<span style="color: red">' + minuteRemain + '</span>分');
+        ignoreStop = true;
+      }
+      if(secondRemain > 0 || ignoreStop) {
+        result += ('<span style="color: red">' + secondRemain + '</span>秒');
+      }
+
+      return result;
     } else {
       return '已经过期';
     }
@@ -64,19 +79,42 @@ angular.module('mmr.directives')
     retrict: 'E',
     replace: true,
     scope: {
-      time: '='
+      time: '=',
+      prefix: '@',
+      ignoreZero: '@'
     },
     templateUrl: 'templates/directives/item-remain-time.html',
     link: function(scope, element, attrs) {
-      var remainingMillis = new Date(scope.time).getTime() - new Date().getTime();
+      if(!angular.isDefined(scope.prefix)) {
+        scope.prefix = '剩余';
+      }
+      if(!angular.isDefined(scope.ignoreZero)) {
+        scope.ignoreZero = false;
+      } else {
+        if(scope.ignoreZero === 'true') {
+          scope.ignoreZero = true;
+        } else {
+          scope.ignoreZero = false;
+        }
+      }
+
+      var remainingMillis = new Date(scope.time).getTime() - new Date().getTime(),
+          intervalPromise;
 
       if(remainingMillis > 0) {
-        $interval(function() {
-          scope.remainTime = translate(remainingMillis);
+        intervalPromise = $interval(function() {
+          scope.remainTime = translate(remainingMillis, scope.prefix, scope.ignoreZero);
           element.html(scope.remainTime);
           remainingMillis = new Date(scope.time).getTime() - new Date().getTime();
         }, 1000, Math.ceil(remainingMillis / 1000));
       }
+
+      // event handler
+      scope.$on('$destroy', function($event) {
+        if(intervalPromise) {
+          $interval.cancel(intervalPromise);
+        }
+      })
     }
   };
 }])

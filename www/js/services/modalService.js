@@ -848,7 +848,7 @@ angular.module('mmr.services')
 
         // bind methods
         modal.doHide = function() {
-          modal.hide();
+          modal.remove();
         };
 
         modal.doOpenHeaderMenu = function() {

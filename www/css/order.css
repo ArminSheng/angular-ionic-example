@@ -310,12 +310,12 @@
   margin-top: 0.6rem;
 }
 
-.m-modal-checkout-payment .item {
-  white-space: normal;
-}
-
 .m-modal-checkout-payment-not-enough {
   font-size: 0.5rem;
+}
+
+.m-modal-checkout-payment-not-enough span {
+  display: block;
 }
 
 .m-modal-checkout-footer {

@@ -39,7 +39,8 @@
           <span class="m-common-red">{{ $root.pinfo.deposit | currency: '¥' }}</span>
         </div>
         <div ng-if="$root.modals.checkoutModal.doShowDepositHint()" class="m-modal-checkout-payment-not-enough">
-          (金额不足，请勾选以下支付方式支付剩余 {{ ($root.modals.checkoutModal.orders.money.summary - $root.pinfo.deposit) | currency: '¥' }})
+          <span>金额不足，请勾选以下支付方式支付剩余：</span>
+          <span>{{ ($root.modals.checkoutModal.orders.money.summary - $root.pinfo.deposit) | currency: '¥' }}</span>
         </div>
       </ion-checkbox>
       <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[1]">

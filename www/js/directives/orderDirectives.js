@@ -345,7 +345,7 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       scope.iconPath = (function() {
         switch(scope.type) {
-          case 'location':
+          case 'normal':
             return 'img/common/geo-location.png';
           case 'receipt':
             return 'img/common/geo-receipt.png';

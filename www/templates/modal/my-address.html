@@ -22,7 +22,7 @@
       <div class="m-modal-mine-address-item" ng-repeat="address in $root.addresses track by $index">
         <div class="row row-no-padding">
           <div class="col col-20 m-modal-mine-address-item-checkbox" ng-if="$root.modals.addressModal.currentAddress" ng-click="$root.modals.addressModal.doSelectAddress(address, $index)">
-            <ion-checkbox ng-model="$root.modals.addressModal.addressCheckboxes[$index]"></ion-checkbox>
+            <ion-checkbox class="checkbox-energized" ng-model="$root.modals.addressModal.addressCheckboxes[$index]"></ion-checkbox>
           </div>
           <div class="col" ng-class="{'col-80': $root.modals.addressModal.currentAddress, 'col-100': !$root.modals.addressModal.currentAddress}">
             <a class="item item-icon-right m-modal-mine-address-item" ng-click="$root.modals.addressModal.doOpenAddressDetail(address)">

@@ -552,13 +552,13 @@ angular.module('mmr.services')
             };
 
             modal.doToggleEditing = function() {
-              if(!$rootScope.modals.addressDetailModal.isEditing) {
-                $rootScope.modals.addressDetailModal.isEditing = true;
+              if(!$rootScope.$root.modals.addressDetailModal.isEditing) {
+                $rootScope.$root.modals.addressDetailModal.isEditing = true;
               } else {
                 // validate the address
 
                 // save the editings
-                $rootScope.modals.addressDetailModal.doHide();
+                $rootScope.$root.modals.addressDetailModal.doHide();
               }
             };
 

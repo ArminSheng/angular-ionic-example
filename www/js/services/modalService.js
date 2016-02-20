@@ -905,11 +905,14 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[2] = false;
+<<<<<<< 125bc8a8855eb0a16a195725b770a8fb4b69a8f3
 
             // if deposit is enough
             if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
               modal.payments[0] = false;
             }
+=======
+>>>>>>> add the payment selection logic
           }
         });
 
@@ -918,11 +921,14 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[1] = false;
+<<<<<<< 125bc8a8855eb0a16a195725b770a8fb4b69a8f3
 
             // if deposit is enough
             if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
               modal.payments[0] = false;
             }
+=======
+>>>>>>> add the payment selection logic
           }
         });
       });

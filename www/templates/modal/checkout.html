@@ -1,0 +1,61 @@
+<ion-modal-view>
+
+  <ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="$root.modals.checkoutModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        返回
+      </button>
+    </div>
+    <h1 class="title">
+      收银台
+    </h1>
+  </ion-header-bar>
+  <ion-content class="m-modal-checkout">
+
+    <!-- addresses related -->
+    <div class="m-modal-checkout-address">
+      <order-detail-address type="normal" address="$root.modals.checkoutModal.orders.addresses.normal"></order-detail-address>
+    </div>
+
+    <!-- money information -->
+    <div class="m-modal-checkout-money">
+      <div class="m-modal-checkout-money-should">
+        <span class="m-common-bold m-common-larger">应付金额：</span>
+        <span class="m-common-red m-common-larger-x">{{ $root.modals.checkoutModal.orders.money.summary | currency: '¥' }}</span>
+      </div>
+      <div class="m-modal-checkout-money-hint">
+        订单已提交，请于
+        <item-remain-time time="$root.modals.checkoutModal.orders.deadline"></item-remain-time>
+        内完成支付，逾期订单将被取消
+      </div>
+    </div>
+
+    <!-- payment ways -->
+    <div class="list m-modal-checkout-payment">
+      <ion-checkbox class="checkbox-energized" ng-model="filter.blue" ng-disabled="true">
+        <div>
+          账户可用余额：
+          <span class="m-common-red">{{ $root.pinfo.deposit | currency: '¥' }}</span>
+        </div>
+        <div ng-if="true">
+          (金额不足，请勾选以下支付方式支付剩余 {{ $root.pinfo.deposit | currency: '¥' }})
+        </div>
+      </ion-checkbox>
+      <ion-checkbox class="checkbox-energized" ng-model="filter.yellow">
+        支付宝
+      </ion-checkbox>
+      <ion-checkbox class="checkbox-energized" ng-model="filter.pink">
+        快钱
+      </ion-checkbox>
+    </div>
+
+  </ion-content>
+
+  <ion-footer-bar>
+    <button class="button button-full button-energized" ng-click="$root.modals.checkoutModal.doCheckout()">
+      去付款
+    </button>
+  </ion-footer-bar>
+
+</ion-modal-view>

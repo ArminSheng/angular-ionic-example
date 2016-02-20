@@ -813,6 +813,14 @@ angular.module('mmr.services')
           });
         };
 
+        modal.doGenerate = function() {
+          // calc the deadline payment time
+          orders.deadline = new Date(new Date().getTime() + 1800000);
+
+          // redirect to the checkout modal
+          self.createCheckoutModal(scope, orders);
+        };
+
         // event handler
         $rootScope.$on('doChangeAddress', function($event, data) {
           if(data && data.type && data.address) {
@@ -823,6 +831,33 @@ angular.module('mmr.services')
             }
           }
         });
+      });
+    },
+
+    createCheckoutModal: function(scope, orders) {
+      var self = this;
+      $ionicModal.fromTemplateUrl('templates/modal/checkout.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.$root.modals.checkoutModal = modal;
+
+        // bind data
+        $rootScope.$root.modals.checkoutModal.orders = orders;
+
+        // bind methods
+        modal.doHide = function() {
+          modal.hide();
+        };
+
+        modal.doOpenHeaderMenu = function() {
+
+        };
+
+        modal.doCheckout = function() {
+
+        };
       });
     }
 

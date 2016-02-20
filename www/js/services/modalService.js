@@ -844,11 +844,21 @@ angular.module('mmr.services')
         $rootScope.$root.modals.checkoutModal = modal;
 
         // bind data
-        $rootScope.$root.modals.checkoutModal.orders = orders;
+        modal.orders = orders;
+        modal.payments = [false, false, false];
 
         // bind methods
         modal.doHide = function() {
           modal.remove();
+        };
+
+        modal.doShowDepositHint = function() {
+          if(modal.payments[0] &&
+            $rootScope.$root.pinfo.deposit < orders.money.summary) {
+            return true;
+          } else {
+            return false;
+          }
         };
 
         modal.doOpenHeaderMenu = function() {

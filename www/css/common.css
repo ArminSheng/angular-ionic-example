@@ -401,3 +401,16 @@
 .m-common-red {
     color: #ff0000;
 }
+
+/*font related*/
+.m-common-bold {
+    font-weight: bold;
+}
+
+.m-common-larger {
+    font-size: 1.1rem;
+}
+
+.m-common-larger-x {
+    font-size: 1.4rem;
+}

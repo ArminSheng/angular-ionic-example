@@ -26,33 +26,33 @@
       </div>
       <div class="m-modal-checkout-money-hint">
         订单已提交，请于
-        <item-remain-time time="$root.modals.checkoutModal.orders.deadline"></item-remain-time>
+        <item-remain-time time="$root.modals.checkoutModal.orders.deadline" prefix="" ignore-zero="true"></item-remain-time>
         内完成支付，逾期订单将被取消
       </div>
     </div>
 
     <!-- payment ways -->
     <div class="list m-modal-checkout-payment">
-      <ion-checkbox class="checkbox-energized" ng-model="filter.blue" ng-disabled="true">
+      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[0]" ng-disabled="!$root.pinfo.deposit || $root.pinfo.deposit === 0">
         <div>
           账户可用余额：
           <span class="m-common-red">{{ $root.pinfo.deposit | currency: '¥' }}</span>
         </div>
-        <div ng-if="true">
-          (金额不足，请勾选以下支付方式支付剩余 {{ $root.pinfo.deposit | currency: '¥' }})
+        <div ng-if="$root.modals.checkoutModal.doShowDepositHint()" class="m-modal-checkout-payment-not-enough">
+          (金额不足，请勾选以下支付方式支付剩余 {{ ($root.modals.checkoutModal.orders.money.summary - $root.pinfo.deposit) | currency: '¥' }})
         </div>
       </ion-checkbox>
-      <ion-checkbox class="checkbox-energized" ng-model="filter.yellow">
+      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[1]">
         支付宝
       </ion-checkbox>
-      <ion-checkbox class="checkbox-energized" ng-model="filter.pink">
+      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[2]">
         快钱
       </ion-checkbox>
     </div>
 
   </ion-content>
 
-  <ion-footer-bar>
+  <ion-footer-bar class="m-modal-checkout-footer">
     <button class="button button-full button-energized" ng-click="$root.modals.checkoutModal.doCheckout()">
       去付款
     </button>

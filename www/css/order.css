@@ -299,3 +299,31 @@
 .list.m-modal-gen-order-list {
   margin-bottom: 0;
 }
+
+/*checkout modal*/
+.m-modal-checkout-money {
+  text-align: center;
+  padding: 3.0rem 1.0rem;
+}
+
+.m-modal-checkout-money-hint {
+  margin-top: 0.6rem;
+}
+
+.m-modal-checkout-payment .item {
+  white-space: normal;
+}
+
+.m-modal-checkout-payment-not-enough {
+  font-size: 0.5rem;
+}
+
+.m-modal-checkout-footer {
+  padding: 0;
+}
+
+.m-modal-checkout-footer button.button-full {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+

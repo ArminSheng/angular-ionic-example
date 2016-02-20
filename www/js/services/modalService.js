@@ -868,6 +868,35 @@ angular.module('mmr.services')
         modal.doCheckout = function() {
 
         };
+
+        // watchers
+        scope.$watch(function(scope) {
+          return modal.payments[0];
+        }, function(newValue, oldValue, scope) {
+          if(newValue) {
+            // when the deposit is enough
+            if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
+              modal.payments[1] = false;
+              modal.payments[2] = false;
+            }
+          }
+        });
+
+        scope.$watch(function(scope) {
+          return modal.payments[1];
+        }, function(newValue, oldValue, scope) {
+          if(newValue) {
+            modal.payments[2] = false;
+          }
+        });
+
+        scope.$watch(function(scope) {
+          return modal.payments[2];
+        }, function(newValue, oldValue, scope) {
+          if(newValue) {
+            modal.payments[1] = false;
+          }
+        });
       });
     }
 

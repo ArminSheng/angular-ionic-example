@@ -85,7 +85,6 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/item-remain-time.html',
     link: function(scope, element, attrs) {
-      console.log('hshssh');
       if(!angular.isDefined(scope.prefix)) {
         scope.prefix = '剩余';
       }
@@ -121,7 +120,7 @@ angular.module('mmr.directives')
       scope.$watch(function(scope) {
         return scope.prefix;
       }, function(newValue, oldValue, scope) {
-        console.log(newValue, oldValue);
+
       });
     }
   };

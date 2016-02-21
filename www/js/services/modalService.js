@@ -887,6 +887,11 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[2] = false;
+
+            // if deposit is enough
+            if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
+              modal.payments[0] = false;
+            }
           }
         });
 
@@ -895,6 +900,11 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[1] = false;
+
+            // if deposit is enough
+            if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
+              modal.payments[0] = false;
+            }
           }
         });
       });

@@ -6,7 +6,7 @@
     <div class="m-sec-killing-area">
       <div class="m-sec-killing-area-items">
         <div class="m-sec-killing-area-item" ng-repeat="item in items track by $index">
-          <item-remain-time time="item.deadline"></item-remain-time>
+          <item-remain-time time="item.deadline" prefix="剩余"></item-remain-time>
           <img class="m-sec-killing-item-img" ng-src="{{ item.imagePath }}"/>
           <div class="row m-sec-killing-item-prices m-no-padding">
             <div class="col col-50 m-sec-killing-item-current-price m-no-padding">

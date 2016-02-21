@@ -365,12 +365,12 @@ angular.module('mmr.directives')
         }
       };
 
-      scope.doOpenAddressList = function() {
-        if(scope.type && scope.type === 'receipt') {
+      $scope.doOpenAddressList = function() {
+        if($scope.type && $scope.type === 'receipt') {
           return;
         }
 
-        mmrModal.createAddressModal(scope, scope.address, scope.type);
+        mmrModal.createAddressModal($scope, $scope.address, $scope.type);
       };
     }
   };

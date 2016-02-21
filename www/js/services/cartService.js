@@ -105,8 +105,10 @@ angular.module('mmr.services')
 
       function generateOrders() {
         if(tab === 0) {
+          disableEditing($rootScope.$root.cart.reservedOrders);
           return $rootScope.$root.cart.reservedOrders;
         } else if(tab === 1) {
+          disableEditing($rootScope.$root.cart.normalOrders);
           return $rootScope.$root.cart.normalOrders;
         }
       }
@@ -125,6 +127,12 @@ angular.module('mmr.services')
         result.summary = calculateActualMoney(result); // bottom summary area in gen modal
 
         return result;
+      }
+
+      function disableEditing(orders) {
+        _.forEach(orders, function(subOrder) {
+          subOrder.isEditing = false;
+        });
       }
 
       return {

@@ -4,7 +4,7 @@ angular.module('mmr.controllers')
   function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService) {
 
   $rootScope.$root.ui.tabsHidden = false;
-  $scope.tab = Number($stateParams.tab) || 0;
+  $scope.tab = Number($stateParams.tab) || 1;
 
   // define tabs
   $scope.tabs = [

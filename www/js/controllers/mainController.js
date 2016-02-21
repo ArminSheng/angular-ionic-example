@@ -169,11 +169,13 @@ angular.module('mmr.controllers')
   // emit status change events
   $rootScope.$on('$stateChangeStart', function () {
     console.log('start state change');
+    console.log($state.current.name);
     $rootScope.$broadcast('loading.show');
   });
 
   $rootScope.$on('$stateChangeSuccess', function () {
     console.log('end state change');
+    console.log($state.current.name);
     if($state.current.name === 'tab.cart') {
       $rootScope.$root.ui.tabsHidden = false;
     }

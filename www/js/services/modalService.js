@@ -652,6 +652,24 @@ angular.module('mmr.services')
       });
     },
 
+    // order receipt list modal view
+    createReceiptListModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/receipt-list.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.$root.modals.receiptListModal = modal;
+        modal.show();
+
+        //binding data
+        modal.item = item;
+
+        modal.doHide = function() {
+          modal.hide();
+        };
+      });
+    },
+
     // apply service modal view
     createApplyServiceModal: function(scope, item) {
       $ionicModal.fromTemplateUrl('templates/modal/apply-service.html', {

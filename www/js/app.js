@@ -2,8 +2,8 @@
 angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-// .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
-.constant('REST_BASE', 'http://localhost:8081/mmr/')
+.constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
+// .constant('REST_BASE', 'http://localhost:8081/mmr/')
 .constant('API_BASE', 'http://demo.0lz.net/mmrou/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {

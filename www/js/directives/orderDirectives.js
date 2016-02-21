@@ -339,7 +339,8 @@ angular.module('mmr.directives')
     replace: true,
     scope: {
       type: '@',
-      address: '='
+      address: '=',
+      item: '='
     },
     templateUrl: 'templates/directives/order/order-detail-address.html',
     link: function(scope, element, attrs) {
@@ -353,9 +354,15 @@ angular.module('mmr.directives')
             return 'img/common/geo-quarantine.png';
         }
       })();
-
-      scope.doCheckReceipt = function() {
-
+    },
+    controller: function($rootScope, $scope, mmrModal, mmrEventing) {
+      $scope.doCheckReceipt = function(item) {
+        if($rootScope.$root.modals.receiptListModal && !$rootScope.$root.modals.receiptListModal.scope.$$destroyed) {
+          // directly open it
+          $rootScope.$root.modals.receiptListModal.show();
+        } else {
+          mmrModal.createReceiptListModal($scope, item);
+        }
       };
     }
   };

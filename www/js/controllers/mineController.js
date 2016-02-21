@@ -261,7 +261,7 @@ angular.module('mmr.controllers')
 
   $scope.doOpenMyReceipt = function() {
 
-      if($rootScope.modals.receiptModal && !$rootScope.modals.receiptModal.scope.$$destroyed) {
+    if($rootScope.modals.receiptModal && !$rootScope.modals.receiptModal.scope.$$destroyed) {
       // directly open it
       $rootScope.modals.receiptModal.show();
     } else {

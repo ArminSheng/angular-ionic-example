@@ -1,0 +1,68 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="$root.modals.receiptListModal.doHide()">
+          <span class="icon ion-chevron-left m-common-back"></span>
+          确认订单
+      </button>
+    </div>
+	  <h1 class="title">发票清单</h1>
+	  <button class="button button-clear" ng-click="">
+      <span class="icon ion-more m-header-icon"></span>
+    </button>
+  </ion-header-bar>
+  <ion-content>
+    <div class="m-order-receipt-list-item">
+      <div class="m-order-receipt-list-item-head">
+        <h4 class="m-item-head">增值税普通发票</h4>
+      </div>
+      <div class="m-order-receipt-list-item-body">
+        <p class="m-order-receipt-company-name">单位名称：{{ item.subOrders[0].name }}</p>
+        <div class="row m-order-receipt-row">
+          <div class="col col-20">商品明细</div>
+          <div class="col col-20">规格</div>
+          <div class="col col-12">单位</div>
+          <div class="col col-12">数量</div>
+          <div class="col col-12">单价</div>
+          <div class="col col-12">税率</div>
+          <div class="col col-12">税额</div>
+        </div>
+        <div class="row m-order-receipt-row" ng-repeat="item in item.subOrders[0].items">
+          <div class="col col-20">{{ item.name }}</div>
+          <div class="col col-20">70公斤/箱</div>
+          <div class="col col-12">{{ item.unitName }}</div>
+          <div class="col col-12">{{ item.quantity }}</div>
+          <div class="col col-12">{{ item.price }}</div>
+          <div class="col col-12">0.01%</div>
+          <div class="col col-12">0.01</div>
+        </div>
+      </div>
+    </div>
+    <div class="m-order-receipt-list-item">
+      <div class="m-order-receipt-list-item-head">
+        <h4 class="m-item-head">增值税专用发票</h4>
+      </div>
+      <div class="m-order-receipt-list-item-body">
+        <p class="m-order-receipt-company-name">单位名称：{{ item.subOrders[1].name }}</p>
+        <div class="row m-order-receipt-row">
+          <div class="col col-20">商品明细</div>
+          <div class="col col-20">规格</div>
+          <div class="col col-12">单位</div>
+          <div class="col col-12">数量</div>
+          <div class="col col-12">单价</div>
+          <div class="col col-12">税率</div>
+          <div class="col col-12">税额</div>
+        </div>
+        <div class="row m-order-receipt-row" ng-repeat="item in item.subOrders[1].items">
+          <div class="col col-20">{{ item.name }}</div>
+          <div class="col col-20">70公斤/箱</div>
+          <div class="col col-12">{{ item.unitName }}</div>
+          <div class="col col-12">{{ item.quantity }}</div>
+          <div class="col col-12">{{ item.price }}</div>
+          <div class="col col-12">0.01%</div>
+          <div class="col col-12">0.01</div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>

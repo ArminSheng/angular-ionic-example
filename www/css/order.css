@@ -318,6 +318,10 @@
   display: block;
 }
 
+.m-modal-checkout-payment-logo {
+  max-width: 5.0rem;
+}
+
 .m-modal-checkout-footer {
   padding: 0;
 }

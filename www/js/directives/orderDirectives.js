@@ -165,7 +165,7 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/order/order-sub-list.html',
     link: function(scope, element, attrs) {
       scope.doShowMore = function(subOrder, readonly) {
-        if(scope.isCartMode) {
+        if(scope.isCartMode === 'true') {
           return false;
         }
 
@@ -177,7 +177,7 @@ angular.module('mmr.directives')
       };
 
       scope.getShownItems = function(subOrder) {
-        if(scope.isCartMode || expandedMapping[subOrder.subOrderId]) {
+        if(scope.isCartMode === 'true' || expandedMapping[subOrder.subOrderId]) {
           return subOrder.items;
         } else {
           // default to show 2 items

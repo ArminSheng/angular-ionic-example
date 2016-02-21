@@ -327,3 +327,40 @@
   margin-bottom: 0;
 }
 
+/* receipt list modal view */
+.m-order-receipt-list-item {
+  border-top: 5px solid #e8e8e8;
+}
+
+.m-order-receipt-list-item:last-child {
+  border-bottom: 5px solid #e8e8e8;
+}
+
+.m-order-receipt-list-item-head, .m-order-receipt-list-item-body{
+  padding: 0 10px;
+}
+
+.m-order-receipt-list-item-head .m-item-head {
+  padding: 15px 0;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.m-order-receipt-company-name {
+  padding: 10px 0;
+  margin: 0;
+}
+
+.m-order-receipt-row {
+  padding: 10px 0 !important;
+  border-top: 1px solid #eee;
+  margin: 0 !important;
+}
+
+.m-order-receipt-row .col {
+  padding: 0;
+}
+
+.m-order-receipt-row .col-20 {
+  margin-right: 5px;
+}

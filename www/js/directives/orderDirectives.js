@@ -54,7 +54,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('orderOperations', [function() {
+.directive('orderOperations', ['$ionicPopup', '$rootScope', function($ionicPopup, $rootScope) {
 
   return {
     retrict: 'E',
@@ -98,11 +98,22 @@ angular.module('mmr.directives')
         mmrEventing.doCheckServiceDetail(item);
       };
 
+      // 确认收货
+      $scope.doConfirmOrder = function(item) {
+        mmrEventing.doConfirmOrder(item);
+      };
+
       // event handlers
       $scope.$on('eventOpenOrderDetail', function($event, data) {
         // all orders will try to respond to the event
-        if(data.orderId === $scope.item.orderId) {
-          mmrModal.createOrderDetailModal($scope, data);
+        if($rootScope.$root.modals.orderDetailModal && !$rootScope.$root.modals.orderDetailModal.scope.$$destroyed) {
+
+          $rootScope.$root.modals.orderDetailModal.item = data;
+          $rootScope.$root.modals.orderDetailModal.show();
+        }else {
+          if (data.orderId === $scope.item.orderId) {
+            mmrModal.createOrderDetailModal($scope, data);
+          }
         }
       });
 
@@ -138,6 +149,32 @@ angular.module('mmr.directives')
         // all orders will try to respond to the event
         if(data.orderId === $scope.item.orderId) {
 
+        }
+      });
+
+      $scope.$on('eventConfirmOrder', function($event, data) {
+        // all orders will try to respond to the event
+        if(data.orderId === $scope.item.orderId) {
+          $ionicPopup.show({
+            template:'<div class="m-msg-cong"><span class="m-msg-cong-subtitle">您已收到该商品？</span><div>',
+            scope:$scope,
+            buttons:[
+              {
+                text:'取消',
+              },
+              {
+                text:'确定,去评价',
+                type:'button-energized',
+                onTap:function(e) {
+                  if ($rootScope.$root.modals.addReviewModal && !$rootScope.$root.modals.addReviewModal.scope.$$destroyed) {
+                    $rootScope.$root.modals.addReviewModal.show();
+                  } else {
+                    mmrModal.createAddReviewModal($scope, data);
+                  }
+                }
+              }
+            ]
+          });
         }
       });
     }
@@ -359,6 +396,7 @@ angular.module('mmr.directives')
       $scope.doCheckReceipt = function(item) {
         if($rootScope.$root.modals.receiptListModal && !$rootScope.$root.modals.receiptListModal.scope.$$destroyed) {
           // directly open it
+          $rootScope.$root.modals.receiptListModal.item = item;
           $rootScope.$root.modals.receiptListModal.show();
         } else {
           mmrModal.createReceiptListModal($scope, item);

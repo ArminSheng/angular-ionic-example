@@ -27,9 +27,13 @@ angular.module('mmr.services')
       last: {
         name: '185****1020',
         date: '2016-01-11 20:25',
-        content: '肉特别新鲜。'
-      }
+        content: '肉特别新鲜。',
+        avatar: 'img/mine/avatar-bak.png',
+        rating: '0'
+      },
+      comments: []
     };
+
 
     if(item.id % 2 === 0) {
       item.shop = {
@@ -73,6 +77,56 @@ angular.module('mmr.services')
     return item;
   }
 
+  function getItemReviews(item) {
+    item.review.comments = [
+        {
+          name: '18616151234',
+          date: '2015-05-01 21:00',
+          content: '肉很新鲜',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '0'
+        },
+        {
+          name: '18612341234',
+          date: '2015-05-01 20:10',
+          content: '肉很新鲜',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '0'
+        },
+        {
+          name: '18612341234',
+          date: '2015-05-01 20:20',
+          content: '一般般吧，不太好吃',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '1'
+        },
+        {
+          name: '18612341234',
+          date: '2015-05-01 20:30',
+          content: '一般般吧，不太好吃',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '1'
+        },
+        {
+          name: '18612341234',
+          date: '2015-05-01 20:40',
+          content: '大概三分之一已经软了，不新鲜，肉质不行，其他三分之二还可以。',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '2'
+        },
+        {
+          name: '18612341234',
+          date: '2015-05-01 20:50',
+          content: '大概三分之一已经软了，不新鲜，肉质不行，其他三分之二还可以。',
+          avatar: 'img/mine/avatar-bak.png',
+          rating: '2'
+        }
+    ];
+    item.review.comments.push(item.review.last);
+
+    return item;
+  }
+
   return {
 
     hotKeywords: function() {
@@ -82,8 +136,11 @@ angular.module('mmr.services')
 
     itemDetail: function(item) {
       return getItemDetail(item);
-    }
+    },
 
+    itemReviews: function(item) {
+      return getItemReviews(item);
+    }
   };
 
 }]);

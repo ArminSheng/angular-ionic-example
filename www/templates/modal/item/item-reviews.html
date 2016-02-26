@@ -1,0 +1,39 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+    <div class="buttons">
+      <button class="button button-clear" ng-click="$root.modals.itemReviewsModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+      </button>
+    </div>
+    <h1 class="title">
+      评价
+    </h1>
+
+  	<div class="buttons">
+  		<div class="m-home-cart">
+	      <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
+	      	<span class="badge badge-assertive m-badge">0</span>
+	      </a>
+	  	</div>
+			<button class="button button-clear" ng-click="">
+				<span class="icon ion-more m-header-icon"></span>
+			</button>
+   	</div>
+  </ion-header-bar>
+  <ion-content class="m-item-review-body">
+  	<filter-tabs tabs="$root.modals.itemReviewsModal.tabs" current-tab="{{ $root.modals.itemReviewsModal.tab }}" action="$root.modals.itemReviewsModal.switchTab(tab)"></filter-tabs>
+    <div class="m-item-review-list">
+
+    	<div class="m-item-review-item" ng-repeat="item in $root.modals.itemReviewsModal.item.review.comments | filter: $root.modals.itemReviewsModal.comment | orderBy: '-date' track by $index">
+    		<div class="m-item-review-pinfo">
+    			<img src="{{ item.avatar }}">
+    			<span>{{ item.name }}</span>
+    		</div>
+    		<p class="m-item-review-p m-item-rivew-content">{{ item.content }}</p>
+    		<p class="m-item-review-p m-item-rivew-date">{{ item.date }}</p>
+    	</div>
+    </div>
+  </ion-content>
+  <!-- bottom cart area -->
+  <bottom-cart item="$root.modals.itemReviewsModal.item"></bottom-cart>
+</ion-modal-view>

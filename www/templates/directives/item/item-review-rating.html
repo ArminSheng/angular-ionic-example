@@ -1,0 +1,38 @@
+<div class="m-review-add-item-product">
+	<div class="m-item-product">
+		<img src="{{ item.imagePath }}">
+		<p class="m-item-product-text">
+			<span>{{ shop }}</span>
+			<span>{{ item.name }}</span>
+		</p>
+	</div>
+	<div class="m-review-rating-area">
+		<form>
+			<textarea ng-model="item.review.last.content" class="m-review-rating-text" placeholder="写点评价吧，您的点评可以帮助到其他买家哦(最多限200个字符)"></textarea>
+			<div class="m-item-review-rating-level">
+				<div class="m-rating-item row">
+
+					<div class="col m-rating-item-radio" ng-class="{'active': selected == 0}" ng-click="switchRadio(0)">
+						<label class="item item-radio item-rating-high">
+							<input type="radio" ng-model="item.review.last.rating" name="group">
+				    </label>
+				    好评
+					</div>
+					<div class="col m-rating-item-radio" ng-class="{'active': selected == 1}" ng-click="switchRadio(1)">
+						<label class="item item-radio item-rating-medium">
+							<input type="radio" name="group">
+				    </label>
+				    中评
+					</div>
+					<div class="col m-rating-item-radio" ng-class="{'active': selected == 2}" ng-click="switchRadio(2)">
+						<label class="item item-radio item-rating-low">
+							<input type="radio" name="group">
+				    </label>
+				    差评
+			    </div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -86,6 +86,7 @@ angular.module('mmr.services')
     },
 
     createMyReceiptModal: function(scope) {
+      var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
         scope:scope
       }).then(function(modal) {
@@ -103,7 +104,7 @@ angular.module('mmr.services')
         };
 
         $rootScope.modals.receiptModal.getExplain = function(receipt) {
-          switch(receipt.status) {
+          switch(receipt.rating) {
             case 0:
               return '有效';
             case 1:
@@ -114,17 +115,18 @@ angular.module('mmr.services')
         };
 
         $rootScope.modals.receiptModal.doAdd = function(tab) {
-          createReceiptDetailModal(scope,tab);
+          self.createReceiptDetailModal(scope,tab);
         };
 
         init();
         function init() {
           $rootScope.modals.receiptModal.receipts = mmrMineFactory.receiptDetails();
         }
+      });
+    },
 
-        function createReceiptDetailModal(scope,tab) {
-
-          var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
+    createReceiptDetailModal: function(scope,tab) {
+      var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
 
           $ionicModal.fromTemplateUrl('templates/modal/'+receiptTemplate+'.html', {
             scope: scope,
@@ -141,11 +143,8 @@ angular.module('mmr.services')
             $rootScope.modals.receiptDetailModal.doCreateReceipt = function() {
               //save data
 
-              $rootScope.modals.receiptDetailModal.hide();
             };
           });
-        }
-      });
     },
 
     createMyCollectModal: function(scope, tab) {
@@ -681,7 +680,8 @@ angular.module('mmr.services')
         modal.show();
 
         //binding data
-        modal.item = item;
+        // modal.item = item;
+        modal.item = mmrMineFactory.receiptDetails();
 
         modal.doHide = function() {
           modal.hide();
@@ -729,6 +729,7 @@ angular.module('mmr.services')
     },
 
     createItemDetailModal: function(scope, item) {
+      var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/item/item-detail.html', {
         scope: scope,
         animation: 'slide-in-right'
@@ -748,9 +749,91 @@ angular.module('mmr.services')
 
         };
 
+        scope.itemModal.doLoadMoreReviews = function() {
+          self.createItemReviews(scope, item);
+        };
+
         // event handlers
         scope.$on('doStateToCart', function($event, data) {
           scope.itemModal.doHide();
+          $state.go('tab.cart', {
+            tab: item.isReserved ? 0 : 1
+          });
+        });
+      });
+    },
+
+    createItemReviews: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/item/item-reviews.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.$root.modals.itemReviewsModal = modal;
+
+        // define tabs
+        modal.tabs = [
+          { text: '全部' },
+          { text: '好评' },
+          { text: '中评' },
+          { text: '差评' }
+        ];
+
+        //bind data
+        modal.item = mmrSearchService.itemReviews(item);
+        modal.tab = 0;
+
+        //search template
+        modal.comment = modal.comment || {};
+        modal.comment.rating = getRating(modal.tab);
+
+        // define number of comment
+        var all = modal.item.review.comments.length;
+        var high = 0, medium = 0, low = 0;
+        _.forEach(modal.item.review.comments, function(value, key) {
+          switch(Number(value.rating)) {
+            case 0:
+              high++;
+              break;
+            case 1:
+              medium++;
+              break;
+            case 2:
+              low++;
+              break;
+          }
+        });
+        modal.tabs[0].text += '('+all+')';
+        modal.tabs[1].text += '('+high+')';
+        modal.tabs[2].text += '('+medium+')';
+        modal.tabs[3].text += '('+low+')';
+        console.log(modal.item);
+        // methods
+        modal.doHide = function() {
+          $rootScope.$root.modals.itemReviewsModal.hide();
+        };
+
+        modal.switchTab = function(tabIdx) {
+          modal.comment.rating = getRating(tabIdx);
+          modal.tab = tabIdx;
+        };
+
+        function getRating(tab) {
+          switch(Number(tab)) {
+            case 0:
+              return '!!';
+            case 1:
+              return '0';
+            case 2:
+              return '1';
+            case 3:
+              return '2';
+          }
+        }
+
+        // event handlers
+        scope.$on('doStateToCart', function($event, data) {
+          modal.doHide();
           $state.go('tab.cart', {
             tab: item.isReserved ? 0 : 1
           });
@@ -799,7 +882,13 @@ angular.module('mmr.services')
                   break;
               }
 
-              self.createAddressModal(scope, orders.addresses.normal, 'normal');
+              if ($rootScope.$root.modals.addressModal && !$rootScope.$root.modals.addressModal.scope.$$destroyed) {
+                $rootScope.$root.modals.addressModal.currentAddress = orders.addresses.normal;
+                $rootScope.$root.modals.addressModal.show();
+              } else {
+                 self.createAddressModal(scope, orders.addresses.normal, 'normal');
+              }
+
 
               return true;
             }
@@ -826,6 +915,20 @@ angular.module('mmr.services')
                   break;
               }
 
+              if ($rootScope.$root.modals.receiptManagementModal && !$rootScope.$root.modals.receiptManagementModal.scope.$$destroyed) {
+                $rootScope.$root.modals.receiptManagementModal.index = index;
+
+                if (index === 0) {
+                  $rootScope.$root.modals.receiptManagementModal.receipts = mmrMineFactory.receiptDetails()[0];
+                }else {
+                  $rootScope.$root.modals.receiptManagementModal.receipts = mmrMineFactory.receiptDetails()[1];
+                }
+
+                $rootScope.$root.modals.receiptManagementModal.show();
+              } else {
+                 self.createReceiptManagementModal(scope, index);
+              }
+
               return true;
             }
           });
@@ -849,6 +952,43 @@ angular.module('mmr.services')
             }
           }
         });
+      });
+    },
+
+    createReceiptManagementModal: function(scope, index) {
+      var self = this;
+      $ionicModal.fromTemplateUrl('templates/modal/receiptManagement.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.$root.modals.receiptManagementModal = modal;
+        modal.show();
+
+        // binding data
+        if (index === 0) {
+          modal.receipts = mmrMineFactory.receiptDetails()[0];
+        }else {
+          modal.receipts = mmrMineFactory.receiptDetails()[1];
+        }
+        modal.index = index;
+
+        //method
+        modal.doHide = function() {
+          modal.hide();
+        };
+
+        modal.doSelectReceipt = function($index, tab) {
+          modal.receiptCheckboxes[tab] = _.map(modal.receiptCheckboxes[tab], function(element) {
+            return false;
+          });
+          modal.receiptCheckboxes[tab][$index] = true;
+
+          modal.hide();
+        };
+
+        modal.doCreateReceipt = function(tab) {
+          self.createReceiptDetailModal(scope, tab);
+        };
       });
     },
 
@@ -905,14 +1045,9 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[2] = false;
-<<<<<<< 125bc8a8855eb0a16a195725b770a8fb4b69a8f3
-
-            // if deposit is enough
             if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
               modal.payments[0] = false;
             }
-=======
->>>>>>> add the payment selection logic
           }
         });
 
@@ -921,16 +1056,36 @@ angular.module('mmr.services')
         }, function(newValue, oldValue, scope) {
           if(newValue) {
             modal.payments[1] = false;
-<<<<<<< 125bc8a8855eb0a16a195725b770a8fb4b69a8f3
 
             // if deposit is enough
             if($rootScope.$root.pinfo.deposit >= orders.money.summary) {
               modal.payments[0] = false;
             }
-=======
->>>>>>> add the payment selection logic
           }
         });
+      });
+    },
+
+    createAddReviewModal: function(scope, item) {
+      $ionicModal.fromTemplateUrl('templates/modal/addReview.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.$root.modals.addReviewModal = modal;
+
+        //bind data
+        modal.item = item;
+        modal.items = [
+          {text: '商品与描述相符'},
+          {text: '卖家的服务态度'},
+          {text: '物流服务的质量'}
+        ];
+        console.log(modal.items);
+        //method
+        modal.doHide = function() {
+          modal.hide();
+        };
       });
     }
 

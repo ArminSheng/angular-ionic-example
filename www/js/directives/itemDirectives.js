@@ -225,4 +225,41 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('itemReviewRating', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '=',
+      shop: '@'
+    },
+    templateUrl: 'templates/directives/item/item-review-rating.html',
+    link: function(scope, element, attrs) {
+      scope.switchRadio = function(selected) {
+        scope.selected = selected;
+      };
+    }
+  };
+
+}])
+
+.directive('itemReviewStar', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '='
+    },
+    templateUrl: 'templates/directives/item/item-review-star.html',
+    link: function(scope, element, attrs) {
+      scope.selectStar = function(index) {
+        scope.selected = index;
+      };
+    }
+  };
+
 }]);

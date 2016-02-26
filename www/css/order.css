@@ -368,3 +368,38 @@
 .m-order-receipt-row .col-20 {
   margin-right: 5px;
 }
+
+/* receipt management modal view */
+.m-receipt-item {
+  padding: 0 10px;
+}
+
+.m-receipt-item-row {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px;
+}
+
+.m-receipt-item-row .item-checkbox {
+  border: 0;
+  padding-left: 0;
+}
+
+.m-receipt-item-content .m-receipt-item-part {
+  font-size: 80%;
+  color: #555;
+  margin: 0;
+}
+
+.m-item-checkbox {
+  position: relative;
+}
+
+.m-item-checkbox .item-checkbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+

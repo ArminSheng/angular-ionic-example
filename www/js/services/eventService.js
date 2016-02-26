@@ -77,6 +77,10 @@ angular.module('mmr.services')
     doCheckServiceDetail: function(data) {
       $rootScope.$broadcast('eventCheckServiceDetail', data);
     },
+
+    doConfirmOrder: function(data) {
+      $rootScope.$broadcast('eventConfirmOrder', data);
+    },
     // order operations end
 
     // sorters and screeners

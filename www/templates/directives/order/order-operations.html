@@ -14,6 +14,9 @@
   <button class="button button-small button-energized" ng-if="item.status === 3" ng-click="doCheckSelfCode(item)">
     查看自提码
   </button>
+  <button class="button button-small button-energized" ng-if="item.status === 2" ng-click="doConfirmOrder(item)">
+    确认收货
+  </button>
   <button class="button button-small button-energized" ng-if="item.status === 6" ng-click="doCheckServiceDetail(item)">
     售后详情
   </button>

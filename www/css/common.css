@@ -45,6 +45,11 @@
   transition: all ease-in-out 250ms; }
 
 /*popup msg*/
+.popup {
+    border:1px solid #ffc900;
+    border-radius: 5px !important;
+}
+
 .m-msg-cong {
   text-align: center;
 }

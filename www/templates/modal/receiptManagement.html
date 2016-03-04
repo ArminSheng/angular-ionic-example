@@ -1,0 +1,47 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+      <button class="button button-clear" ng-click="$root.modals.receiptManagementModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        确认订单
+      </button>
+    </div>
+    <h1 class="title">
+    	增值税普通发票
+  	</h1>
+  	<div class="buttons">
+      <button class="button button-clear" ng-click="$root.modals.receiptManagementModal.doHide()">
+        <span class="icon ion-more"></span>
+      </button>
+    </div>
+
+	</ion-header-bar>
+	<ion-content>
+		<div class="m-receipt-item" ng-repeat="item in $root.modals.receiptManagementModal.receipts track by $index">
+			<div class="row m-receipt-item-row" >
+				<div class="col col-20 m-item-checkbox" ng-click="$root.modals.receiptManagementModal.doSelectReceipt($index, $root.modals.receiptManagementModal.index)">
+					<ion-checkbox ng-if="$root.modals.receiptManagementModal.index == 0" class="checkbox-energized" ng-model="$root.modals.receiptManagementModal.receiptCheckboxes[0][$index]"></ion-checkbox>
+					<ion-checkbox ng-if="$root.modals.receiptManagementModal.index == 1" class="checkbox-energized" ng-model="$root.modals.receiptManagementModal.receiptCheckboxes[1][$index]"></ion-checkbox>
+				</div>
+				<div class="col col-80 m-receipt-item-content">
+					<span class="m-receipt-item-name">{{ item.companyName }}</span>
+					<p class="m-receipt-item-part" ng-if="item.taxpayer">
+						<span class="m-receipt-item-word">{{ item.taxpayer }}</span>
+						<span class="m-receipt-item-word">{{ item.registerAddress }}</span>
+						<span class="m-receipt-item-word">{{ item.phone }}</span>
+						<span class="m-receipt-item-word">{{ item.bank }}</span>
+						<span class="m-receipt-item-word">{{ item.bankAccount }}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar-energized">
+		<h1 class="title" ng-if="$root.modals.receiptManagementModal.index == 0" ng-click="$root.modals.receiptManagementModal.doCreateReceipt($root.modals.receiptManagementModal.index)">
+      	新增增值税普通发票
+  	</h1>
+  	<h1 class="title" ng-click="$root.modals.receiptManagementModal.doCreateReceipt($root.modals.receiptManagementModal.index)" ng-if="$root.modals.receiptManagementModal.index == 1">
+      	新增增值税专用发票
+  	</h1>
+	</ion-footer-bar>
+</ion-modal-view>

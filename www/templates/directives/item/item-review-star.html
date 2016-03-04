@@ -1,0 +1,10 @@
+<div class="row m-item-review-star-row">
+	<div class="col col-40 m-item-review-star-text">{{ item.text }}</div>
+	<div class="col col-60 m-item-review-star-rating">
+		<span class="m-review-star" ng-class="{'selected':selected >= 1}" ng-click="selectStar(1)"></span>
+		<span class="m-review-star" ng-class="{'selected':selected >= 2}" ng-click="selectStar(2)"></span>
+		<span class="m-review-star" ng-class="{'selected':selected >= 3}" ng-click="selectStar(3)"></span>
+		<span class="m-review-star" ng-class="{'selected':selected >= 4}" ng-click="selectStar(4)"></span>
+		<span class="m-review-star" ng-class="{'selected':selected >= 5}" ng-click="selectStar(5)"></span>
+	</div>
+</div>

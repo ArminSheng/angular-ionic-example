@@ -1,0 +1,36 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+			<button class="button button-clear" ng-click="$root.modals.addReviewModal.doHide()">
+				<span class="icon ion-chevron-left m-common-back"></span>我的订单
+			</button>
+		</div>
+		<h1 class="title">发表评价</h1>
+		<div class="buttons">
+  		<div class="m-home-cart">
+	      <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
+	      	<span class="badge badge-assertive m-badge">0</span>
+	      </a>
+	  	</div>
+			<button class="button button-clear" ng-click="">
+				<span class="icon ion-more m-header-icon"></span>
+			</button>
+   	</div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="m-review-add-body">
+			<div class="m-review-add-item" ng-repeat="shop in $root.modals.addReviewModal.item.subOrders track by $index">
+				<div class="m-review-add-item-product-container">
+					<item-review-rating item="item" shop="{{shop.name}}" ng-repeat="item in shop.items track by $index"></item-review-rating>
+					<div class="m-review-add-item-shop">
+						<p>店铺评分</p>
+						<item-review-star item="item" ng-repeat="item in $root.modals.addReviewModal.items"></item-review-star>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ion-content>
+	<ion-footer-bar class="bar-energized">
+		<h1 class="title">提交</h1>
+	</ion-footer-bar>
+</ion-modal-view>

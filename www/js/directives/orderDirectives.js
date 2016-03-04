@@ -381,7 +381,8 @@ angular.module('mmr.directives')
     scope: {
       type: '@',
       address: '=',
-      item: '='
+      item: '=',
+      clickable: '@'
     },
     templateUrl: 'templates/directives/order/order-detail-address.html',
     link: function(scope, element, attrs) {
@@ -408,7 +409,7 @@ angular.module('mmr.directives')
       };
 
       $scope.doOpenAddressList = function() {
-        if($scope.type && $scope.type === 'receipt') {
+        if($scope.clickable === 'false' || ($scope.type && $scope.type === 'receipt')) {
           return;
         }
 

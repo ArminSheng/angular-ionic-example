@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CartCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService',
-  function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService) {
+.controller('CartCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService', '$state',
+  function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService, $state) {
 
   $rootScope.$root.ui.tabsHidden = false;
   $scope.tab = Number($stateParams.tab) || 1;
@@ -15,9 +15,15 @@ angular.module('mmr.controllers')
   // last item
   $scope.lastItem = undefined;
 
+  // is empty function
+  isEmpty($scope.tab);
+  function isEmpty(tab) {
+    $scope.isEmpty = $rootScope.$root.cart.counts[tab] === 0 ? true : false;
+  }
+
   $scope.switchTab = function(tab) {
     $scope.tab = tab;
-
+     isEmpty(tab);
     // recalculate the height and back to top
     var cartScroll = $ionicScrollDelegate.$getByHandle('cartScroll');
     cartScroll.resize();
@@ -31,7 +37,7 @@ angular.module('mmr.controllers')
     text:'去看看',
     type: 'text',
     onTap: function() {
-      console.log('cart');
+      $state.go('tab.home');
     }
   };
 
@@ -99,6 +105,7 @@ angular.module('mmr.controllers')
   // event handlers
   $rootScope.$on('doStateToCart', function($event, data) {
     $scope.lastItem = data;
+    isEmpty($stateParams.tab);
   });
 
   // watchers

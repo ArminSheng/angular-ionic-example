@@ -111,6 +111,7 @@ angular.module('mmr.controllers')
 
         $scope.couponModal.switchTab = function(tabIdx) {
           $scope.couponModal.tab = tabIdx;
+          isEmpty(tabIdx);
         };
 
         $scope.couponModal.getExplain = function(coupon) {
@@ -128,6 +129,15 @@ angular.module('mmr.controllers')
         function init() {
           $scope.couponModal.coupons = mmrMineFactory.couponDetails();
         }
+        // is empty function
+        isEmpty(modal.tab);
+        function isEmpty(tab) {
+          $scope.isEmpty = modal.coupons[tab].length === 0 ? true : false;
+        }
+
+        // empty content
+        $scope.words = ['暂无优惠券'];
+        $scope.additionalClass = 'm-coupon-empty';
       });
     }
   });

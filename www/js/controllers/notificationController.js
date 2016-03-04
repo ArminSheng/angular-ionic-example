@@ -9,6 +9,7 @@ angular.module('mmr.controllers')
 
   $scope.switchTab = function(tabIdx) {
     $scope.tab = tabIdx;
+    isEmpty(tabIdx);
   };
 
   $scope.getNotifications = function(tabIdx) {
@@ -21,6 +22,15 @@ angular.module('mmr.controllers')
 
     // cache bindings
     localStorageService.bind($scope, 'notifications');
+  }
+  //empty content related
+  $scope.words = ['暂无消息'];
+  $scope.additionalClass = 'm-notification-empty';
+
+  // is empty function
+  isEmpty($scope.tab);
+  function isEmpty(tab) {
+    $scope.isEmpty = $scope.notifications[tab].length === 0 ? true : false;
   }
 
 }]);

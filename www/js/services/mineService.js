@@ -281,14 +281,16 @@ angular.module('mmr.services')
       mmrCacheFactory.set('couponDetails.used', couponUsed);
       mmrCacheFactory.set('couponDetails.expired', couponExpired);
 
-      return [couponUnused, couponUsed, couponExpired];
+      // return [couponUnused, couponUsed, couponExpired];
+      return [[], [], couponExpired];
     },
 
     receiptDetails: function() {
       // save into cache
       mmrCacheFactory.set('receiptDetails.receiptUsual', receiptUsual);
       mmrCacheFactory.set('receiptDetails.receiptSpecial', receiptSpecial);
-      return [receiptUsual, receiptSpecial];
+      // return [receiptUsual, receiptSpecial];
+      return [receiptUsual, []];
     },
 
     myFav: function(index) {

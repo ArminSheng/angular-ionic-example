@@ -31,7 +31,7 @@
         			<div class="row row-nopadding m-modal-mine-receipt-item-row">
         				<div class="col col-100 m-modal-mine-receipt-item-info">
         					<p class="m-modal-mine-receipt-item-info-name">
-        						{{ receipt.companyName }} 
+        						{{ receipt.companyName }}
         						<span class="m-modal-mine-receipt-item-info-term">
         							{{ modals.receiptModal.getExplain(receipt) }}
         						</span>
@@ -44,10 +44,12 @@
         					   <span>{{ receipt.bankAccount }}</span>
         					</p>
         				</div>
-        				
+
         			</div>
         		</div>
         	</div>
         </div>
     </ion-content>
+    <!-- empty content -->
+    <empty-content words="modals.receiptModal.words" additional-class="{{ modals.receiptModal.additionalClass }}" ng-if="modals.receiptModal.isEmpty"></empty-content>
 </ion-modal-view>

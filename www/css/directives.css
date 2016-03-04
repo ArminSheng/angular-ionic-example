@@ -266,5 +266,15 @@
     text-align: right;
 }
 
+/* empty content */
+.m-notification-empty {
+    background: #fff url('../img/empty/noti-empty.png') no-repeat fixed 50% 45%;
+    top: 90px !important;
+}
+
+.m-coupon-empty {
+    background: #fff url('../img/empty/noti-empty.png') no-repeat fixed 50% 45%;
+    top: 90px !important;
+}
 
 

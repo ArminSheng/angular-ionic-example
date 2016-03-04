@@ -403,3 +403,9 @@
   margin: auto;
 }
 
+/*empty content*/
+.m-order-empty {
+  background: #fff url('../img/empty/order-empty.png') no-repeat fixed 50% 30%;
+  background-size: 45%;
+}
+

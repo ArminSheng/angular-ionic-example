@@ -42,7 +42,7 @@ angular.module('mmr.directives')
           mmrModal.createPreferredBrandModal(scope, idx);
         }
 
-      }
+      };
     }
   };
 

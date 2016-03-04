@@ -231,7 +231,7 @@ angular.module('mmr.services')
         function init(tab) {
           $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav(tab);
           modal.words = ['您还没有任何收藏，快去收藏吧！'];
-          if (tab == 0) {
+          if (tab === 0) {
 
           } else {
             modal.additionalClass = 'm-collect-empty-shop';

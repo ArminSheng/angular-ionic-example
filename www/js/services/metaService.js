@@ -73,7 +73,11 @@ angular.module('mmr.services')
           '徐汇区',
           '卢湾区',
           '黄浦区'
-        ]
+        ],
+        '北京市': [
+        '朝阳区'
+        ],
+        '苏州市': []
       };
 
       mmrCacheFactory.set('cities', Object.keys(items));

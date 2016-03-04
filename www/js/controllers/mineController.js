@@ -69,6 +69,7 @@ angular.module('mmr.controllers')
   $scope.$on('eventOpenMyCollect', function($event, tab) {
     if ($rootScope.modals.collectModal && !$rootScope.modals.collectModal.scope.$$destroyed) {
       $rootScope.modals.collectModal.switchTab(tab);
+      // $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav(tab);
       $rootScope.modals.collectModal.show();
     } else{
       mmrModal.createMyCollectModal($scope,tab);

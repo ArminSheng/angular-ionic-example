@@ -10,7 +10,17 @@
     <order-sub-list orders="getOrders(0)" is-reserved="true" is-cart-mode="true" ng-if="tab === 0"></order-sub-list>
     <!-- cart normal orders -->
     <order-sub-list orders="getOrders(1)" is-reserved="false" is-cart-mode="true" ng-if="tab === 1"></order-sub-list>
+
+    <!-- empty content -->
+    <!-- <div class="m-common-empty-container m-cart-empty" ng-if="getOrders(1).length === 0 && getOrders(0).length === 0">
+        <p class="m-common-empty-text">
+          <span class="m-common-empty-word">购物车还是空的，去挑选商品吧</span>
+          <span class="m-common-empty-word "><button class="button button-outline  button-energized" ng-click="doGoState()">去看看</button></span>
+        </p>
+    </div> -->
   </ion-content>
+  <!-- empty content -->
+  <empty-content words="words" additional-class="{{ additionalClass }}" button="button" ng-if="getOrders(1).length === 0 && getOrders(0).length === 0"></empty-content>
 
   <div class="m-cart-filters anim-common" ng-class="scrollStatus">
     <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>

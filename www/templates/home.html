@@ -3,7 +3,7 @@
     <div class="bar item-input-inset">
       <!-- geolocation -->
       <button class="button button-clear m-btn-geo" ng-click="openGeoPopover($event)">
-        上海市
+        {{ currentCity }}
       </button>
       <!-- search input -->
       <label class="item-input-wrapper">
@@ -62,4 +62,13 @@
     <network-down reload="initialize()"></network-down>
 
   </ion-content>
+  <!-- position list -->
+  <div class="m-selcet-positon-wrapper">
+    <ion-scroll zooming="true" direction="y" style="width: 100%" class="m-cat-search m-select-positon" ng-class="{'activated': selectPos}" animation-callback>
+      <position-list items="positions" currentCity="currentCity"></position-list>
+    </ion-scroll>
+  </div>
+
+  <!-- goto wrap -->
+  <div class="m-goto-origin-wrapper" ng-if="gotoOrigin"></div>
 </ion-view>

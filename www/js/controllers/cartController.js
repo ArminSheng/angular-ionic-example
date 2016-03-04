@@ -24,6 +24,18 @@ angular.module('mmr.controllers')
     cartScroll.scrollTop(true);
   };
 
+  // empty content
+  $scope.words = ['购物车还是空的，去挑选商品吧'];
+  $scope.additionalClass = 'm-cart-empty';
+  $scope.button = {
+    text:'去看看',
+    type: 'text',
+    onTap: function() {
+      console.log('cart');
+    }
+  };
+
+
   // scroll related
   $scope.onScroll = function() {
     var threshold = 150;

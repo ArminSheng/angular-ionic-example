@@ -24,7 +24,7 @@ angular.module('mmr.directives')
     };
 }])
 
-.directive('salesArea', [function() {
+.directive('salesArea', ['mmrModal', function(mmrModal) {
 
   return {
     restrict: 'E',
@@ -34,7 +34,15 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/sales-area.html',
     link: function(scope, element, attrs) {
+      scope.doOpenPage = function(idx) {
+        if (scope.preferredBrandModal && !scope.preferredBrandModal.scope.$$destroyed) {
+          scope.preferredBrandModal.index = idx;
+          scope.preferredBrandModal.show();
+        } else {
+          mmrModal.createPreferredBrandModal(scope, idx);
+        }
 
+      }
     }
   };
 

@@ -1,16 +1,18 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService', 'mmrCacheFactory', '$ionicPopup',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService, mmrCacheFactory, $ionicPopup) {
 
   $scope.initialize = function() {
     // load geo position
     var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
       var latitude  = position.coords.latitude;
       var longitude = position.coords.longitude;
       console.log(latitude, longitude);
       $scope.pos = position;
+
     }, function(err) {
       // error
       console.log(err);
@@ -28,6 +30,7 @@ angular.module('mmr.controllers')
       $scope.areas = res[1];
       $scope.seckilling = res[2];
       $scope.commodities = res[3];
+      $scope.positions = mmrCacheFactory.get('cities');
 
       // in case the network is restored
       $timeout(function() {
@@ -86,4 +89,42 @@ angular.module('mmr.controllers')
   });
 
   $scope.initialize();
+
+  $scope.openGeoPopover = function() {
+
+    $scope.selectPos = true;
+    $rootScope.$root.ui.tabsHidden = true;
+  };
+
+  // position related
+  $scope.currentCity = '上海市';
+  $scope.gotoOrigin = false;
+
+  // event handler
+  $scope.$on('doSelectPos', function($event, data) {
+    $scope.selectPos = false;
+    $rootScope.$root.ui.tabsHidden = false;
+    $scope.gotoOrigin = false;
+
+    if (data.item !== '上海市' && data.item !== '南京市') {
+      $scope.gotoOrigin = true;
+      $scope.currentCity = '上海市';
+      var gotoPopup =  $ionicPopup.show({
+        scope: $scope,
+        template: '<p class="m-popup-text">您所在的城市暂未开通服务</p><p class="m-popup-text">自动为您跳转到<span class="energized">上海市</span></p>'
+      });
+      gotoPopup.then(function() {
+        $scope.initialize();
+        $scope.gotoOrigin = false;
+      });
+
+      $timeout(function() {
+        gotoPopup.close();
+      }, 1000);
+    }else {
+      $scope.initialize();
+      $scope.currentCity = data.item;
+    }
+  });
+
 }]);

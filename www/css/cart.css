@@ -185,3 +185,23 @@
 .m-cart-back-to-top.m-back-to-top-area.activated {
     bottom: 108px;
 }
+
+/*cart empty */
+.m-cart-empty {
+  background: #fff url('../img/empty/cart-empty.png') no-repeat fixed 50% 25%;
+  background-size: 40%;
+}
+
+.m-cart .scroll {
+  height: 100%;
+}
+
+.m-common-empty-word {
+  margin-top: 10px;
+}
+
+@media screen and (max-height: 490px) {
+  .m-cart-empty {
+    background-size: 33%;
+  }
+}

@@ -1,0 +1,6 @@
+<div class="m-common-empty-container" ng-class="additionalClass">
+  <p class="m-common-empty-text">
+    <span class="m-common-empty-word" ng-if="words" ng-repeat="word in words">{{ word }}</span>
+    <span class="m-common-empty-word" ng-if="button"><button class="button button-outline  button-energized" ng-class="button.type" ng-click="button.onTap()">{{ button.text }}</button></span>
+  </p>
+</div>

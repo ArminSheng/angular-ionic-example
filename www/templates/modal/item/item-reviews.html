@@ -33,6 +33,14 @@
     		<p class="m-item-review-p m-item-rivew-date">{{ item.date }}</p>
     	</div>
     </div>
+
+    <!-- empty content -->
+    <div class="m-common-empty-container m-cart-empty" ng-if="$root.modals.itemReviewsModal.item.review.comments.length === 0 && getOrders(0).length === 0">
+        <p class="m-common-empty-text">
+          <span class="m-common-empty-word">购物车还是空的，去挑选商品吧</span>
+          <span class="m-common-empty-word "><button class="button button-outline  button-energized" ng-click="doGoState()">去看看</button></span>
+        </p>
+    </div>
   </ion-content>
   <!-- bottom cart area -->
   <bottom-cart item="$root.modals.itemReviewsModal.item"></bottom-cart>

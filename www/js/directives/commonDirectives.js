@@ -16,6 +16,16 @@ angular.module('mmr.directives')
     '<span class="m-fav-icon-img"><i class="icon" ng-class="{\'ion-ios-star-outline\': !fav, \'ion-ios-star\': fav}"></i></span>' +
     '<span class="m-fav-icon-text">{{ fav ? \'取消收藏\' : \'关注收藏\' }}</span>' +
     '</div>');
+
+  $templateCache.put('templates/directives/common/position-list.html',
+    '<div class="m-position-list">' +
+    '<div class="m-fixd-item">当前到货地址： 上海市</div>' +
+    '<div class="m-fixd-item">全部城市</div>' +
+    '<div class="m-positon-item" ng-click="doSelectPos($index, item, currentCity)" ng-repeat="item in items">' +
+    '<span class="m-positon-item-text">{{ item }}</span>' +
+    '<span ng-if="index === $index" class="select-checkmark icon ion-ios-checkmark energized"></span>' +
+    '</div></div>'
+    );
 }])
 
 .directive('backToTopArea', [function() {
@@ -280,6 +290,58 @@ angular.module('mmr.directives')
       };
     }
 
+  };
+
+}])
+
+.directive('positionList', ['mmrEventing', function(mmrEventing) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      items: '=',
+      currentCity: '='
+    },
+    templateUrl: 'templates/directives/common/position-list.html',
+    link: function(scope, element, attrs) {
+      scope.index = 1;
+
+      // emit event data
+      var data = {};
+
+      scope.doSelectPos = function(idx, item) {
+        scope.index = idx;
+        scope.selectPos = false;
+
+        // bind emit data
+        data.idx = idx;
+        data.item = item;
+        mmrEventing.doSelectPos(data);
+      };
+
+      scope.$on('doSelectPos', function() {
+        console.log('log');
+      });
+    }
+  };
+
+}])
+
+.directive('emptyContent', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      words: '=',
+      button: '=',
+      additionalClass: '@'
+    },
+    templateUrl: 'templates/directives/common/empty-content.html',
+    link: function() {
+
+    }
   };
 
 }]);

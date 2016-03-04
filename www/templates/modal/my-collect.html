@@ -35,15 +35,23 @@
       </div>
     </div>
 
-    <div ng-show="modals.collectModal.tab === 0">
-      <collect-product-list items="modals.collectModal.myFav[1]"></collect-product-list>
+    <!-- empty content -->
+    <div class="m-collect-container" ng-show="modals.collectModal.tab === 0">
+      <collect-product-list items="modals.collectModal.myFav"></collect-product-list>
+      <!-- <div class="m-common-empty-container m-collect-empty-product" ng-if="modals.collectModal.myFav.length == 0">
+        <p class="m-common-empty-text">您还没有任何收藏，快去收藏吧！</p>
+      </div> -->
     </div>
-    <div ng-show="modals.collectModal.tab === 1">
-      <collect-shop-list items="modals.collectModal.myFav[0]"></collect-shop-list>
+    <div class="m-collect-container" ng-show="modals.collectModal.tab === 1">
+      <collect-shop-list items="modals.collectModal.myFav"></collect-shop-list>
       <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
     </div>
 
-
+    <!-- empty content
+    <div class="m-common-empty-container m-collect-empty-shop" ng-if="modals.collectModal.myFav.length == 0">
+        <p class="m-common-empty-text">您还没有任何收藏，快去收藏吧！</p>
+      </div> -->
 
   </ion-content>
+  <empty-content words="modals.collectModal.words" additional-class="{{ modals.collectModal.additionalClass }}" button="modals.collectModal.button" ng-if="modals.collectModal.myFav.length == 0"></empty-content>
 </ion-modal-view>

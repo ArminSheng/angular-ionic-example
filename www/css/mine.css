@@ -317,6 +317,10 @@
 }
 
 /*my collect*/
+.m-modal-mine-collect-content .scroll {
+    height: 100%;
+}
+
 .m-modal-mine-collect-view .bar-header {
     display: flex;
 }
@@ -351,6 +355,11 @@
 .m-collect-product-list-container .list .item {
     margin: 5px;
     border: 0;
+}
+
+.m-collect-product-item img {
+    max-width: 90px !important;
+    max-height: 90px !important;
 }
 
 .m-modal-mine-shop-all {
@@ -392,6 +401,40 @@
 
 .m-collect-sorter .list.m-sorter-options-list.activated {
     top: 42px;
+}
+
+.m-common-empty-container {
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    margin-top: 50px;
+    background-size: 42%;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.m-collect-empty-product {
+    background: url('../img/empty/collect-product-empty.png') no-repeat  fixed 50% 35%;
+}
+
+.m-collect-empty-shop {
+    background: url('../img/empty/collect-shop-empty.png') no-repeat  fixed 50% 35% ;
+    background-size: 42%;
+}
+
+.m-common-empty-text {
+    color: #888;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.m-common-empty-word {
+    display: block;
 }
 
 /* shop detail */

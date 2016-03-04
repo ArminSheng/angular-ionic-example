@@ -159,6 +159,7 @@ angular.module('mmr.services')
         modal.sortActivated = false;
         modal.screenEventPrefix = 'eventCollectScreen';
 
+
         modal.screenActivated = false;
         // backdrop isShow
         modal.isShow = false;
@@ -170,6 +171,7 @@ angular.module('mmr.services')
 
         modal.switchTab = function(tabIdx) {
           modal.tab = tabIdx;
+          init(tabIdx);
         };
 
         modal.doTapBackdrop = function() {
@@ -225,14 +227,23 @@ angular.module('mmr.services')
           modal.activateScreen();
         });
 
-        init();
-        function init() {
-          // mmrItemFactory.search().then(function(res) {
-          //   $rootScope.modals.collectModal.products = res.data;
-          // }, function(err) {
+        // init(tab);
+        function init(tab) {
+          $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav(tab);
+          modal.words = ['您还没有任何收藏，快去收藏吧！'];
+          if (tab == 0) {
 
-          // });
-          $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav();
+          } else {
+            modal.additionalClass = 'm-collect-empty-shop';
+            modal.button = {
+              text:'去看看',
+              type: 'text',
+              onTap: function() {
+                console.log('log');
+              }
+            };
+          }
+
         }
 
         $rootScope.modals.collectModal.switchTab(tab);
@@ -781,13 +792,14 @@ angular.module('mmr.services')
 
         //bind data
         modal.item = mmrSearchService.itemReviews(item);
+        // modal.item.review.comments = [];
         modal.tab = 0;
 
-        //search template
+        //comment template
         modal.comment = modal.comment || {};
         modal.comment.rating = getRating(modal.tab);
 
-        // define number of comment
+        // define count of comment
         var all = modal.item.review.comments.length;
         var high = 0, medium = 0, low = 0;
         _.forEach(modal.item.review.comments, function(value, key) {
@@ -807,7 +819,6 @@ angular.module('mmr.services')
         modal.tabs[1].text += '('+high+')';
         modal.tabs[2].text += '('+medium+')';
         modal.tabs[3].text += '('+low+')';
-        console.log(modal.item);
         // methods
         modal.doHide = function() {
           $rootScope.$root.modals.itemReviewsModal.hide();
@@ -1024,7 +1035,7 @@ angular.module('mmr.services')
         };
 
         modal.doCheckout = function() {
-
+          self.createPayResultModal(scope, 1);
         };
 
         // watchers
@@ -1081,11 +1092,66 @@ angular.module('mmr.services')
           {text: '卖家的服务态度'},
           {text: '物流服务的质量'}
         ];
-        console.log(modal.items);
         //method
         modal.doHide = function() {
           modal.hide();
         };
+      });
+    },
+
+    createPreferredBrandModal: function(scope, index) {
+      $ionicModal.fromTemplateUrl('templates/modal/preferredBrand.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+
+        //bind data
+        scope.preferredBrandModal = modal;
+        modal.index = index;
+
+        modal.items = mmrMineFactory.myFav(0);
+
+        // method
+        modal.doHide = function() {
+          modal.hide();
+        };
+      });
+    },
+
+    createPayResultModal: function(scope, status) {
+      $ionicModal.fromTemplateUrl('templates/modal/payResult.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.modals.payResultModal = modal;
+
+        //bind data
+        modal.status = 0;
+        modal.items = mmrMineFactory.myFav(0);
+
+        //methods
+        modal.doHide = function() {
+          modal.hide();
+        };
+
+        modal.doCancelPayment = function() {
+          console.log('payment cancel');
+        };
+
+        modal.doPayGoOn = function() {
+          console.log('pay go on');
+        };
+
+        modal.doCheckOrder = function() {
+
+        };
+
+        modal.doBuyMore = function() {
+          console.log('buy more');
+        };
+
       });
     }
 

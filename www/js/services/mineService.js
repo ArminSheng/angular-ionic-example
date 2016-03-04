@@ -291,10 +291,16 @@ angular.module('mmr.services')
       return [receiptUsual, receiptSpecial];
     },
 
-    myFav: function() {
-      mmrCacheFactory.set('myFav.favShops', favShops);
-      mmrCacheFactory.set('myFav.favProducts', favProducts);
-      return [favShops, favProducts];
+    myFav: function(index) {
+
+      if (index === 1) {
+        mmrCacheFactory.set('myFav.favShops', favShops);
+        return [];
+      } else {
+        mmrCacheFactory.set('myFav.favProducts', favProducts);
+        return favProducts;
+        // return [];
+      }
     }
   };
 

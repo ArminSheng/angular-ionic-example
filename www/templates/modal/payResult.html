@@ -1,0 +1,39 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+      <button class="button button-clear" ng-click="modals.payResultModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+      </button>
+    </div>
+    <h1 class="title">
+      付款结果
+    </h1>
+	</ion-header-bar>
+	<ion-content>
+		<div class="m-pay-result-wrapper">
+			<div class="m-pay-result" ng-class="{'m-pay-result-ok': modals.payResultModal.status === 0, 'm-pay-result-failed':modals.payResultModal.status === 1}">
+				<div class="m-pay-result-text" ng-if="modals.payResultModal.status === 0">
+					<p class="m-pay-result-head">付款成功！</p>
+					<p>我们会尽快为您发货，请耐心等待</p>
+				</div>
+				<div class="m-pay-result-text" ng-if="modals.payResultModal.status === 1">
+					<p class="m-pay-result-head m-common-red">支付遇到问题！</p>
+					<p class="m-pay-result-word">请再次支付，如有问题请联系</p>
+					<p class="m-pay-result-word">客服热线：400-787-526</p>
+				</div>
+			</div>
+			<div class="m-pay-result-operations" ng-if="modals.payResultModal.status === 1">
+					<a class="m-pay-cancel-button" ng-click="modals.payResultModal.doCancelPayment()"> << 取消付款</a>
+					<button class="button button-energized" ng-click="modals.payResultModal.doPayGoOn()">继续付款</button>
+			</div>
+			<div class="m-pay-result-operations" ng-if="modals.payResultModal.status === 0">
+					<button class="button m-button-outline-energized" ng-click="modals.payResultModal.doCheckOrder()">查看订单详情</button>
+					<button class="button button-energized" ng-click="modals.payResultModal.doBuyMore()">继续选购</button>
+			</div>
+		</div>
+		<div class="m-pay-ads-wrapper">
+			<p class="m-pay-ads-head">精品推荐</p>
+			<collect-product-list items="modals.payResultModal.items"></collect-product-list>
+		</div>
+	</ion-content>
+</ion-modal-view>

@@ -121,6 +121,11 @@ angular.module('mmr.services')
     // address related
     doChangeAddress: function(data) {
       $rootScope.$broadcast('doChangeAddress', data);
+    },
+
+    // select position
+    doSelectPos: function(data) {
+      $rootScope.$broadcast('doSelectPos', data);
     }
 
   };

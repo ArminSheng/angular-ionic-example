@@ -1,0 +1,50 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-energized">
+		<div class="buttons">
+      <button class="button button-clear" ng-click="preferredBrandModal.doHide()">
+        <span class="icon ion-chevron-left m-common-back"></span>
+        首页
+      </button>
+    </div>
+    <h1 class="title" ng-if="preferredBrandModal.index === 0">
+      优选品牌
+    </h1>
+    <h1 class="title" ng-if="preferredBrandModal.index === 1">
+      新品推荐
+    </h1>
+    <div class="buttons">
+  		<div class="m-home-cart">
+	      <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
+	      	<span class="badge badge-assertive m-badge">0</span>
+	      </a>
+	  	</div>
+			<button class="button button-clear" ng-click="">
+				<span class="icon ion-more m-header-icon"></span>
+			</button>
+   	</div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="m-brand-item-container" ng-if="preferredBrandModal.index === 0">
+			<div class="m-brand-item">
+				<img src="img/home/banner-ads.png">
+			</div>
+			<div class="m-brand-item">
+				<img src="img/home/banner-ads.png">
+			</div>
+			<div class="m-brand-item">
+				<img src="img/home/banner-ads.png">
+			</div>
+			<div class="m-brand-item">
+				<img src="img/home/banner-ads.png">
+			</div>
+		</div>
+		<div class="m-new-item-container" ng-if="preferredBrandModal.index === 1">
+			<div class="m-brand-item">
+				<img src="img/home/banner-ads.png">
+			</div>
+			<!-- product list -->
+      <collect-product-list items="preferredBrandModal.items"></collect-product-list>
+		</div>
+
+	</ion-content>
+</ion-modal-view>

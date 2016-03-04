@@ -1,5 +1,5 @@
 <div class="row m-no-padding">
-  <div class="col col-50 m-sales-area m-no-padding" ng-repeat="area in areas track by $index" style="background-image: url('{{ area.path }}');" ng-class="{ 'm-sales-area-border': $index === 0 }">
+  <div class="col col-50 m-sales-area m-no-padding" ng-repeat="area in areas track by $index" style="background-image: url('{{ area.path }}');" ng-class="{ 'm-sales-area-border': $index === 0 }" ng-click="doOpenPage($index)">
     <span class="m-sales-area-title">{{ area.title }}</span>
   </div>
 </div>

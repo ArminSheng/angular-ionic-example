@@ -1122,6 +1122,14 @@ angular.module('mmr.services')
         modal.doHide = function() {
           modal.hide();
         };
+
+        // event handlers
+        scope.$on('doStateToCart', function($event, data) {
+          modal.doHide();
+          $state.go('tab.cart', {
+            tab: item.isReserved ? 0 : 1
+          });
+        });
       });
     },
 

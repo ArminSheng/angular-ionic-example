@@ -169,7 +169,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('collectProductList', [function() {
+.directive('collectProductList', ['mmrModal', function(mmrModal) {
   return {
     restrict: 'E',
     replace: true,
@@ -184,6 +184,10 @@ angular.module('mmr.directives')
         if(item.cartAmount < 0) {
           item.cartAmount = 0;
         }
+      };
+
+      scope.doOpenDetail = function(item) {
+        mmrModal.createItemDetailModal(scope, item);
       };
     }
   };

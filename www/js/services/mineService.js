@@ -212,6 +212,7 @@ angular.module('mmr.services')
   ],
   favProducts = [
       {
+        id: 1,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
@@ -221,6 +222,7 @@ angular.module('mmr.services')
         brand: '买卖肉'
       },
       {
+        id: 2,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '鲜品',
@@ -230,6 +232,7 @@ angular.module('mmr.services')
         brand: '买卖肉'
       },
       {
+        id: 3,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
@@ -239,6 +242,7 @@ angular.module('mmr.services')
         brand: '买卖肉'
       },
       {
+        id: 4,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
@@ -248,6 +252,7 @@ angular.module('mmr.services')
         brand: '买卖肉'
       },
       {
+        id: 5,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '鲜品',
@@ -257,6 +262,7 @@ angular.module('mmr.services')
         brand: '买卖肉'
       },
       {
+        id: 6,
         name: '苏北草鸭腿950g',
         imagePath: 'img/item/sample.png',
         attribute: '冻品',

@@ -5,6 +5,28 @@ angular.module('mmr.services')
 
   // mock data
   function getItemDetail(item) {
+    // more basic fields
+    // "id" : 1,
+    // "type" : 1,
+    // "title" : "鸡翅0",
+    // "brand" : "微杨科技",
+    // "imagePath" : "img/item/sample.png",
+    // "oprice" : 12.0,
+    // "cprice" : 8.8,
+    // "unitName" : "箱",
+    // "deadline" : 1457432030410,
+    // "salesAmount" : 1000
+    if(item.name) {
+      item.title = item.name;
+    }
+    if(item.price) {
+      item.oprice = item.price;
+      item.cprice = item.price * 0.8;
+    }
+    if(!item.salesAmount) {
+      item.salesAmount = 1000;
+    }
+
     item.category = '禽产品';
     item.fav = false;
 
@@ -19,7 +41,10 @@ angular.module('mmr.services')
 
     item.spec = '约2000只每箱';
     item.place = '内蒙古 满洲里市';
-    item.attribute = '冻品';
+
+    if(!item.attribute) {
+      item.attribute = '冻品';
+    }
 
     item.review = {
       rate: 92,

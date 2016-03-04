@@ -206,6 +206,10 @@ angular.module('mmr.directives')
           return false;
         }
 
+        if(subOrder.items && subOrder.items.length <= 2) {
+          return false;
+        }
+
         if(!readonly) {
           expandedMapping[subOrder.subOrderId] = true;
         } else {

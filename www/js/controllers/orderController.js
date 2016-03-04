@@ -88,7 +88,7 @@ angular.module('mmr.controllers')
     // convert the tabIdx to status
     switch(Number(tab)) {
       case 0:
-        return '!!';
+        return '';
       case 1:
         return 0;
       case 2:

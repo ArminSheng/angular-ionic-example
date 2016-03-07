@@ -71,6 +71,19 @@ angular.module('mmr.controllers')
     localStorageService.bind($scope, 'orders');
   }
 
+  // empty content
+  if (!$scope.orders) {
+    $scope.isEmpty = true;
+  }
+  $scope.words = ['这里空空的，快去下单吧！'];
+  $scope.additionalClass = 'm-order-empty';
+  $scope.button = {
+    text:'去逛逛',
+    onTap: function() {
+      console.log('orders');
+    }
+  };
+
   function getStatus(tab) {
     // convert the tabIdx to status
     switch(Number(tab)) {

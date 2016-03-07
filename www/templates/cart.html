@@ -20,7 +20,7 @@
     </div> -->
   </ion-content>
   <!-- empty content -->
-  <empty-content words="words" additional-class="{{ additionalClass }}" button="button" ng-if="getOrders(1).length === 0 && getOrders(0).length === 0"></empty-content>
+  <empty-content words="words" additional-class="{{ additionalClass }}" button="button" ng-if="isEmpty"></empty-content>
 
   <div class="m-cart-filters anim-common" ng-class="scrollStatus">
     <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>

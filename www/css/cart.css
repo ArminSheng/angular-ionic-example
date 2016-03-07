@@ -188,8 +188,8 @@
 
 /*cart empty */
 .m-cart-empty {
-  background: #fff url('../img/empty/cart-empty.png') no-repeat fixed 50% 25%;
-  background-size: 40%;
+  background: #fff url('../img/empty/cart-empty.png') no-repeat fixed 50% 35%;
+  background-size: 42%;
 }
 
 .m-cart .scroll {

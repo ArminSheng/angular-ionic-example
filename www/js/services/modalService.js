@@ -91,19 +91,28 @@ angular.module('mmr.services')
         scope:scope
       }).then(function(modal) {
         $rootScope.modals.receiptModal = modal;
-        $rootScope.modals.receiptModal.show();
+        modal.show();
 
-        $rootScope.modals.receiptModal.tab = 0;
-        $rootScope.modals.receiptModal.switchTab = function(tabIdx) {
-          $rootScope.modals.receiptModal.tab = tabIdx;
+        // empty content
+        modal.words = ['暂无发票'];
+        modal.additionalClass = 'my-receipt-empty';
+
+        modal.tab = 0;
+        modal.switchTab = function(tabIdx) {
+          modal.tab = tabIdx;
+          isEmpty(tabIdx);
         };
+
+
+
+
 
         //methods
-        $rootScope.modals.receiptModal.doHideReceipt = function() {
-          $rootScope.modals.receiptModal.hide();
+        modal.doHideReceipt = function() {
+          modal.hide();
         };
 
-        $rootScope.modals.receiptModal.getExplain = function(receipt) {
+        modal.getExplain = function(receipt) {
           switch(receipt.rating) {
             case 0:
               return '有效';
@@ -114,13 +123,19 @@ angular.module('mmr.services')
           }
         };
 
-        $rootScope.modals.receiptModal.doAdd = function(tab) {
+        modal.doAdd = function(tab) {
           self.createReceiptDetailModal(scope,tab);
         };
 
         init();
         function init() {
-          $rootScope.modals.receiptModal.receipts = mmrMineFactory.receiptDetails();
+          modal.receipts = mmrMineFactory.receiptDetails();
+        }
+
+        //is empty function
+        isEmpty(modal.tab);
+        function isEmpty(tab) {
+          modal.isEmpty = modal.receipts[tab].length === 0 ? true : false;
         }
       });
     },
@@ -227,26 +242,17 @@ angular.module('mmr.services')
           modal.activateScreen();
         });
 
-        // init(tab);
         function init(tab) {
-          $rootScope.modals.collectModal.myFav = mmrMineFactory.myFav(tab);
+          modal.myFav = mmrMineFactory.myFav(tab);
           modal.words = ['您还没有任何收藏，快去收藏吧！'];
-          if (tab === 0) {
-
-          } else {
-            modal.additionalClass = 'm-collect-empty-shop';
-            modal.button = {
-              text:'去看看',
-              type: 'text',
-              onTap: function() {
-                console.log('log');
-              }
-            };
-          }
-
+          modal.isShow = false;
+          modal.sortActivated = false;
+          modal.screenActivated = false;
+          modal.additionalClass = tab === 0 ? 'm-collect-empty-product' : 'm-collect-empty-shop';
+          modal.isEmpty = modal.myFav.length === 0 ? true : false;
         }
 
-        $rootScope.modals.collectModal.switchTab(tab);
+        modal.switchTab(tab);
       });
     },
 

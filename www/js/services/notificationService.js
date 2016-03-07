@@ -24,7 +24,8 @@ angular.module('mmr.services')
       // save into cache
       mmrCacheFactory.set('notifications', {
         '0': notificationsType0,
-        '1': notificationsType1
+        // '1': notificationsType1
+        '1': []   //test empty content
       });
     },
   };

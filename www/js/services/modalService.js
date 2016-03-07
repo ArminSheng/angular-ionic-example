@@ -103,10 +103,6 @@ angular.module('mmr.services')
           isEmpty(tabIdx);
         };
 
-
-
-
-
         //methods
         modal.doHideReceipt = function() {
           modal.hide();
@@ -1164,6 +1160,32 @@ angular.module('mmr.services')
 
         modal.doBuyMore = function() {
           console.log('buy more');
+        };
+
+      });
+    },
+
+    createMyFootprintModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/footprint.html', {
+        scope: scope
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.modals.footprintModal = modal;
+
+        //empty content
+        modal.isEmpty = true;
+        modal.words = ['暂无足迹'];
+        modal.additionalClass = 'my-footprint-empty';
+        modal.button = {
+          text: '去逛逛',
+          onTap: function() {
+            console.log('log');
+          }
+        }
+
+        //methods
+        modal.doHide = function() {
+          modal.hide();
         };
 
       });

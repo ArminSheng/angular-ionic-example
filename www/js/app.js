@@ -192,10 +192,21 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
         controller: 'OrderCtrl'
       }
     }
+  })
+
+  .state('404', {
+    url: '/404',
+    views: {
+      '404': {
+        templateUrl: 'templates/404.html',
+        controller: 'NotFoundCtrl'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  // $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/404');
 
   // config local storage
   localStorageServiceProvider

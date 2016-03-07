@@ -112,6 +112,10 @@ angular.module('mmr.controllers')
     });
   };
 
+  $scope.doOpenMyFootprint = function() {
+    mmrEventing.doOpenMyFootprint();
+  };
+
   // ----------------------
   // event handler
   // ----------------------
@@ -247,6 +251,14 @@ angular.module('mmr.controllers')
       $rootScope.modals.receiptModal.show();
     } else {
       mmrModal.createMyReceiptModal($scope);
+    }
+  });
+
+  $scope.$on('eventOpenMyFootprint', function($event) {
+    if ($rootScope.modals.footprintModal && !$rootScope.modals.footprintModal.scope.$$destroyed) {
+      $rootScope.modals.footprintModal.show();
+    } else {
+      mmrModal.createMyFootprintModal($scope);
     }
   });
 

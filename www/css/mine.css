@@ -408,6 +408,8 @@
     top: 42px;
 }
 
+
+/* empty content */
 .m-common-empty-container {
     text-align: center;
     height: 100%;
@@ -441,6 +443,11 @@
 
 .m-common-empty-word {
     display: block;
+}
+
+.my-footprint-empty {
+    background: url('../img/empty/footprint-empty.png') no-repeat  fixed 50% 35% ;
+    background-size: 42%;
 }
 
 /* shop detail */

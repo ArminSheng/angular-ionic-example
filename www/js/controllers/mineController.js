@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
-  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
+  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -81,32 +81,7 @@ angular.module('mmr.controllers')
               correctOrientation:true
             };
 
-            $cordovaCamera.getPicture(options).then(function(imageURI) {
-              // uploaded filename
-              var filename = getUploadAvatarName();
-
-              // show the loading mark
-              mmrLoadingFactory.show('正在上传新的头像...');
-
-              // upload the image to server
-              $cordovaFileTransfer.upload(REST_BASE + 'c_upload/upload', imageURI, {
-                mimeType: 'image/png',
-                params: {
-                  name: filename
-                }
-              }).then(function(result) {
-                // reassign the latest avatar url
-                mmrLoadingFactory.hide();
-                $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
-              }, function(err) {
-                // reassign the latest avatar url
-                mmrLoadingFactory.hide();
-                $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
-              }, function (progress) {
-                // constant progress updates
-                console.log('progress: ', progress);
-              });
-            }, function(err) {
+            $cordovaCamera.getPicture(options).then(uploadAvatar, function(err) {
               // error
               mmrCommonService.help('错误提示', '在调用摄像头时发生了错误');
             });
@@ -114,6 +89,20 @@ angular.module('mmr.controllers')
             break;
           case 1:
             // open the album
+            var options = {
+              maximumImagesCount: 1,
+              width: 300,
+              height: 300,
+              quality: 60
+            };
+
+            $cordovaImagePicker.getPictures(options).then(function (results) {
+              uploadAvatar(results[0]);
+            }, function(error) {
+              // error getting photos
+              mmrCommonService.help('错误提示', '在调用相册时发生了错误');
+            });
+
             break;
         }
 
@@ -316,6 +305,33 @@ angular.module('mmr.controllers')
   // private functions
   function getUploadAvatarName() {
     return new Date().getTime() + '-' + String(Math.random()).substring(2, 6) + '.png';
+  }
+
+  function uploadAvatar(imageURI) {
+    // uploaded filename
+    var filename = getUploadAvatarName();
+
+    // show the loading mark
+    mmrLoadingFactory.show('正在上传新的头像...');
+
+    // upload the image to server
+    $cordovaFileTransfer.upload(REST_BASE + 'c_upload/upload', imageURI, {
+      mimeType: 'image/png',
+      params: {
+        name: filename
+      }
+    }).then(function(result) {
+      // reassign the latest avatar url
+      mmrLoadingFactory.hide();
+      $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
+    }, function(err) {
+      // reassign the latest avatar url
+      mmrLoadingFactory.hide();
+      $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
+    }, function (progress) {
+      // constant progress updates
+      console.log('progress: ', progress);
+    });
   }
 
 }])

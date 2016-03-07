@@ -117,6 +117,10 @@
     left: 65px;
 }
 
+.m-cat-body .m-cat-body-loading {
+    text-align: center;
+}
+
 .m-cat-options-bar {
     position: relative;
     top: 44px;

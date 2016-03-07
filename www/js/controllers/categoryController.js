@@ -25,11 +25,16 @@ angular.module('mmr.controllers')
   // search related
   $scope.searchResults = [];
   $scope.searchInputFocused = false;
+  $scope.searchCurrentPage = 0;
+  $scope.searchCurrentKeyword = '';
 
   // methods
   $scope.initialize = function() {
-    mmrDataService.request(mmrItemFactory.search()).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search({
+      page: $scope.searchCurrentPage
+    })).then(function(res) {
       $scope.searchResults = res[0];
+      $scope.searchCurrentPage += 1;
     }, function(err) {
 
     });
@@ -69,6 +74,30 @@ angular.module('mmr.controllers')
     // reset all
     $scope.sortActivated = false;
     $scope.swipeMenu(false);
+  };
+
+  // inifinite scroll related
+  $scope.moreDataCanBeLoaded = function() {
+    if($scope.searchCurrentPage < 5) {
+      return true;
+    }
+    return false;
+  };
+
+  $scope.loadMore = function() {
+    $scope.isLoadingMore = true;
+
+    mmrDataService.request(mmrItemFactory.search({
+      page: $scope.searchCurrentPage,
+      keyword: $scope.searchCurrentKeyword
+    })).then(function(res) {
+      $scope.searchResults = $scope.searchResults.concat(res[0]);
+      $scope.searchCurrentPage += 1;
+      $scope.isLoadingMore = false;
+      $scope.$broadcast('scroll.infiniteScrollComplete');
+    }, function(err) {
+
+    });
   };
 
   // scroll related
@@ -134,7 +163,35 @@ angular.module('mmr.controllers')
     $rootScope.$root.ui.tabsHidden = false;
   };
 
+  $scope.doSubmitSearchRequest = function(keyword) {
+    mmrEventing.doSelectSearchHistory({
+      text: keyword
+    });
+  };
+
   $scope.doSearch = function(keyword) {
+    // put the keyword into the input control
+    $scope.searchKeyword = keyword;
+
+    // send the search request
+    $scope.searchCurrentKeyword = keyword;
+    $scope.searchCurrentPage = 0;
+    $scope.isLoadingMore = false;
+
+    mmrDataService.request(mmrItemFactory.search({
+      page: $scope.searchCurrentPage,
+      keyword: keyword
+    })).then(function(res) {
+      $scope.searchResults = res[0];
+      $scope.searchCurrentPage += 1;
+
+      // scroll to the top
+      $scope.scrollToTop();
+    }, function(err) {
+
+    });
+
+    // update the search history
     var keywords = $rootScope.$root.search.keywords;
     // try to find the existing if any
     var existed = _.find(keywords, { text: keyword });
@@ -156,6 +213,19 @@ angular.module('mmr.controllers')
 
       if(keywords.length > 15) {
         keywords.pop();
+      }
+    }
+
+    // hide the keyboard
+    try {
+      if(cordova && cordova.plugins && cordova.plugins.Keyboard) {
+        $timeout(function() {
+          cordova.plugins.Keyboard.close();
+        }, 100);
+      }
+    } catch (e) {
+      if (e instanceof ReferenceError) {
+        // take necessary steps
       }
     }
   };
@@ -194,6 +264,12 @@ angular.module('mmr.controllers')
 
     // hide the screen popup
     $scope.activateScreen();
+  });
+
+  // handler on history keyword click
+  $scope.$on('doSelectSearchHistory', function($event, data) {
+    $scope.doSearch(data.text);
+    $scope.doBlurSearchInput();
   });
 
   $scope.initialize();

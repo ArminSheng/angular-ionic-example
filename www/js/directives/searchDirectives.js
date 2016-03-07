@@ -1,7 +1,7 @@
 angular.module('mmr.directives')
 
-.directive('searchListKeyword', ['$rootScope', '$ionicPopup',
-  function($rootScope, $ionicPopup) {
+.directive('searchListKeyword', ['$rootScope', '$ionicPopup', 'mmrEventing',
+  function($rootScope, $ionicPopup, mmrEventing) {
 
   function calcSearchPanelVisibleHeight(offset) {
     var result = $(window).height() - $rootScope.$root.ui.heights.headerBarHeight;
@@ -28,7 +28,14 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
 
       scope.doSelectSearchKeyword = function(keyword) {
+        // wrap the keyword into object just like history item
+        if(typeof(keyword) === 'string') {
+          keyword = {
+            text: keyword
+          };
+        }
 
+        mmrEventing.doSelectSearchHistory(keyword);
       };
 
       scope.doDeleteSearchRecord = function() {

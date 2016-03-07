@@ -37,12 +37,18 @@ angular.module('mmr.services')
     },
 
     // search the items
-    search: function(size) {
+    // config object:
+    // size: size per request, default 10,
+    // page: page number, default 0,
+    // keyword: user input keyword, default ''
+    search: function(config) {
       return $http({
         url: restService.API_REST + 'c_search/',
         method: 'GET',
         params: {
-          's': size || 10
+          's': config.size || 10,
+          'p': config.page || 0,
+          'k': config.keyword || ''
         }
       });
     }

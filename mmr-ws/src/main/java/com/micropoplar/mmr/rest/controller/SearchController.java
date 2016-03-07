@@ -15,12 +15,13 @@ import com.micropoplar.mmr.vo.ItemVo;
 @RequestMapping("/c_search")
 public class SearchController {
 
-    @Autowired
-    private MockData mockData;
+  @Autowired
+  private MockData mockData;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<ItemVo> search(@RequestParam("s") Integer size) {
-        return mockData.findSearchResults(size);
-    }
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  public List<ItemVo> search(@RequestParam("s") Integer size, @RequestParam("p") Integer page,
+      @RequestParam("k") String keyword) {
+    return mockData.findSearchResults(keyword, size, page);
+  }
 
 }

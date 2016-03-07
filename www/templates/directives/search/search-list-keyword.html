@@ -3,7 +3,7 @@
     <span>热搜</span>
   </div>
   <div class="m-search-list-hot">
-    <span class="badge badge-energized m-search-list-hot-item" ng-repeat="item in hotKeywords">
+    <span class="badge badge-energized m-search-list-hot-item" ng-repeat="item in hotKeywords" ng-click="doSelectSearchKeyword(item)">
       {{ item }}
     </span>
   </div>

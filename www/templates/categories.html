@@ -4,7 +4,7 @@
       <!-- search input -->
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <form action="." ng-submit="$event.preventDefault();doSearch(searchKeyword)" class="m-cat-search-form">
+        <form action="." ng-submit="$event.preventDefault();doSubmitSearchRequest(searchKeyword)" class="m-cat-search-form">
           <input type="hidden">
           <input type="search" placeholder="搜索商品" ng-click="doFocusSearchInput()" ng-model="searchKeyword" tabindex="-1">
         </form>
@@ -23,6 +23,14 @@
     <div class="m-cat-main" ng-class="{'expanded': menuOpened}">
       <!-- search results -->
       <search-result-list items="searchResults"></search-result-list>
+    </div>
+
+    <!-- infinite scroll -->
+    <ion-infinite-scroll ng-if="moreDataCanBeLoaded()" icon="ion-loading-c" on-infinite="loadMore()" distance="1%">
+    </ion-infinite-scroll>
+
+    <div class="m-cat-body-loading">
+      <ion-spinner ng-if="isLoadingMore"></ion-spinner>
     </div>
 
     <!-- backdrop -->

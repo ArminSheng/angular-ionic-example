@@ -126,6 +126,11 @@ angular.module('mmr.services')
     // select position
     doSelectPos: function(data) {
       $rootScope.$broadcast('doSelectPos', data);
+    },
+
+    // select search history keyword
+    doSelectSearchHistory: function(data) {
+      $rootScope.$broadcast('doSelectSearchHistory', data);
     }
 
   };

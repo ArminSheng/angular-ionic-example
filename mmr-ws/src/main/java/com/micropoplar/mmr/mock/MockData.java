@@ -77,7 +77,7 @@ public class MockData {
     return results;
   }
 
-  public List<ItemVo> findSearchResults(String keyword, Integer size, Integer page) {
+  public List<ItemVo> findSearchResults(String keyword, Integer size, Integer page, Integer sort) {
     List<ItemVo> results = new LinkedList<ItemVo>();
 
     if (StringUtils.isBlank(keyword)) {
@@ -90,7 +90,7 @@ public class MockData {
     for (int i = 0; i < size; i++) {
       int sequence = page * 10 + i + 1;
       results.add(new ItemVo(sequence, 1, keyword + sequence, "微杨科技", "img/item/sample.png", 12.0,
-          8.8, "箱", next.getTime(), (i + 1) * 1000));
+          1.1 * (i + 1), "箱", next.getTime(), (i + 1) * 1000));
     }
 
     return results;

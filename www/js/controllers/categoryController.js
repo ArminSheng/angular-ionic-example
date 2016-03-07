@@ -6,6 +6,7 @@ angular.module('mmr.controllers')
   // sort related
   $scope.sortEventName = 'eventCategorySort';
   $scope.sortActivated = false;
+  $scope.sortMethod = 0;
 
   // screen related
   $scope.screenEventPrefix = 'eventCategoryScreen';
@@ -89,7 +90,8 @@ angular.module('mmr.controllers')
 
     mmrDataService.request(mmrItemFactory.search({
       page: $scope.searchCurrentPage,
-      keyword: $scope.searchCurrentKeyword
+      keyword: $scope.searchCurrentKeyword,
+      sort: $scope.sortMethod
     })).then(function(res) {
       $scope.searchResults = $scope.searchResults.concat(res[0]);
       $scope.searchCurrentPage += 1;
@@ -180,7 +182,8 @@ angular.module('mmr.controllers')
 
     mmrDataService.request(mmrItemFactory.search({
       page: $scope.searchCurrentPage,
-      keyword: keyword
+      keyword: keyword,
+      sort: $scope.sortMethod
     })).then(function(res) {
       $scope.searchResults = res[0];
       $scope.searchCurrentPage += 1;
@@ -244,6 +247,8 @@ angular.module('mmr.controllers')
   // event handlers
   $scope.$on($scope.sortEventName, function($event, data) {
     // after selecting the new sorting method
+    $scope.sortMethod = data;
+    reorderSearchResults(data);
   });
 
   $scope.$on($scope.screenEventPrefix + 'SelectItem', function($event, data) {
@@ -273,6 +278,23 @@ angular.module('mmr.controllers')
   });
 
   $scope.initialize();
+
+  function reorderSearchResults(orderType) {
+    $scope.searchResults = _.sortBy($scope.searchResults, function(o) {
+      switch(orderType) {
+        case 0:
+          return o.id;
+        case 1:
+          return -o.cprice;
+        case 2:
+          return o.cprice;
+        case 3:
+          return -o.salesAmount;
+        case 4:
+          return o.salesAmount;
+      }
+    });
+  }
 }])
 
 .controller('CategoryMenuCtrl', ['$scope', function($scope) {

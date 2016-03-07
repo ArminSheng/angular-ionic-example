@@ -20,8 +20,8 @@ public class SearchController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public List<ItemVo> search(@RequestParam("s") Integer size, @RequestParam("p") Integer page,
-      @RequestParam("k") String keyword) {
-    return mockData.findSearchResults(keyword, size, page);
+      @RequestParam("o") Integer sort, @RequestParam("k") String keyword) {
+    return mockData.findSearchResults(keyword, size, page, sort);
   }
 
 }

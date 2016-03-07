@@ -40,6 +40,7 @@ angular.module('mmr.services')
     // config object:
     // size: size per request, default 10,
     // page: page number, default 0,
+    // sort: sort method, default 0,
     // keyword: user input keyword, default ''
     search: function(config) {
       return $http({
@@ -48,6 +49,7 @@ angular.module('mmr.services')
         params: {
           's': config.size || 10,
           'p': config.page || 0,
+          'o': config.sort || 0,
           'k': config.keyword || ''
         }
       });

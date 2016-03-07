@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$ionicHistory', '$ionicModal', '$ionicPopup', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
-  function($scope, $rootScope, $q, $state, $ionicHistory, $ionicModal, $ionicPopup, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
+  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -53,6 +53,74 @@ angular.module('mmr.controllers')
     mmrEventing.doOpenMyCollect(tab);
   };
 
+  $scope.doChangeAvatar = function() {
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        { text: '新拍摄一张' },
+        { text: '从相册中选择一张' }
+      ],
+      titleText: '修改您的头像',
+      cancelText: '取消',
+      cancel: function() {
+
+      },
+      buttonClicked: function(index) {
+        switch(index) {
+          case 0:
+            // invoke the camera
+            var options = {
+              quality: 60,
+              destinationType: Camera.DestinationType.FILE_URI,
+              sourceType: Camera.PictureSourceType.CAMERA,
+              allowEdit: true,
+              encodingType: Camera.EncodingType.PNG,
+              targetWidth: 300,
+              targetHeight: 300,
+              popoverOptions: CameraPopoverOptions,
+              saveToPhotoAlbum: true,
+              correctOrientation:true
+            };
+
+            $cordovaCamera.getPicture(options).then(function(imageURI) {
+              // uploaded filename
+              var filename = getUploadAvatarName();
+
+              // show the loading mark
+              mmrLoadingFactory.show('正在上传新的头像...');
+
+              // upload the image to server
+              $cordovaFileTransfer.upload(REST_BASE + 'c_upload/upload', imageURI, {
+                mimeType: 'image/png',
+                params: {
+                  name: filename
+                }
+              }).then(function(result) {
+                // reassign the latest avatar url
+                mmrLoadingFactory.hide();
+                $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
+              }, function(err) {
+                // reassign the latest avatar url
+                mmrLoadingFactory.hide();
+                $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
+              }, function (progress) {
+                // constant progress updates
+                console.log('progress: ', progress);
+              });
+            }, function(err) {
+              // error
+              mmrCommonService.help('错误提示', '在调用摄像头时发生了错误');
+            });
+
+            break;
+          case 1:
+            // open the album
+            break;
+        }
+
+        return true;
+      }
+    });
+  };
 
   // ----------------------
   // event handler
@@ -244,6 +312,11 @@ angular.module('mmr.controllers')
   });
 
   $scope.initialize();
+
+  // private functions
+  function getUploadAvatarName() {
+    return new Date().getTime() + '-' + String(Math.random()).substring(2, 6) + '.png';
+  }
 
 }])
 

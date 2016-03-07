@@ -60,6 +60,9 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
         $rootScope.$root.platform = 'browser';
       }
     }
+
+    // prepare the camera
+    // TODO
   });
 
   // add utils for the whole app

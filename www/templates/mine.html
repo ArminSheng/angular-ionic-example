@@ -31,8 +31,7 @@
             <div class="row row-no-padding">
               <!-- avatar -->
               <div class="col col-50 m-mine-avatar">
-                <img ng-src="{{ pinfo.avatar }}" ng-if="$root.pinfo.avatar"/>
-                <img ng-src="img/mine/avatar-bak.png" ng-if="!$root.pinfo.avatar"/>
+                <img ng-src="{{ $root.pinfo.avatar }}" ng-click="doChangeAvatar()"/>
               </div>
               <div class="col col-50">
                 <!-- pinfo -->

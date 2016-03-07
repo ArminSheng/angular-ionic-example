@@ -18,6 +18,7 @@ angular.module('mmr.controllers')
     isOldUser: true,
     authenticated: true,
     pinfo: {
+      avatar: 'img/mine/avatar-bak.png',
       phone: '18501751020',
       username: 'destiny1020',
       email: 'destiny.jiang@gmail.com',

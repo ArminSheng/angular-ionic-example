@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService',
-  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing',
+  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing) {
 
   // back related
   $scope.myGoBack = function() {
@@ -43,6 +43,11 @@ angular.module('mmr.controllers')
     network: true,
     networkDownStates: {
 
+    },
+
+    // category related
+    category: {
+      stack: []
     },
 
     // UI related
@@ -227,6 +232,22 @@ angular.module('mmr.controllers')
 
     // popup the msg
     // mmrCommonService.help('添加成功', '您选择的商品已成功添加到购物车');
+  });
+
+  // event handlers
+  $rootScope.$on('doSetCategoryItems', function($event, data) {
+    if(data.shouldPush) {
+      $rootScope.$root.category.stack.push(data.level);
+    }
+  });
+
+  $rootScope.$on('doCategoryItemsBack', function($event, data) {
+    var stack = $rootScope.$root.category.stack;
+    if(stack.length > 1) {
+      // remove the current level
+      stack.pop();
+      mmrEventing.doSetCategoryItems(stack[stack.length - 1], false);
+    }
   });
 
   function changeCartItems(item, newCount, canAdd) {

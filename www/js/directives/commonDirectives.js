@@ -217,7 +217,11 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('categoryMenu', ['$rootScope', function($rootScope) {
+.directive('categoryMenu', ['$rootScope', '$timeout', 'mmrMetaFactory', 'mmrEventing',
+  function($rootScope, $timeout, mmrMetaFactory, mmrEventing) {
+
+  // menu level stack
+  var stack = [];
 
   function calcMenuVisibleHeight(scope, offset) {
     var result = $(window).height() - $rootScope.$root.ui.heights.headerBarHeight;
@@ -250,17 +254,24 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/common/category-menu.html',
     link: function(scope, element, attrs) {
+      // click handlers
+      scope.doReturn = function() {
+        mmrEventing.doCategoryItemsBack();
+      };
+
+      scope.doSelectCategory = function(item) {
+        // close menu
+        mmrMetaFactory.classification({
+          gen: item.id,
+          gid: item.gid + 1
+        });
+
+        // $timeout(function() {
+        //   scope.swipeMenu(false);
+        // }, 500);
+      };
+
       // watchers
-      scope.$watch(function(scope) {
-        return scope.items;
-      }, function(newValue, oldValue, scope) {
-        // calculate the actual height for the menu
-        $('.m-cat-menu-content .scroll').height((50 * (newValue.length + 2)) + 'px');
-
-        // calculate the actual occupied/visible height for the menu
-        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));
-      });
-
       scope.$watch(function(scope) {
         return scope.optionsBarOpened;
       }, function(newValue, oldValue, scope) {
@@ -268,6 +279,14 @@ angular.module('mmr.directives')
         $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));
       });
 
+      // event handlers
+      scope.$on('doRefreshCategoryMenu', function($event, data) {
+        // calculate the actual height for the menu
+        $('.m-cat-menu-content .scroll').height((50 * (scope.items.length + 2)) + 'px');
+
+        // calculate the actual occupied/visible height for the menu
+        $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));
+      });
     }
   };
 

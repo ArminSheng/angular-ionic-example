@@ -13,7 +13,7 @@ angular.module('mmr.controllers')
   $scope.screenActivated = false;
 
   // menu related
-  $scope.currentLevel = 0;
+  $scope.currentLevel = '';
   $scope.menuOpened = false;
   $scope.menuHeight = 0;
 
@@ -61,14 +61,21 @@ angular.module('mmr.controllers')
   };
 
   $scope.swipeMenu = function(open) {
-    $scope.menuOpened = open;
+    // make sure the menu items will be rendered when open the menu
+    $timeout(function() {
+      if(open) {
+        mmrEventing.doRefreshCategoryMenu();
+      }
 
-    // control the tab
-    if(open) {
-      $rootScope.$root.ui.tabsHidden = true;
-    } else {
-      $rootScope.$root.ui.tabsHidden = false;
-    }
+      $scope.menuOpened = open;
+
+      // control the tab
+      if(open) {
+        $rootScope.$root.ui.tabsHidden = true;
+      } else {
+        $rootScope.$root.ui.tabsHidden = false;
+      }
+    }, 200);
   };
 
   $scope.doTapBackdrop = function() {
@@ -141,14 +148,6 @@ angular.module('mmr.controllers')
   $scope.scrollToTop = function() {
     $ionicScrollDelegate.scrollTop(true);
     $scope.showBacktoTopBtn = false;
-  };
-
-  // search related
-  $scope.doSelectCategory = function(item) {
-    // close menu
-    $timeout(function() {
-      $scope.swipeMenu(false);
-    }, 500);
   };
 
   $scope.doFocusSearchInput = function() {
@@ -275,6 +274,15 @@ angular.module('mmr.controllers')
   $scope.$on('doSelectSearchHistory', function($event, data) {
     $scope.doSearch(data.text);
     $scope.doBlurSearchInput();
+  });
+
+  // category item related
+  $scope.$on('doSetCategoryItems', function($event, data) {
+    // sync the cache
+    $scope.classifications = mmrCacheFactory.get('classifications');
+
+    $scope.currentLevel = data.level;
+    $scope.categoryItems = $scope.classifications[$scope.currentLevel];
   });
 
   $scope.initialize();

@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrMetaFactory', ['$http', 'restService', 'mmrCacheFactory',
-  function($http, restService, mmrCacheFactory) {
+.factory('mmrMetaFactory', ['$q', '$http', 'restService', 'mmrCacheFactory', 'mmrEventing',
+  function($q, $http, restService, mmrCacheFactory, mmrEventing) {
 
   // remove the '专区'
   var removeTrailing = function(item) {
@@ -13,6 +13,22 @@ angular.module('mmr.services')
     }
 
     return item;
+  };
+
+  var stringify = function(classParam) {
+    var result = '';
+
+    if('gen' in classParam) {
+      result += 'gen' + classParam.gen;
+    }
+    if('gid' in classParam) {
+      result += 'gid' + classParam.gid;
+    }
+    if('id' in classParam) {
+      result += 'id' + classParam.id;
+    }
+
+    return result;
   };
 
   return {
@@ -39,24 +55,35 @@ angular.module('mmr.services')
       });
     },
 
-    classification: function(gen) {
-      var g = gen || 0;
+    // params is an object:
+    // gen, gid and id
+    classification: function(params) {
+      var dfd = $q.defer();
+
+      params = params || {};
+      params.gen = params.gen || 0;
+      params.gid = params.gid || 1;
+
       $http({
         url: restService.API_REST + 'c_classification/gen/',
         method: 'GET',
-        param: {
-          'g': g
-        }
+        params: params
       }).then(function(res) {
         // save into cache
-        var cCache = mmrCacheFactory.get('classifications') || {};
-        cCache[g] = _.map(res.data, removeTrailing);
-
-        cCache[g] = cCache[g].concat(cCache[g]);
-
+        var cCache = mmrCacheFactory.get('classifications') || {},
+            cCacheKey = stringify(params);
+        cCache[cCacheKey] = _.map(res.data, removeTrailing);
         mmrCacheFactory.set('classifications', cCache);
+
+        // broadcast the category items event
+        mmrEventing.doSetCategoryItems(cCacheKey);
+
+        dfd.resolve(cCache[cCacheKey]);
       }, function(err) {
+        dfd.reject();
       });
+
+      return dfd.promise;
     },
 
     citiesAndDisctricts: function() {

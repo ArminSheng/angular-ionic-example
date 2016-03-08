@@ -15,16 +15,19 @@ import com.micropoplar.mmr.rest.repo.BuyersClassificationRepository;
 @RequestMapping("/c_classification")
 public class BuyersClassificationController {
 
-    @Autowired
-    private BuyersClassificationRepository classificationRepo;
+  @Autowired
+  private BuyersClassificationRepository classificationRepo;
 
-    @RequestMapping(value = "/gen", method = RequestMethod.GET)
-    public List<CrBuyersClassification> gen(
-            @RequestParam(name = "g", required = false) Integer gen) {
-        if (gen == null) {
-            gen = 0;
-        }
-        return classificationRepo.findByGenOrderBySort(gen);
+  @RequestMapping(value = "/gen", method = RequestMethod.GET)
+  public List<CrBuyersClassification> gen(@RequestParam(name = "gen") Integer gen,
+      @RequestParam(name = "gid") Integer gid,
+      @RequestParam(name = "id", required = false) Integer id) {
+
+    if (id == null) {
+      return classificationRepo.findByGenAndGidOrderBySort(gen, gid);
+    } else {
+      return classificationRepo.findByGenAndGidAndIdOrderBySort(gen, gid, id);
     }
+  }
 
 }

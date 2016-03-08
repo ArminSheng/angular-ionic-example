@@ -131,6 +131,26 @@ angular.module('mmr.services')
     // select search history keyword
     doSelectSearchHistory: function(data) {
       $rootScope.$broadcast('doSelectSearchHistory', data);
+    },
+
+    // category related
+    doSetCategoryItems: function(level, shouldPush) {
+      if(shouldPush === undefined) {
+        shouldPush = true;
+      }
+
+      $rootScope.$broadcast('doSetCategoryItems', {
+        level: level,
+        shouldPush: shouldPush
+      });
+    },
+
+    doCategoryItemsBack: function() {
+      $rootScope.$broadcast('doCategoryItemsBack');
+    },
+
+    doRefreshCategoryMenu: function() {
+      $rootScope.$broadcast('doRefreshCategoryMenu');
     }
 
   };

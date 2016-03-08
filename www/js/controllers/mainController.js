@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing',
-  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing', 'mmrCacheFactory',
+  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing, mmrCacheFactory) {
 
   // back related
   $scope.myGoBack = function() {
@@ -47,7 +47,8 @@ angular.module('mmr.controllers')
 
     // category related
     category: {
-      stack: []
+      stack: [],
+      items: []
     },
 
     // UI related
@@ -240,6 +241,9 @@ angular.module('mmr.controllers')
     if(data.shouldPush) {
       $rootScope.$root.category.stack.push(data.level);
     }
+
+    var cache = mmrCacheFactory.get('classifications');
+    $rootScope.$root.category.items = cache[data.level];
   });
 
   $rootScope.$on('doCategoryItemsBack', function($event, data) {

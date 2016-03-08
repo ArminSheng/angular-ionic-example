@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrMetaFactory', ['$q', '$http', 'restService', 'mmrCacheFactory', 'mmrEventing',
-  function($q, $http, restService, mmrCacheFactory, mmrEventing) {
+.factory('mmrMetaFactory', ['$rootScope', '$q', '$http', 'restService', 'mmrCacheFactory', 'mmrEventing',
+  function($rootScope, $q, $http, restService, mmrCacheFactory, mmrEventing) {
 
   // remove the '专区'
   var removeTrailing = function(item) {
@@ -77,6 +77,7 @@ angular.module('mmr.services')
 
         // broadcast the category items event
         mmrEventing.doSetCategoryItems(cCacheKey);
+        $rootScope.$root.category.items = cCache[cCacheKey];
 
         dfd.resolve(cCache[cCacheKey]);
       }, function(err) {

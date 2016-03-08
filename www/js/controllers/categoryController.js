@@ -251,11 +251,6 @@ angular.module('mmr.controllers')
   localStorageService.bind($scope, 'hotKeywords');
 
   // watchers
-  $scope.$watch(function(scope) {
-    return $scope.searchResults;
-  }, function(newValue, oldValue, scope) {
-    console.log(newValue);
-  });
 
   // event handlers
   $scope.$on($scope.sortEventName, function($event, data) {
@@ -288,15 +283,6 @@ angular.module('mmr.controllers')
   $scope.$on('doSelectSearchHistory', function($event, data) {
     $scope.doSearch(data.text);
     $scope.doBlurSearchInput();
-  });
-
-  // category item related
-  $scope.$on('doSetCategoryItems', function($event, data) {
-    // sync the cache
-    $scope.classifications = mmrCacheFactory.get('classifications');
-
-    $scope.currentLevel = data.level;
-    $scope.categoryItems = $scope.classifications[$scope.currentLevel];
   });
 
   function reorderSearchResults(orderType) {

@@ -282,7 +282,12 @@ angular.module('mmr.directives')
       // event handlers
       scope.$on('doRefreshCategoryMenu', function($event, data) {
         // calculate the actual height for the menu
-        $('.m-cat-menu-content .scroll').height((50 * (scope.items.length + 2)) + 'px');
+        var controlMenusCount = 2;
+        if($rootScope.$root.category.stack.length <= 1) {
+          controlMenusCount = 1;
+        }
+
+        $('.m-cat-menu-content .scroll').height((50 * (scope.items.length + controlMenusCount)) + 'px');
 
         // calculate the actual occupied/visible height for the menu
         $('.m-cat-menu-content').height(calcMenuVisibleHeight(scope, scope.offset));

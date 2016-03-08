@@ -65,10 +65,11 @@ angular.module('mmr.controllers')
 
       },
       buttonClicked: function(index) {
+        var options;
         switch(index) {
           case 0:
             // invoke the camera
-            var options = {
+            options = {
               quality: 60,
               destinationType: Camera.DestinationType.FILE_URI,
               sourceType: Camera.PictureSourceType.CAMERA,
@@ -89,7 +90,7 @@ angular.module('mmr.controllers')
             break;
           case 1:
             // open the album
-            var options = {
+            options = {
               maximumImagesCount: 1,
               width: 300,
               height: 300,

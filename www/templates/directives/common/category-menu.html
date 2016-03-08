@@ -5,7 +5,7 @@
       <div class="m-cat-menu-container">
         <!-- menu itself -->
         <div class="m-cat-menu-bar" ng-class="{'ios': $root.platform === 'ios'}">
-          <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return" ng-click="doReturn()">
+          <div class="m-cat-menu-bar-item m-cat-menu-bar-item-return" ng-click="doReturn()" ng-if="$root.category.stack.length > 1">
             <span class="ion-arrow-return-left m-cat-menu-bar-return"></span>返回上一级
           </div>
           <div class="m-cat-menu-bar-item" ng-repeat="item in items track by $index" ng-click="doSelectCategory(item)">

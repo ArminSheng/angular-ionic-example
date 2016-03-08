@@ -1181,7 +1181,7 @@ angular.module('mmr.services')
           onTap: function() {
             console.log('log');
           }
-        }
+        };
 
         //methods
         modal.doHide = function() {

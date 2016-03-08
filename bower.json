@@ -10,6 +10,7 @@
     "angular-md5": "~0.1.10",
     "angular-local-storage": "~0.2.3",
     "lodash": "~3.10.1",
-    "ion-gallery": "~0.1.12"
+    "ion-gallery": "~0.1.12",
+    "ng-img-crop": "ngImgCrop#~0.3.2"
   }
 }

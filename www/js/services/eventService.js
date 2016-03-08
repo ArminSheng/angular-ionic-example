@@ -151,6 +151,10 @@ angular.module('mmr.services')
 
     doRefreshCategoryMenu: function() {
       $rootScope.$broadcast('doRefreshCategoryMenu');
+    },
+
+    doOpenMyFootprint: function() {
+      $rootScope.$broadcast('eventOpenMyFootprint');
     }
 
   };

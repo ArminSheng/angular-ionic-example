@@ -522,6 +522,21 @@
     padding: 15px 0 0 10px;
 }
 
+/* pgae not found */
+.m-not-found .scroll {
+    height: 100%;
+}
+
+.m-not-found-bg {
+    width: 100%;
+    height: 100%;
+    background: url('../img/empty/404.png') no-repeat;
+    background-size: 100%;
+    color: #C49132;
+    padding-top: 180px;
+    text-align: center;
+}
+
 
 /**/
 @media screen and (max-width: 320px) {

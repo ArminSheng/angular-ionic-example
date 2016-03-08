@@ -111,6 +111,16 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
   // Each tab has its own nav history stack:
 
+  .state('tab.404', {
+    url: '/404',
+    views: {
+      'tab-mine': {
+        templateUrl: 'templates/404.html',
+        controller: 'NotFoundCtrl'
+      }
+    }
+  })
+
   .state('tab.home', {
     url: '/home',
     views: {
@@ -194,8 +204,10 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     }
   });
 
+
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/home');
+  // $urlRouterProvider.otherwise('/tab/home');
+  $urlRouterProvider.otherwise('/tab/404');
 
   // config local storage
   localStorageServiceProvider

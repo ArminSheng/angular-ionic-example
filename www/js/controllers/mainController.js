@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing',
-  function($scope, $rootScope, $state, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing',
+  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing) {
 
   // back related
   $scope.myGoBack = function() {
@@ -182,6 +182,7 @@ angular.module('mmr.controllers')
   $rootScope.$on('$stateChangeSuccess', function () {
     console.log('end state change');
     console.log($state.current.name);
+
     if($state.current.name === 'tab.cart') {
       $rootScope.$root.ui.tabsHidden = false;
     }

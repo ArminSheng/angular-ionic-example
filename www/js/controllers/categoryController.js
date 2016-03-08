@@ -1,7 +1,16 @@
 angular.module('mmr.controllers')
 
-.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory', 'mmrCacheFactory', 'mmrScrollService',
-  function($scope, $rootScope, $timeout, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory, mmrScrollService) {
+.controller('CategoryCtrl', ['$scope', '$rootScope', '$timeout', '$stateParams', '$ionicScrollDelegate', 'localStorageService', 'mmrDataService', 'mmrEventing', 'mmrItemFactory', 'mmrCacheFactory', 'mmrScrollService',
+  function($scope, $rootScope, $timeout, $stateParams, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory, mmrScrollService) {
+
+  $timeout(function() {
+    var keyword = $stateParams.keyword;
+    if(keyword && keyword !== 'init') {
+      $scope.doSearch(keyword);
+    } else {
+      $scope.initialize();
+    }
+  }, 100);
 
   // sort related
   $scope.sortEventName = 'eventCategorySort';
@@ -242,6 +251,11 @@ angular.module('mmr.controllers')
   localStorageService.bind($scope, 'hotKeywords');
 
   // watchers
+  $scope.$watch(function(scope) {
+    return $scope.searchResults;
+  }, function(newValue, oldValue, scope) {
+    console.log(newValue);
+  });
 
   // event handlers
   $scope.$on($scope.sortEventName, function($event, data) {
@@ -284,8 +298,6 @@ angular.module('mmr.controllers')
     $scope.currentLevel = data.level;
     $scope.categoryItems = $scope.classifications[$scope.currentLevel];
   });
-
-  $scope.initialize();
 
   function reorderSearchResults(orderType) {
     $scope.searchResults = _.sortBy($scope.searchResults, function(o) {

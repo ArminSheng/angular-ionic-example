@@ -126,18 +126,24 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('commodityGrid', [function() {
+.directive('commodityGrid', ['$state', function($state) {
 
   return {
     retrict: 'E',
     replace: true,
     scope: {
       items: '=',
-      banner: '@'
+      banner: '@',
+      keyword: '@'
     },
     templateUrl: 'templates/directives/commodity-grid.html',
     link: function(scope, element, attrs) {
-
+      scope.doCheckMore = function() {
+        console.log('check more: ' + scope.keyword);
+        $state.go('tab.categories', {
+          keyword: scope.keyword
+        });
+      };
     }
   };
 

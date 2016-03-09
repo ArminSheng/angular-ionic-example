@@ -5,7 +5,10 @@ ionic.project
 npm-debug.log
 node_modules/
 platforms/
-plugins/
+plugins/*
+!plugins/android.json
+!plugins/fetch.json
+!plugins/ios.json
 www/lib/
 mmr-ws/src/main/resources/
 mmr-ws/.mvn/

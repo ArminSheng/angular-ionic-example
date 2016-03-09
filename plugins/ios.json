@@ -1,0 +1,31 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-image-picker": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        }
+    }
+}

@@ -159,6 +159,10 @@ angular.module('mmr.services')
 
     doCancelPayment: function(data) {
       $rootScope.$broadcast('doCancelPayment', data);
+    },
+
+    doNewOrderGenerated: function(data) {
+      $rootScope.$broadcast('doNewOrderGenerated', data);
     }
 
   };

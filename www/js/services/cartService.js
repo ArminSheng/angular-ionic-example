@@ -33,6 +33,41 @@ angular.module('mmr.services')
       }
     },
 
+    removeGeneratedItems: function(generatedOrder) {
+      var currentOrders,
+          type;
+      if(generatedOrder.isReserved) {
+        currentOrders = $rootScope.$root.cart.reservedOrders;
+        type = 0;
+      } else {
+        currentOrders = $rootScope.$root.cart.normalOrders;
+        type = 1;
+      }
+
+      // generated items count
+      var generatedCount = $rootScope.$root.cart.checkedCounts[type];
+
+      // remove checked orders
+      _.remove(currentOrders, function(order) {
+        return order.checked;
+      });
+
+      // remove checked items within the orders
+      _.forEach(currentOrders, function(order) {
+        _.remove(order.items, function(item) {
+          return item.checked;
+        });
+      });
+
+      this.updateCheckedInformation(type);
+      updateTotalCount(type, generatedCount);
+
+      function updateTotalCount(type, generatedCount) {
+        $rootScope.$root.cart.totalCount -= generatedCount;
+        $rootScope.$root.cart.counts[type] -= generatedCount;
+      }
+    },
+
     checkAllCartItems: function(type) {
       if(type === 0) {
         if($rootScope.$root.cart.allChecked[type]) {

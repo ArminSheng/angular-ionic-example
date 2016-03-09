@@ -957,6 +957,9 @@ angular.module('mmr.services')
           mmrOrderFactory.generate().then(function(res) {
             mmrLoadingFactory.hide();
             if(res.status && res.status === 200) {
+              // broadcast the generate event
+              mmrEventing.doNewOrderGenerated(orders);
+
               // redirect to the checkout modal
               self.createCheckoutModal(scope, orders);
             }
@@ -980,7 +983,7 @@ angular.module('mmr.services')
         $rootScope.$on('doCancelPayment', function($event, data) {
           // when the user cancel the payment for this order
           modal.remove();
-        })
+        });
       });
     },
 

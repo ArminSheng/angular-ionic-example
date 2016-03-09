@@ -108,6 +108,10 @@ angular.module('mmr.controllers')
     isEmpty($stateParams.tab);
   });
 
+  $rootScope.$on('doNewOrderGenerated', function($event, data) {
+    mmrCartService.removeGeneratedItems(data);
+  });
+
   // watchers
   $scope.$watch(function(scope) {
     return $rootScope.$root.cart.totalCount;

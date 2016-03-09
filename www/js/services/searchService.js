@@ -60,7 +60,7 @@ angular.module('mmr.services')
     };
 
 
-    if(item.id % 2 === 0) {
+    if(item.id < 6) {
       item.shop = {
         id: 123,
         logoPath: 'img/item/sample.png',

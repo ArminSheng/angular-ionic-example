@@ -37,7 +37,7 @@
     </div>
 
     <!-- suborders below -->
-    <order-sub-list orders="$root.modals.orderDetailModal.item.subOrders"></order-sub-list>
+    <order-sub-list orders="$root.modals.orderDetailModal.item.subOrders" is-cart-mode="false" is-reserved="$root.modals.orderDetailModal.item.orderType === 0"></order-sub-list>
 
     <!-- money area -->
     <order-detail-money money="$root.modals.orderDetailModal.item.money"></order-detail-money>

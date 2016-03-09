@@ -80,7 +80,7 @@
 /*recommend list*/
 .m-recommend-area-scroll {
     width: 100%;
-    height: 180px;
+    height: 150px;
 }
 
 .m-recommend-area {
@@ -93,8 +93,8 @@
     background-color: white;
     position: relative;
     padding: 4px;
-    height: 170px;
-    max-height: 170px;
+    height: 140;
+    max-height: 150px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -110,7 +110,7 @@
 }
 
 .m-recommend-item-img {
-    width: 75%;
+    width: 55%;
 }
 
 .m-recommend-item-current-price {

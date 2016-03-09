@@ -109,7 +109,7 @@ angular.module('mmr.services')
         };
 
         modal.getExplain = function(receipt) {
-          switch(receipt.rating) {
+          switch(receipt.status) {
             case 0:
               return '有效';
             case 1:

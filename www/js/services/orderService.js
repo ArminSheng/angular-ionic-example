@@ -654,6 +654,13 @@ angular.module('mmr.services')
       // save into cache
       mmrCacheFactory.set('orders', orders);
     },
+
+    generate: function() {
+      return $http({
+        url: restService.API_REST + 'c_order/generate',
+        method: 'POST'
+      });
+    }
   };
 
 }]);

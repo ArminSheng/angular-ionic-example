@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.micropoplar.mmr.vo.ItemVo;
+import com.micropoplar.mmr.vo.OrderVo;
 
 /**
  * For testing.
@@ -95,4 +96,9 @@ public class MockData {
 
     return results;
   }
+
+  public OrderVo generateOrder(String id) {
+    return new OrderVo(id, 0);
+  }
+
 }

@@ -206,8 +206,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
 
   // if none of the above states are matched, use this as the fallback
-  // $urlRouterProvider.otherwise('/tab/home');
-  $urlRouterProvider.otherwise('/tab/404');
+  $urlRouterProvider.otherwise('/tab/home');
 
   // config local storage
   localStorageServiceProvider

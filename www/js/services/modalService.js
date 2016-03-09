@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory) {
 
   return {
 
@@ -951,8 +951,19 @@ angular.module('mmr.services')
           // calc the deadline payment time
           orders.deadline = new Date(new Date().getTime() + 1800000);
 
-          // redirect to the checkout modal
-          self.createCheckoutModal(scope, orders);
+          mmrLoadingFactory.show('正在创建订单, 请稍等...');
+
+          // call the order API to generate a new order
+          mmrOrderFactory.generate().then(function(res) {
+            mmrLoadingFactory.hide();
+            if(res.status && res.status === 200) {
+              // redirect to the checkout modal
+              self.createCheckoutModal(scope, orders);
+            }
+          }, function(err) {
+            mmrLoadingFactory.hide();
+            mmrCommonService.help('错误信息', '生成订单的过程中发生了错误, 请稍后重试');
+          });
         };
 
         // event handler

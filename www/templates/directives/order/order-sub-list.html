@@ -18,7 +18,7 @@
             <p>属性：{{ subItem.attribute }}</p>
             <div class="m-order-suborder-item-right">
               <h3 class="m-order-suborder-item-price">
-                ¥ {{ subItem.price }}
+                {{ subItem.price | currency: '￥' }}
               </h3>
               <p class="m-order-suborder-item-unit">
                 {{ subItem.quantity }}{{ subItem.unitName }}

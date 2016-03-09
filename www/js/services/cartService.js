@@ -119,12 +119,12 @@ angular.module('mmr.services')
         }
 
         var result = {
-          total: $rootScope.$root.cart.checkedAmounts[tab],
+          total: $rootScope.$root.cart.checkedAmounts[tab].toFixed(2),
           shipment: 0,
           coupon: 0
         };
 
-        result.summary = calculateActualMoney(result); // bottom summary area in gen modal
+        result.summary = calculateActualMoney(result).toFixed(2); // bottom summary area in gen modal
 
         return result;
       }
@@ -135,7 +135,7 @@ angular.module('mmr.services')
         });
       }
 
-      return {
+      var orderObject = {
         isReserved: tab === 0,
         orders: generateOrders(),
         money: generateMoney(),
@@ -143,6 +143,8 @@ angular.module('mmr.services')
         receipt: '增值税普通发票',
         addresses: mmrAddressService.defaultAddresses()
       };
+
+      return orderObject;
     },
 
     isCheckoutable: function(tab) {

@@ -23,7 +23,8 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-whitelist",
     "cordova-plugin-keyboard",
-    "cordova-plugin-console"
+    "cordova-plugin-console",
+    "cordova-plugin-file"
   ],
   "cordovaPlatforms": [
     "android",

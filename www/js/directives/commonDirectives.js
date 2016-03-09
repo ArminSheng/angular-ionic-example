@@ -352,7 +352,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('emptyContent', [function() {
+.directive('emptyContent', ['$rootScope', function($rootScope) {
 
   return {
     restrict: 'E',
@@ -363,8 +363,10 @@ angular.module('mmr.directives')
       additionalClass: '@'
     },
     templateUrl: 'templates/directives/common/empty-content.html',
-    link: function() {
-
+    link: function(scope, element, attrs) {
+      if ($rootScope.$root.platform == "android") {
+        scope.isAndroid = true;
+      }
     }
   };
 

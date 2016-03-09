@@ -34,18 +34,17 @@ angular.module('mmr.services')
     { status: 2, periodStart: '2015-11-01', periodEnd: '2015-12-31', amount: 99, requirementAmount: 399, range: '禽类产品', compaign: '双11狂欢节' },
     { status: 2, periodStart: '2015-11-01', periodEnd: '2015-12-31', amount: 99, requirementAmount: 399, range: '禽类产品', compaign: '双11狂欢节' },
     { status: 2, periodStart: '2015-11-01', periodEnd: '2015-12-31', amount: 99, requirementAmount: 399, range: '禽类产品', compaign: '双11狂欢节' },
-    { status: 2, periodStart:+
-     '2015-11-01', periodEnd: '2015-12-31', amount: 99, requirementAmount: 399, range: '禽类产品', compaign: '双11狂欢节' }
+    { status: 2, periodStart: '2015-11-01', periodEnd: '2015-12-31', amount: 99, requirementAmount: 399, range: '禽类产品', compaign: '双11狂欢节' }
   ];
 
-  var receiptUsual = [
+  var usual = [
     { status: 0, companyName: '上海买卖肉食品有限公司', taxpayer: '', registerAddress: '', phone: '', bank: '', bankAccount: '', license: []},
     { status: 1, companyName: '上海买卖肉食品有限公司', taxpayer: '', registerAddress: '', phone: '', bank: '', bankAccount: '', license: []},
     { status: 2, companyName: '上海买卖肉食品有限公司', taxpayer: '', registerAddress: '', phone: '', bank: '', bankAccount: '', license: []},
     { status: 0, companyName: '上海买卖肉食品有限公司', taxpayer: '', registerAddress: '', phone: '', bank: '', bankAccount: '', license: []}
   ],
 
-  receiptSpecial = [
+  special = [
     { status: 0, companyName: '上海买卖肉食品有限公司', taxpayer: '243648139573957', registerAddress: '上海市普陀区曹杨路450号', phone: '18616524565', bank: '交通银行', bankAccount: '6217003860001085170', license: []},
     { status: 1, companyName: '上海买卖肉食品有限公司', taxpayer: '243648139573957', registerAddress: '上海市普陀区曹杨路450号', phone: '18616524565', bank: '交通银行', bankAccount: '6217003860001085170', license: []},
     { status: 2, companyName: '上海买卖肉食品有限公司', taxpayer: '243648139573957', registerAddress: '上海市普陀区曹杨路450号', phone: '18616524565', bank: '交通银行', bankAccount: '6217003860001085170', license: []},
@@ -293,10 +292,9 @@ angular.module('mmr.services')
 
     receiptDetails: function() {
       // save into cache
-      mmrCacheFactory.set('receiptDetails.receiptUsual', receiptUsual);
-      mmrCacheFactory.set('receiptDetails.receiptSpecial', receiptSpecial);
-      // return [receiptUsual, receiptSpecial];
-      return [receiptUsual, []];
+      mmrCacheFactory.set('receiptDetails.usual', usual);
+      mmrCacheFactory.set('receiptDetails.special', special);
+      return [usual, special];
     },
 
     myFav: function(index) {

@@ -450,6 +450,10 @@
     background-size: 42%;
 }
 
+.platform-android {
+    background-position: 50% 22% !important;
+}
+
 /* shop detail */
 .m-modal-shop-detail-view .item-input-inset {
     background-color: transparent;

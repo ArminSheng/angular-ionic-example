@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService) {
 
   return {
 
@@ -965,6 +965,11 @@ angular.module('mmr.services')
             }
           }
         });
+
+        $rootScope.$on('doCancelPayment', function($event, data) {
+          // when the user cancel the payment for this order
+          modal.remove();
+        })
       });
     },
 
@@ -1019,8 +1024,14 @@ angular.module('mmr.services')
         modal.payments = [false, false, false];
 
         // bind methods
-        modal.doHide = function() {
-          modal.remove();
+        modal.doClose = function() {
+          // hint the user
+          mmrCommonService.confirm('取消支付', '确定要取消支付吗？(稍后可以在订单页面中再次支付)').then(function(res) {
+            if(res) {
+              mmrEventing.doCancelPayment(orders);
+              modal.remove();
+            }
+          });
         };
 
         modal.doShowDepositHint = function() {

@@ -155,6 +155,10 @@ angular.module('mmr.services')
 
     doOpenMyFootprint: function() {
       $rootScope.$broadcast('eventOpenMyFootprint');
+    },
+
+    doCancelPayment: function(data) {
+      $rootScope.$broadcast('doCancelPayment', data);
     }
 
   };

@@ -54,7 +54,7 @@ angular.module('mmr.services', [])
         title: title,
         template: template,
         cancelText: '取消',
-        okText: '确认移除',
+        okText: '确认',
         okType: 'button-assertive'
       });
     }

@@ -12,8 +12,8 @@ angular.module('mmr.controllers')
     }, function(err) {
       console.log(err);
     }).finally(function() {
-        // Stop the ion-refresher from spinning
-        $scope.$broadcast('scroll.refreshComplete');
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     });
   };
 
@@ -114,6 +114,15 @@ angular.module('mmr.controllers')
 
   $scope.doOpenMyFootprint = function() {
     mmrEventing.doOpenMyFootprint();
+  };
+
+  $scope.doRecommend = function() {
+    // load another batch of recommended data
+    mmrDataService.request(mmrItemFactory.recommend()).then(function(res) {
+      $scope.recommendedItems = res[0];
+    }, function(err) {
+      console.log(err);
+    });
   };
 
   // ----------------------

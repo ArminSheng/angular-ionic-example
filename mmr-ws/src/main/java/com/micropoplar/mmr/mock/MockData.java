@@ -1,8 +1,10 @@
 package com.micropoplar.mmr.mock;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,10 @@ public class MockData {
     return results;
   }
 
+  private List<String> itemNames =
+      Arrays.asList("鸡翅", "鸡脖子", "鸡腿", "鸡头", "牛排", "牛板筋", "牛舌", "羊排", "羊腿", "香肠", "火腿");
+  private static final Random RAND = new Random();
+
   public List<ItemVo> findRecommend(Integer size) {
     List<ItemVo> results = new LinkedList<ItemVo>();
 
@@ -71,8 +77,8 @@ public class MockData {
     Date next = new Date(now.getTime() + 360000000);
 
     for (int i = 0; i < size; i++) {
-      results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技", "img/item/sample.png", 12.0, 8.8, "箱",
-          next.getTime(), (i + 1) * 1000));
+      results.add(new ItemVo(i + 1, 1, itemNames.get(RAND.nextInt(itemNames.size())) + i, "微杨科技",
+          "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(), (i + 1) * 1000));
     }
 
     return results;

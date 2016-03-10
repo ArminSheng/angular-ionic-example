@@ -2,7 +2,7 @@
   <ion-scroll zooming="true" direction="x" class="m-recommend-area-scroll">
     <div class="m-recommend-area">
       <div class="m-recommend-area-items">
-        <div class="m-recommend-area-item" ng-repeat="item in items track by $index" ng-class="{ 'm-recommend-area-item-border': $index !== items.length - 1 }">
+        <div class="m-recommend-area-item" ng-repeat="item in items track by $index" ng-class="{ 'm-recommend-area-item-border': $index !== items.length - 1 }" ng-click="doOpenDetail(item)">
           <div class="m-recommend-item-img-container">
             <img class="m-recommend-item-img" ng-src="{{ item.imagePath }}"/>
           </div>

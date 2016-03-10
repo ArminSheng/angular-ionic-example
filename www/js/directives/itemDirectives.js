@@ -10,7 +10,7 @@ angular.module('mmr.directives')
     '</div>');
 }])
 
-.directive('seckillingList', [function() {
+.directive('seckillingList', ['mmrModal', function(mmrModal) {
   return {
     restrict: 'E',
     replace: true,
@@ -19,12 +19,14 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/item-list-seckilling.html',
     link: function(scope, element, attrs) {
-
+      scope.doOpenDetail = function(item) {
+        mmrModal.createItemDetailModal(scope, item);
+      };
     }
   };
 }])
 
-.directive('recommendList', [function() {
+.directive('recommendList', ['mmrModal', function(mmrModal) {
   return {
     restrict: 'E',
     replace: true,
@@ -33,7 +35,9 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/item-list-recommending.html',
     link: function(scope, element, attrs) {
-
+      scope.doOpenDetail = function(item) {
+        mmrModal.createItemDetailModal(scope, item);
+      };
     }
   };
 }])
@@ -126,7 +130,7 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('commodityGrid', ['$state', function($state) {
+.directive('commodityGrid', ['$state', 'mmrModal', function($state, mmrModal) {
 
   return {
     retrict: 'E',
@@ -139,10 +143,13 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/commodity-grid.html',
     link: function(scope, element, attrs) {
       scope.doCheckMore = function() {
-        console.log('check more: ' + scope.keyword);
         $state.go('tab.categories', {
           keyword: scope.keyword
         });
+      };
+
+      scope.doOpenDetail = function(item) {
+        mmrModal.createItemDetailModal(scope, item);
       };
     }
   };

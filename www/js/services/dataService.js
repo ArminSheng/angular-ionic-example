@@ -44,6 +44,23 @@ angular.module('mmr.services')
       }
 
       return dfd.promise;
+    },
+
+    sortItems: function(data, sortMethod) {
+      return _.sortBy(data, function(o) {
+        switch(sortMethod) {
+          case 0:
+            return o.id;
+          case 1:
+            return -o.cprice;
+          case 2:
+            return o.cprice;
+          case 3:
+            return -o.salesAmount;
+          case 4:
+            return o.salesAmount;
+        }
+      });
     }
 
   };

@@ -256,7 +256,7 @@ angular.module('mmr.controllers')
   $scope.$on($scope.sortEventName, function($event, data) {
     // after selecting the new sorting method
     $scope.sortMethod = data;
-    reorderSearchResults(data);
+    $scope.searchResults = mmrDataService.sortItems($scope.searchResults, $scope.sortMethod);
   });
 
   $scope.$on($scope.screenEventPrefix + 'SelectItem', function($event, data) {
@@ -284,23 +284,6 @@ angular.module('mmr.controllers')
     $scope.doSearch(data.text);
     $scope.doBlurSearchInput();
   });
-
-  function reorderSearchResults(orderType) {
-    $scope.searchResults = _.sortBy($scope.searchResults, function(o) {
-      switch(orderType) {
-        case 0:
-          return o.id;
-        case 1:
-          return -o.cprice;
-        case 2:
-          return o.cprice;
-        case 3:
-          return -o.salesAmount;
-        case 4:
-          return o.salesAmount;
-      }
-    });
-  }
 }])
 
 .controller('CategoryMenuCtrl', ['$scope', function($scope) {

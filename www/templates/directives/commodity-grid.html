@@ -4,7 +4,7 @@
   </div>
   <div class="m-commodity-grid-container">
     <div class="row row-no-padding m-commodity-grid-container-first">
-      <div class="col col-50 m-commodity-grid-cell" ng-repeat="item in items.slice(0, 2) track by $index" ng-class="{'m-commodity-grid-cell-border': $index == 0}">
+      <div class="col col-50 m-commodity-grid-cell" ng-repeat="item in items.slice(0, 2) track by $index" ng-class="{'m-commodity-grid-cell-border': $index == 0}" ng-click="doOpenDetail(item)">
         <div class="row row-no-padding">
           <div class="col col-50 m-commodity-grid-cell-left">
             <div class="m-commodity-grid-cell-desc">
@@ -23,7 +23,7 @@
       </div>
   </div>
   <div class="row row-no-padding m-commodity-margin-top-zero m-commodity-border-bottom">
-    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(2, 6) track by $index" ng-class="{'m-commodity-grid-cell-border': $index != 3}">
+    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(2, 6) track by $index" ng-class="{'m-commodity-grid-cell-border': $index != 3}" ng-click="doOpenDetail(item)">
       <div class="m-commodity-grid-cell2-desc">
         <div class="m-commodity-grid-item2-title">
           {{ item.title }}
@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="row row-no-padding m-commodity-margin-top-zero">
-    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(6, 10) track by $index" ng-class="{'m-commodity-grid-cell-border': $index != 3}">
+    <div class="col col-25 m-commodity-grid-cell2" ng-repeat="item in items.slice(6, 10) track by $index" ng-class="{'m-commodity-grid-cell-border': $index != 3}" ng-click="doOpenDetail(item)">
       <div class="m-commodity-grid-cell2-desc">
         <div class="m-commodity-grid-item2-title">
           {{ item.title }}

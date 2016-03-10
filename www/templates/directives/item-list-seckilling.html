@@ -5,7 +5,7 @@
   <ion-scroll zooming="true" direction="x" style="width: 100%; height: 160px;" zooming="false" delegate-handle="seckilling-horizontal">
     <div class="m-sec-killing-area">
       <div class="m-sec-killing-area-items">
-        <div class="m-sec-killing-area-item" ng-repeat="item in items track by $index">
+        <div class="m-sec-killing-area-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
           <item-remain-time time="item.deadline" prefix="剩余"></item-remain-time>
           <img class="m-sec-killing-item-img" ng-src="{{ item.imagePath }}"/>
           <div class="row m-sec-killing-item-prices m-no-padding">

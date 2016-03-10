@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth) {
 
   return {
 
@@ -15,6 +15,7 @@ angular.module('mmr.services')
         scope.loginModal.show();
 
         // binding data
+        scope.loginModal.sendCodeBtn = '获取验证码';
         scope.loginModal.data = {
           username: '',
           password: '',
@@ -48,8 +49,34 @@ angular.module('mmr.services')
           }
         };
 
+        var intervalPromise;
         scope.loginModal.doFetchCode = function() {
-
+          if(Validator.phone(scope.loginModal.data.username, true)) {
+            // 4 means login
+            mmrAuth.sendCode(scope.loginModal.data.username, 4).then(function() {
+              // show the message has sent
+              scope.loginModal.codeSent = true;
+              // change the btn text
+              var remainingSeconds = 60;
+              scope.loginModal.sendCodeBtn = remainingSeconds + '秒';
+              intervalPromise = $interval(function() {
+                remainingSeconds -= 1;
+                if(remainingSeconds === 0) {
+                  scope.loginModal.sendCodeBtn = '获取验证码';
+                } else {
+                  scope.loginModal.sendCodeBtn = remainingSeconds + '秒';
+                }
+              }, 1000, 60);
+            }, function(errMsg) {
+              // sent failed
+              if(errMsg === '手机号不存在') {
+                mmrCommonService.help('手机号不存在', '此手机号不存在, 请尝试注册操作');
+              } else {
+                mmrCommonService.help('网络异常', '验证码发送失败, 请稍后重试');
+              }
+              scope.loginModal.codeSent = false;
+            });
+          }
         };
 
         scope.loginModal.doLogin = function() {
@@ -82,6 +109,13 @@ angular.module('mmr.services')
         scope.loginModal.doRegister = function() {
           mmrEventing.doOpenRegister();
         };
+
+        // event handler
+        scope.$on('$destroy', function($event) {
+          if(intervalPromise) {
+            $interval.cancel(intervalPromise);
+          }
+        });
       });
     },
 

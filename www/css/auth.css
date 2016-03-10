@@ -58,7 +58,7 @@
 }
 
 .m-auth-login-switch button {
-    font-size: 1.0rem
+    font-size: 0.8rem
 }
 
 .m-auth-login-btn {
@@ -92,7 +92,7 @@
 
 .m-auth-login-code-sent {
     position: absolute;
-    left: 36px;
+    left: 1.8rem;
     bottom: -2px;
     font-size: 0.8rem;
     color: #666;

@@ -49,12 +49,12 @@
           </div>
           <div class="col col-33">
             <button class="button button-energized m-auth-login-code-btn" ng-click="loginModal.doFetchCode()">
-              <span>获取验证码</span>
+              <span>{{ loginModal.sendCodeBtn }}</span>
             </button>
           </div>
         </div>
         <!-- sent hint -->
-        <span class="m-auth-login-code-sent">
+        <span class="m-auth-login-code-sent" ng-show="loginModal.codeSent">
           已向您的手机发送验证码
         </span>
       </div>

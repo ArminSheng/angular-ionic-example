@@ -16,11 +16,10 @@ angular.module('mmr.services')
           type: type
         }
       }).then(function(res) {
-        console.log(res);
         if(res.data.status === 1) {
           dfd.resolve();
         } else {
-          dfd.reject();
+          dfd.reject(res.data.msg);
         }
       }, function(err) {
         dfd.reject();

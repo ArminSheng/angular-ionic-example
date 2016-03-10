@@ -15,7 +15,7 @@ angular.module('mmr.controllers')
     notificationCount: 5,
 
     // auth related
-    isOldUser: true,
+    isOldUser: false,
     authenticated: false,
     pinfo: {
       avatar: 'img/mine/avatar-bak.png',

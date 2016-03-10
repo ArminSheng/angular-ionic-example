@@ -1214,6 +1214,20 @@ angular.module('mmr.services')
         };
 
       });
+    },
+
+    createNotFoundModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/404.html', {
+        'scope': scope
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.modals.notFoundModal = modal;
+
+        // methods
+        modal.doHide = function() {
+          modal.hide();
+        };
+      });
     }
 
   };

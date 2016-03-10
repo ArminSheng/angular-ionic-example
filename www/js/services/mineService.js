@@ -286,8 +286,8 @@ angular.module('mmr.services')
       mmrCacheFactory.set('couponDetails.used', couponUsed);
       mmrCacheFactory.set('couponDetails.expired', couponExpired);
 
-      // return [couponUnused, couponUsed, couponExpired];
-      return [[], [], couponExpired];
+      return [couponUnused, couponUsed, couponExpired];
+      // return [[], [], couponExpired];
     },
 
     receiptDetails: function() {
@@ -301,7 +301,8 @@ angular.module('mmr.services')
 
       if (index === 1) {
         mmrCacheFactory.set('myFav.favShops', favShops);
-        return [];
+        // return [];
+        return favShops;
       } else {
         mmrCacheFactory.set('myFav.favProducts', favProducts);
         return favProducts;

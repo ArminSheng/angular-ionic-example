@@ -47,13 +47,13 @@
             </span>
           </div>
           <div class="col col-33">
-            <button class="button button-energized m-auth-login-code-btn" ng-click="registerModal.doFetchCode()">
-              获取验证码
+            <button class="button button-energized m-auth-login-code-btn" ng-click="registerModal.doFetchCode()" ng-disabled="registerModal.sendCodeBtn !== '获取验证码'">
+              <span>{{ registerModal.sendCodeBtn }}</span>
             </button>
           </div>
         </div>
         <!-- sent hint -->
-        <span class="m-auth-login-code-sent">
+        <span class="m-auth-login-code-sent" ng-show="registerModal.codeSent">
           已向您的手机发送验证码
         </span>
       </div>

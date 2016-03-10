@@ -6,26 +6,34 @@ angular.module('mmr.services')
   return {
 
     sendCode: function(phone, type) {
-      console.log(apiService, phone, type);
+      var dfd = $q.defer();
+
       $http({
         url: apiService.AUTH_SEND_CODE,
         method: 'POST',
-        params: {
+        data: {
           phone: phone,
           type: type
         }
       }).then(function(res) {
         console.log(res);
+        if(res.data.status === 1) {
+          dfd.resolve();
+        } else {
+          dfd.reject();
+        }
       }, function(err) {
-
+        dfd.reject();
       });
+
+      return dfd.promise;
     },
 
     login: function(info) {
       $http({
         url: apiService.AUTH_USER_LOGIN,
         method: 'POST',
-        params: {
+        data: {
           name: info.phone,
           pwd: info.password
         }
@@ -42,7 +50,7 @@ angular.module('mmr.services')
       $http({
         url: apiService.AUTH_USER_REGISTER,
         method: 'POST',
-        params: {
+        data: {
           name: info.phone,
           pwd: info.password,
           code: info.code

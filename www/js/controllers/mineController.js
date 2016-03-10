@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth',
-  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$interval', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth',
+  function($scope, $rootScope, $q, $state, $interval, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -273,12 +273,8 @@ angular.module('mmr.controllers')
 
   // login
   $scope.$on('eventOpenLogin', function($event, data) {
-    if($rootScope.modals.loginModal) {
-      // directly open it
-      $rootScope.modals.loginModal.show();
-    } else {
-      mmrModal.createLoginModal($scope);
-    }
+    // create login modal everytime
+    mmrModal.createLoginModal($scope);
   });
 
   // register
@@ -290,6 +286,8 @@ angular.module('mmr.controllers')
       $scope.registerModal.show();
 
       // data bindings
+      $scope.registerModal.sendCodeBtn = '获取验证码';
+
       $scope.registerModal.term1 = false;
       $scope.registerModal.term2 = false;
 
@@ -304,16 +302,36 @@ angular.module('mmr.controllers')
         $scope.registerModal.hide();
       };
 
+      var intervalPromise;
       $scope.registerModal.doFetchCode = function() {
         if(Validator.phone($scope.registerModal.data.phone, true)) {
-          mmrAuth.sendCode();
+          // 1 means register
+          mmrAuth.sendCode($scope.registerModal.data.phone, 1).then(function() {
+            // show the message has sent
+            $scope.registerModal.codeSent = true;
+            // change the btn text
+            var remainingSeconds = 60;
+            $scope.registerModal.sendCodeBtn = remainingSeconds + '秒';
+            intervalPromise = $interval(function() {
+              remainingSeconds -= 1;
+              if(remainingSeconds === 0) {
+                $scope.registerModal.sendCodeBtn = '获取验证码';
+              } else {
+                $scope.registerModal.sendCodeBtn = remainingSeconds + '秒';
+              }
+            }, 1000, 60);
+          }, function() {
+            // sent failed
+            mmrCommonService.help('网络异常', '验证码发送失败, 请稍后重试');
+            $scope.registerModal.codeSent = false;
+          });
         }
       };
 
-      $scope.registerModal.doPrecheck = function() {
-        if(!Validator.phone($scope.registerModal.data.phone, true) ||
-           !Validator.password($scope.registerModal.data.password, true) ||
-           !Validator.verifyCode($scope.registerModal.data.code, true) ||
+      $scope.registerModal.doPrecheck = function(needPopupFailure) {
+        if(!Validator.phone($scope.registerModal.data.phone, needPopupFailure) ||
+           !Validator.password($scope.registerModal.data.password, needPopupFailure) ||
+           !Validator.verifyCode($scope.registerModal.data.code, needPopupFailure) ||
            !$scope.registerModal.term1 ||
            !$scope.registerModal.term2) {
           return false;
@@ -323,8 +341,17 @@ angular.module('mmr.controllers')
       };
 
       $scope.registerModal.doRegister = function() {
-        mmrAuth.register($scope.registerModal.data);
+        if($scope.registerModal.doPrecheck(true)) {
+          mmrAuth.register($scope.registerModal.data);
+        }
       };
+
+      // event handler
+      $scope.$on('$destroy', function($event) {
+        if(intervalPromise) {
+          $interval.cancel(intervalPromise);
+        }
+      });
     });
   });
 

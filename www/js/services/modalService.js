@@ -24,7 +24,7 @@ angular.module('mmr.services')
         scope.loginModal.viewMode = 1;
 
         scope.loginModal.doHideLogin = function() {
-          scope.loginModal.hide();
+          scope.loginModal.remove();
           scope.loginModal = undefined;
         };
 

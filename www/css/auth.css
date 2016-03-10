@@ -58,12 +58,12 @@
 }
 
 .m-auth-login-switch button {
-    font-size: 14px;
+    font-size: 1.0rem
 }
 
 .m-auth-login-btn {
     text-align: center;
-    margin-top: 16px;
+    margin-top: 1.1rem;
 }
 
 .m-auth-login-btn button {
@@ -80,16 +80,21 @@
 .m-auth-login-code-btn {
     position: relative;
     left: 8px;
-    font-size: 12px;
+    font-size: 0.8rem;
     width: 90%;
     min-height: 44px;
+}
+
+.m-auth-login-code-btn span {
+    position: relative;
+    right: 4px;
 }
 
 .m-auth-login-code-sent {
     position: absolute;
     left: 36px;
     bottom: -2px;
-    font-size: 12px;
+    font-size: 0.8rem;
     color: #666;
 }
 
@@ -220,7 +225,7 @@
 
 .m-auth-bind-hint-text {
     font-weight: bold;
-    font-size: 15px;
+    font-size: 1.0rem;
 }
 
 .m-auth-bind-hint-img {

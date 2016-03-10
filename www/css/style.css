@@ -110,7 +110,19 @@
 }
 
 .m-mine-pinfo-link {
-    font-size: 1.0rem;
+    font-size: 0.8rem;
+}
+
+.button-clear.button-clear.m-mine-pinfo-login-link {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 350px) {
+    .button-clear.button-clear.m-mine-pinfo-login-link {
+        font-size: 1.0rem;
+        bottom: 12px;
+    }
 }
 
 .row-no-padding .col.m-mine-avatar {

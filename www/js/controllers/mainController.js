@@ -31,6 +31,11 @@ angular.module('mmr.controllers')
         'mmr-mmr-mmr3@mmr.com'
       ]
     },
+    // for the sake of completeness, will be retrieved from backend and stored
+    pinfoBackend: {
+
+    },
+
     addresses: [
       { 'id': 1, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1306室', isDefault: true, isReceiptDefault: false, isQuarantineDefault: false },
       { 'id': 2, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1308室', isDefault: false, isReceiptDefault: true, isQuarantineDefault: false },

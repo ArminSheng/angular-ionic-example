@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService) {
 
   return {
 
@@ -80,30 +80,73 @@ angular.module('mmr.services')
         };
 
         scope.loginModal.doLogin = function() {
-          // show the bind modal if necessary
-          if($rootScope.$root.isOldUser) {
-            $ionicModal.fromTemplateUrl('templates/modal/bind-old-user.html', {
-              scope: scope
-            }).then(function(modal) {
-              scope.bindModal = modal;
-              scope.bindModal.show();
+          if(Validator.phone(scope.loginModal.data.username, true) &&
+             Validator.password(scope.loginModal.data.password, true)) {
 
-              // data bindings
-              scope.bindModal.data = {
-                phone: '',
-                code: ''
-              };
+            mmrAuth.login(scope.loginModal.data).then(function(res) {
+              // after register
+              // console.log(res);
+              // save the user info locally
+              var localUserInfo = $rootScope.$root.pinfo;
 
-              // methods for the bind modal
-              scope.bindModal.doBind = function() {
+              // avatar
+              if(res.img && _.startsWith(res.img, './')) {
+                localUserInfo.avatar = apiService.API_BASE + res.img.substring(2);
+              }
+              // phone
+              localUserInfo.phone = res.phone;
+              // username
+              localUserInfo.username = res.name;
+              // email
+              localUserInfo.email = res.email;
+              // qq
+              localUserInfo.qq = res.qq;
+              // birthday
+              localUserInfo.birthday = new Date(res.birthday);
+              // deposit
+              localUserInfo.deposit = Number(res.cash);
 
-              };
+              $rootScope.$root.pinfoBackend = res;
 
-              scope.bindModal.doHideBind = function() {
-                scope.bindModal.hide();
-              };
+              // change the auth status
+              $rootScope.$root.authenticated = true;
+
+              // broadcast the login event
+              mmrEventing.doLoginSuccessfully();
+
+              // close the login
+              scope.loginModal.doHideLogin();
+            }, function(errMsg) {
+              if(errMsg === '用户不存在') {
+                mmrCommonService.help('登录失败', '用户名或者密码错误, 请重新尝试');
+              }
             });
           }
+
+          // TODO: show the bind modal if necessary (old user only)
+          // if($rootScope.$root.isOldUser) {
+          //   $ionicModal.fromTemplateUrl('templates/modal/bind-old-user.html', {
+          //     scope: scope
+          //   }).then(function(modal) {
+          //     scope.bindModal = modal;
+          //     scope.bindModal.show();
+
+          //     // data bindings
+          //     scope.bindModal.data = {
+          //       phone: '',
+          //       code: ''
+          //     };
+
+          //     // methods for the bind modal
+          //     scope.bindModal.doBind = function() {
+
+          //     };
+
+          //     scope.bindModal.doHideBind = function() {
+          //       scope.bindModal.hide();
+          //     };
+          //   });
+          // }
         };
 
         scope.loginModal.doRegister = function() {

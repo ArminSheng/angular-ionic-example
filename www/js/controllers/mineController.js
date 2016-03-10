@@ -54,6 +54,12 @@ angular.module('mmr.controllers')
   };
 
   $scope.doChangeAvatar = function() {
+    // whether the user has login
+    if(!$rootScope.$root.authenticated) {
+      $scope.doLogin();
+      return;
+    }
+
     var hideSheet = $ionicActionSheet.show({
       buttons: [
         { text: '新拍摄一张' },

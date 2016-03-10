@@ -163,6 +163,10 @@ angular.module('mmr.services')
 
     doNewOrderGenerated: function(data) {
       $rootScope.$broadcast('doNewOrderGenerated', data);
+    },
+
+    doLoginSuccessfully: function() {
+      $rootScope.$broadcast('doLoginSuccessfully');
     }
 
   };

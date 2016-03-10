@@ -29,18 +29,26 @@ angular.module('mmr.services')
     },
 
     login: function(info) {
+      var dfd = $q.defer();
+
       $http({
         url: apiService.AUTH_USER_LOGIN,
         method: 'POST',
         data: {
-          name: info.phone,
+          name: info.username,
           pwd: info.password
         }
       }).then(function(res) {
-        console.log(res);
+        if(res.data.msg === '登录成功') {
+          dfd.resolve(res.data.data);
+        } else {
+          dfd.reject(res.data.msg);
+        }
       }, function(err) {
-
+        dfd.reject();
       });
+
+      return dfd.promise;
     },
 
     register: function(info) {

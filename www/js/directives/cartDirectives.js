@@ -33,14 +33,16 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService',
-  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService) {
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService', 'mmrSearchService',
+  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService, mmrSearchService) {
 
   return {
     restrict: 'E',
     replace: true,
     scope: {
-      item: '='
+      item: '=',
+      showRemoveBtn: '=',
+      smallerSize: '='
     },
     templateUrl: 'templates/directives/cart/cart-count.html',
     link: function(scope, element, attrs) {
@@ -81,6 +83,8 @@ angular.module('mmr.directives')
             mmrCartService.setItemCount(scope.item, scope.currentCount - 1);
           }
         }
+
+        $event.stopPropagation();
       };
 
       scope.doCountPlus = function($event) {
@@ -90,8 +94,16 @@ angular.module('mmr.directives')
           });
         } else {
           // just change the count
-          mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
+          // mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
+
+          // make sure the item has shop information since cart needs it
+          if(!scope.item.shop) {
+            scope.item = mmrSearchService.itemDetail(scope.item);
+          }
+          mmrCartService.addItemToCart(scope, scope.item);
         }
+
+        $event.stopPropagation();
       };
 
       scope.doRemoveItem = function($event) {

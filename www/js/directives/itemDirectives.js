@@ -156,7 +156,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('searchResultList', ['mmrModal', function(mmrModal) {
+.directive('searchResultList', ['mmrModal', 'mmrCartService',
+  function(mmrModal, mmrCartService) {
 
   return {
     retrict: 'E',

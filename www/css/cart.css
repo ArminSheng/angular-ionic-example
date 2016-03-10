@@ -15,6 +15,17 @@
   text-align: center;
 }
 
+.m-cart-counts.within-list {
+  padding: 5px;
+  display: flex;
+  height: 36px;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  left: -12px;
+}
+
 .m-cart-counts-plus img,
 .m-cart-counts-minus img {
   width: 100%;
@@ -32,12 +43,12 @@
 
 .m-cart-counts-minus {
   background-image: url('../img/common/minus.png');
-  background-size: 70%;
+  background-size: 24px;
 }
 
 .m-cart-counts-plus {
   background-image: url('../img/common/plus.png');
-  background-size: 70%;
+  background-size: 24px;
 }
 
 .m-cart-counts-minus.activated {
@@ -50,7 +61,7 @@
 
 .col.m-cart-counts-count {
   text-align: center;
-  margin-bottom: 5%;
+  margin-bottom: 6px;
 }
 
 .col.m-cart-counts-count .m-cart-counts-count-input {

@@ -48,14 +48,26 @@ angular.module('mmr.services')
       var generatedCount = $rootScope.$root.cart.checkedCounts[type];
 
       // remove checked orders
-      _.remove(currentOrders, function(order) {
+      var removedOrders = _.remove(currentOrders, function(order) {
         return order.checked;
+      });
+
+      // clear the counters on the removed items within the removed orders
+      _.forEach(removedOrders, function(removedOrder) {
+        _.forEach(removedOrder.items, function(removedItem) {
+          $rootScope.$root.cart.itemsCount[removedItem.id] = 0;
+        });
       });
 
       // remove checked items within the orders
       _.forEach(currentOrders, function(order) {
-        _.remove(order.items, function(item) {
+        var removedItems = _.remove(order.items, function(item) {
           return item.checked;
+        });
+
+        // clear the counters on the removed items within the partial removed orders
+        _.forEach(removedItems, function(removedItem) {
+          $rootScope.$root.cart.itemsCount[removedItem.id] = 0;
         });
       });
 

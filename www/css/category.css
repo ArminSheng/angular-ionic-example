@@ -69,7 +69,7 @@
 
 /*item detail*/
 .item.m-search-list-item {
-    padding-bottom: 8px;
+    padding-bottom: 0;
 }
 
 .m-search-list-item-current-price {

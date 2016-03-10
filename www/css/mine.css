@@ -541,6 +541,7 @@
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: auto;
 }
 
 .m-modal-mine-shop-detail-content { background: #e8e8e8; }

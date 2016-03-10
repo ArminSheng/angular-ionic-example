@@ -66,6 +66,11 @@
   padding: 1rem 0.2rem;
 }
 
+.platform-ios.platform-cordova .m-cart-counts-delete {
+  position: relative;
+  bottom: 3px;
+}
+
 .m-cart-operations .m-cart-operations-btn {
   display: flex;
   width: 50%;
@@ -146,6 +151,11 @@
   font-size: 0.8rem;
 }
 
+.platform-ios.platform-cordova .item.item-checkbox.m-cart-summary-select-all .item-content span {
+  position: relative;
+  bottom: 2px;
+}
+
 .m-cart-total-amount {
   margin: 0 10px;
 }
@@ -157,6 +167,11 @@
 .m-cart-pay {
   font-size: 1.0rem;
   color: #fff;
+}
+
+.platform-ios.platform-cordova .m-cart-pay {
+  position: relative;
+  bottom: 2px;
 }
 
 /*cart summary in item detail*/

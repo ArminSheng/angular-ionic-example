@@ -437,7 +437,7 @@ angular.module('mmr.services')
 
           });
         }
-        modal.shop = item.shop;
+        modal.shop = item;
         modal.switchTab(0);
       });
     },
@@ -795,10 +795,10 @@ angular.module('mmr.services')
 
         scope.itemModal.doEnterShop = function() {
           if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
-            scope.shopDetailModal.shop = item;
+            scope.shopDetailModal.shop = item.shop;
             scope.shopDetailModal.show();
           } else{
-            self.createShopDetailModal(scope, item);
+            self.createShopDetailModal(scope, item.shop);
           }
         };
 

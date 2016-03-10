@@ -53,24 +53,24 @@ angular.module('mmr.services')
 
   var favShops = [
     {
-      shopName: '中粮旗舰店',
+      name: '中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png'
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '上海中粮专卖店',
+      name: '上海中粮专卖店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png'
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '上海中粮旗舰店',
+      name: '上海中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png'
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '中粮旗舰店',
+      name: '中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png'
+      logoPath: 'img/common/shop-brand.png'
     }
   ],
   favProducts = [

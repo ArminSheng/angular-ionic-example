@@ -16,7 +16,7 @@ angular.module('mmr.controllers')
 
     // auth related
     isOldUser: true,
-    authenticated: true,
+    authenticated: false,
     pinfo: {
       avatar: 'img/mine/avatar-bak.png',
       phone: '18501751020',

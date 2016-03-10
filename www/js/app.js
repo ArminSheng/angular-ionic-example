@@ -3,7 +3,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
 // .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
-.constant('REST_BASE', 'http://192.168.1.136:8081/mmr/')
+.constant('REST_BASE', 'http://192.168.2.109:8081/mmr/')
 .constant('API_BASE', 'http://demo.0lz.net/mmrou/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
@@ -28,6 +28,21 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   };
 
   this.$get = function() {
+    return this.data;
+  };
+}])
+
+.provider('apiService', ['API_BASE', function(API_BASE) {
+  this.data = {
+    'API_BASE': API_BASE
+  };
+
+  this.$get = function() {
+    // Auth related
+    this.data.AUTH_SEND_CODE = this.data.API_BASE + 'api-user-sendcode.html';
+    this.data.AUTH_USER_LOGIN = this.data.API_BASE + 'api-user-login.html';
+    this.data.AUTH_USER_REGISTER = this.data.API_BASE + 'api-user-register.html';
+
     return this.data;
   };
 }])

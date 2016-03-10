@@ -7,9 +7,16 @@ angular.module('mmr.services')
       if(!cellphone || !/^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i.test(cellphone)) {
 
         if(popupWhenFailure) {
+          var title = '手机号格式验证失败',
+              template = '手机号的格式应该符合中国大陆地区手机号码的格式';
+          if(_.trim(cellphone) === '') {
+            title = '请输入必要信息';
+            template = '请填入手机号码';
+          }
+
           $ionicPopup.alert({
-            title: '手机号格式验证失败',
-            template: '手机号的格式应该符合中国大陆地区手机号码的格式',
+            title: title,
+            template: template,
             okType: 'button-energized'
           });
         }

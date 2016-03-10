@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator',
-  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth',
+  function($scope, $rootScope, $q, $state, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -305,19 +305,25 @@ angular.module('mmr.controllers')
       };
 
       $scope.registerModal.doFetchCode = function() {
-
+        if(Validator.phone($scope.registerModal.data.phone, true)) {
+          mmrAuth.sendCode();
+        }
       };
 
       $scope.registerModal.doPrecheck = function() {
-        if(!Validator.phone($scope.registerModal.data.phone) ||
-           !Validator.password($scope.registerModal.data.password) ||
-           !Validator.verifyCode($scope.registerModal.data.code) ||
+        if(!Validator.phone($scope.registerModal.data.phone, true) ||
+           !Validator.password($scope.registerModal.data.password, true) ||
+           !Validator.verifyCode($scope.registerModal.data.code, true) ||
            !$scope.registerModal.term1 ||
            !$scope.registerModal.term2) {
           return false;
         }
 
         return true;
+      };
+
+      $scope.registerModal.doRegister = function() {
+        mmrAuth.register($scope.registerModal.data);
       };
     });
   });

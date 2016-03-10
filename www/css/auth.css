@@ -138,18 +138,18 @@
 .m-auth-register-check-term {
     text-align: left;
     padding: 4px 24px;
+    font-size: 0.9rem;
 }
 
 .m-auth-register-check-term-main {
     position: relative;
-    bottom: 10px;
+    bottom: 9px;
     left: 6px;
     font-weight: bold;
 }
 
 .m-auth-register-check-term .m-auth-register-check-term-text {
     color: #ffc900;
-    padding-left: 8px;
 }
 
 .m-auth-register-btn {

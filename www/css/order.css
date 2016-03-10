@@ -74,6 +74,11 @@
   border-bottom: 2px solid #8e8e8e;
 }
 
+.platform-ios.platform-cordova .m-order-list-suborder-container {
+  position: relative;
+  top: 34px;
+}
+
 .m-order-list-suborder {
   margin: 6px 0;
 }

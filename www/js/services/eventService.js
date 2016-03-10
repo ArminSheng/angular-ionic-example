@@ -172,6 +172,10 @@ angular.module('mmr.services')
 
     doLoginSuccessfully: function() {
       $rootScope.$broadcast('doLoginSuccessfully');
+    },
+
+    doBuyImmediately: function(data) {
+      $rootScope.$broadcast('doBuyImmediately', data);
     }
 
   };

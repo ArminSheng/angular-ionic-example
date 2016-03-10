@@ -358,3 +358,51 @@
       margin-right: 3px;
     }
 }
+
+/*bottom direct buy area*/
+.m-bottom-direct-buy {
+  position: absolute;
+  bottom: -230px;
+  opacity: 1;
+  width: 100%;
+
+  /*animation part*/
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.m-bottom-direct-buy.activated {
+  bottom: 0;
+  opacity: 1;
+}
+
+.m-bottom-direct-buy-close {
+  height: 40px;
+}
+
+.m-bottom-direct-buy .item-icon-left .icon:before,
+.m-bottom-direct-buy .item-icon-right .icon:before {
+  font-size: 24px;
+}
+
+.item-note.m-bottom-direct-buy-price {
+  color: #000;
+  font-weight: bold;
+}
+
+.m-bottom-direct-buy-counters {
+  position: absolute;
+  right: -64px;
+  bottom: 4px;
+}
+
+.item.m-bottom-direct-buy-confirm {
+  padding: 6px;
+}
+
+.item.m-bottom-direct-buy-confirm .button.button-block {
+  margin: 4px auto;
+}

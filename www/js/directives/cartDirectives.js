@@ -26,7 +26,7 @@ angular.module('mmr.directives')
       };
 
       scope.doBuyImmediately = function() {
-
+        mmrEventing.doBuyImmediately(scope.item);
       };
     }
   };

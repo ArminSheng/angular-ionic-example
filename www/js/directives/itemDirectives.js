@@ -280,4 +280,26 @@ angular.module('mmr.directives')
     }
   };
 
+}])
+
+.directive('bottomDirectBuy', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '='
+    },
+    templateUrl: 'templates/directives/item/bottom-direct-buy.html',
+    link: function(scope, element, attrs) {
+      scope.doCloseImmediateBuy = function() {
+        element.removeClass('activated');
+      };
+
+      scope.$on('doBuyImmediately', function($event, data) {
+        element.addClass('activated');
+      });
+    }
+  };
+
 }]);

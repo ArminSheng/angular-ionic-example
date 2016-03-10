@@ -1,0 +1,31 @@
+<div class="m-bottom-direct-buy">
+  <div class="list">
+
+    <div class="item item-icon-right m-bottom-direct-buy-close">
+      <i class="icon ion-close" ng-click="doCloseImmediateBuy()"></i>
+    </div>
+
+    <div class="item item-icon-left">
+      <i class="icon ion-pricetag"></i>
+      价格
+      <span class="item-note m-bottom-direct-buy-price">
+        {{ item.cprice | currency: '¥' }}
+      </span>
+    </div>
+
+    <div class="item item-icon-left">
+      <i class="icon ion-calculator"></i>
+      数量
+      <div class="m-bottom-direct-buy-counters">
+        <cart-count item="item" show-remove-btn="false" smaller-size="true"></cart-count>
+      </div>
+    </div>
+
+    <div class="item m-bottom-direct-buy-confirm">
+      <button class="button button-block button-outline button-energized">
+        确认购买
+      </button>
+    </div>
+
+  <div>
+</div>

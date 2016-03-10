@@ -133,6 +133,11 @@ angular.module('mmr.services')
       $rootScope.$broadcast('doSelectSearchHistory', data);
     },
 
+    // select category item
+    doSelectCategoryMenu: function(data) {
+      $rootScope.$broadcast('doSelectCategoryMenu', data);
+    },
+
     // category related
     doSetCategoryItems: function(level, shouldPush) {
       if(shouldPush === undefined) {

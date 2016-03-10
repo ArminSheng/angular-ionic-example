@@ -260,12 +260,13 @@ angular.module('mmr.directives')
       };
 
       scope.doSelectCategory = function(item) {
-        console.log(item);
-        // close menu
         mmrMetaFactory.classification({
           gen: item.id,
           gid: item.gid + 1
         });
+
+        // broadcast search by category menu event
+        mmrEventing.doSelectCategoryMenu(item);
 
         // $timeout(function() {
         //   scope.swipeMenu(false);

@@ -284,6 +284,12 @@ angular.module('mmr.controllers')
     $scope.doSearch(data.text);
     $scope.doBlurSearchInput();
   });
+
+  $scope.$on('doSelectCategoryMenu', function($event, data) {
+    // console.log(data);
+    $scope.doSearch(data.name);
+    $scope.doBlurSearchInput();
+  });
 }])
 
 .controller('CategoryMenuCtrl', ['$scope', function($scope) {

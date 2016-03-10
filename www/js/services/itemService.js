@@ -41,7 +41,9 @@ angular.module('mmr.services')
     // size: size per request, default 10,
     // page: page number, default 0,
     // sort: sort method, default 0,
-    // keyword: user input keyword, default ''
+    // keyword: user input keyword, default '',
+    // cid: category id,
+    // gid: category level (1-5)
     search: function(config) {
       return $http({
         url: restService.API_REST + 'c_search/',
@@ -50,7 +52,9 @@ angular.module('mmr.services')
           's': config.size || 10,
           'p': config.page || 0,
           'o': config.sort || 0,
-          'k': config.keyword || ''
+          'k': config.keyword || '',
+          'c': config.cid,
+          'g': config.gid
         }
       });
     }

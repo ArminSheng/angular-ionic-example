@@ -20,7 +20,9 @@ public class SearchController {
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public List<ItemVo> search(@RequestParam("s") Integer size, @RequestParam("p") Integer page,
-      @RequestParam("o") Integer sort, @RequestParam("k") String keyword) {
+      @RequestParam("o") Integer sort, @RequestParam("k") String keyword,
+      @RequestParam(name = "c", required = false) Integer cid,
+      @RequestParam(name = "g", required = false) Integer gid) {
     return mockData.findSearchResults(keyword, size, page, sort);
   }
 

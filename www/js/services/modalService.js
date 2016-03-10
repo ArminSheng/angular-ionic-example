@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory',
-  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory) {
+.factory('mmrModal', ['$rootScope', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrDataService',
+  function($rootScope, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrDataService) {
 
   return {
 
@@ -170,6 +170,8 @@ angular.module('mmr.services')
         modal.sortActivated = false;
         modal.screenEventPrefix = 'eventCollectScreen';
 
+        // options bar related
+        scope.optionsBarOpened = true;
 
         modal.screenActivated = false;
         // backdrop isShow
@@ -190,6 +192,23 @@ angular.module('mmr.services')
           modal.sortActivated = false;
         };
 
+        // scroll related
+        scope.onScroll = function() {
+
+          mmrScrollService.onScroll({
+            handler: 'favScroll',
+            onDowning: function() {
+              scope.optionsBarOpened = false;
+            },
+            onUping: function() {
+              scope.optionsBarOpened = true;
+            },
+            onNegative: function() {
+              scope.optionsBarOpened = true;
+            }
+          });
+        };
+
         // sorter related
         modal.activateSort = function() {
           modal.screenActivated = false;
@@ -208,7 +227,9 @@ angular.module('mmr.services')
         // event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // process on sorting event
-
+          scope.sortMethod = data;
+          modal.myFav  = mmrDataService.sortItems(modal.myFav, scope.sortMethod);
+          console.log('log');
           // close bacdrop
           modal.isShow = false;
         });
@@ -258,7 +279,6 @@ angular.module('mmr.services')
       }).then(function(modal) {
         scope.shopDetailModal = modal;
         scope.shopDetailModal.show();
-
         //bind data
         scope.shopDetailModal.classifications = [
           { name: '牛肉' },
@@ -407,10 +427,17 @@ angular.module('mmr.services')
           modal.tab = tabIdx;
         };
 
-        // init();
-        // function init() {
-        // }
-        modal.shop = item;
+        init();
+        function init() {
+          mmrDataService.request(mmrItemFactory.search({
+            page: 0
+          })).then(function(res) {
+            modal.items = res[0];
+          }, function(err) {
+
+          });
+        }
+        modal.shop = item.shop;
         modal.switchTab(0);
       });
     },
@@ -752,7 +779,7 @@ angular.module('mmr.services')
         // bind data
         scope.itemModal = scope.itemModal || {};
         scope.itemModal.item = mmrSearchService.itemDetail(item);
-
+        console.log(scope.itemModal.item);
         // bind methods
         scope.itemModal.doHide = function() {
           modal.hide();
@@ -764,6 +791,15 @@ angular.module('mmr.services')
 
         scope.itemModal.doLoadMoreReviews = function() {
           self.createItemReviews(scope, item);
+        };
+
+        scope.itemModal.doEnterShop = function() {
+          if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
+            scope.shopDetailModal.shop = item;
+            scope.shopDetailModal.show();
+          } else{
+            self.createShopDetailModal(scope, item);
+          }
         };
 
         // event handlers

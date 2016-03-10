@@ -342,7 +342,14 @@ angular.module('mmr.controllers')
 
       $scope.registerModal.doRegister = function() {
         if($scope.registerModal.doPrecheck(true)) {
-          mmrAuth.register($scope.registerModal.data);
+          mmrAuth.register($scope.registerModal.data).then(function(res) {
+            // after register
+
+          }, function(errMsg) {
+            if(errMsg === '手机验证码错误') {
+              mmrCommonService.help('注册失败', '手机验证码错误, 请填写正确的验证码');
+            }
+          });
         }
       };
 

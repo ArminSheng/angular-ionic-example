@@ -55,8 +55,11 @@ angular.module('mmr.services')
           code: info.code
         }
       }).then(function(res) {
-        console.log(res);
-        // dfd.resolve();
+        if(res.data.status === 1) {
+          dfd.resolve(res.data);
+        } else {
+          dfd.reject(res.data.msg);
+        }
       }, function(err) {
         dfd.reject();
       });

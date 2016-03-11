@@ -10,7 +10,7 @@
       </div>
       <!-- notification -->
       <div class="col col-20 col-offset-20 m-mine-notification">
-        <notification-center count="{{ $root.notificationCount }}" target="tab.notification-mine"></notification-center>
+        <notification-center count="{{ $root.notificationCount > 99 ? '99+' : $root.notificationCount }}" target="tab.notification-mine"></notification-center>
       </div>
     </div>
     </a>

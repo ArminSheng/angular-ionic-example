@@ -12,7 +12,7 @@ angular.module('mmr.controllers')
   // system wide configuration and data
   $rootScope.$root = {
     // notification related
-    notificationCount: 5,
+    notificationCount: 15,
 
     // auth related
     isOldUser: false,

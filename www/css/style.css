@@ -323,3 +323,8 @@
 .m-new-item-container .list .item {
     margin: 0 0 5px 0 !important;
 }
+
+/*notification center*/
+.m-notification-center.has-tabs {
+    bottom: 0;
+}

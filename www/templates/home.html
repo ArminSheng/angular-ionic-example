@@ -12,7 +12,7 @@
       </label>
       <!-- notification -->
       <div class="m-home-nofitication">
-        <notification-center count="{{ $root.notificationCount }}" target="tab.notification-home"></notification-center>
+        <notification-center count="{{ $root.notificationCount > 99 ? '99+' : $root.notificationCount }}" target="tab.notification-home"></notification-center>
       </div>
     </div>
   </ion-nav-title>

@@ -3,7 +3,7 @@ angular.module('mmr.directives')
 .run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/directives/notification-center.html',
     '<a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">' +
-    '<span class="badge badge-assertive m-badge">{{ count }}</span>');
+    '<span class="badge badge-assertive m-badge" ng-if="$root.authenticated">{{ count }}</span>');
 
   $templateCache.put('templates/directives/common/back-to-top-area.html',
     '<div class="m-back-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +
@@ -48,7 +48,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('notificationCenter', ['$state', function($state) {
+.directive('notificationCenter', ['$state', 'mmrAuth',
+  function($state, mmrAuth) {
 
   return {
     retrict: 'E',
@@ -59,10 +60,11 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/notification-center.html',
     link: function(scope, element, attrs) {
-
       // on click event
       scope.doCheckNotification = function() {
-        $state.go(scope.target);
+        if(!mmrAuth.redirectIfNotLogin()) {
+          $state.go(scope.target);
+        }
       };
     }
   };

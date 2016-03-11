@@ -283,8 +283,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomDirectBuy', ['$rootScope', 'mmrModal', 'mmrCartService', 'mmrCommonService',
-  function($rootScope, mmrModal, mmrCartService, mmrCommonService) {
+.directive('bottomDirectBuy', ['$rootScope', 'mmrModal', 'mmrCartService', 'mmrCommonService', 'mmrEventing',
+  function($rootScope, mmrModal, mmrCartService, mmrCommonService, mmrEventing) {
 
   return {
     restrict: 'E',
@@ -297,7 +297,7 @@ angular.module('mmr.directives')
       scope.directCounter = 0;
 
       scope.doCloseImmediateBuy = function() {
-        element.removeClass('activated');
+        mmrEventing.doCancelBuyImmediately();
       };
 
       scope.doBuyImmediately = function() {
@@ -317,6 +317,10 @@ angular.module('mmr.directives')
 
       scope.$on('doBuyImmediately', function($event, data) {
         element.addClass('activated');
+      });
+
+      scope.$on('doCancelBuyImmediately', function($event, data) {
+        element.removeClass('activated');
       });
 
       scope.$on('doCancelPayment', function($event, data) {

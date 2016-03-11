@@ -885,6 +885,14 @@ angular.module('mmr.services')
             tab: item.isReserved ? 0 : 1
           });
         });
+
+        scope.$on('doBuyImmediately', function($event, data) {
+          scope.itemModal.showBackdrop = true;
+        });
+
+        scope.$on('doCancelBuyImmediately', function($event, data) {
+          scope.itemModal.showBackdrop = false;
+        });
       });
     },
 

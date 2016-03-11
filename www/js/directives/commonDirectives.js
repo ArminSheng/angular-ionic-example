@@ -124,13 +124,23 @@ angular.module('mmr.directives')
     retrict: 'E',
     replace: 'true',
     scope: {
-      isShow: '='
+      isShow: '=',
+      clickToDismiss: '='
     },
     templateUrl: 'templates/directives/common/backdrop.html',
     link: function(scope, element, attrs) {
-      scope.doHideBackdrop = function() {
-        scope.isShow = false;
-        mmrEventing.doHideBackdrop();
+      if(angular.isUndefined(scope.clickToDismiss)) {
+        scope.clickToDismiss = true;
+      }
+
+      scope.doHideBackdrop = function($event) {
+        if(scope.clickToDismiss) {
+          scope.isShow = false;
+          mmrEventing.doHideBackdrop();
+        }
+
+        $event.preventDefault();
+        $event.stopPropagation();
       };
     }
   };

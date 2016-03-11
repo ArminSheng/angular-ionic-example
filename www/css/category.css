@@ -44,7 +44,8 @@
     transition: 0.2s opacity linear;
 }
 
-.m-cat-backdrop.activated {
+.m-cat-backdrop.activated,
+.m-cat-backdrop.triggered {
     opacity: 1;
     visibility: visible;
 }

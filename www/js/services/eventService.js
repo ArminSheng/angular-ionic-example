@@ -176,6 +176,10 @@ angular.module('mmr.services')
 
     doBuyImmediately: function(data) {
       $rootScope.$broadcast('doBuyImmediately', data);
+    },
+
+    doCancelBuyImmediately: function(data) {
+      $rootScope.$broadcast('doCancelBuyImmediately', data);
     }
 
   };

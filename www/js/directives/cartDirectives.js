@@ -106,7 +106,7 @@ angular.module('mmr.directives')
 
       scope.doCountPlus = function($event) {
         if(!independentCounter) {
-          if(scope.currentCountTemp < scope.item.inventoryAmount) {
+          if(Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
             if(mmrCartService.isItemInCart(scope.item)) {
               mmrEventing.doIncreaseItemCount(scope, {
                 item: scope.item

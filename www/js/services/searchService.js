@@ -37,7 +37,9 @@ angular.module('mmr.services')
       item.isReserved = false;
     }
 
-    item.inventoryAmount = 4000;
+    if(!item.inventoryAmount) {
+      item.inventoryAmount = 4000;
+    }
 
     item.spec = '约2000只每箱';
     item.place = '内蒙古 满洲里市';

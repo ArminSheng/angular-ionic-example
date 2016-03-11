@@ -46,7 +46,7 @@ public class MockData {
 
     for (int i = 0; i < size; i++) {
       results.add(new ItemVo(i + 1, type, typeStr + i, "微杨科技", "img/item/sample.png", 122.0, 88.8,
-          "箱", null, null));
+          "箱", null, null, null));
     }
 
     return results;
@@ -60,7 +60,7 @@ public class MockData {
 
     for (int i = 0; i < size; i++) {
       results.add(new ItemVo(i + 1, 1, "鸡翅" + i, "微杨科技", "img/item/sample.png", 12.0, 8.8, "箱",
-          next.getTime(), null));
+          next.getTime(), null, null));
     }
 
     return results;
@@ -78,7 +78,7 @@ public class MockData {
 
     for (int i = 0; i < size; i++) {
       results.add(new ItemVo(i + 1, 1, itemNames.get(RAND.nextInt(itemNames.size())) + i, "微杨科技",
-          "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(), (i + 1) * 1000));
+          "img/item/sample.png", 12.0, 8.8, "箱", next.getTime(), (i + 1) * 1000, (i + 1) * 100));
     }
 
     return results;
@@ -97,7 +97,7 @@ public class MockData {
     for (int i = 0; i < size; i++) {
       int sequence = page * 10 + i + 1;
       results.add(new ItemVo(sequence, 1, keyword + sequence, "微杨科技", "img/item/sample.png", 12.0,
-          1.1 * (i + 1), "箱", next.getTime(), (i + 1) * 1000));
+          1.1 * (i + 1), "箱", next.getTime(), (i + 1) * 1000, (i + 1) * 100));
     }
 
     return results;

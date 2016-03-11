@@ -139,7 +139,7 @@
 }
 
 .m-cat-options-bar.downing {
-    top: 0;
+    top: 0px !important;
 }
 
 .platform-ios.platform-cordova .m-cat-options-bar.downing {

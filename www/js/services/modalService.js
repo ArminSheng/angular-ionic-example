@@ -416,6 +416,7 @@ angular.module('mmr.services')
           modal.screenActivated = false;
           modal.sortActivated = !modal.sortActivated;
           modal.isShow = modal.sortActivated;
+          modal.menuOpened = false;
           // close menu
           //scope.swipeMenu(false);
         };
@@ -440,16 +441,36 @@ angular.module('mmr.services')
           modal.showBacktoTopBtn = false;
         };
 
+        // options bar related
+        scope.optionsBarOpened = true;
+        scope.onTop = false;
         modal.onScroll = function() {
           mmrScrollService.onScroll({
             handler: 'shopItemsScroll',
             threshold: 150,
+            offHeight: 42,
+            onDowning: function() {
+              scope.optionsBarOpened = false;
+            },
+            onUping: function() {
+              scope.optionsBarOpened = true;
+            },
+            onNegative: function() {
+              scope.optionsBarOpened = true;
+            },
+            onTop: function() {
+              scope.onTop = true;
+            },
+            offTop: function() {
+              scope.onTop = false;
+            },
             onThreshold: function(isGreaterThanThreshold) {
               scope.$apply(function() {
+                // console.log(threshold);
                 if(isGreaterThanThreshold) {
-                  modal.showBacktoTopBtn = true;
+                  scope.showBacktoTopBtn = true;
                 } else {
-                  modal.showBacktoTopBtn = false;
+                  scope.showBacktoTopBtn = false;
                 }
               });
             }

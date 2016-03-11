@@ -116,6 +116,10 @@
     visibility: visible;
 }
 
+.has-sub-head .list.m-sorter-options-list {
+    top: 128px;
+}
+
 .platform-ios.platform-cordova .list.m-sorter-options-list.activated {
     top: 106px;
 }
@@ -138,7 +142,7 @@
 }
 
 .scroll-content.m-screen-container-scroll.activated {
-    top: 37px;
+    top: 35px;
     z-index: 100;
     height: 200px;
 }
@@ -236,7 +240,7 @@
 .m-cat-menu {
     height: auto;
     width: 30px;
-    position: fixed;
+    position: relative;
     z-index: 12;
     overflow-y: visible;
 
@@ -282,7 +286,7 @@
 
 .m-cat-menu-hint {
     position: fixed;
-    top: 50%;
+    top: 45%;
     left: 5px;
     padding: 10px;
     font-size: 18px;

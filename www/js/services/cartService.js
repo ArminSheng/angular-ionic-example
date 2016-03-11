@@ -153,10 +153,26 @@ angular.module('mmr.services')
       function generateOrders() {
         if(tab === 0) {
           disableEditing($rootScope.$root.cart.reservedOrders);
-          return $rootScope.$root.cart.reservedOrders;
+          return retainCheckedItems($rootScope.$root.cart.reservedOrders);
         } else if(tab === 1) {
           disableEditing($rootScope.$root.cart.normalOrders);
-          return $rootScope.$root.cart.normalOrders;
+          return retainCheckedItems($rootScope.$root.cart.normalOrders);
+        }
+
+        function retainCheckedItems(orders) {
+          var copiedOrders = angular.copy(orders);
+          _.forEach(copiedOrders, function(order) {
+            _.remove(order.items, function(item) {
+              return !item.checked;
+            });
+          });
+
+          // loop again to remove order which has no item
+          _.remove(copiedOrders, function(order) {
+            return order.items.length === 0;
+          });
+
+          return copiedOrders;
         }
       }
 
@@ -194,6 +210,51 @@ angular.module('mmr.services')
       return orderObject;
     },
 
+    generateIndependentOrder: function(item, count) {
+      item = this.convertToCartItem(item);
+
+      var orderObject = {};
+
+      orderObject.isReserved = item.isReserved;
+      orderObject.orders = generateOrders(item, count);
+      orderObject.delivery = '送货上门';
+      orderObject.receipt = '增值税普通发票';
+      orderObject.addresses = mmrAddressService.defaultAddresses();
+      orderObject.money = generateMoney(item);
+      orderObject.isIndependentOrder = true;
+
+      return orderObject;
+
+      function generateOrders(item, count) {
+        // update item quantity
+        item.quantity = count;
+
+        var order = {};
+        order.checked = true;
+        order.id = item.shop.id;
+        order.name = item.shop.name;
+        order.items = [item];
+
+        return [order];
+      }
+
+      function generateMoney(item) {
+        function calculateActualMoney(money) {
+          return money.total + (money.shipment || 0) - (money.coupon || 0);
+        }
+
+        var result = {
+          total: (item.price * item.quantity).toFixed(2),
+          shipment: 0,
+          coupon: 0
+        };
+
+        result.summary = calculateActualMoney(result).toFixed(2); // bottom summary area in gen modal
+
+        return result;
+      }
+    },
+
     isCheckoutable: function(tab) {
       if($rootScope.$root.cart.checkedCounts[tab] > 0 &&
          $rootScope.$root.cart.checkedAmounts[tab] > 0) {
@@ -206,6 +267,23 @@ angular.module('mmr.services')
     // get total amount by the
     getTotalAmount: function(tab) {
       return $rootScope.$root.cart.amounts[tab];
+    },
+
+    convertToCartItem: function(item, newCount) {
+      // construct the cart item instance
+      var cartItem = {};
+
+      cartItem.id = item.id;
+      cartItem.name = item.title;
+      cartItem.imagePath = item.banners[0].path || ''; // first banner image as default
+      cartItem.attribute = item.attribute;
+      cartItem.price = item.cprice;
+      cartItem.quantity = newCount;
+      cartItem.unitName = item.unitName;
+      cartItem.isReserved = item.isReserved;
+      cartItem.shop = item.shop;
+
+      return cartItem;
     }
 
   };

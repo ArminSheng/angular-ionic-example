@@ -283,7 +283,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomDirectBuy', [function() {
+.directive('bottomDirectBuy', ['$rootScope', 'mmrModal', 'mmrCartService',
+  function($rootScope, mmrModal, mmrCartService) {
 
   return {
     restrict: 'E',
@@ -300,7 +301,13 @@ angular.module('mmr.directives')
       };
 
       scope.doBuyImmediately = function() {
-
+        if ($rootScope.$root.modals.genOrderModal && !$rootScope.$root.modals.genOrderModal.scope.$$destroyed) {
+          //binding data
+          $rootScope.$root.modals.genOrderModal.orders = mmrCartService.generateIndependentOrder(scope.item, scope.directCounter);
+          $rootScope.$root.modals.genOrderModal.show();
+        }else {
+          mmrModal.createGenerateOrderModal(scope, mmrCartService.generateIndependentOrder(scope.item, scope.directCounter));
+        }
       };
 
       scope.$on('doBuyImmediately', function($event, data) {

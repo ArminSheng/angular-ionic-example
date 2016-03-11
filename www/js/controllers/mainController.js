@@ -328,17 +328,7 @@ angular.module('mmr.controllers')
 
   function addNewCartItem(itemArray, item, newCount, itemsIdMapping) {
     // construct the cart item instance
-    var cartItem = {};
-
-    cartItem.id = item.id;
-    cartItem.name = item.title;
-    cartItem.imagePath = item.banners[0].path || ''; // first banner image as default
-    cartItem.attribute = item.attribute;
-    cartItem.price = item.cprice;
-    cartItem.quantity = newCount;
-    cartItem.unitName = item.unitName;
-    cartItem.isReserved = item.isReserved;
-    cartItem.shop = item.shop;
+    var cartItem = mmrCartService.convertToCartItem(item, newCount);
 
     itemArray.push(cartItem);
 

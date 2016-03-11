@@ -856,7 +856,6 @@ angular.module('mmr.services')
         // bind data
         scope.itemModal = scope.itemModal || {};
         scope.itemModal.item = mmrSearchService.itemDetail(item);
-        console.log(scope.itemModal.item);
         // bind methods
         scope.itemModal.doHide = function() {
           modal.hide();
@@ -1070,8 +1069,10 @@ angular.module('mmr.services')
           mmrOrderFactory.generate().then(function(res) {
             mmrLoadingFactory.hide();
             if(res.status && res.status === 200) {
-              // broadcast the generate event
-              mmrEventing.doNewOrderGenerated(orders);
+              // broadcast the generate event for cart orders
+              if(!orders.isIndependentOrder) {
+                mmrEventing.doNewOrderGenerated(orders);
+              }
 
               // redirect to the checkout modal
               self.createCheckoutModal(scope, orders);

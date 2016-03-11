@@ -47,8 +47,6 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/cart/cart-count.html',
     link: function(scope, element, attrs) {
-
-
       var independentCounter = scope.counter === undefined ? false : true;
       if(!independentCounter) {
         // workaround for showing zero at the first time
@@ -174,19 +172,22 @@ angular.module('mmr.directives')
             }
           } else {
             // independent situation
+            scope.counter = scope.currentCountTemp;
           }
         }
       };
 
       // watchers
-      scope.$watch(function() {
-        return $rootScope.$root.cart.itemsCount[scope.item.id];
-      }, function(newValue, oldValue, scope) {
-        scope.currentCount = newValue;
-        scope.currentCountTemp = newValue;
+      if(!independentCounter) {
+        scope.$watch(function() {
+          return $rootScope.$root.cart.itemsCount[scope.item.id];
+        }, function(newValue, oldValue, scope) {
+          scope.currentCount = newValue;
+          scope.currentCountTemp = newValue;
 
-        mmrCartService.updateCheckedInformation(scope.item.isReserved ? 0 : 1);
-      });
+          mmrCartService.updateCheckedInformation(scope.item.isReserved ? 0 : 1);
+        });
+      }
 
       // private functions
       function setToZeroConfirm() {

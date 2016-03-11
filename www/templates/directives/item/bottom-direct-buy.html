@@ -7,7 +7,7 @@
 
     <div class="item item-icon-left">
       <i class="icon ion-pricetag"></i>
-      价格
+      单价
       <span class="item-note m-bottom-direct-buy-price">
         {{ item.cprice | currency: '¥' }}
       </span>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="item m-bottom-direct-buy-confirm">
-      <button class="button button-block button-outline button-energized">
+      <button class="button button-block button-outline button-energized" ng-click="doBuyImmediately()">
         确认购买
       </button>
     </div>

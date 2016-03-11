@@ -283,8 +283,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomDirectBuy', ['$rootScope', 'mmrModal', 'mmrCartService',
-  function($rootScope, mmrModal, mmrCartService) {
+.directive('bottomDirectBuy', ['$rootScope', 'mmrModal', 'mmrCartService', 'mmrCommonService',
+  function($rootScope, mmrModal, mmrCartService, mmrCommonService) {
 
   return {
     restrict: 'E',
@@ -301,17 +301,26 @@ angular.module('mmr.directives')
       };
 
       scope.doBuyImmediately = function() {
-        if ($rootScope.$root.modals.genOrderModal && !$rootScope.$root.modals.genOrderModal.scope.$$destroyed) {
-          //binding data
-          $rootScope.$root.modals.genOrderModal.orders = mmrCartService.generateIndependentOrder(scope.item, scope.directCounter);
-          $rootScope.$root.modals.genOrderModal.show();
-        }else {
-          mmrModal.createGenerateOrderModal(scope, mmrCartService.generateIndependentOrder(scope.item, scope.directCounter));
+        // validate
+        if(scope.directCounter > 0) {
+          if ($rootScope.$root.modals.genOrderModal && !$rootScope.$root.modals.genOrderModal.scope.$$destroyed) {
+            //binding data
+            $rootScope.$root.modals.genOrderModal.orders = mmrCartService.generateIndependentOrder(scope.item, scope.directCounter);
+            $rootScope.$root.modals.genOrderModal.show();
+          } else {
+            mmrModal.createGenerateOrderModal(scope, mmrCartService.generateIndependentOrder(scope.item, scope.directCounter));
+          }
+        } else {
+          mmrCommonService.help('请补充购买信息', '请输入您想购买的数量');
         }
       };
 
       scope.$on('doBuyImmediately', function($event, data) {
         element.addClass('activated');
+      });
+
+      scope.$on('doCancelPayment', function($event, data) {
+        scope.doCloseImmediateBuy();
       });
     }
   };

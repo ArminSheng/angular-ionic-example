@@ -105,7 +105,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     return function (splat) {
       var args = arguments;
       if (typeof timeout === 'undefined') {
-        args[5] = 5000; // Default timeout in milliseconds
+        args[5] = 10000; // Default timeout in milliseconds
       }
       return $delegate.apply($delegate, args);
     };

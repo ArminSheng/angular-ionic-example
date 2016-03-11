@@ -140,7 +140,13 @@ angular.module('mmr.controllers')
 
       normalOrders: [
 
-      ]
+      ],
+    },
+
+    // save states info
+    states: {
+      current: undefined,
+      last: undefined
     }
   };
 
@@ -179,16 +185,16 @@ angular.module('mmr.controllers')
   mmrSearchService.hotKeywords();
 
   // emit status change events
-  $rootScope.$on('$stateChangeStart', function () {
-    console.log('start state change');
-    console.log($state.current.name);
-    $rootScope.$broadcast('loading.show');
+  $rootScope.$on('$stateChangeStart', function ($event, toState) {
+    var states = $rootScope.$root.states;
+    states.last = states.current;
+    states.current = toState.name;
+    if(states.current !== states.last) {
+      $rootScope.$broadcast('loading.show');
+    }
   });
 
   $rootScope.$on('$stateChangeSuccess', function () {
-    console.log('end state change');
-    console.log($state.current.name);
-
     if($state.current.name === 'tab.cart') {
       $rootScope.$root.ui.tabsHidden = false;
     }

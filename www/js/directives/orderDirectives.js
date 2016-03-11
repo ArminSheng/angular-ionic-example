@@ -182,7 +182,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('orderSubList', ['mmrCartService', function(mmrCartService) {
+.directive('orderSubList', ['mmrCartService', 'mmrModal',
+  function(mmrCartService, mmrModal) {
 
   // sub order id ---> whether to show all items
   var expandedMapping = {
@@ -263,6 +264,10 @@ angular.module('mmr.directives')
 
         // check whether to check 'checkall'
         mmrCartService.updateCheckedInformation(scope.isReservedBoolean ? 0 : 1);
+      };
+
+      scope.doOpenDetail = function(subItem) {
+        mmrModal.createItemDetailModal(scope, subItem);
       };
 
       // watchers

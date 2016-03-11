@@ -11,7 +11,7 @@
     <div class="list m-order-suborder-item-list">
       <div class="m-order-suborder-item-container" ng-class="{'is-cart-mode': isCartModeBoolean}" ng-repeat="subItem in getShownItems(subOrder) track by $index">
         <ion-checkbox class="checkbox-energized m-order-suborder-item-check" ng-if="isCartModeBoolean" ng-click="doCheckSubOrderItem(subOrder, subItem)" ng-model="subItem.checked"></ion-checkbox>
-        <a class="item item-thumbnail-left m-order-suborder-item">
+        <a class="item item-thumbnail-left m-order-suborder-item" ng-click="doOpenDetail(subItem)">
           <img ng-src="{{ subItem.imagePath }}">
           <div ng-if="!subOrder.isEditing">
             <h3>{{ subItem.name }}</h3>

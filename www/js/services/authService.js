@@ -43,6 +43,24 @@ angular.module('mmr.services')
 
   return {
 
+    // return false means not redirect
+    redirectIfNotLogin: function() {
+      // check whether user has been authenticated
+      if(!$rootScope.$root.authenticated) {
+        mmrEventing.doOpenLogin();
+        return true;
+      }
+
+      return false;
+    },
+
+    logout: function() {
+      // remove all personal information
+      $rootScope.$root.authenticated = false;
+      $rootScope.$root.pinfoBackend = {};
+      $rootScope.$root.pinfo = {};
+    },
+
     sendCode: function(phone, type) {
       var dfd = $q.defer();
 

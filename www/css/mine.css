@@ -144,6 +144,14 @@
     color: #aaa;
 }
 
+.m-mine-config-spacer {
+    height: 40px;
+}
+
+.m-mine-config-logout {
+    text-align: center;
+}
+
 /*mine address*/
 .m-modal-mine-address .ion-chevron-right {
     font-size: 16px;

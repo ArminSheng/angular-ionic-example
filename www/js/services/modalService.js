@@ -130,7 +130,9 @@ angular.module('mmr.services')
         // event handler
         scope.$on('doLoginSuccessfully', function($event) {
           // close the login
-          scope.loginModal.doHideLogin();
+          if(scope.loginModal) {
+            scope.loginModal.doHideLogin();
+          }
         });
 
         scope.$on('$destroy', function($event) {

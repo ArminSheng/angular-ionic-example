@@ -18,7 +18,9 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenConfig = function() {
-    mmrEventing.doOpenConfig();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenConfig();
+    }
   };
 
   $scope.doLogin = function() {
@@ -26,31 +28,45 @@ angular.module('mmr.controllers')
   };
 
   $scope.doModifyPInfo = function() {
-    mmrEventing.doOpenPersonalInfo();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenPersonalInfo();
+    }
   };
 
   $scope.doOpenMyDeposit = function() {
-    mmrEventing.doOpenMyDeposit();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyDeposit();
+    }
   };
 
   $scope.doOpenMyCoupon = function() {
-    mmrEventing.doOpenMyCoupon();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyCoupon();
+    }
   };
 
   $scope.doAddressMgmt = function() {
-    mmrEventing.doOpenMyAddressMgmt();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyAddressMgmt();
+    }
   };
 
   $scope.doOpenMoreOrders = function(tab) {
-    mmrEventing.doOpenMoreOrders(tab);
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMoreOrders(tab);
+    }
   };
 
   $scope.doOpenMyReceipt = function() {
-    mmrEventing.doOpenMyReceipt();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyReceipt();
+    }
   };
 
   $scope.doOpenMyCollect = function(tab) {
-    mmrEventing.doOpenMyCollect(tab);
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyCollect(tab);
+    }
   };
 
   $scope.doChangeAvatar = function() {
@@ -119,7 +135,9 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenMyFootprint = function() {
-    mmrEventing.doOpenMyFootprint();
+    if(!mmrAuth.redirectIfNotLogin()) {
+      mmrEventing.doOpenMyFootprint();
+    }
   };
 
   $scope.doRecommend = function() {
@@ -413,8 +431,8 @@ angular.module('mmr.controllers')
 
 }])
 
-.controller('ConfigCtrl', ['$scope', '$rootScope', 'mmrModal',
-  function($scope, $rootScope, mmrModal) {
+.controller('ConfigCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$ionicHistory', '$ionicActionSheet', 'mmrModal', 'mmrEventing', 'mmrAuth',
+  function($scope, $rootScope, $timeout, $state, $ionicHistory, $ionicActionSheet, mmrModal, mmrEventing, mmrAuth) {
 
   $rootScope.$root.ui.tabsHidden = true;
 
@@ -456,5 +474,33 @@ angular.module('mmr.controllers')
   $scope.doOpenAboutUs = function() {
     console.log('doOpenAboutUs');
   };
+
+  $scope.doLogout = function() {
+    $ionicActionSheet.show({
+      destructiveText: '退出',
+      titleText: '确定要退出当前登录帐号吗',
+      cancelText: '取消',
+      cancel: function() {
+
+      },
+      destructiveButtonClicked: function() {
+        mmrEventing.doLogout();
+
+        return true;
+      }
+   });
+  };
+
+  // event handlers
+  $scope.$on('doLogout', function($event, data) {
+    mmrAuth.logout();
+    $timeout(function() {
+      $rootScope.$root.ui.tabsHidden = false;
+      $state.go('tab.mine');
+      $timeout(function() {
+        $state.go('tab.home');
+      }, 100);
+    }, 100);
+  });
 
 }]);

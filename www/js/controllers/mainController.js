@@ -19,17 +19,17 @@ angular.module('mmr.controllers')
     authenticated: false,
     pinfo: {
       avatar: 'img/mine/avatar-bak.png',
-      phone: '18501751020',
-      username: 'destiny1020',
-      email: 'destiny.jiang@gmail.com',
-      qq: '277727633',
-      birthday: new Date('1987-10-20'),
-      deposit: 10.0,
-      oldUserAccounts: [
-        'mmr-mmr-mmr1@mmr.com',
-        'mmr-mmr-mmr2@mmr.com',
-        'mmr-mmr-mmr3@mmr.com'
-      ]
+      // phone: '18501751020',
+      // username: 'destiny1020',
+      // email: 'destiny.jiang@gmail.com',
+      // qq: '277727633',
+      // birthday: new Date('1987-10-20'),
+      // deposit: 10.0,
+      // oldUserAccounts: [
+      //   'mmr-mmr-mmr1@mmr.com',
+      //   'mmr-mmr-mmr2@mmr.com',
+      //   'mmr-mmr-mmr3@mmr.com'
+      // ]
     },
     // for the sake of completeness, will be retrieved from backend and stored
     pinfoBackend: {

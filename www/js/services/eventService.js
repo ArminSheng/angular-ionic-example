@@ -178,6 +178,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('doRegisterSuccessfully');
     },
 
+    doLogout: function() {
+      $rootScope.$broadcast('doLogout');
+    },
+
     doBuyImmediately: function(data) {
       $rootScope.$broadcast('doBuyImmediately', data);
     },

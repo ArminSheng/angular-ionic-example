@@ -34,11 +34,11 @@
 			<div class="m-modal-mine-shop-banner-info row">
 				<div class="col col-60">
 					<div class="m-modal-mine-shop-banner-name">
-						<img class="m-modal-mine-shop-banner-brand" src="img/common/shop-brand.png">
+						<img class="m-modal-mine-shop-banner-brand" src="{{ shopDetailModal.shop.logoPath }}">
 						<div class="m-modal-mine-shop-banner-text">
-							<h4 class="m-modal-mine-shop-banner-text-head">{{ shopDetailModal.shop.shopName }}</h4>
+							<h4 class="m-modal-mine-shop-banner-text-head">{{ shopDetailModal.shop.name }}</h4>
 							<p class="m-modal-mine-shop-banner-text-grade">
-								总评分：4.8分
+								总评分：{{ shopDetailModal.shop.ratings.description }}分
 							</p>
 						</div>
 					</div>
@@ -63,11 +63,11 @@
     	</div>
     	<div class="m-modal-mine-shop-index-intro">
     		<p class="m-modal-mine-shop-index-intro-title">精品推荐</p>
-    		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+    		<collect-product-list items="shopDetailModal.items"></collect-product-list>
     	</div>
     	<div class="m-modal-mine-shop-index-intro">
     		<p class="m-modal-mine-shop-index-intro-title">促销公告</p>
-    		<collect-product-list items="shopDetailModal.shop.products"></collect-product-list>
+    		<collect-product-list items="shopDetailModal.items"></collect-product-list>
     	</div>
     </div>
 
@@ -88,7 +88,7 @@
 	        </div>
 	      </div>
 	    </div>
-	    <collect-product-list items="shopDetailModal.shop.products" ng-class="{'move-right':shopDetailModal.menuOpened}"></collect-product-list>
+	    <collect-product-list items="shopDetailModal.items" ng-class="{'move-right':shopDetailModal.menuOpened}"></collect-product-list>
 	    <backdrop is-show='shopDetailModal.isShow'></backdrop>
     </div>
 	</ion-content>

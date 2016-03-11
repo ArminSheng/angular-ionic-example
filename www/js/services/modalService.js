@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService) {
 
   return {
 
@@ -247,6 +247,8 @@ angular.module('mmr.services')
         modal.sortActivated = false;
         modal.screenEventPrefix = 'eventCollectScreen';
 
+        // options bar related
+        scope.optionsBarOpened = true;
 
         modal.screenActivated = false;
         // backdrop isShow
@@ -267,6 +269,23 @@ angular.module('mmr.services')
           modal.sortActivated = false;
         };
 
+        // scroll related
+        scope.onScroll = function() {
+
+          mmrScrollService.onScroll({
+            handler: 'favScroll',
+            onDowning: function() {
+              scope.optionsBarOpened = false;
+            },
+            onUping: function() {
+              scope.optionsBarOpened = true;
+            },
+            onNegative: function() {
+              scope.optionsBarOpened = true;
+            }
+          });
+        };
+
         // sorter related
         modal.activateSort = function() {
           modal.screenActivated = false;
@@ -285,7 +304,9 @@ angular.module('mmr.services')
         // event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // process on sorting event
-
+          scope.sortMethod = data;
+          modal.myFav  = mmrDataService.sortItems(modal.myFav, scope.sortMethod);
+          console.log('log');
           // close bacdrop
           modal.isShow = false;
         });
@@ -335,7 +356,6 @@ angular.module('mmr.services')
       }).then(function(modal) {
         scope.shopDetailModal = modal;
         scope.shopDetailModal.show();
-
         //bind data
         scope.shopDetailModal.classifications = [
           { name: '牛肉' },
@@ -484,9 +504,16 @@ angular.module('mmr.services')
           modal.tab = tabIdx;
         };
 
-        // init();
-        // function init() {
-        // }
+        init();
+        function init() {
+          mmrDataService.request(mmrItemFactory.search({
+            page: 0
+          })).then(function(res) {
+            modal.items = res[0];
+          }, function(err) {
+
+          });
+        }
         modal.shop = item;
         modal.switchTab(0);
       });
@@ -829,7 +856,7 @@ angular.module('mmr.services')
         // bind data
         scope.itemModal = scope.itemModal || {};
         scope.itemModal.item = mmrSearchService.itemDetail(item);
-
+        console.log(scope.itemModal.item);
         // bind methods
         scope.itemModal.doHide = function() {
           modal.hide();
@@ -841,6 +868,15 @@ angular.module('mmr.services')
 
         scope.itemModal.doLoadMoreReviews = function() {
           self.createItemReviews(scope, item);
+        };
+
+        scope.itemModal.doEnterShop = function() {
+          if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
+            scope.shopDetailModal.shop = item.shop;
+            scope.shopDetailModal.show();
+          } else{
+            self.createShopDetailModal(scope, item.shop);
+          }
         };
 
         // event handlers
@@ -1290,6 +1326,20 @@ angular.module('mmr.services')
           modal.hide();
         };
 
+      });
+    },
+
+    createNotFoundModal: function(scope) {
+      $ionicModal.fromTemplateUrl('templates/modal/404.html', {
+        'scope': scope
+      }).then(function(modal) {
+        modal.show();
+        $rootScope.modals.notFoundModal = modal;
+
+        // methods
+        modal.doHide = function() {
+          modal.hide();
+        };
       });
     }
 

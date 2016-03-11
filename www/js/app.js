@@ -2,8 +2,8 @@
 angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
 
 .constant('SITE_BASE', 'http://demo.0lz.net/buttin/www/')
-// .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
-.constant('REST_BASE', 'http://192.168.1.106:8081/mmr/')
+.constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
+// .constant('REST_BASE', 'http://192.168.1.136:8081/mmr/')
 .constant('API_BASE', 'http://demo.0lz.net/mmrou/')
 
 .provider('siteService', ['SITE_BASE', function(SITE_BASE) {
@@ -126,15 +126,6 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
   // Each tab has its own nav history stack:
 
-  .state('tab.404', {
-    url: '/404',
-    views: {
-      'tab-mine': {
-        templateUrl: 'templates/404.html',
-        controller: 'NotFoundCtrl'
-      }
-    }
-  })
 
   .state('tab.home', {
     url: '/home',

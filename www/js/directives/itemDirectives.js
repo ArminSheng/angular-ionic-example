@@ -207,7 +207,7 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('collectShopList', ['mmrModal', function(mmrModal) {
+.directive('collectShopList', ['mmrModal', '$rootScope', function(mmrModal, $rootScope) {
   return {
     restrict: 'E',
     replace: true,
@@ -215,10 +215,11 @@ angular.module('mmr.directives')
       items: '='
     },
     templateUrl: 'templates/directives/collect-shop-list.html',
-    link: function(scope, element, attrs) {
+    link: function(scope) {
       scope.doOpenShopDetail = function(item) {
         if (scope.shopDetailModal && !scope.shopDetailModal.scope.$$destroyed) {
           scope.shopDetailModal.shop = item;
+
           scope.shopDetailModal.show();
         } else{
           mmrModal.createShopDetailModal(scope, item);

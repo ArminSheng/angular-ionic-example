@@ -404,8 +404,10 @@
     text-align: right;
 }
 
-.m-collect-sorter .list.m-sorter-options-list.activated {
-    top: 42px;
+
+.has-sub-head {
+    position: relative;
+    top: 44px;
 }
 
 
@@ -517,6 +519,7 @@
     background-color: #fff;
     padding: 5px;
     width: 80px;
+    max-height: 50px;
     position: relative;
     top: 6px;
     font-size: 12px;
@@ -538,6 +541,7 @@
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: auto;
 }
 
 .m-modal-mine-shop-detail-content { background: #e8e8e8; }

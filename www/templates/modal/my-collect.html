@@ -18,9 +18,22 @@
     </div>
   </ion-header-bar>
 
-  <ion-content class="m-modal-mine-collect-content">
-    <!-- options bar -->
-    <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
+  <ion-content class="m-modal-mine-collect-content" delegate-handle="favScroll" on-scroll="onScroll()">
+
+    <div class="m-collect-container" ng-class="{'has-sub-head': modals.collectModal.tab === 0}">
+      <collect-product-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 0"></collect-product-list>
+      <collect-shop-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 1"></collect-shop-list>
+      <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
+    </div>
+    <!-- <div class="m-collect-container" ng-show="modals.collectModal.tab === 1">
+      <collect-shop-list items="modals.collectModal.myFav"></collect-shop-list>
+      <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
+    </div> -->
+
+  </ion-content>
+
+  <!-- options bar -->
+    <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}" ng-if="modals.collectModal.tab === 0">
       <!-- sorting & filters -->
       <div class="m-cat-filters">
         <div class="row row-no-padding m-cat-filters-row">
@@ -35,17 +48,6 @@
       </div>
     </div>
 
-    <div class="m-collect-container" >
-      <collect-product-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 0"></collect-product-list>
-      <collect-shop-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 1"></collect-shop-list>
-      <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
-    </div>
-    <!-- <div class="m-collect-container" ng-show="modals.collectModal.tab === 1">
-      <collect-shop-list items="modals.collectModal.myFav"></collect-shop-list>
-      <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
-    </div> -->
-
-  </ion-content>
   <!-- empty content -->
   <empty-content words="modals.collectModal.words" additional-class="{{ modals.collectModal.additionalClass }}" button="modals.collectModal.button" ng-if="modals.collectModal.isEmpty"></empty-content>
 </ion-modal-view>

@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrMineFactory', ['$http', 'restService', 'mmrCacheFactory',
-  function($http, restService, mmrCacheFactory) {
+.factory('mmrMineFactory', ['$http', 'restService', 'mmrCacheFactory', 'mmrDataService', 'mmrItemFactory',
+  function($http, restService, mmrCacheFactory, mmrDataService, mmrItemFactory) {
 
   // mock
   var details = [
@@ -53,160 +53,24 @@ angular.module('mmr.services')
 
   var favShops = [
     {
-      shopName: '中粮旗舰店',
+      name: '中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png',
-      products: [
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 210,
-              quantity: 5,
-              unitName: '箱'
-            }
-          ]
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '上海中粮专卖店',
+      name: '上海中粮专卖店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png',
-      products: [
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 210,
-              quantity: 5,
-              unitName: '箱'
-            }
-          ]
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '上海中粮旗舰店',
+      name: '上海中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png',
-      products: [
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 210,
-              quantity: 5,
-              unitName: '箱'
-            }
-          ]
+      logoPath: 'img/common/shop-brand.png'
     },
     {
-      shopName: '中粮旗舰店',
+      name: '中粮旗舰店',
       signUpTime: '2015-12-01',
-      brandImg: 'img/common/shop-brand.png',
-      products: [
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 190,
-              quantity: 3,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '鲜品',
-              price: 200,
-              quantity: 4,
-              unitName: '箱'
-            },
-            {
-              name: '苏北草鸭腿950g',
-              imagePath: 'img/item/sample.png',
-              attribute: '冻品',
-              price: 210,
-              quantity: 5,
-              unitName: '箱'
-            }
-          ]
+      logoPath: 'img/common/shop-brand.png'
     }
   ],
   favProducts = [
@@ -216,7 +80,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
         price: 190,
-        quantity: 3,
+        cprice: 250,
+        salesAmount: 3,
         unitName: '箱',
         brand: '买卖肉'
       },
@@ -226,7 +91,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '鲜品',
         price: 200,
-        quantity: 4,
+        cprice: 290,
+        salesAmount: 4,
         unitName: '箱',
         brand: '买卖肉'
       },
@@ -236,7 +102,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
         price: 210,
-        quantity: 5,
+        cprice: 280,
+        salesAmount: 5,
         unitName: '箱',
         brand: '买卖肉'
       },
@@ -246,7 +113,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
         price: 190,
-        quantity: 3,
+        cprice: 270,
+        salesAmount: 3,
         unitName: '箱',
         brand: '买卖肉'
       },
@@ -256,7 +124,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '鲜品',
         price: 200,
-        quantity: 4,
+        cprice: 250,
+        salesAmount: 4,
         unitName: '箱',
         brand: '买卖肉'
       },
@@ -266,7 +135,8 @@ angular.module('mmr.services')
         imagePath: 'img/item/sample.png',
         attribute: '冻品',
         price: 210,
-        quantity: 5,
+        cprice: 230,
+        salesAmount: 5,
         unitName: '箱',
         brand: '买卖肉'
       }
@@ -286,8 +156,8 @@ angular.module('mmr.services')
       mmrCacheFactory.set('couponDetails.used', couponUsed);
       mmrCacheFactory.set('couponDetails.expired', couponExpired);
 
-      // return [couponUnused, couponUsed, couponExpired];
-      return [[], [], couponExpired];
+      return [couponUnused, couponUsed, couponExpired];
+      // return [[], [], couponExpired];
     },
 
     receiptDetails: function() {
@@ -301,11 +171,19 @@ angular.module('mmr.services')
 
       if (index === 1) {
         mmrCacheFactory.set('myFav.favShops', favShops);
-        return [];
+        return favShops;
       } else {
-        mmrCacheFactory.set('myFav.favProducts', favProducts);
-        return favProducts;
-        // return [];
+        // mmrCacheFactory.set('myFav.favProducts', favProducts);
+        mmrDataService.request(mmrItemFactory.search({
+          page: 0
+        })).then(function(res) {
+          products = res[0];
+          mmrCacheFactory.set('products', products);
+        }, function(err) {
+
+        })
+
+        return mmrCacheFactory.get('products');
       }
     }
   };

@@ -197,7 +197,7 @@ angular.module('mmr.controllers')
       $scope.searchCurrentPage += 1;
 
       // scroll to the top
-      $scope.scrollToTop();
+      // $scope.scrollToTop();
     }, function(err) {
 
     });

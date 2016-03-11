@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$state', '$interval', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth',
-  function($scope, $rootScope, $q, $state, $interval, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$state', '$interval', '$cordovaCamera', '$cordovaFileTransfer', '$cordovaImagePicker', '$ionicHistory', '$ionicModal', '$ionicPopup', '$ionicActionSheet', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth',
+  function($scope, $rootScope, $q, $timeout, $state, $interval, $cordovaCamera, $cordovaFileTransfer, $cordovaImagePicker, $ionicHistory, $ionicModal, $ionicPopup, $ionicActionSheet, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -349,17 +349,26 @@ angular.module('mmr.controllers')
       $scope.registerModal.doRegister = function() {
         if($scope.registerModal.doPrecheck(true)) {
           mmrAuth.register($scope.registerModal.data).then(function(res) {
-            // after register
-
+            $timeout(function() {
+              mmrCommonService.help('注册成功', '恭喜您, 注册成功!');
+            }, 100);
           }, function(errMsg) {
             if(errMsg === '手机验证码错误') {
               mmrCommonService.help('注册失败', '手机验证码错误, 请填写正确的验证码');
+            } else {
+              mmrCommonService.help('注册失败', errMsg);
             }
           });
         }
       };
 
       // event handler
+      $scope.$on('doRegisterSuccessfully', function($event) {
+        // close the register
+        $scope.registerModal.doHideRegister();
+        mmrEventing.doLoginSuccessfully();
+      });
+
       $scope.$on('$destroy', function($event) {
         if(intervalPromise) {
           $interval.cancel(intervalPromise);
@@ -410,7 +419,6 @@ angular.module('mmr.controllers')
   $rootScope.$root.ui.tabsHidden = true;
 
   $scope.doOpenPersonalInfo = function() {
-    console.log('doOpenPersonalInfo');
     if($rootScope.modals.pInfoModal && !$rootScope.modals.pInfoModal.scope.$$destroyed) {
       // directly open it
       $rootScope.modals.pInfoModal.show();

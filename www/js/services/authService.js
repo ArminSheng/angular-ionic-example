@@ -1,7 +1,45 @@
 angular.module('mmr.services')
 
-.factory('mmrAuth', ['$q', '$http', 'apiService',
-  function($q, $http, apiService) {
+.factory('mmrAuth', ['$q', '$http', '$rootScope', 'apiService', 'mmrEventing',
+  function($q, $http, $rootScope, apiService, mmrEventing) {
+
+  // type:
+  // 1: login; 2: register
+  function postprocess(res, type) {
+    // save the user info locally
+    var localUserInfo = $rootScope.$root.pinfo;
+
+    // avatar
+    if(res.img && _.startsWith(res.img, './')) {
+      localUserInfo.avatar = apiService.API_BASE + res.img.substring(2);
+    }
+    // phone
+    localUserInfo.phone = res.phone;
+    // username
+    localUserInfo.username = res.name;
+    // email
+    localUserInfo.email = res.email;
+    // qq
+    localUserInfo.qq = res.qq;
+    // birthday
+    localUserInfo.birthday = new Date(res.birthday);
+    // deposit
+    localUserInfo.deposit = Number(res.cash);
+
+    $rootScope.$root.pinfoBackend = res;
+
+    // change the auth status
+    $rootScope.$root.authenticated = true;
+
+    switch(type) {
+      case 1:
+        mmrEventing.doLoginSuccessfully();
+        break;
+      case 2:
+        mmrEventing.doRegisterSuccessfully();
+        break;
+    }
+  }
 
   return {
 
@@ -39,7 +77,9 @@ angular.module('mmr.services')
           pwd: info.password
         }
       }).then(function(res) {
+        console.log(res);
         if(res.data.msg === '登录成功') {
+          postprocess(res.data.data, 1);
           dfd.resolve(res.data.data);
         } else {
           dfd.reject(res.data.msg);
@@ -63,12 +103,15 @@ angular.module('mmr.services')
           code: info.code
         }
       }).then(function(res) {
-        if(res.data.status === 1) {
-          dfd.resolve(res.data);
+        console.log(res);
+        if(res.data.msg === '注册成功') {
+          postprocess(res.data.data, 2);
+          dfd.resolve(res.data.data);
         } else {
           dfd.reject(res.data.msg);
         }
       }, function(err) {
+        console.log(err);
         dfd.reject();
       });
 

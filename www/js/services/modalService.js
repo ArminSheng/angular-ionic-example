@@ -80,47 +80,21 @@ angular.module('mmr.services')
         };
 
         scope.loginModal.doLogin = function() {
-          if(Validator.phone(scope.loginModal.data.username, true) &&
-             Validator.password(scope.loginModal.data.password, true)) {
-
-            mmrAuth.login(scope.loginModal.data).then(function(res) {
-              // after register
-              // console.log(res);
-              // save the user info locally
-              var localUserInfo = $rootScope.$root.pinfo;
-
-              // avatar
-              if(res.img && _.startsWith(res.img, './')) {
-                localUserInfo.avatar = apiService.API_BASE + res.img.substring(2);
-              }
-              // phone
-              localUserInfo.phone = res.phone;
-              // username
-              localUserInfo.username = res.name;
-              // email
-              localUserInfo.email = res.email;
-              // qq
-              localUserInfo.qq = res.qq;
-              // birthday
-              localUserInfo.birthday = new Date(res.birthday);
-              // deposit
-              localUserInfo.deposit = Number(res.cash);
-
-              $rootScope.$root.pinfoBackend = res;
-
-              // change the auth status
-              $rootScope.$root.authenticated = true;
-
-              // broadcast the login event
-              mmrEventing.doLoginSuccessfully();
-
-              // close the login
-              scope.loginModal.doHideLogin();
-            }, function(errMsg) {
-              if(errMsg === '用户不存在') {
-                mmrCommonService.help('登录失败', '用户名或者密码错误, 请重新尝试');
-              }
-            });
+          if(Validator.phone(scope.loginModal.data.username, true)) {
+            if((scope.loginModal.viewMode === 1 &&
+               Validator.password(scope.loginModal.data.password, true)) ||
+               (scope.loginModal.viewMode === 2 &&
+               Validator.verifyCode(scope.loginModal.data.code, true))) {
+              mmrAuth.login(scope.loginModal.data).then(function(res) {
+                $timeout(function() {
+                  mmrCommonService.help('登录成功', '恭喜您, 登录成功!');
+                }, 100);
+              }, function(errMsg) {
+                if(errMsg === '用户不存在' || errMsg === '账号密码错误') {
+                  mmrCommonService.help('登录失败', '用户名或者密码错误, 请重新尝试');
+                }
+              });
+            }
           }
 
           // TODO: show the bind modal if necessary (old user only)
@@ -154,6 +128,11 @@ angular.module('mmr.services')
         };
 
         // event handler
+        scope.$on('doLoginSuccessfully', function($event) {
+          // close the login
+          scope.loginModal.doHideLogin();
+        });
+
         scope.$on('$destroy', function($event) {
           if(intervalPromise) {
             $interval.cancel(intervalPromise);
@@ -165,7 +144,8 @@ angular.module('mmr.services')
     createMyReceiptModal: function(scope) {
       var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
-        scope:scope
+        scope:scope,
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $rootScope.modals.receiptModal = modal;
         modal.show();
@@ -521,7 +501,8 @@ angular.module('mmr.services')
 
     createPersonalInfoModal: function(scope) {
       $ionicModal.fromTemplateUrl('templates/modal/personal-info.html', {
-        scope: scope
+        scope: scope,
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $rootScope.modals.pInfoModal = modal;
         $rootScope.modals.pInfoModal.show();
@@ -606,7 +587,8 @@ angular.module('mmr.services')
 
     createAddressModal: function(scope, currentAddress, addressType) {
       $ionicModal.fromTemplateUrl('templates/modal/my-address.html', {
-        scope: scope
+        scope: scope,
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $rootScope.$root.modals.addressModal = modal;
         modal.show();
@@ -709,7 +691,8 @@ angular.module('mmr.services')
 
     createSecurityModal: function(scope) {
       $ionicModal.fromTemplateUrl('templates/modal/my-security.html', {
-        scope: scope
+        scope: scope,
+        animation: 'slide-in-right'
       }).then(function(modal) {
         $rootScope.modals.securityModal = modal;
         $rootScope.modals.securityModal.show();

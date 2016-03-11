@@ -293,8 +293,14 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/item/bottom-direct-buy.html',
     link: function(scope, element, attrs) {
+      scope.directCounter = 0;
+
       scope.doCloseImmediateBuy = function() {
         element.removeClass('activated');
+      };
+
+      scope.doBuyImmediately = function() {
+
       };
 
       scope.$on('doBuyImmediately', function($event, data) {

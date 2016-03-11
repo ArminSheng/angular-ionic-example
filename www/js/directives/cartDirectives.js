@@ -42,15 +42,26 @@ angular.module('mmr.directives')
     scope: {
       item: '=',
       showRemoveBtn: '=',
-      smallerSize: '='
+      smallerSize: '=',
+      counter: '='
     },
     templateUrl: 'templates/directives/cart/cart-count.html',
     link: function(scope, element, attrs) {
-      // workaround for showing zero at the first time
-      $timeout(function() {
-        scope.currentCount = $rootScope.$root.cart.itemsCount[scope.item.id] || 0;
-        scope.currentCountTemp = scope.currentCount;
-      });
+
+
+      var independentCounter = scope.counter === undefined ? false : true;
+      if(!independentCounter) {
+        // workaround for showing zero at the first time
+        $timeout(function() {
+          scope.currentCount = $rootScope.$root.cart.itemsCount[scope.item.id] || 0;
+          scope.currentCountTemp = scope.currentCount;
+        });
+      } else {
+        // workaround for showing zero at the first time
+        $timeout(function() {
+          scope.currentCountTemp = scope.counter;
+        });
+      }
 
       scope.doCountMinus = function($event) {
         // TODO: this is only workaround for the activated class not added
@@ -62,25 +73,33 @@ angular.module('mmr.directives')
           }, 200);
         }
 
-        // emit the event
-        if(scope.currentCount > 0) {
-          if(mmrCartService.isItemInCart(scope.item)) {
-            if(scope.currentCount === 1) { // current count
-              setToZeroConfirm().then(function(res) {
-                if(res) {
-                  mmrEventing.doDecreaseItemCount(scope, {
-                    item: scope.item
-                  });
-                }
-              });
+        if(!independentCounter) {
+          // emit the event
+          if(scope.currentCount > 0) {
+            if(mmrCartService.isItemInCart(scope.item)) {
+              if(scope.currentCount === 1) { // current count
+                setToZeroConfirm().then(function(res) {
+                  if(res) {
+                    mmrEventing.doDecreaseItemCount(scope, {
+                      item: scope.item
+                    });
+                  }
+                });
+              } else {
+                mmrEventing.doDecreaseItemCount(scope, {
+                  item: scope.item
+                });
+              }
             } else {
-              mmrEventing.doDecreaseItemCount(scope, {
-                item: scope.item
-              });
+              // just change the count
+              mmrCartService.setItemCount(scope.item, scope.currentCount - 1);
             }
-          } else {
-            // just change the count
-            mmrCartService.setItemCount(scope.item, scope.currentCount - 1);
+          }
+        } else {
+          // independent situation
+          if(scope.currentCountTemp > 0) {
+            scope.currentCountTemp -= 1;
+            scope.counter = scope.currentCountTemp;
           }
         }
 
@@ -88,51 +107,73 @@ angular.module('mmr.directives')
       };
 
       scope.doCountPlus = function($event) {
-        if(mmrCartService.isItemInCart(scope.item)) {
-          mmrEventing.doIncreaseItemCount(scope, {
-            item: scope.item
-          });
-        } else {
-          // just change the count
-          // mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
+        if(!independentCounter) {
+          if(scope.currentCountTemp < scope.item.inventoryAmount) {
+            if(mmrCartService.isItemInCart(scope.item)) {
+              mmrEventing.doIncreaseItemCount(scope, {
+                item: scope.item
+              });
+            } else {
+              // just change the count
+              // mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
 
-          // make sure the item has shop information since cart needs it
-          if(!scope.item.shop) {
-            scope.item = mmrSearchService.itemDetail(scope.item);
+              // make sure the item has shop information since cart needs it
+              if(!scope.item.shop) {
+                scope.item = mmrSearchService.itemDetail(scope.item);
+              }
+              mmrCartService.addItemToCart(scope, scope.item);
+            }
           }
-          mmrCartService.addItemToCart(scope, scope.item);
+        } else {
+          // independent situation
+          if(scope.currentCountTemp < scope.item.inventoryAmount) {
+            scope.currentCountTemp += 1;
+            scope.counter = scope.currentCountTemp;
+          }
         }
 
         $event.stopPropagation();
       };
 
       scope.doRemoveItem = function($event) {
-        scope.currentCountTemp = 0;
-        scope.doValidateCount();
+        if(!independentCounter) {
+          scope.currentCountTemp = 0;
+          scope.doValidateCount();
+        } else {
+          // no need to consider since independent counter will not show DEL btn
+        }
       };
 
       scope.doValidateCount = function() {
         scope.currentCountTemp = Number(scope.currentCountTemp);
         if(!Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
           // restore to last valid number
-          scope.currentCountTemp = scope.currentCount;
-        } else {
-          if(scope.currentCountTemp === 0) {
-            setToZeroConfirm().then(function(res) {
-              if(res) {
-                mmrEventing.doSetItemCount(scope, {
-                  item: scope.item,
-                  newCount: scope.currentCountTemp
-                });
-              } else {
-                scope.currentCountTemp = scope.currentCount;
-              }
-            });
+          if(!independentCounter) {
+            scope.currentCountTemp = scope.currentCount;
           } else {
-            mmrEventing.doSetItemCount(scope, {
-              item: scope.item,
-              newCount: scope.currentCountTemp
-            });
+            scope.currentCountTemp = scope.counter;
+          }
+        } else {
+          if(!independentCounter) {
+            if(scope.currentCountTemp === 0) {
+              setToZeroConfirm().then(function(res) {
+                if(res) {
+                  mmrEventing.doSetItemCount(scope, {
+                    item: scope.item,
+                    newCount: scope.currentCountTemp
+                  });
+                } else {
+                  scope.currentCountTemp = scope.currentCount;
+                }
+              });
+            } else {
+              mmrEventing.doSetItemCount(scope, {
+                item: scope.item,
+                newCount: scope.currentCountTemp
+              });
+            }
+          } else {
+            // independent situation
           }
         }
       };

@@ -375,7 +375,7 @@
 }
 
 .m-bottom-direct-buy.activated {
-  bottom: 0;
+  bottom: 300px;
   opacity: 1;
 }
 

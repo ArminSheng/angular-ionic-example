@@ -1,6 +1,8 @@
 <div class="m-screener-wrapper" ng-class="additionalClass">
   <a class="button button-small button-clear m-screener-text" ng-class="{'text-activated': screenActivated}" ng-click="activateScreen()">
-    筛选<span class="ion-chevron-down m-screen-down-icon"></span>
+    筛选
+    <span class="ion-chevron-down m-screen-down-icon"></span>
+    <span ng-if="counter > 0" class="m-screen-counter badge badge-assertive">{{ getCounter() }}</span>
   </a>
 
   <!-- screen options -->

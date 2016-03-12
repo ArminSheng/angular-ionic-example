@@ -38,6 +38,7 @@ angular.module('mmr.controllers')
   $scope.searchInputFocused = false;
   $scope.searchObject = {
     keyword: '',
+    cid: undefined,
     page: 0
   };
 
@@ -286,8 +287,8 @@ angular.module('mmr.controllers')
 
   // cache bindings
   $scope.tags = [
-    { title: '品牌', items: mmrCacheFactory.get('brands'), exclusively: false },
-    { title: '产品属性', items: mmrCacheFactory.get('attributes'), exclusively: true }
+    { title: '品牌', items: mmrCacheFactory.get('brands'), exclusively: false, selected: {} },
+    { title: '产品属性', items: mmrCacheFactory.get('attributes'), exclusively: true, selected: {} }
   ];
 
   localStorageService.bind($scope, 'classifications');
@@ -309,14 +310,26 @@ angular.module('mmr.controllers')
   $scope.$on($scope.screenEventPrefix + 'Reset', function($event, data) {
     // make all selected flag to false
     _.forEach($scope.tags, function(tag) {
+      tag.selected = {};
       _.forEach(tag.items, function(item) {
         item.selected = false;
       });
     });
+
+    screenerCount = 0;
   });
 
   $scope.$on($scope.screenEventPrefix + 'Confirm', function($event, data) {
     // confirm logic
+    var assembledBid = assembleTags($scope.tags[0].selected, false),
+        assembledAid = assembleTags($scope.tags[1].selected, true);
+
+    if(assembledBid !== '') {
+      $scope.searchObject.bid = assembledBid;
+    }
+    if(assembledAid !== '') {
+      $scope.searchObject.aid = assembledAid;
+    }
 
     // hide the screen popup
     $scope.activateScreen();
@@ -336,6 +349,27 @@ angular.module('mmr.controllers')
   $scope.$on('doCategoryBackToTop', function($event, data) {
     $scope.doSearch();
   });
+
+  // private functions
+  var screenerCount = 0;
+  function assembleTags(tags, exclusively) {
+    var assembled = '';
+    _.forEach(tags, function(selected, key) {
+      if(selected) {
+        assembled += key;
+
+        if(!exclusively) {
+          assembled += ',';
+          screenerCount += 1;
+        } else {
+          // return prematurely
+          return false;
+        }
+      }
+    });
+
+    return assembled;
+  }
 }])
 
 .controller('CategoryMenuCtrl', ['$scope', function($scope) {

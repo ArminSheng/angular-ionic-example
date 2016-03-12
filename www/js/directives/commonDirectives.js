@@ -206,13 +206,18 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       element.find('.m-screen-container-scroll').height(calcContentHeight());
 
+      scope.counter = 0;
       scope.doSelectItem = function(outerIdx, innerIdx, item, exclusively) {
         // init and assignment
         item.selected = item.selected || false;
         if(item.selected) {
           item.selected = false;
+          scope.tags[outerIdx].selected[item.id] = false;
+          scope.counter -= 1;
         } else {
           item.selected = true;
+          scope.tags[outerIdx].selected[item.id] = true;
+          scope.counter += 1;
         }
 
         // unselect others if exclusively
@@ -220,6 +225,8 @@ angular.module('mmr.directives')
           _.forEach(scope.tags[outerIdx].items, function(element, idx) {
             if(element.selected && idx !== innerIdx) {
               element.selected = false;
+              scope.tags[outerIdx].selected[element.id] = false;
+              scope.counter -= 1;
             }
           });
         }
@@ -236,10 +243,19 @@ angular.module('mmr.directives')
 
       scope.doResetScreen = function() {
         mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'Reset', {});
+        scope.counter = 0;
       };
 
       scope.doConfirmScreen = function() {
         mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'Confirm', {});
+      };
+
+      scope.getCounter = function() {
+        if(scope.counter > 9) {
+          return '9+';
+        } else {
+          return scope.counter;
+        }
       };
     }
   };

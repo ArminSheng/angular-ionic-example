@@ -75,6 +75,10 @@
     font-size: 8px;
 }
 
+.m-screen-counter {
+    margin-left: 4px;
+}
+
 .button-clear.m-sorter-text,
 .button-clear.m-screener-text {
     color: black;

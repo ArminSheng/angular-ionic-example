@@ -4,9 +4,9 @@
       <!-- search input -->
       <label class="item-input-wrapper">
         <i class="icon ion-ios-search placeholder-icon"></i>
-        <form action="." ng-submit="$event.preventDefault();doSubmitSearchRequest(searchKeyword)" class="m-cat-search-form">
+        <form action="." ng-submit="$event.preventDefault();doSubmitSearchRequest(searchObject.keyword)" class="m-cat-search-form">
           <input type="hidden">
-          <input type="search" placeholder="搜索商品" ng-click="doFocusSearchInput()" ng-model="searchKeyword" tabindex="-1">
+          <input type="search" placeholder="搜索商品" ng-click="doFocusSearchInput()" ng-model="searchObject.keyword" tabindex="-1">
         </form>
       </label>
       <!-- cancel button -->
@@ -20,13 +20,13 @@
   <ion-content scrollbar-x="false" scrollbar-y="false" class="m-cat-body" ng-class="{'downing': $root.ui.tabsHidden}" delegate-handle="searchScroll" on-scroll="onScroll()">
 
     <!-- item list area -->
-    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="!searchNoResult">
+    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="searchResults.length > 0">
       <!-- search results -->
       <search-result-list items="searchResults"></search-result-list>
     </div>
 
     <!-- no result -->
-    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="searchNoResult">
+    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="searchResults.length === 0">
       <empty-content words="ec.words" additional-class="{{ ec.additionalClass }}"></empty-content>
     </div>
 

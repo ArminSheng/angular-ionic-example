@@ -154,6 +154,10 @@ angular.module('mmr.services')
       $rootScope.$broadcast('doCategoryItemsBack');
     },
 
+    doCategoryBackToTop: function() {
+      $rootScope.$broadcast('doCategoryBackToTop');
+    },
+
     doRefreshCategoryMenu: function() {
       $rootScope.$broadcast('doRefreshCategoryMenu');
     },

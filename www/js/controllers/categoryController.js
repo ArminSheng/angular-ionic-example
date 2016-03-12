@@ -8,7 +8,7 @@ angular.module('mmr.controllers')
     if(keyword && keyword !== 'init') {
       $scope.doSearch(keyword);
     } else {
-      $scope.initialize();
+      // $scope.initialize();
     }
   }, 100);
 
@@ -36,8 +36,10 @@ angular.module('mmr.controllers')
   $scope.searchNoResult = false;
   $scope.searchResults = [];
   $scope.searchInputFocused = false;
-  $scope.searchCurrentPage = 0;
-  $scope.searchCurrentKeyword = '';
+  $scope.searchObject = {
+    keyword: '',
+    page: 0
+  };
 
   // empty content related
   $scope.ec = {};
@@ -47,12 +49,13 @@ angular.module('mmr.controllers')
   // methods
   $scope.initialize = function() {
     mmrDataService.request(mmrItemFactory.search({
-      page: $scope.searchCurrentPage
+      page: $scope.searchObject.page
     })).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = res[0];
-        $scope.searchCurrentPage += 1;
+        $scope.searchObject.page += 1;
         $scope.searchNoResult = false;
+        $scope.initReady = true;
       } else {
         $scope.searchNoResult = true;
       }
@@ -117,13 +120,13 @@ angular.module('mmr.controllers')
     $scope.isLoadingMore = true;
 
     mmrDataService.request(mmrItemFactory.search({
-      page: $scope.searchCurrentPage,
-      keyword: $scope.searchCurrentKeyword,
+      page: $scope.searchObject.page,
+      keyword: $scope.searchObject.keyword,
       sort: $scope.sortMethod
     })).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = $scope.searchResults.concat(res[0]);
-        $scope.searchCurrentPage += 1;
+        $scope.searchObject.page += 1;
         $scope.searchNoResult = false;
       } else {
         $scope.searchNoResult = true;
@@ -196,24 +199,38 @@ angular.module('mmr.controllers')
     });
   };
 
-  $scope.doSearch = function(keyword) {
-    // put the keyword into the input control
-    $scope.searchKeyword = keyword;
+  $scope.doSearch = function(keyword, type) {
+    // reset
+    $scope.searchObject.page = 0;
+    $scope.sortMethod = 0;
+    $scope.searchResults = [];
 
-    // send the search request
-    $scope.searchCurrentKeyword = keyword;
-    $scope.searchCurrentPage = 0;
+    // prepare the search object
+    var searchVo = {};
+
+    if(angular.isUndefined(type) || type === 'keyword') {
+      $scope.searchObject.keyword = keyword;
+      searchVo.keyword = $scope.searchObject.keyword;
+    } else if(type === 'cid') {
+      $scope.searchObject.cid = keyword;
+      searchVo.cid = $scope.searchObject.cid;
+    }
+
+    searchVo.page = $scope.searchObject.page;
+    searchVo.sort = $scope.sortMethod;
+
     $scope.isLoadingMore = false;
 
-    mmrDataService.request(mmrItemFactory.search({
-      page: $scope.searchCurrentPage,
-      keyword: keyword,
-      sort: $scope.sortMethod
-    })).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search(searchVo)).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
-        $scope.searchResults = $scope.searchResults.concat(res[0]);
-        $scope.searchCurrentPage += 1;
-        $scope.searchNoResult = false;
+        $scope.searchResults = res[0];
+        $scope.searchObject.page += 1;
+
+        if(res[0].length < ($scope.searchObject.size || 10)) {
+          $scope.searchNoResult = true;
+        } else {
+          $scope.searchNoResult = false;
+        }
       } else {
         $scope.searchNoResult = true;
       }
@@ -224,28 +241,30 @@ angular.module('mmr.controllers')
 
     });
 
-    // update the search history
-    var keywords = $rootScope.$root.search.keywords;
-    // try to find the existing if any
-    var existed = _.find(keywords, { text: keyword });
-    if(existed) {
-      // update the time
-      existed.time = new Date();
+    if(angular.isUndefined(type) || type === 'keyword') {
+      // update the search history
+      var keywords = $rootScope.$root.search.keywords;
+      // try to find the existing if any
+      var existed = _.find(keywords, { text: keyword });
+      if(existed) {
+        // update the time
+        existed.time = new Date();
 
-      // sort the keywords by time
-      keywords = _.sortBy(keywords, function(o) {
-        return -o.time.getTime();
-      });
-    } else {
-      // try to add new one into queue
-      keywords.unshift({
-        text: keyword,
-        detail: '',
-        time: new Date()
-      });
+        // sort the keywords by time
+        keywords = _.sortBy(keywords, function(o) {
+          return -o.time.getTime();
+        });
+      } else {
+        // try to add new one into queue
+        keywords.unshift({
+          text: keyword,
+          detail: '',
+          time: new Date()
+        });
 
-      if(keywords.length > 15) {
-        keywords.pop();
+        if(keywords.length > 15) {
+          keywords.pop();
+        }
       }
     }
 
@@ -308,9 +327,12 @@ angular.module('mmr.controllers')
   });
 
   $scope.$on('doSelectCategoryMenu', function($event, data) {
-    // console.log(data);
-    $scope.doSearch(data.name);
+    $scope.doSearch(data.id, 'cid');
     $scope.doBlurSearchInput();
+  });
+
+  $scope.$on('doCategoryBackToTop', function($event, data) {
+    $scope.doSearch();
   });
 }])
 

@@ -261,6 +261,10 @@ angular.module('mmr.controllers')
       // remove the current level
       stack.pop();
       mmrEventing.doSetCategoryItems(stack[stack.length - 1], false);
+
+      if(stack.length === 1) {
+        mmrEventing.doCategoryBackToTop();
+      }
     }
   });
 

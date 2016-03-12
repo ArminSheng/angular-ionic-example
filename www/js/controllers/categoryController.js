@@ -6,7 +6,8 @@ angular.module('mmr.controllers')
   $timeout(function() {
     var keyword = $stateParams.keyword;
     if(keyword && keyword !== 'init') {
-      $scope.doSearch(keyword);
+      $scope.searchObject.keyword = keyword;
+      $scope.doSearch(1);
     } else {
       // $scope.initialize();
     }
@@ -122,11 +123,7 @@ angular.module('mmr.controllers')
   $scope.loadMore = function() {
     $scope.isLoadingMore = true;
 
-    mmrDataService.request(mmrItemFactory.search({
-      page: $scope.searchObject.page,
-      keyword: $scope.searchObject.keyword,
-      sort: $scope.sortMethod
-    })).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search(assembleSearchVo($scope.searchObject.type))).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = $scope.searchResults.concat(res[0]);
         $scope.searchObject.page += 1;
@@ -202,29 +199,19 @@ angular.module('mmr.controllers')
     });
   };
 
-  $scope.doSearch = function(keyword, type) {
+  // search type:
+  // 1: direct search by input keyword in the corresponding control
+  // 2: click the category menu
+  // 3: triggered by the screener
+  $scope.doSearch = function(type) {
     // reset
+    $scope.searchObject.type = type;
     $scope.searchObject.page = 0;
     $scope.sortMethod = 0;
     $scope.searchResults = [];
-
-    // prepare the search object
-    var searchVo = {};
-
-    if(angular.isUndefined(type) || type === 'keyword') {
-      $scope.searchObject.keyword = keyword;
-      searchVo.keyword = $scope.searchObject.keyword;
-    } else if(type === 'cid') {
-      $scope.searchObject.cid = keyword;
-      searchVo.cid = $scope.searchObject.cid;
-    }
-
-    searchVo.page = $scope.searchObject.page;
-    searchVo.sort = $scope.sortMethod;
-
     $scope.isLoadingMore = false;
 
-    mmrDataService.request(mmrItemFactory.search(searchVo)).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search(assembleSearchVo(type))).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = res[0];
         $scope.searchObject.page += 1;
@@ -333,21 +320,26 @@ angular.module('mmr.controllers')
 
     // hide the screen popup
     $scope.activateScreen();
+
+    // trigger the search
+    $scope.doSearch(3);
   });
 
   // handler on history keyword click
   $scope.$on('doSelectSearchHistory', function($event, data) {
-    $scope.doSearch(data.text);
+    $scope.searchObject.keyword = data.text;
+    $scope.doSearch(1);
     $scope.doBlurSearchInput();
   });
 
   $scope.$on('doSelectCategoryMenu', function($event, data) {
-    $scope.doSearch(data.id, 'cid');
+    $scope.searchObject.cid = data.id;
+    $scope.doSearch(2);
     $scope.doBlurSearchInput();
   });
 
   $scope.$on('doCategoryBackToTop', function($event, data) {
-    $scope.doSearch();
+    $scope.doSearch(2);
   });
 
   // private functions
@@ -369,6 +361,33 @@ angular.module('mmr.controllers')
     });
 
     return assembled;
+  }
+
+  // assemble the search value object
+  function assembleSearchVo(type) {
+    var searchVo = {};
+
+    switch(type) {
+      case 1: // by keyword
+        searchVo.keyword = $scope.searchObject.keyword;
+        break;
+      case 2: // by menu
+        searchVo.cid = $scope.searchObject.cid;
+        break;
+      case 3: // by screener
+        if($scope.searchObject.aid) {
+          searchVo.aid = $scope.searchObject.aid;
+        }
+        if($scope.searchObject.bid) {
+          searchVo.bid = $scope.searchObject.bid;
+        }
+        break;
+    }
+
+    searchVo.page = $scope.searchObject.page;
+    searchVo.sort = $scope.sortMethod;
+
+    return searchVo;
   }
 }])
 

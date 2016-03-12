@@ -10,14 +10,24 @@ angular.module('mmr.services')
         return;
       }
 
-      mmrLoadingFactory.show();
+      // convert to array
+      var parameters = Array.prototype.slice.call(arguments),
+          loadingMsg;
+      if(typeof(parameters[parameters.length - 1]) === 'string') {
+        loadingMsg = parameters[parameters.length - 1];
+
+        // remove the last element
+        parameters.pop();
+      }
+
+      mmrLoadingFactory.show(loadingMsg);
 
       var dfd = $q.defer(),
-          results = new Array(arguments.length);
+          results = new Array(parameters.length);
 
 
       var errorFlag = false;
-      _.forEach(arguments, function(q, idx) {
+      _.forEach(parameters, function(q, idx) {
         q.then(function(res) {
           if(res.status === 0) {
             errorFlag = true;
@@ -29,7 +39,7 @@ angular.module('mmr.services')
         });
       });
 
-      $q.all(arguments).then(responseCore);
+      $q.all(parameters).then(responseCore);
 
       function responseCore() {
         mmrLoadingFactory.hide();

@@ -42,6 +42,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.AUTH_SEND_CODE = this.data.API_BASE + 'api-user-sendcode.html';
     this.data.AUTH_USER_LOGIN = this.data.API_BASE + 'api-user-login.html';
     this.data.AUTH_USER_REGISTER = this.data.API_BASE + 'api-user-register.html';
+    this.data.AUTH_USER_PASSWORD = this.data.API_BASE + 'api-user-safe.html';
 
     return this.data;
   };

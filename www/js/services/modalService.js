@@ -701,7 +701,6 @@ angular.module('mmr.services')
 
         // bind data
 
-
         // methods
         $rootScope.modals.securityModal.doHide = function() {
           modal.hide();
@@ -721,6 +720,12 @@ angular.module('mmr.services')
             $rootScope.modals.changePasswordModal.show();
 
             // bind data
+            modal.sendCodeBtn = '获取验证码';
+            modal.password = {
+              code: '',
+              next: '',
+              nextConfirm: ''
+            };
 
             // methods
             $rootScope.modals.changePasswordModal.doHide = function() {
@@ -729,24 +734,72 @@ angular.module('mmr.services')
 
             $rootScope.modals.changePasswordModal.doChangePassword = function() {
               // validate current fields
-
-              // show the successful msg when finished
-              $ionicPopup.show({
-                template: '<div class="m-msg-cong"><img ng-src="img/common/check.png"/><div>' +
-                '<span class="energized m-msg-cong-title">恭喜您！</span>' +
-                '<span class="m-msg-cong-subtitle">请牢记您的新密码。</span></div></div>',
-                title: '修改密码成功',
-                scope: scope,
-                buttons: [
-                  {
-                    text: '<b>确定</b>',
-                    type: 'button-energized',
-                    onTap: function(e) {
-                      // event handler when user confirm
-                    }
+              if(Validator.verifyCode(modal.password.code, true) &&
+                 Validator.password(modal.password.next, true) &&
+                 Validator.password(modal.password.nextConfirm, true)) {
+                // check whether two passwords are the same
+                if(modal.password.next === modal.password.nextConfirm) {
+                  // check uid
+                  var uid = $rootScope.$root.pinfo.uid;
+                  if(!uid) {
+                    mmrCommonService.help('用户状态异常', '您可能没有登录, 请重新登录');
+                  } else {
+                    // send request
+                    mmrAuth.password({
+                      id: uid,
+                      pwd: modal.password.next,
+                      code: modal.password.code
+                    }).then(function() {
+                      // show the successful msg when finished
+                      $ionicPopup.show({
+                        template: '<div class="m-msg-cong"><img ng-src="img/common/check.png"/><div>' +
+                        '<span class="energized m-msg-cong-title">恭喜您！</span>' +
+                        '<span class="m-msg-cong-subtitle">请牢记您的新密码。</span></div></div>',
+                        title: '修改密码成功',
+                        scope: scope,
+                        buttons: [
+                          {
+                            text: '<b>确定</b>',
+                            type: 'button-energized',
+                            onTap: function(e) {
+                              // event handler when user confirm
+                              $state.go('tab.mine');
+                            }
+                          }
+                        ]
+                      });
+                    }, function(errMsg) {
+                      // password modify failed
+                      mmrCommonService.help('修改失败', errMsg);
+                    });
                   }
-                ]
-              });
+                } else {
+                  mmrCommonService.help('两次密码不一致', '请确保两次输入的密码相同');
+                }
+              }
+            };
+
+            $rootScope.modals.changePasswordModal.doSendCode = function() {
+              // check whether phone exists
+              if(Validator.phone($rootScope.$root.pinfo.phone, true)) {
+                // 6 means change password
+                mmrAuth.sendCode($rootScope.$root.pinfo.phone, 6).then(function() {
+                  // change the btn text
+                  var remainingSeconds = 60;
+                  modal.sendCodeBtn = remainingSeconds + '秒';
+                  intervalPromise = $interval(function() {
+                    remainingSeconds -= 1;
+                    if(remainingSeconds === 0) {
+                      modal.sendCodeBtn = '获取验证码';
+                    } else {
+                      modal.sendCodeBtn = remainingSeconds + '秒';
+                    }
+                  }, 1000, 60);
+                }, function() {
+                  // sent failed
+                  mmrCommonService.help('网络异常', '验证码发送失败, 请稍后重试');
+                });
+              }
             };
           });
         }

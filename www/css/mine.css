@@ -152,6 +152,13 @@
     text-align: center;
 }
 
+/*change password*/
+.m-modal-mine-security-change-pwd-code-btn {
+    position: relative;
+    right: 40px;
+    width: 100px;
+}
+
 /*mine address*/
 .m-modal-mine-address .ion-chevron-right {
     font-size: 16px;

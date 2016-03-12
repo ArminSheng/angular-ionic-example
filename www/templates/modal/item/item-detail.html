@@ -42,7 +42,7 @@
       <!-- price and icons -->
       <div class="m-modal-item-detail-title-row2">
         <span class="m-modal-item-detail-title-row2-price">
-          {{ itemModal.item.cprice | currency: '¥' }}/{{ itemModal.item.unitName }}
+          {{ itemModal.item.cprice | currency: '¥' }} {{ itemModal.item.unitName }}
         </span>
         <span class="m-modal-item-detail-title-row2-ns" ng-if="itemModal.item.isNonStandard">
           <img ng-src="img/item/item-non-standard.png"/>
@@ -55,10 +55,10 @@
       <!-- inventory and sales -->
       <div class="row row-no-padding m-modal-item-detail-title-row3">
         <div class="col col-33 m-modal-item-detail-title-row3-inventory">
-          库存：{{ itemModal.item.inventoryAmount }}{{ itemModal.item.unitName }}
+          库存：{{ itemModal.item.inventoryAmount }}
         </div>
         <div class="col col-offset-10 col-33 m-modal-item-detail-title-row3-sales">
-          销量：{{ itemModal.item.salesAmount }}{{ itemModal.item.unitName }}
+          销量：{{ itemModal.item.salesAmount }}
         </div>
       </div>
 

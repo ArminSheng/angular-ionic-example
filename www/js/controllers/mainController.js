@@ -203,12 +203,10 @@ angular.module('mmr.controllers')
 
   // respond to the loading related events
   $rootScope.$on('loading.show', function() {
-    console.log('show loading');
     mmrLoadingFactory.show();
   });
 
   $rootScope.$on('loading.hide', function() {
-    console.log('hide loading');
     mmrLoadingFactory.hide();
   });
 

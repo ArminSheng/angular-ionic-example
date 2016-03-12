@@ -16,11 +16,11 @@
 
       <div class="m-search-list-item-prices">
         <span class="m-search-list-item-current-price">
-          {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
+          {{ item.cprice | currency: '￥' }} {{ item.unitName }}
         </span>
-        <span class="m-search-list-item-original-price">
-          {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
-        </span>
+        <!-- <span class="m-search-list-item-original-price">
+          {{ item.oprice | currency: '￥' }}
+        </span> -->
       </div>
 
       <!-- control group -->

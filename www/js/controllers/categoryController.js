@@ -33,18 +33,29 @@ angular.module('mmr.controllers')
   $scope.showBacktoTopBtn = false;
 
   // search related
+  $scope.searchNoResult = false;
   $scope.searchResults = [];
   $scope.searchInputFocused = false;
   $scope.searchCurrentPage = 0;
   $scope.searchCurrentKeyword = '';
+
+  // empty content related
+  $scope.ec = {};
+  $scope.ec.words = ['没有搜索到相关商品...'];
+  $scope.ec.additionalClass = 'm-cat-empty';
 
   // methods
   $scope.initialize = function() {
     mmrDataService.request(mmrItemFactory.search({
       page: $scope.searchCurrentPage
     })).then(function(res) {
-      $scope.searchResults = res[0];
-      $scope.searchCurrentPage += 1;
+      if(res[0] !== 'null' && res[0] instanceof Array) {
+        $scope.searchResults = res[0];
+        $scope.searchCurrentPage += 1;
+        $scope.searchNoResult = false;
+      } else {
+        $scope.searchNoResult = true;
+      }
     }, function(err) {
 
     });
@@ -95,9 +106,10 @@ angular.module('mmr.controllers')
 
   // inifinite scroll related
   $scope.moreDataCanBeLoaded = function() {
-    if($scope.searchCurrentPage < 5) {
+    if(!$scope.searchNoResult) {
       return true;
     }
+
     return false;
   };
 
@@ -109,8 +121,13 @@ angular.module('mmr.controllers')
       keyword: $scope.searchCurrentKeyword,
       sort: $scope.sortMethod
     })).then(function(res) {
-      $scope.searchResults = $scope.searchResults.concat(res[0]);
-      $scope.searchCurrentPage += 1;
+      if(res[0] !== 'null' && res[0] instanceof Array) {
+        $scope.searchResults = $scope.searchResults.concat(res[0]);
+        $scope.searchCurrentPage += 1;
+        $scope.searchNoResult = false;
+      } else {
+        $scope.searchNoResult = true;
+      }
       $scope.isLoadingMore = false;
       $scope.$broadcast('scroll.infiniteScrollComplete');
     }, function(err) {
@@ -193,8 +210,13 @@ angular.module('mmr.controllers')
       keyword: keyword,
       sort: $scope.sortMethod
     })).then(function(res) {
-      $scope.searchResults = res[0];
-      $scope.searchCurrentPage += 1;
+      if(res[0] !== 'null' && res[0] instanceof Array) {
+        $scope.searchResults = $scope.searchResults.concat(res[0]);
+        $scope.searchCurrentPage += 1;
+        $scope.searchNoResult = false;
+      } else {
+        $scope.searchNoResult = true;
+      }
 
       // scroll to the top
       // $scope.scrollToTop();

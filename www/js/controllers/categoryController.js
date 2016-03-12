@@ -123,7 +123,7 @@ angular.module('mmr.controllers')
   $scope.loadMore = function() {
     $scope.isLoadingMore = true;
 
-    mmrDataService.request(mmrItemFactory.search(assembleSearchVo($scope.searchObject.type))).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search(assembleSearchVo())).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = $scope.searchResults.concat(res[0]);
         $scope.searchObject.page += 1;
@@ -211,7 +211,7 @@ angular.module('mmr.controllers')
     $scope.searchResults = [];
     $scope.isLoadingMore = false;
 
-    mmrDataService.request(mmrItemFactory.search(assembleSearchVo(type))).then(function(res) {
+    mmrDataService.request(mmrItemFactory.search(assembleSearchVo())).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = res[0];
         $scope.searchObject.page += 1;
@@ -304,6 +304,8 @@ angular.module('mmr.controllers')
     });
 
     screenerCount = 0;
+    $scope.searchObject.bid = undefined;
+    $scope.searchObject.aid = undefined;
   });
 
   $scope.$on($scope.screenEventPrefix + 'Confirm', function($event, data) {
@@ -311,18 +313,23 @@ angular.module('mmr.controllers')
     var assembledBid = assembleTags($scope.tags[0].selected, false),
         assembledAid = assembleTags($scope.tags[1].selected, true);
 
-    if(assembledBid !== '') {
+    var toTriggerSearch = false;
+    if($scope.searchObject.bid !== assembledBid) {
       $scope.searchObject.bid = assembledBid;
+      toTriggerSearch = true;
     }
-    if(assembledAid !== '') {
+    if($scope.searchObject.aid !== assembledAid) {
       $scope.searchObject.aid = assembledAid;
+      toTriggerSearch = true;
     }
 
     // hide the screen popup
     $scope.activateScreen();
 
     // trigger the search
-    $scope.doSearch(3);
+    if(toTriggerSearch) {
+      $scope.doSearch(3);
+    }
   });
 
   // handler on history keyword click
@@ -339,6 +346,7 @@ angular.module('mmr.controllers')
   });
 
   $scope.$on('doCategoryBackToTop', function($event, data) {
+    $scope.searchObject.cid = undefined;
     $scope.doSearch(2);
   });
 
@@ -364,26 +372,13 @@ angular.module('mmr.controllers')
   }
 
   // assemble the search value object
-  function assembleSearchVo(type) {
+  function assembleSearchVo() {
     var searchVo = {};
 
-    switch(type) {
-      case 1: // by keyword
-        searchVo.keyword = $scope.searchObject.keyword;
-        break;
-      case 2: // by menu
-        searchVo.cid = $scope.searchObject.cid;
-        break;
-      case 3: // by screener
-        if($scope.searchObject.aid) {
-          searchVo.aid = $scope.searchObject.aid;
-        }
-        if($scope.searchObject.bid) {
-          searchVo.bid = $scope.searchObject.bid;
-        }
-        break;
-    }
-
+    searchVo.keyword = $scope.searchObject.keyword;
+    searchVo.cid = $scope.searchObject.cid;
+    searchVo.aid = $scope.searchObject.aid;
+    searchVo.bid = $scope.searchObject.bid;
     searchVo.page = $scope.searchObject.page;
     searchVo.sort = $scope.sortMethod;
 

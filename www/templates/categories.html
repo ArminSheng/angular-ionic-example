@@ -27,7 +27,7 @@
     </div>
 
     <!-- no result -->
-    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="searchResults.length === 0">
+    <div class="m-cat-main" ng-class="{'expanded': menuOpened}" ng-if="searchResults.length === 0 && searchNoResult">
       <empty-content words="ec.words" additional-class="{{ ec.additionalClass }}"></empty-content>
     </div>
 

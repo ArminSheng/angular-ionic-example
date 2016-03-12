@@ -12,7 +12,7 @@
           {{ tag.title }}
         </div>
         <div class="m-screen-tag-items">
-          <span class="m-screen-tag-item" ng-repeat="item in tag.items track by $index" ng-click="doSelectItem($parent.$index, $index, item)" ng-class="{'selected': item.selected}">
+          <span class="m-screen-tag-item" ng-repeat="item in tag.items track by $index" ng-click="doSelectItem($parent.$index, $index, item, tag.exclusively)" ng-class="{'selected': item.selected}">
             {{ item.name }}
           </span>
         </div>

@@ -210,7 +210,7 @@
     position: absolute;
     top: 87px;
     width: 36px;
-    z-index: 10;
+    z-index: 5;
 }
 
 .m-cat-menu-content.downing {
@@ -282,7 +282,7 @@
     left: 5px;
     padding: 10px;
     font-size: 18px;
-    z-index: 11;
+    z-index: 6;
 }
 
 .m-cat-menu-hint.activated {

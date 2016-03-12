@@ -80,7 +80,9 @@ angular.module('mmr.controllers')
     $scope.swipeMenu(false);
 
     // hide the bottom tabs
-    $rootScope.$root.ui.tabsHidden = true;
+    $timeout(function() {
+      $rootScope.$root.ui.tabsHidden = true;
+    }, 300);
   };
 
   $scope.swipeMenu = function(open) {
@@ -284,8 +286,8 @@ angular.module('mmr.controllers')
 
   // cache bindings
   $scope.tags = [
-    { title: '品牌', items: mmrCacheFactory.get('brands') },
-    { title: '产品属性', items: mmrCacheFactory.get('attributes') }
+    { title: '品牌', items: mmrCacheFactory.get('brands'), exclusively: false },
+    { title: '产品属性', items: mmrCacheFactory.get('attributes'), exclusively: true }
   ];
 
   localStorageService.bind($scope, 'classifications');

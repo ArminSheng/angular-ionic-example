@@ -206,7 +206,7 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       element.find('.m-screen-container-scroll').height(calcContentHeight());
 
-      scope.doSelectItem = function(outerIdx, innerIdx, item) {
+      scope.doSelectItem = function(outerIdx, innerIdx, item, exclusively) {
         // init and assignment
         item.selected = item.selected || false;
         if(item.selected) {
@@ -215,11 +215,23 @@ angular.module('mmr.directives')
           item.selected = true;
         }
 
-        mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'SelectItem', {
-          outer: outerIdx,
-          inner: innerIdx,
-          item: item
-        });
+        // unselect others if exclusively
+        if(exclusively && item.selected) {
+          _.forEach(scope.tags[outerIdx].items, function(element, idx) {
+            if(element.selected && idx !== innerIdx) {
+              element.selected = false;
+            }
+          });
+        }
+
+        if(item.selected) {
+          mmrEventing.doBroadcastScreenEvent(scope.eventPrefix + 'SelectItem', {
+            outer: outerIdx,
+            inner: innerIdx,
+            item: item,
+            exclusively: exclusively
+          });
+        }
       };
 
       scope.doResetScreen = function() {

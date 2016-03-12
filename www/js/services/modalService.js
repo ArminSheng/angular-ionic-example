@@ -747,7 +747,7 @@ angular.module('mmr.services')
                     // send request
                     mmrAuth.password({
                       id: uid,
-                      pwd: modal.password.next,
+                      password: modal.password.next,
                       code: modal.password.code
                     }).then(function() {
                       // show the successful msg when finished
@@ -763,7 +763,6 @@ angular.module('mmr.services')
                             type: 'button-energized',
                             onTap: function(e) {
                               // event handler when user confirm
-                              $state.go('tab.mine');
                             }
                           }
                         ]

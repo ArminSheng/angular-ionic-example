@@ -44,6 +44,9 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.AUTH_USER_REGISTER = this.data.API_BASE + 'api-user-register.html';
     this.data.AUTH_USER_PASSWORD = this.data.API_BASE + 'api-user-safe.html';
 
+    // Search related
+    this.data.SEARCH_INDEX = this.data.API_BASE + 'api-search-index.html';
+
     return this.data;
   };
 }])

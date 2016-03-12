@@ -36,7 +36,7 @@ angular.module('mmr.services')
       });
     },
 
-    // search the items
+    // search the items [mock usage]
     // config object:
     // size: size per request, default 10,
     // page: page number, default 0,
@@ -44,6 +44,21 @@ angular.module('mmr.services')
     // keyword: user input keyword, default '',
     // cid: category id,
     // gid: category level (1-5)
+    // search: function(config) {
+    //   return $http({
+    //     url: restService.API_REST + 'c_search/',
+    //     method: 'GET',
+    //     params: {
+    //       's': config.size || 10,
+    //       'p': config.page || 0,
+    //       'o': config.sort || 0,
+    //       'k': config.keyword || '',
+    //       'c': config.cid,
+    //       'g': config.gid
+    //     }
+    //   });
+    // },
+
     search: function(config) {
       return $http({
         url: restService.API_REST + 'c_search/',

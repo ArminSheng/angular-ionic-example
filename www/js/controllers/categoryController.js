@@ -4,10 +4,10 @@ angular.module('mmr.controllers')
   function($scope, $rootScope, $timeout, $stateParams, $ionicScrollDelegate, localStorageService, mmrDataService, mmrEventing, mmrItemFactory, mmrCacheFactory, mmrScrollService) {
 
   $timeout(function() {
-    var keyword = $stateParams.keyword;
-    if(keyword && keyword !== 'init') {
-      $scope.searchObject.keyword = keyword;
-      $scope.doSearch(1);
+    var cid = $stateParams.cid;
+    if(cid) {
+      $scope.searchObject.cid = cid;
+      $scope.doSearch(2);
     } else {
       // $scope.initialize();
     }

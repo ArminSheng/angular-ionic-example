@@ -138,13 +138,13 @@ angular.module('mmr.directives')
     scope: {
       items: '=',
       banner: '@',
-      keyword: '@'
+      cid: '='
     },
     templateUrl: 'templates/directives/commodity-grid.html',
     link: function(scope, element, attrs) {
       scope.doCheckMore = function() {
         $state.go('tab.categories', {
-          keyword: scope.keyword
+          cid: scope.cid
         });
       };
 

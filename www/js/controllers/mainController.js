@@ -53,7 +53,9 @@ angular.module('mmr.controllers')
     // category related
     category: {
       stack: [],
-      items: []
+      items: [],
+      // categories entries in home view
+      entries: []
     },
 
     // UI related

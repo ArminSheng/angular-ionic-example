@@ -152,10 +152,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   })
 
   .state('tab.categories', {
-    url: '/categories/:keyword',
-    params: {
-      keyword: 'hello'
-    },
+    url: '/categories/:cid',
     views: {
       'tab-categories': {
         templateUrl: 'templates/categories.html',

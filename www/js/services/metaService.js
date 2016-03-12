@@ -15,6 +15,22 @@ angular.module('mmr.services')
     return item;
   };
 
+  var fillHomeEntries = function(items) {
+    _.forEach(items, function(item) {
+      if(item.name === '禽产品') {
+        $rootScope.$root.category.entries[0] = item;
+      } else if(item.name === '畜产品') {
+        $rootScope.$root.category.entries[1] = item;
+      } else if(item.name === '水产品') {
+        $rootScope.$root.category.entries[2] = item;
+      } else if(item.name === '熟食调理') {
+        $rootScope.$root.category.entries[3] = item;
+      } else if(item.name === '腌腊制品') {
+        $rootScope.$root.category.entries[4] = item;
+      }
+    });
+  };
+
   var stringify = function(classParam) {
     var result = '';
 
@@ -78,6 +94,11 @@ angular.module('mmr.services')
         // broadcast the category items event
         mmrEventing.doSetCategoryItems(cCacheKey);
         $rootScope.$root.category.items = cCache[cCacheKey];
+
+        // fill the home view entries
+        if(params.gen === 0) {
+          fillHomeEntries(res.data);
+        }
 
         dfd.resolve(cCache[cCacheKey]);
       }, function(err) {

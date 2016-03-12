@@ -277,4 +277,12 @@
     top: 90px !important;
 }
 
+/*no more content*/
+.m-no-more-content {
+    padding-left: 36px;
+    text-align: center;
+    padding-top: 0.8rem;
+    color: #666;
+}
+
 

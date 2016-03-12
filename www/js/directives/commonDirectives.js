@@ -26,6 +26,11 @@ angular.module('mmr.directives')
     '<span ng-if="index === $index" class="select-checkmark icon ion-ios-checkmark energized"></span>' +
     '</div></div>'
     );
+
+  $templateCache.put('templates/directives/common/no-more-content.html',
+    '<div class="m-no-more-content">' +
+    '<span class="m-no-more-content-text">{{ content }}</span>' +
+    '</div>')
 }])
 
 .directive('backToTopArea', [function() {
@@ -380,6 +385,24 @@ angular.module('mmr.directives')
     link: function(scope, element, attrs) {
       if ($rootScope.$root.platform == "android") {
         scope.isAndroid = true;
+      }
+    }
+  };
+
+}])
+
+.directive('noMoreContent', [function() {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      content: '='
+    },
+    templateUrl: 'templates/directives/common/no-more-content.html',
+    link: function(scope, element, attrs) {
+      if(!scope.content) {
+        scope.content = '到底了, 没有商品啦 :)';
       }
     }
   };

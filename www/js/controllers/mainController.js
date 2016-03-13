@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing', 'mmrCacheFactory',
-  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing, mmrCacheFactory) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', '$timeout', '$ionicModal', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing', 'mmrCacheFactory', 'mmrModal', 'Validator', 'mmrAuth',
+  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, $timeout, $ionicModal, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing, mmrCacheFactory, mmrModal, Validator, mmrAuth) {
 
   // back related
   $scope.myGoBack = function() {
@@ -148,7 +148,8 @@ angular.module('mmr.controllers')
     // save states info
     states: {
       current: undefined,
-      last: undefined
+      last: undefined,
+      beforeLogin: undefined
     }
   };
 
@@ -268,6 +269,106 @@ angular.module('mmr.controllers')
         mmrEventing.doCategoryBackToTop();
       }
     }
+  });
+
+  // login
+  $scope.$on('eventOpenLogin', function($event, data) {
+    // create login modal everytime
+    mmrModal.createLoginModal($scope);
+  });
+
+  // register
+  $scope.$on('eventOpenRegister', function($event, data) {
+    $ionicModal.fromTemplateUrl('templates/modal/register.html', {
+      scope: $scope
+    }).then(function(modal) {
+      $scope.registerModal = modal;
+      $scope.registerModal.show();
+
+      // data bindings
+      $scope.registerModal.sendCodeBtn = '获取验证码';
+
+      $scope.registerModal.term1 = false;
+      $scope.registerModal.term2 = false;
+
+      $scope.registerModal.data = {
+        phone: '',
+        password: '',
+        code: ''
+      };
+
+      // methods for the register modal
+      $scope.registerModal.doHideRegister = function() {
+        $scope.registerModal.remove();
+      };
+
+      var intervalPromise;
+      $scope.registerModal.doFetchCode = function() {
+        if(Validator.phone($scope.registerModal.data.phone, true)) {
+          // 1 means register
+          mmrAuth.sendCode($scope.registerModal.data.phone, 1).then(function() {
+            // show the message has sent
+            $scope.registerModal.codeSent = true;
+            // change the btn text
+            var remainingSeconds = 60;
+            $scope.registerModal.sendCodeBtn = remainingSeconds + '秒';
+            intervalPromise = $interval(function() {
+              remainingSeconds -= 1;
+              if(remainingSeconds === 0) {
+                $scope.registerModal.sendCodeBtn = '获取验证码';
+              } else {
+                $scope.registerModal.sendCodeBtn = remainingSeconds + '秒';
+              }
+            }, 1000, 60);
+          }, function() {
+            // sent failed
+            mmrCommonService.help('网络异常', '验证码发送失败, 请稍后重试');
+            $scope.registerModal.codeSent = false;
+          });
+        }
+      };
+
+      $scope.registerModal.doPrecheck = function(needPopupFailure) {
+        if(!Validator.phone($scope.registerModal.data.phone, needPopupFailure) ||
+           !Validator.password($scope.registerModal.data.password, needPopupFailure) ||
+           !Validator.verifyCode($scope.registerModal.data.code, needPopupFailure) ||
+           !$scope.registerModal.term1 ||
+           !$scope.registerModal.term2) {
+          return false;
+        }
+
+        return true;
+      };
+
+      $scope.registerModal.doRegister = function() {
+        if($scope.registerModal.doPrecheck(true)) {
+          mmrAuth.register($scope.registerModal.data).then(function(res) {
+            $timeout(function() {
+              mmrCommonService.help('注册成功', '恭喜您, 注册成功!');
+            }, 100);
+          }, function(errMsg) {
+            if(errMsg === '手机验证码错误') {
+              mmrCommonService.help('注册失败', '手机验证码错误, 请填写正确的验证码');
+            } else {
+              mmrCommonService.help('注册失败', errMsg);
+            }
+          });
+        }
+      };
+
+      // event handler
+      $scope.$on('doRegisterSuccessfully', function($event) {
+        // close the register
+        $scope.registerModal.doHideRegister();
+        mmrEventing.doLoginSuccessfully();
+      });
+
+      $scope.$on('$destroy', function($event) {
+        if(intervalPromise) {
+          $interval.cancel(intervalPromise);
+        }
+      });
+    });
   });
 
   function changeCartItems(item, newCount, canAdd) {

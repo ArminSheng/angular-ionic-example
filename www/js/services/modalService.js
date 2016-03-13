@@ -132,6 +132,11 @@ angular.module('mmr.services')
           // close the login
           if(scope.loginModal) {
             scope.loginModal.doHideLogin();
+
+            if($rootScope.$root.states.beforeLogin) {
+              $state.go($rootScope.$root.states.beforeLogin);
+              $rootScope.$root.states.beforeLogin = undefined;
+            }
           }
         });
 

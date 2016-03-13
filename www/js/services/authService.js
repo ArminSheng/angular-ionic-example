@@ -46,10 +46,10 @@ angular.module('mmr.services')
   return {
 
     // return false means not redirect
-    redirectIfNotLogin: function() {
+    redirectIfNotLogin: function(fromState) {
       // check whether user has been authenticated
       if(!$rootScope.$root.authenticated) {
-        mmrEventing.doOpenLogin();
+        mmrEventing.doOpenLogin(fromState);
         return true;
       }
 

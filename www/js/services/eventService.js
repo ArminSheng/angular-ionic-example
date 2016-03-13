@@ -13,6 +13,7 @@ angular.module('mmr.services')
     },
 
     doOpenLogin: function(data) {
+      $rootScope.$root.states.beforeLogin = data;
       $rootScope.$broadcast('eventOpenLogin', data);
     },
 

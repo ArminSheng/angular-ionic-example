@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('CartCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService', '$state',
-  function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService, $state) {
+.controller('CartCtrl', ['$scope', '$rootScope', '$stateParams', '$ionicHistory', '$ionicScrollDelegate', 'mmrScrollService', 'mmrModal', 'mmrCartService', '$state', 'mmrAuth',
+  function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService, $state, mmrAuth) {
 
   $rootScope.$root.ui.tabsHidden = false;
   $scope.tab = Number($stateParams.tab) || 1;
@@ -90,15 +90,17 @@ angular.module('mmr.controllers')
   // check out
   $scope.doCheckout = function(tab) {
     if(mmrCartService.isCheckoutable(tab)) {
-      if ($rootScope.$root.modals.genOrderModal && !$rootScope.$root.modals.genOrderModal.scope.$$destroyed) {
+      // check login status
+      if(!mmrAuth.redirectIfNotLogin('tab.cart')) {
+        if ($rootScope.$root.modals.genOrderModal && !$rootScope.$root.modals.genOrderModal.scope.$$destroyed) {
 
-        //binding data
-        $rootScope.$root.modals.genOrderModal.orders = mmrCartService.generateCheckedOrders(tab);
-        $rootScope.$root.modals.genOrderModal.show();
-      }else {
-        mmrModal.createGenerateOrderModal($scope, mmrCartService.generateCheckedOrders(tab));
+          //binding data
+          $rootScope.$root.modals.genOrderModal.orders = mmrCartService.generateCheckedOrders(tab);
+          $rootScope.$root.modals.genOrderModal.show();
+        }else {
+          mmrModal.createGenerateOrderModal($scope, mmrCartService.generateCheckedOrders(tab));
+        }
       }
-
     }
   };
 

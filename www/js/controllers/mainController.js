@@ -79,11 +79,11 @@ angular.module('mmr.controllers')
     // search related
     search: {
       keywords: [
-        { text: '羊肉5', detail: '', time: new Date() },
-        { text: '羊肉4', detail: '', time: new Date() },
-        { text: '羊肉3', detail: '', time: new Date() },
-        { text: '羊肉2', detail: '', time: new Date() },
-        { text: '羊肉1', detail: '', time: new Date() }
+        // { text: '羊肉5', detail: '', time: new Date() },
+        // { text: '羊肉4', detail: '', time: new Date() },
+        // { text: '羊肉3', detail: '', time: new Date() },
+        // { text: '羊肉2', detail: '', time: new Date() },
+        // { text: '羊肉1', detail: '', time: new Date() }
       ]
     },
 
@@ -185,7 +185,7 @@ angular.module('mmr.controllers')
   mmrMetaFactory.citiesAndDisctricts();
 
   // hot items
-  mmrSearchService.hotKeywords();
+  // mmrSearchService.hotKeywords();
 
   // emit status change events
   $rootScope.$on('$stateChangeStart', function ($event, toState) {

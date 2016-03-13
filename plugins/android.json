@@ -24,6 +24,12 @@
         },
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.micropoplar.mmr"
         }
     },
     "dependent_plugins": {}

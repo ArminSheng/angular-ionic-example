@@ -231,9 +231,11 @@ angular.module('mmr.controllers')
 
     });
 
-    if(angular.isUndefined(type) || type === 'keyword') {
+    if((angular.isUndefined(type) || type === 1) &&
+        _.trim($scope.searchObject.keyword) !== '') {
       // update the search history
-      var keywords = $rootScope.$root.search.keywords;
+      var keywords = $rootScope.$root.search.keywords,
+          keyword = $scope.searchObject.keyword;
       // try to find the existing if any
       var existed = _.find(keywords, { text: keyword });
       if(existed) {
@@ -279,7 +281,7 @@ angular.module('mmr.controllers')
   ];
 
   localStorageService.bind($scope, 'classifications');
-  localStorageService.bind($scope, 'hotKeywords');
+  // localStorageService.bind($scope, 'hotKeywords');
 
   // watchers
 
@@ -375,8 +377,12 @@ angular.module('mmr.controllers')
   function assembleSearchVo() {
     var searchVo = {};
 
-    searchVo.keyword = $scope.searchObject.keyword;
-    searchVo.cid = $scope.searchObject.cid;
+    if(_.trim($scope.searchObject.keyword) !== '') {
+      searchVo.keyword = $scope.searchObject.keyword;
+    }
+    if($scope.searchObject.cid !== 0) {
+      searchVo.cid = $scope.searchObject.cid;
+    }
     searchVo.aid = $scope.searchObject.aid;
     searchVo.bid = $scope.searchObject.bid;
     searchVo.page = $scope.searchObject.page;

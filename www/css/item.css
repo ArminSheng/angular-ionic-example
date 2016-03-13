@@ -192,6 +192,10 @@
   max-width: 100%;
 }
 
+.m-modal-item-detail-raw-html img {
+  max-width: 100% !important;
+}
+
 /* item review modal view */
 .m-item-review-body {
   bottom: 50px;

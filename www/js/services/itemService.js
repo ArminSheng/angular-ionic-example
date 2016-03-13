@@ -1,17 +1,61 @@
 angular.module('mmr.services')
 
-.factory('mmrItemFactory', ['$q', '$http', '$rootScope', 'restService', 'apiService',
-  function($q, $http, $rootScope, restService, apiService) {
+.factory('mmrItemFactory', ['$q', '$http', '$rootScope', '$sce', 'restService', 'apiService',
+  function($q, $http, $rootScope, $sce, restService, apiService) {
 
-  function postprocess(res) {
-    _.forEach(res, function(item) {
-      // image
-      if(item.imagePath && _.startsWith(item.imagePath, './')) {
-        item.imagePath = apiService.API_BASE + item.imagePath.substring(2);
-      } else {
-        item.imagePath = 'img/item/sample.png';
-      }
-    });
+  function processImagePath(imagePath) {
+    if(imagePath && _.startsWith(imagePath, './')) {
+      imagePath = apiService.API_BASE + imagePath.substring(2);
+    } else {
+      imagePath = 'img/item/sample.png';
+    }
+
+    return imagePath;
+  }
+
+  function postprocessItem(item) {
+    // image
+    item.imagePath = processImagePath(item.imagePath);
+
+    // detail banners
+    if(item.banner && item.banner.length > 0) {
+      _.forEach(item.banner, function(banner) {
+        banner.path = processImagePath(banner.path);
+      });
+    }
+
+    // shop
+    if(item.shop) {
+      item.shop.logoPath = processImagePath(item.shop.logoPath);
+
+      // REMOVE: mock usage
+      item.shop.ratings = {
+        description: 4.8,
+        service: 4.6,
+        logistics: 4.2
+      };
+    }
+
+    // REMOVE: mock usage
+    item.review = {
+      rate: 92,
+      number: 7,
+      last: {
+        name: '185****1020',
+        date: '2016-01-11 20:25',
+        content: '肉特别新鲜。',
+        avatar: 'img/mine/avatar-bak.png',
+        rating: '0'
+      },
+      comments: []
+    };
+
+    // detailed html
+    item.detailHtml = $sce.trustAsHtml(item.detailHtml);
+  }
+
+  function postprocessList(res) {
+    _.forEach(res, postprocessItem);
   }
 
   function fillToTen(results, source) {
@@ -112,7 +156,31 @@ angular.module('mmr.services')
           sort: 5
         }
       }).then(function(res) {
-        postprocess(res.data);
+        postprocessList(res.data);
+        dfd.resolve({
+          data: res.data
+        });
+      }, function() {
+        dfd.reject();
+      });
+
+      return dfd.promise;
+    },
+
+    // retrieve the details of item
+    item: function(id) {
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.ITEM_DETAIL,
+        method: 'POST',
+        data: {
+          id: id
+        }
+      }).then(function(res) {
+        // process the images
+        postprocessItem(res.data);
+
         dfd.resolve({
           data: res.data
         });
@@ -187,7 +255,7 @@ angular.module('mmr.services')
         if(res.data &&
           res.data instanceof Array &&
           res.data.length > 0) {
-          postprocess(res.data);
+          postprocessList(res.data);
         }
 
         dfd.resolve(res);

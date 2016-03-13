@@ -20,7 +20,7 @@
 
     <!-- slider -->
     <ion-slide-box delegate-handle="itemDetailSlideBox">
-      <ion-slide ng-repeat="banner in itemModal.item.banners track by $index">
+      <ion-slide ng-repeat="banner in itemModal.item.banner track by $index">
         <div class="m-slide-container">
           <img class="m-slide-image" ng-src="{{ banner.path }}"/>
         </div>
@@ -66,6 +66,10 @@
 
     <!-- spec -->
     <div class="m-modal-item-detail-spec">
+      <div class="m-modal-item-detail-spec-text">
+        <span class="m-modal-item-detail-spec-key">品牌：</span>
+        {{ itemModal.item.brand }}
+      </div>
       <div class="m-modal-item-detail-spec-text">
         <span class="m-modal-item-detail-spec-key">规格：</span>
         {{ itemModal.item.spec }}
@@ -165,7 +169,13 @@
     </div>
 
     <!-- details area -->
-    <item-detail-images images="itemModal.item.detailImages"></item-detail-images>
+    <!-- <item-detail-images images="itemModal.item.detailImages"></item-detail-images> -->
+
+    <!-- detail html -->
+    <div class="m-modal-item-detail-raw-html">
+      <div ng-bind-html="itemModal.item.detailHtml">
+      </div>
+    </div>
 
     <!-- backdrop -->
     <backdrop is-show="itemModal.showBackdrop" click-to-dismiss="false"></backdrop>

@@ -156,8 +156,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('searchResultList', ['mmrModal', 'mmrCartService',
-  function(mmrModal, mmrCartService) {
+.directive('searchResultList', ['mmrModal', 'mmrCartService', 'mmrItemFactory', 'mmrDataService',
+  function(mmrModal, mmrCartService, mmrItemFactory, mmrDataService) {
 
   return {
     retrict: 'E',
@@ -168,7 +168,14 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/search-result-list.html',
     link: function(scope, element, attrs) {
       scope.doOpenDetail = function(item) {
-        mmrModal.createItemDetailModal(scope, item);
+        // retrieve the details of the target item
+        mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
 
       scope.doChangeNumber = function(item, offset) {

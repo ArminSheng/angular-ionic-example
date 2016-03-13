@@ -897,7 +897,8 @@ angular.module('mmr.services')
 
         // bind data
         scope.itemModal = scope.itemModal || {};
-        scope.itemModal.item = mmrSearchService.itemDetail(item);
+        scope.itemModal.item = item;
+
         // bind methods
         scope.itemModal.doHide = function() {
           modal.hide();

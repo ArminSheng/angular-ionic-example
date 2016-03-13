@@ -293,4 +293,10 @@
     color: #666;
 }
 
+/*top cart icon*/
+.m-home-cart {
+    position: relative;
+    bottom: 2px;
+}
+
 

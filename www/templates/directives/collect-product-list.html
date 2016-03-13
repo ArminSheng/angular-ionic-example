@@ -2,7 +2,7 @@
 
 	<div class="list">
 		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items" ng-click="doOpenDetail(item)">
-			<img src="img/item/sample.png">
+			<img ng-src="{{ item.imagePath }}">
 			<h2>{{ item.title }}</h2>
 			<p>
         		{{ item.brand }}
@@ -15,20 +15,21 @@
      		</p>
 		    <div class="m-search-list-item-prices">
 			    <span class="m-search-list-item-current-price">
+			        {{ item.cprice | currency: '￥' }} {{ item.unitName }}
+			    </span>
+			    <!-- <span class="m-search-list-item-original-price">
 			        {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
-			    </span>
-			    <span class="m-search-list-item-original-price">
-			        {{ item.cprice | currency: '￥' }}/{{ item.unitName }}
-			    </span>
+			    </span> -->
 		    </div>
 		    <!-- control group -->
-			<div class="m-search-list-item-controls m-collect-product-list-item-controls">
+				<!-- <div class="m-search-list-item-controls m-collect-product-list-item-controls">
 		        <span class="ion-ios-minus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, -1); $event.stopPropagation();"></span>
 
 		        <span class="m-search-list-item-controls-num">{{ item.cartAmount || 0 }}</span>
 
 		        <span class="ion-ios-plus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, 1); $event.stopPropagation();"></span>
-	      </div>
+	      </div> -->
+	      <cart-count item="item" show-remove-btn="false" smaller-size="true"></cart-count>
 		</a>
 	</div>
 </div>

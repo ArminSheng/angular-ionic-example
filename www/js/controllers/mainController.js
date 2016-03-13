@@ -173,6 +173,13 @@ angular.module('mmr.controllers')
     return $rootScope.$root.cart.totalCount;
   };
 
+  // trans to cart
+  $rootScope.transToCart = function() {
+    $state.go('tab.cart', {
+      tab: 1
+    });
+  };
+
   // send heartbeat every 30s
   $interval(function() {
     mmrCommonService.networkCheck();

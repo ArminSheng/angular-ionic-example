@@ -1297,24 +1297,47 @@ angular.module('mmr.services')
       }).then(function(modal) {
         modal.show();
 
+        init();
+
         //bind data
         scope.preferredBrandModal = modal;
         modal.index = index;
-
-        modal.items = mmrMineFactory.myFav(0);
+        // modal.items = mmrMineFactory.myFav(0);
 
         // method
         modal.doHide = function() {
           modal.hide();
         };
 
+        modal.doGetCartCount = function() {
+          if($rootScope.$root.cart.totalCount >= 100) {
+            return '99+';
+          }
+
+          return $rootScope.$root.cart.totalCount;
+        };
+
+        modal.doTransToCart = function() {
+          mmrEventing.doStateToCart();
+        };
+
         // event handlers
         scope.$on('doStateToCart', function($event, data) {
           modal.doHide();
           $state.go('tab.cart', {
-            tab: item.isReserved ? 0 : 1
+            tab: 1
           });
         });
+
+        function init() {
+          mmrDataService.request(mmrItemFactory.search({
+            'new': 1
+          })).then(function(res) {
+            modal.items = res[0];
+          }, function(err) {
+
+          })
+        }
       });
     },
 

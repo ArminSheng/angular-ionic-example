@@ -140,6 +140,9 @@ angular.module('mmr.services')
       if(config.aid) {
         body.aid = config.aid;
       }
+      if(config.new) {
+        body.new = config.new;
+      }
       if(config.page) {
         body.page = config.page;
       }

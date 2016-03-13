@@ -2,6 +2,7 @@ angular.module('mmr.directives')
 
 .run(['$templateCache', function($templateCache) {
 
+  // cartSummary directive
   $templateCache.put('templates/directives/cart/cart-summary.html',
     '<div class="m-cart-summary-component stable-bg" ng-click="doOpenCart()">' +
     '<span><i class="icon ion-ios-cart-outline"></i><span ng-if="$root.cart.counts[category] !== 0" class="badge badge-assertive">{{ $root.cart.counts[category] }}</span></span>' +

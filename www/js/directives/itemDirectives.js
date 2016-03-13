@@ -170,6 +170,7 @@ angular.module('mmr.directives')
       scope.doOpenDetail = function(item) {
         // retrieve the details of the target item
         mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          console.log(res[0]);
           mmrModal.createItemDetailModal(scope, res[0]);
         }, function(err) {
           console.log(err);

@@ -6,5 +6,6 @@
 		<class>com.micropoplar.mmr.entity.CrBuyersBrand</class>
 		<class>com.micropoplar.mmr.entity.CrBuyersAttribute</class>
 		<class>com.micropoplar.mmr.entity.CrBuyersClassification</class>
+		<class>com.micropoplar.mmr.entity.CrShopShop</class>
 	</persistence-unit>
 </persistence>

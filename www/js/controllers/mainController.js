@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', '$timeout', '$ionicModal', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing', 'mmrCacheFactory', 'mmrModal', 'Validator', 'mmrAuth',
-  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, $timeout, $ionicModal, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing, mmrCacheFactory, mmrModal, Validator, mmrAuth) {
+.controller('MainCtrl', ['$scope', '$rootScope', '$state', '$stateParams', '$ionicHistory', '$interval', '$timeout', '$ionicModal', 'mmrCommonService', 'mmrMetaFactory', 'mmrLoadingFactory', 'mmrSearchService', 'mmrCartService', 'mmrEventing', 'mmrCacheFactory', 'mmrModal', 'Validator', 'mmrAuth', 'mmrShopService',
+  function($scope, $rootScope, $state, $stateParams, $ionicHistory, $interval, $timeout, $ionicModal, mmrCommonService, mmrMetaFactory, mmrLoadingFactory, mmrSearchService, mmrCartService, mmrEventing, mmrCacheFactory, mmrModal, Validator, mmrAuth, mmrShopService) {
 
   // back related
   $scope.myGoBack = function() {
@@ -190,6 +190,9 @@ angular.module('mmr.controllers')
   mmrMetaFactory.attributes();
   mmrMetaFactory.classification();
   mmrMetaFactory.citiesAndDisctricts();
+
+  // shop related
+  mmrShopService.shops();
 
   // hot items
   // mmrSearchService.hotKeywords();

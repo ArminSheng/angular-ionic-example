@@ -20,26 +20,51 @@ angular.module('mmr.controllers')
     });
 
     // load data
-    mmrDataService.request(
-      mmrAreaFactory.banners(),
-      mmrAreaFactory.areas(),
-      mmrItemFactory.seckilling()
-    ).then(function(res) {
-      $scope.banners = res[0];
-      $scope.areas = res[1];
-      $scope.seckilling = res[2];
-      $scope.positions = mmrCacheFactory.get('cities');
+    if($rootScope.$root.category.entries.length > 0) {
+      mmrDataService.request(
+        mmrAreaFactory.banners(),
+        mmrAreaFactory.areas(),
+        mmrItemFactory.seckilling(),
+        mmrItemFactory.homeCommodity2()
+      ).then(function(res) {
+        $scope.banners = res[0];
+        $scope.areas = res[1];
+        $scope.seckilling = res[2];
+        $scope.commodities = res[3];
+        $scope.positions = mmrCacheFactory.get('cities');
 
-      // in case the network is restored
-      $timeout(function() {
-        $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
-      }, 1000);
-    }, function(err) {
-      console.log(err);
-    }).finally(function() {
-      // Stop the ion-refresher from spinning
-      $scope.$broadcast('scroll.refreshComplete');
-    });
+        // in case the network is restored
+        $timeout(function() {
+          $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
+        }, 1000);
+      }, function(err) {
+        console.log(err);
+      }).finally(function() {
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    } else {
+      mmrDataService.request(
+        mmrAreaFactory.banners(),
+        mmrAreaFactory.areas(),
+        mmrItemFactory.seckilling()
+      ).then(function(res) {
+        $scope.banners = res[0];
+        $scope.areas = res[1];
+        $scope.seckilling = res[2];
+        $scope.positions = mmrCacheFactory.get('cities');
+
+        // in case the network is restored
+        $timeout(function() {
+          $ionicSlideBoxDelegate.$getByHandle('bannersSlideBox').update();
+        }, 1000);
+      }, function(err) {
+        console.log(err);
+      }).finally(function() {
+        // Stop the ion-refresher from spinning
+        $scope.$broadcast('scroll.refreshComplete');
+      });
+    }
 
   };
 

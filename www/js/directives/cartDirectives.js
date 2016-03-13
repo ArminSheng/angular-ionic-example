@@ -10,8 +10,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService',
-  function($rootScope, mmrEventing, mmrCartService) {
+.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService', 'Validator',
+  function($rootScope, mmrEventing, mmrCartService, Validator) {
 
   return {
     restrict: 'E',
@@ -22,11 +22,24 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/cart/bottom-cart.html',
     link: function(scope, element, attrs) {
       scope.doAddToCart = function() {
-        mmrCartService.addItemToCart(scope, scope.item);
+        // check inventory
+        var currentCount = mmrCartService.getItemCount(scope.item);
+        if(Validator.number(currentCount + 1, scope.item.inventoryAmount, true, {
+          title: '无法添加到购物车',
+          template: '商品库存不足'
+        })) {
+          mmrCartService.addItemToCart(scope, scope.item);
+        }
       };
 
       scope.doBuyImmediately = function() {
-        mmrEventing.doBuyImmediately(scope.item);
+        var currentCount = mmrCartService.getItemCount(scope.item);
+        if(Validator.number(currentCount + 1, scope.item.inventoryAmount, true, {
+          title: '无法直接购买',
+          template: '商品库存不足'
+        })) {
+          mmrEventing.doBuyImmediately(scope.item);
+        }
       };
     }
   };
@@ -106,7 +119,7 @@ angular.module('mmr.directives')
 
       scope.doCountPlus = function($event) {
         if(!independentCounter) {
-          if(Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
+          if(Validator.number(scope.currentCountTemp + 1, scope.item.inventoryAmount, true)) {
             if(mmrCartService.isItemInCart(scope.item)) {
               mmrEventing.doIncreaseItemCount(scope, {
                 item: scope.item

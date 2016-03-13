@@ -112,8 +112,12 @@ angular.module('mmr.services')
       return true;
     },
 
-    number: function(number, upperLimit, popupWhenFailure) {
+    number: function(number, upperLimit, popupWhenFailure, text) {
       number = Number(number);
+      upperLimit = Number(upperLimit);
+      if(!text) {
+        text = {};
+      }
       if(!_.isNumber(number) || _.isNaN(number)) {
 
         if(popupWhenFailure) {
@@ -128,11 +132,13 @@ angular.module('mmr.services')
       }
 
       // check whether within in the correct range
-      if(upperLimit && number > upperLimit) {
+      if(number > upperLimit) {
         if(popupWhenFailure) {
+          var title = text.title || '数值超过了库存值',
+              template = text.template || '请输入不超过库存值的数值';
           $ionicPopup.alert({
-            title: '数值超过了库存值',
-            template: '请输入不超过库存值的数值',
+            title: title,
+            template: template,
             okType: 'button-energized'
           });
         }

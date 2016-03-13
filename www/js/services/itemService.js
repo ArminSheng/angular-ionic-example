@@ -107,7 +107,10 @@ angular.module('mmr.services')
 
       $http({
         url: apiService.SEARCH_RECOMMEND,
-        method: 'POST'
+        method: 'POST',
+        data: {
+          sort: 5
+        }
       }).then(function(res) {
         postprocess(res.data);
         dfd.resolve({

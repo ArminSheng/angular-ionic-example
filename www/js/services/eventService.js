@@ -192,6 +192,10 @@ angular.module('mmr.services')
 
     doCancelBuyImmediately: function(data) {
       $rootScope.$broadcast('doCancelBuyImmediately', data);
+    },
+
+    doLoadHomeCommodity: function(data) {
+      $rootScope.$broadcast('doLoadHomeCommodity', data);
     }
 
   };

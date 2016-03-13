@@ -23,13 +23,11 @@ angular.module('mmr.controllers')
     mmrDataService.request(
       mmrAreaFactory.banners(),
       mmrAreaFactory.areas(),
-      mmrItemFactory.seckilling(),
-      mmrItemFactory.homeCommodity()
+      mmrItemFactory.seckilling()
     ).then(function(res) {
       $scope.banners = res[0];
       $scope.areas = res[1];
       $scope.seckilling = res[2];
-      $scope.commodities = res[3];
       $scope.positions = mmrCacheFactory.get('cities');
 
       // in case the network is restored
@@ -125,6 +123,19 @@ angular.module('mmr.controllers')
       $scope.initialize();
       $scope.currentCity = data.item;
     }
+  });
+
+  $scope.$on('doLoadHomeCommodity', function($event, data) {
+    mmrDataService.request(
+      mmrItemFactory.homeCommodity2()
+    ).then(function(res) {
+      $scope.commodities = res[0];
+    }, function(err) {
+      console.log(err);
+    }).finally(function() {
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
+    });
   });
 
 }]);

@@ -98,6 +98,7 @@ angular.module('mmr.services')
         // fill the home view entries
         if(params.gen === 0) {
           fillHomeEntries(res.data);
+          mmrEventing.doLoadHomeCommodity();
         }
 
         dfd.resolve(cCache[cCacheKey]);

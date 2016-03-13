@@ -230,6 +230,13 @@
     width: 100%;
 }
 
+.m-commodity-grid-item2-title,
+.m-commodity-grid-item2-brand {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .m-commodity-grid-cell2-desc {
     padding: 2px 0 0 6px;
 }

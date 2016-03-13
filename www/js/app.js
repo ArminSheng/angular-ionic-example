@@ -46,7 +46,8 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
     // Search related
     this.data.SEARCH_INDEX = this.data.API_BASE + 'api-search-index.html';
-    this.data.SEARCH_SECKILLING_INDEX = this.data.API_BASE + 'api-search-seckilling.html';
+    this.data.SEARCH_SECKILLING = this.data.API_BASE + 'api-search-seckilling.html';
+    this.data.SEARCH_RECOMMEND = this.data.API_BASE + 'api-search-recommend.html';
 
     return this.data;
   };

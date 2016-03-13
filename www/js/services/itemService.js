@@ -91,8 +91,8 @@ angular.module('mmr.services')
       return dfd.promise;
     },
 
-    // recommend items
-    recommend: function(size) {
+    // recommend items[mock usage]
+    recommend2: function(size) {
       return $http({
         url: restService.API_REST + 'c_item/recommend',
         method: 'GET',
@@ -100,6 +100,24 @@ angular.module('mmr.services')
           's': size || 10
         }
       });
+    },
+
+    recommend: function() {
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.SEARCH_RECOMMEND,
+        method: 'POST'
+      }).then(function(res) {
+        postprocess(res.data);
+        dfd.resolve({
+          data: res.data
+        });
+      }, function() {
+        dfd.reject();
+      });
+
+      return dfd.promise;
     },
 
     // search the items [mock usage]

@@ -60,6 +60,9 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.CART_MODIFY = this.data.API_BASE + 'api-cart-addition.html';
     this.data.CART_DELETE = this.data.API_BASE + 'api-cart-del.html';
 
+    // Order related
+    this.data.ORDER_GENERATE = this.data.API_BASE + 'api-order-create.html';
+
     return this.data;
   };
 }])

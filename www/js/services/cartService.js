@@ -36,9 +36,11 @@ angular.module('mmr.services')
       }
     },
 
-    removeGeneratedItems: function(generatedOrder) {
+    // data: { orders: xxx, id: xxx, itemIds: [xxx] }
+    removeGeneratedItems: function(data) {
       var currentOrders,
           type;
+      var generatedOrder = data.orders;
       if(generatedOrder.isReserved) {
         currentOrders = $rootScope.$root.cart.reservedOrders;
         type = 0;
@@ -76,6 +78,17 @@ angular.module('mmr.services')
 
       this.updateCheckedInformation(type);
       updateTotalCount(type, generatedCount);
+
+      // console.log('before: ', mappings);
+
+      // remove the mappings from item id ---> cart id
+      _.forEach(data.itemIds, function(itemId) {
+        if(_.has(mappings, itemId)) {
+          _.unset(mappings, itemId);
+        }
+      });
+
+      // console.log('after: ', mappings);
 
       function updateTotalCount(type, generatedCount) {
         $rootScope.$root.cart.totalCount -= generatedCount;
@@ -305,7 +318,7 @@ angular.module('mmr.services')
       })).then(function(res) {
         if(res[0].status === 1 && res[0].msg === '操作成功') {
           // save into the mappings
-          console.log(res[0].id);
+          // console.log(res[0].id);
           if(res[0].id) {
             mappings[info.id] = res[0].id;
           }
@@ -363,6 +376,12 @@ angular.module('mmr.services')
 
     cartIdByItemId: function(itemId) {
       return mappings[itemId];
+    },
+
+    cartIds: function(itemIds) {
+      return _.join(_.map(itemIds, function(itemId) {
+        return mappings[itemId];
+      }), ',');
     }
 
   };

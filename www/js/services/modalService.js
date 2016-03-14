@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService) {
 
   return {
 
@@ -1171,12 +1171,21 @@ angular.module('mmr.services')
           mmrLoadingFactory.show('正在创建订单, 请稍等...');
 
           // call the order API to generate a new order
-          mmrOrderFactory.generate().then(function(res) {
+          var itemIds = getOrderItemIds(orders.orders);
+          mmrOrderFactory.generate2(generateOrderVo(orders, itemIds)).then(function(res) {
+            console.log(res);
             mmrLoadingFactory.hide();
-            if(res.status && res.status === 200) {
+            if(res.status && res.status === 200 &&
+              res.data.msg === '订单生成成功' &&
+              res.data.status === 1) {
               // broadcast the generate event for cart orders
               if(!orders.isIndependentOrder) {
-                mmrEventing.doNewOrderGenerated(orders);
+                // order object & generated order text id
+                mmrEventing.doNewOrderGenerated({
+                  orders: orders,
+                  id: res.data.data,
+                  itemIds: itemIds
+                });
               }
 
               // redirect to the checkout modal
@@ -1203,6 +1212,40 @@ angular.module('mmr.services')
           // when the user cancel the payment for this order
           modal.remove();
         });
+
+        // private functions
+        function generateOrderVo(orders, itemIds) {
+          var vo = {};
+
+          console.log(orders);
+
+          vo.ids = mmrCartService.cartIds(itemIds);
+          vo.type = 2; // buy by cart
+          vo.mentioning = 0; // 0: not self-pick; 1: self-pick
+          vo.address = 56 // address id
+          vo.invoice_id = 26;
+          vo.address_invoice = 56;
+          vo.order_type = orders.isReserved ? 0 : 1; // 0: reserve; 1: normal
+          vo.uid = $rootScope.$root.pinfo.uid;
+
+          console.log(vo);
+
+          return vo;
+        }
+
+        // return an array of item ids
+        function getOrderItemIds(orders) {
+          // parameter orders is an array
+          var processItems = _.flatten(_.concat(_.map(orders, function(order) {
+            return order.items;
+          })));
+
+          var ids = _.map(processItems, function(item) {
+            return item.id;
+          });
+
+          return ids;
+        }
       });
     },
 

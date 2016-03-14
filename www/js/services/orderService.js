@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrOrderFactory', ['$http', 'restService', 'mmrCacheFactory',
-  function($http, restService, mmrCacheFactory) {
+.factory('mmrOrderFactory', ['$http', 'restService', 'mmrCacheFactory', 'apiService',
+  function($http, restService, mmrCacheFactory, apiService) {
 
   // mock
   // status:
@@ -655,10 +655,19 @@ angular.module('mmr.services')
       mmrCacheFactory.set('orders', orders);
     },
 
+    // [Mock Usage]
     generate: function() {
       return $http({
         url: restService.API_REST + 'c_order/generate',
         method: 'POST'
+      });
+    },
+
+    generate2: function(info) {
+      return $http({
+        url: apiService.ORDER_GENERATE,
+        method: 'POST',
+        data: info
       });
     }
   };

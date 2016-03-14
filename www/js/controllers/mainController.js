@@ -153,6 +153,11 @@ angular.module('mmr.controllers')
       ],
     },
 
+    // cart api related
+    cartApi: {
+
+    },
+
     // save states info
     states: {
       current: undefined,

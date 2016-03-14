@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrCartService', ['$rootScope', 'mmrEventing', 'mmrAddressService',
-  function($rootScope, mmrEventing, mmrAddressService) {
+.factory('mmrCartService', ['$q', '$http', '$rootScope', 'mmrEventing', 'mmrAddressService', 'mmrDataService', 'apiService',
+  function($q, $http, $rootScope, mmrEventing, mmrAddressService, mmrDataService, apiService) {
 
   return {
 
@@ -286,6 +286,36 @@ angular.module('mmr.services')
       cartItem.shop = item.shop;
 
       return cartItem;
+    },
+
+    // API related below
+    cartModify: function(info) {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.CART_MODIFY,
+        method: 'POST',
+        data: info
+      })).then(function(res) {
+        if(res[0].status === 1 && res[0].msg === '操作成功') {
+          dfd.resolve(res.id);
+        } else {
+          dfd.reject();
+        }
+      }, function(err) {
+        console.log(err);
+        dfd.reject();
+      });
+
+      return dfd.promise;
+    },
+
+    cartList: function() {
+
+    },
+
+    cartRemove: function() {
+
     }
 
   };

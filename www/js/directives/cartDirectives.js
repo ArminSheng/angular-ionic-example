@@ -34,7 +34,19 @@ angular.module('mmr.directives')
           title: '无法添加到购物车',
           template: '商品库存不足'
         })) {
-          mmrCartService.addItemToCart(scope, scope.item);
+          // send request
+          mmrCartService.cartModify({
+            uid: $rootScope.$root.pinfo.uid,
+            id: scope.item.id,
+            all: 1,
+            city: $rootScope.$root.location.id,
+            num: scope.currentCount + 1
+          }).then(function(res) {
+            console.log('cart id', res);
+            mmrCartService.addItemToCart(scope, scope.item);
+          }, function(err) {
+            console.log(err);
+          });
         }
       };
 
@@ -107,14 +119,38 @@ angular.module('mmr.directives')
               if(scope.currentCount === 1) { // current count
                 setToZeroConfirm().then(function(res) {
                   if(res) {
-                    mmrEventing.doDecreaseItemCount(scope, {
-                      item: scope.item
+                    // send request --- remove the cart item
+                    mmrCartService.cartModify({
+                      uid: $rootScope.$root.pinfo.uid,
+                      id: scope.item.id,
+                      all: 1,
+                      city: $rootScope.$root.location.id,
+                      num: scope.currentCount - 1
+                    }).then(function(res) {
+                      console.log('cart id', res);
+                      mmrEventing.doDecreaseItemCount(scope, {
+                        item: scope.item
+                      });
+                    }, function(err) {
+                      console.log(err);
                     });
                   }
                 });
               } else {
-                mmrEventing.doDecreaseItemCount(scope, {
-                  item: scope.item
+                // send request
+                mmrCartService.cartModify({
+                  uid: $rootScope.$root.pinfo.uid,
+                  id: scope.item.id,
+                  all: 1,
+                  city: $rootScope.$root.location.id,
+                  num: scope.currentCount - 1
+                }).then(function(res) {
+                  console.log('cart id', res);
+                  mmrEventing.doDecreaseItemCount(scope, {
+                    item: scope.item
+                  });
+                }, function(err) {
+                  console.log(err);
                 });
               }
             } else {
@@ -141,16 +177,29 @@ angular.module('mmr.directives')
 
         if(!independentCounter) {
           if(Validator.number(scope.currentCountTemp + 1, scope.item.inventoryAmount, true)) {
-            if(mmrCartService.isItemInCart(scope.item)) {
-              mmrEventing.doIncreaseItemCount(scope, {
-                item: scope.item
-              });
-            } else {
-              if(!scope.item.shop) {
-                scope.item.shop = mmrShopService.shop(scope.item.shopid);
+
+            // send request
+            mmrCartService.cartModify({
+              uid: $rootScope.$root.pinfo.uid,
+              id: scope.item.id,
+              all: 1,
+              city: $rootScope.$root.location.id,
+              num: scope.currentCount + 1
+            }).then(function(res) {
+              console.log('cart id', res);
+              if(mmrCartService.isItemInCart(scope.item)) {
+                mmrEventing.doIncreaseItemCount(scope, {
+                  item: scope.item
+                });
+              } else {
+                if(!scope.item.shop) {
+                  scope.item.shop = mmrShopService.shop(scope.item.shopid);
+                }
+                mmrCartService.addItemToCart(scope, scope.item);
               }
-              mmrCartService.addItemToCart(scope, scope.item);
-            }
+            }, function(err) {
+              console.log(err);
+            });
           }
         } else {
           // independent situation

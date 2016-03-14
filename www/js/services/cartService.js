@@ -3,6 +3,9 @@ angular.module('mmr.services')
 .factory('mmrCartService', ['$q', '$http', '$rootScope', 'mmrEventing', 'mmrAddressService', 'mmrDataService', 'apiService',
   function($q, $http, $rootScope, mmrEventing, mmrAddressService, mmrDataService, apiService) {
 
+  // item id ---> cart id
+  var mappings = {};
+
   return {
 
     isItemInCart: function(item) {
@@ -270,20 +273,24 @@ angular.module('mmr.services')
     },
 
     convertToCartItem: function(item, newCount) {
+      // save the quantity on the item itself
+      item.quantity = newCount;
+
       // construct the cart item instance
       var cartItem = {};
-
       console.log(item);
 
       cartItem.id = item.id;
       cartItem.name = item.title;
+      cartItem.brand = item.brand;
       cartItem.imagePath = item.imagePath; // first banner image as default
-      cartItem.attribute = item.attribute;
+      cartItem.attribute = item.attributes || item.attribute;
       cartItem.price = item.cprice;
       cartItem.quantity = newCount;
       cartItem.unitName = item.unitName;
       cartItem.isReserved = item.isReserved;
       cartItem.shop = item.shop;
+      cartItem.quantity = newCount;
 
       return cartItem;
     },
@@ -298,9 +305,15 @@ angular.module('mmr.services')
         data: info
       })).then(function(res) {
         if(res[0].status === 1 && res[0].msg === '操作成功') {
-          dfd.resolve(res.id);
+          // save into the mappings
+          console.log(res[0].id);
+          if(res[0].id) {
+            mappings[info.id] = res[0].id;
+          }
+
+          dfd.resolve(res[0].id);
         } else {
-          dfd.reject();
+          dfd.reject(res[0].msg);
         }
       }, function(err) {
         console.log(err);
@@ -314,8 +327,29 @@ angular.module('mmr.services')
 
     },
 
-    cartRemove: function() {
+    cartRemove: function(info) {
+      var dfd = $q.defer();
 
+      mmrDataService.request($http({
+        url: apiService.CART_DELETE,
+        method: 'POST',
+        data: info
+      })).then(function(res) {
+        if(res[0].status === 1 && res[0].msg === '操作成功') {
+          dfd.resolve();
+        } else {
+          dfd.reject();
+        }
+      }, function(err) {
+        console.log(err);
+        dfd.reject();
+      });
+
+      return dfd.promise;
+    },
+
+    cartIdByItemId: function(itemId) {
+      return mappings[itemId];
     }
 
   };

@@ -110,6 +110,12 @@
   margin-left: auto;
 }
 
+.m-order-suborder-item-brand {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .m-order-suborder-item-right {
   position: absolute;
   right: 10px;

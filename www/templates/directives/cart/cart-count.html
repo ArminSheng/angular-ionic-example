@@ -6,7 +6,7 @@
   </div>
   <div class="col col-25 m-cart-counts-plus" ng-click="doCountPlus($event)">
   </div>
-  <div class="col col-25 m-cart-counts-delete" ng-click="doRemoveItem($event)" ng-if="showRemoveBtn">
+  <div class="col col-25 m-cart-counts-delete" ng-click="doRemoveItem($event);$event.stopPropagation();" ng-if="showRemoveBtn">
     删除
   </div>
 </div>

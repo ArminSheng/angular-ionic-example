@@ -11,8 +11,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService', 'Validator', 'mmrAuth',
-  function($rootScope, mmrEventing, mmrCartService, Validator, mmrAuth) {
+.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService', 'Validator', 'mmrAuth', 'mmrCommonService',
+  function($rootScope, mmrEventing, mmrCartService, Validator, mmrAuth, mmrCommonService) {
 
   return {
     restrict: 'E',
@@ -40,12 +40,12 @@ angular.module('mmr.directives')
             id: scope.item.id,
             all: 1,
             city: $rootScope.$root.location.id,
-            num: scope.currentCount + 1
+            num: currentCount + 1
           }).then(function(res) {
             console.log('cart id', res);
             mmrCartService.addItemToCart(scope, scope.item);
           }, function(err) {
-            console.log(err);
+            mmrCommonService.help('无法添加到购物车', err);
           });
         }
       };
@@ -120,14 +120,10 @@ angular.module('mmr.directives')
                 setToZeroConfirm().then(function(res) {
                   if(res) {
                     // send request --- remove the cart item
-                    mmrCartService.cartModify({
+                    mmrCartService.cartRemove({
                       uid: $rootScope.$root.pinfo.uid,
-                      id: scope.item.id,
-                      all: 1,
-                      city: $rootScope.$root.location.id,
-                      num: scope.currentCount - 1
-                    }).then(function(res) {
-                      console.log('cart id', res);
+                      id: mmrCartService.cartIdByItemId(scope.item.id)
+                    }).then(function() {
                       mmrEventing.doDecreaseItemCount(scope, {
                         item: scope.item
                       });
@@ -198,7 +194,7 @@ angular.module('mmr.directives')
                 mmrCartService.addItemToCart(scope, scope.item);
               }
             }, function(err) {
-              console.log(err);
+              mmrCommonService.help('无法添加到购物车', err);
             });
           }
         } else {

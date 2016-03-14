@@ -475,7 +475,11 @@ angular.module('mmr.controllers')
   }
 
   function findShopItems(shopItemsArray, item) {
-    var shopIdx = _.findIndex(shopItemsArray, function(o) { return o.id === item.shop.id; });
+    if(!item.shopid) {
+      item.shopid = item.shop.id;
+    }
+
+    var shopIdx = _.findIndex(shopItemsArray, function(o) { return o.id == item.shopid; });
     if(shopIdx >= 0) {
       return { idx: shopIdx, items: shopItemsArray[shopIdx] };
     } else {
@@ -502,7 +506,7 @@ angular.module('mmr.controllers')
 
     $rootScope.$root.cart.totalCount += offset;
     $rootScope.$root.cart.counts[category] += offset;
-    $rootScope.$root.cart.amounts[category] += (offset * item.price);
+    $rootScope.$root.cart.amounts[category] += (offset * item.cprice);
 
     // update itself
     item.quantity = newCount;

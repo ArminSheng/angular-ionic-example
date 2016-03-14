@@ -66,6 +66,11 @@ angular.module('mmr.services')
         method: 'GET'
       }).then(function(res) {
         // save into cache
+        $rootScope.$root.mappings = {};
+        $rootScope.$root.mappings.attributes = {};
+        _.forEach(res.data, function(attr) {
+          $rootScope.$root.mappings.attributes[attr.id] = attr.name;
+        });
         mmrCacheFactory.set('attributes', res.data);
       }, function(err) {
       });

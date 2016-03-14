@@ -15,6 +15,9 @@ angular.module('mmr.services')
 
         _.forEach(res.data, function(shop) {
           mappings[shop.id] = shop;
+
+          // convert to number
+          shop.id = Number(shop.id);
         });
 
         shops = mappings;

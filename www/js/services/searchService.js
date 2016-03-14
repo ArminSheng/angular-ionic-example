@@ -88,18 +88,18 @@ angular.module('mmr.services')
       };
     }
 
-    item.banners = [
-      { path: 'img/item/sample.png' },
-      { path: 'img/item/sample.png' },
-      { path: 'img/item/sample.png' },
-      { path: 'img/item/sample.png' }
-    ];
+    // item.banners = [
+    //   { path: 'img/item/sample.png' },
+    //   { path: 'img/item/sample.png' },
+    //   { path: 'img/item/sample.png' },
+    //   { path: 'img/item/sample.png' }
+    // ];
 
-    item.detailImages = [
-      { path: 'img/item/item-detail-1.png' },
-      { path: 'img/item/item-detail-2.png' },
-      { path: 'img/item/item-detail-3.png' }
-    ];
+    // item.detailImages = [
+    //   { path: 'img/item/item-detail-1.png' },
+    //   { path: 'img/item/item-detail-2.png' },
+    //   { path: 'img/item/item-detail-3.png' }
+    // ];
 
     return item;
   }

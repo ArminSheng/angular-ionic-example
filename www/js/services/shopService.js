@@ -22,6 +22,11 @@ angular.module('mmr.services')
       }, function(err) {
 
       });
+    },
+
+    // get by shop id
+    shop: function(id) {
+      return shops[id];
     }
   };
 

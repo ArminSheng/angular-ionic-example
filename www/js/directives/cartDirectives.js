@@ -57,8 +57,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService', 'mmrSearchService', 'mmrAuth',
-  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService, mmrSearchService, mmrAuth) {
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService', 'mmrSearchService', 'mmrAuth', 'mmrShopService',
+  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService, mmrSearchService, mmrAuth, mmrShopService) {
 
   return {
     restrict: 'E',
@@ -146,12 +146,8 @@ angular.module('mmr.directives')
                 item: scope.item
               });
             } else {
-              // just change the count
-              // mmrCartService.setItemCount(scope.item, scope.currentCount + 1);
-
-              // make sure the item has shop information since cart needs it
               if(!scope.item.shop) {
-                scope.item = mmrSearchService.itemDetail(scope.item);
+                scope.item.shop = mmrShopService.shop(scope.item.shopid);
               }
               mmrCartService.addItemToCart(scope, scope.item);
             }

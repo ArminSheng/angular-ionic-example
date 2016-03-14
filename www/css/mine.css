@@ -1,6 +1,7 @@
 /*personal info*/
 .m-modal-mine-pinfo .m-modal-mine-avatar img {
     width: 80px;
+    height: 80px;
     float: right;
     border-radius: 100px;
     border: 1px solid #e8e8e8;

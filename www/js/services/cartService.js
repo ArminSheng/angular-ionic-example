@@ -278,7 +278,6 @@ angular.module('mmr.services')
 
       // construct the cart item instance
       var cartItem = {};
-      console.log(item);
 
       cartItem.id = item.id;
       cartItem.name = item.title;
@@ -316,15 +315,30 @@ angular.module('mmr.services')
           dfd.reject(res[0].msg);
         }
       }, function(err) {
-        console.log(err);
         dfd.reject();
       });
 
       return dfd.promise;
     },
 
-    cartList: function() {
+    cartList: function(info) {
+      var dfd = $q.defer();
 
+      mmrDataService.request($http({
+        url: apiService.CART_INDEX,
+        method: 'POST',
+        data: info
+      })).then(function(res) {
+        if(res[0] !== 'null') {
+          dfd.resolve(res[0]);
+        } else {
+          dfd.reject();
+        }
+      }, function(err) {
+        dfd.reject();
+      });
+
+      return dfd.promise;
     },
 
     cartRemove: function(info) {
@@ -341,7 +355,6 @@ angular.module('mmr.services')
           dfd.reject();
         }
       }, function(err) {
-        console.log(err);
         dfd.reject();
       });
 

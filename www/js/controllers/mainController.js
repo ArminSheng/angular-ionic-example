@@ -207,6 +207,11 @@ angular.module('mmr.controllers')
   // shop related
   mmrShopService.shops();
 
+  // cart related
+  if($rootScope.$root.authenticated) {
+    loadCartInformation();
+  }
+
   // hot items
   // mmrSearchService.hotKeywords();
 
@@ -298,6 +303,11 @@ angular.module('mmr.controllers')
   $scope.$on('eventOpenLogin', function($event, data) {
     // create login modal everytime
     mmrModal.createLoginModal($scope);
+  });
+
+  $scope.$on('doRegisterSuccessfully', function($event) {
+    // load the cart information for the user
+    loadCartInformation();
   });
 
   // register
@@ -510,6 +520,20 @@ angular.module('mmr.controllers')
 
     // update itself
     item.quantity = newCount;
+  }
+
+  // TODO: sync the cart info from server
+  function loadCartInformation() {
+    // reserve cart
+    // mmrCartService.cartList({
+    //   uid: $rootScope.$root.pinfo.uid,
+    //   type: 1,
+    //   city: $rootScope.$root.location.id
+    // }).then(function(res) {
+    //   console.log(res);
+    // }, function(err) {
+    //   console.log(err);
+    // });
   }
 
 }]);

@@ -516,7 +516,7 @@ angular.module('mmr.controllers')
 
     $rootScope.$root.cart.totalCount += offset;
     $rootScope.$root.cart.counts[category] += offset;
-    $rootScope.$root.cart.amounts[category] += (offset * item.cprice);
+    $rootScope.$root.cart.amounts[category] += (offset * item.price);
 
     // update itself
     item.quantity = newCount;

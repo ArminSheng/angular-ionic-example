@@ -272,6 +272,9 @@ angular.module('mmr.services')
       if(config.city) {
         body.city = config.city;
       }
+      if(config.sid) {
+        body.sid = config.sid;
+      }
 
       var dfd = $q.defer();
 

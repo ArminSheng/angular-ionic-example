@@ -74,8 +74,18 @@
     <div class="m-modal-mine-shop-all" ng-show="shopDetailModal.tab === 1">
 
 	    <collect-product-list items="shopDetailModal.items" ng-class="{'move-right':shopDetailModal.menuOpened}"></collect-product-list>
+	    <no-more-content ng-if="!moreDataCanBeLoaded()"></no-more-content>
 	    <backdrop is-show='shopDetailModal.isShow'></backdrop>
     </div>
+
+    <!-- infinite scroll -->
+  	<ion-infinite-scroll ng-if="moreDataCanBeLoaded()" icon="ion-loading-c" on-infinite="loadMore()" distance="1%">
+  	</ion-infinite-scroll>
+
+  	<div class="m-cat-body-loading">
+      <ion-spinner ng-if="isLoadingMore"></ion-spinner>
+    </div>
+
 	</ion-content>
 
 	<!-- options bar -->

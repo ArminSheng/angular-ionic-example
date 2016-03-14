@@ -19,13 +19,15 @@
   <ion-content class="m-modal-item-detail">
 
     <!-- slider -->
-    <ion-slide-box delegate-handle="itemDetailSlideBox">
-      <ion-slide ng-repeat="banner in itemModal.item.banner track by $index">
-        <div class="m-slide-container">
-          <img class="m-slide-image" ng-src="{{ banner.path }}"/>
-        </div>
-      </ion-slide>
-    </ion-slide-box>
+    <div class="m-slides-container">
+      <ion-slide-box delegate-handle="itemDetailSlideBox">
+        <ion-slide ng-repeat="banner in itemModal.item.banner track by $index">
+          <div class="m-slide-container">
+            <img class="m-slide-image" ng-src="{{ banner.path }}"/>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+    </div>
 
     <!-- title area -->
     <div class="m-modal-item-detail-title">
@@ -50,6 +52,11 @@
         <span class="m-modal-item-detail-title-row2-reserve" ng-if="itemModal.item.isReserved">
           <img ng-src="img/item/item-reserved.png"/>
         </span>
+      </div>
+
+      <!-- deadline -->
+      <div class="m-modal-item-detail-title-row2-ext">
+        <item-remain-time time="itemModal.item.deadline" prefix="剩"></item-remain-time>
       </div>
 
       <!-- inventory and sales -->

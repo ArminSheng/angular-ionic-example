@@ -13,6 +13,11 @@
     margin-right: 10px;
 }
 
+.m-slides-container {
+    background-color: #fff;
+    padding-top: 0.2rem;
+}
+
 .m-slide-container {
     text-align: center;
 }

@@ -11,8 +11,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService', 'Validator',
-  function($rootScope, mmrEventing, mmrCartService, Validator) {
+.directive('bottomCart', ['$rootScope', 'mmrEventing', 'mmrCartService', 'Validator', 'mmrAuth',
+  function($rootScope, mmrEventing, mmrCartService, Validator, mmrAuth) {
 
   return {
     restrict: 'E',
@@ -23,6 +23,11 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/cart/bottom-cart.html',
     link: function(scope, element, attrs) {
       scope.doAddToCart = function() {
+        // check whether login
+        if(mmrAuth.redirectIfNotLogin()) {
+          return;
+        }
+
         // check inventory
         var currentCount = mmrCartService.getItemCount(scope.item);
         if(Validator.number(currentCount + 1, scope.item.inventoryAmount, true, {
@@ -34,6 +39,11 @@ angular.module('mmr.directives')
       };
 
       scope.doBuyImmediately = function() {
+        // check whether login
+        if(mmrAuth.redirectIfNotLogin()) {
+          return;
+        }
+
         var currentCount = mmrCartService.getItemCount(scope.item);
         if(Validator.number(currentCount + 1, scope.item.inventoryAmount, true, {
           title: '无法直接购买',

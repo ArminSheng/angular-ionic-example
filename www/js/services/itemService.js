@@ -24,6 +24,11 @@ angular.module('mmr.services')
       });
     }
 
+    // seckilling
+    if(item.deadline) {
+      item.deadline *= 1000;
+    }
+
     // shop
     if(item.shop) {
       item.shop.logoPath = processImagePath(item.shop.logoPath);
@@ -82,6 +87,24 @@ angular.module('mmr.services')
           's': size || 10
         }
       });
+    },
+
+    seckilling2: function() {
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.SEARCH_SECKILLING,
+        method: 'POST'
+      }).then(function(res) {
+        postprocessList(res.data);
+        dfd.resolve({
+          data: res.data
+        });
+      }, function() {
+        dfd.reject();
+      });
+
+      return dfd.promise;
     },
 
     // for home view usage [mock usage]

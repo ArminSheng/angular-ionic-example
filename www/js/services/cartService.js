@@ -275,7 +275,7 @@ angular.module('mmr.services')
 
       cartItem.id = item.id;
       cartItem.name = item.title;
-      cartItem.imagePath = item.banners[0].path || ''; // first banner image as default
+      cartItem.imagePath = item.banner[0].path || ''; // first banner image as default
       cartItem.attribute = item.attribute;
       cartItem.price = item.cprice;
       cartItem.quantity = newCount;

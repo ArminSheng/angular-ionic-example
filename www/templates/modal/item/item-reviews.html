@@ -26,7 +26,7 @@
 
     	<div class="m-item-review-item" ng-repeat="item in $root.modals.itemReviewsModal.item.review.comments | filter: $root.modals.itemReviewsModal.comment | orderBy: '-date' track by $index">
     		<div class="m-item-review-pinfo">
-    			<img src="{{ item.avatar }}">
+    			<img ng-src="{{ item.avatar }}">
     			<span>{{ item.name }}</span>
     		</div>
     		<p class="m-item-review-p m-item-rivew-content">{{ item.content }}</p>

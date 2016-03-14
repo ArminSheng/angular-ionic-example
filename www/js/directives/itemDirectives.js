@@ -10,7 +10,8 @@ angular.module('mmr.directives')
     '</div>');
 }])
 
-.directive('seckillingList', ['mmrModal', function(mmrModal) {
+.directive('seckillingList', ['mmrModal', 'mmrDataService', 'mmrItemFactory',
+  function(mmrModal, mmrDataService, mmrItemFactory) {
   return {
     restrict: 'E',
     replace: true,
@@ -20,13 +21,21 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/item-list-seckilling.html',
     link: function(scope, element, attrs) {
       scope.doOpenDetail = function(item) {
-        mmrModal.createItemDetailModal(scope, item);
+        // retrieve the details of the target item
+        mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
     }
   };
 }])
 
-.directive('recommendList', ['mmrModal', function(mmrModal) {
+.directive('recommendList', ['mmrModal', 'mmrDataService', 'mmrItemFactory',
+  function(mmrModal, mmrDataService, mmrItemFactory) {
   return {
     restrict: 'E',
     replace: true,
@@ -36,7 +45,14 @@ angular.module('mmr.directives')
     templateUrl: 'templates/directives/item-list-recommending.html',
     link: function(scope, element, attrs) {
       scope.doOpenDetail = function(item) {
-        mmrModal.createItemDetailModal(scope, item);
+        // retrieve the details of the target item
+        mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
     }
   };
@@ -130,7 +146,8 @@ angular.module('mmr.directives')
   };
 }])
 
-.directive('commodityGrid', ['$state', 'mmrModal', function($state, mmrModal) {
+.directive('commodityGrid', ['$state', 'mmrModal', 'mmrDataService', 'mmrItemFactory',
+  function($state, mmrModal, mmrDataService, mmrItemFactory) {
 
   return {
     retrict: 'E',
@@ -149,7 +166,14 @@ angular.module('mmr.directives')
       };
 
       scope.doOpenDetail = function(item) {
-        mmrModal.createItemDetailModal(scope, item);
+        // retrieve the details of the target item
+        mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
     }
   };
@@ -191,7 +215,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('collectProductList', ['mmrModal', function(mmrModal) {
+.directive('collectProductList', ['mmrModal', 'mmrDataService', 'mmrItemFactory',
+  function(mmrModal, mmrDataService, mmrItemFactory) {
   return {
     restrict: 'E',
     replace: true,
@@ -209,7 +234,14 @@ angular.module('mmr.directives')
       };
 
       scope.doOpenDetail = function(item) {
-        mmrModal.createItemDetailModal(scope, item);
+        // retrieve the details of the target item
+        mmrDataService.request(mmrItemFactory.item(item.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
     }
   };

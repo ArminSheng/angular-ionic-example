@@ -1,18 +1,19 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService', 'mmrCacheFactory', '$ionicPopup',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService, mmrCacheFactory, $ionicPopup) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService', 'mmrCacheFactory', '$ionicPopup', 'mmrMetaFactory',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService, mmrCacheFactory, $ionicPopup, mmrMetaFactory) {
 
   $scope.initialize = function() {
     // load geo position
-    var posOptions = {timeout: 10000, enableHighAccuracy: false};
+    var posOptions = {timeout: 5000, enableHighAccuracy: false};
 
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
       var latitude  = position.coords.latitude;
       var longitude = position.coords.longitude;
-      console.log(latitude, longitude);
       $scope.pos = position;
 
+      // get current location
+      mmrMetaFactory.location(longitude + ',' + latitude);
     }, function(err) {
       // error
       console.log(err);
@@ -24,7 +25,7 @@ angular.module('mmr.controllers')
       mmrDataService.request(
         mmrAreaFactory.banners(),
         mmrAreaFactory.areas(),
-        mmrItemFactory.seckilling(),
+        mmrItemFactory.seckilling2(),
         mmrItemFactory.homeCommodity2()
       ).then(function(res) {
         $scope.banners = res[0];
@@ -47,7 +48,7 @@ angular.module('mmr.controllers')
       mmrDataService.request(
         mmrAreaFactory.banners(),
         mmrAreaFactory.areas(),
-        mmrItemFactory.seckilling()
+        mmrItemFactory.seckilling2()
       ).then(function(res) {
         $scope.banners = res[0];
         $scope.areas = res[1];

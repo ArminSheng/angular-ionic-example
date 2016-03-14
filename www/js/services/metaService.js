@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrMetaFactory', ['$rootScope', '$q', '$http', 'restService', 'mmrCacheFactory', 'mmrEventing',
-  function($rootScope, $q, $http, restService, mmrCacheFactory, mmrEventing) {
+.factory('mmrMetaFactory', ['$rootScope', '$q', '$http', 'restService', 'apiService', 'mmrCacheFactory', 'mmrEventing',
+  function($rootScope, $q, $http, restService, apiService, mmrCacheFactory, mmrEventing) {
 
   // remove the '专区'
   var removeTrailing = function(item) {
@@ -132,6 +132,23 @@ angular.module('mmr.services')
 
       mmrCacheFactory.set('cities', Object.keys(items));
       mmrCacheFactory.set('districts', items);
+    },
+
+    // longitude,latitude
+    location: function(location) {
+      return $http({
+        url: apiService.META_LOCATION,
+        method: 'POST',
+        data: {
+          data: location
+        }
+      }).then(function(res) {
+        if(res.data && res.status === 200) {
+          $rootScope.$root.location = res.data;
+        }
+      }, function(err) {
+
+      });
     }
   };
 

@@ -52,6 +52,9 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     // Item related
     this.data.ITEM_DETAIL = this.data.API_BASE + 'api-search-detail.html';
 
+    // Metadata related
+    this.data.META_LOCATION = this.data.API_BASE + 'api-metadata-getCity.html';
+
     return this.data;
   };
 }])

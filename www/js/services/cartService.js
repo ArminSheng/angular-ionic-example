@@ -273,6 +273,8 @@ angular.module('mmr.services')
       // construct the cart item instance
       var cartItem = {};
 
+      console.log(item);
+
       cartItem.id = item.id;
       cartItem.name = item.title;
       cartItem.imagePath = item.banner[0].path || ''; // first banner image as default

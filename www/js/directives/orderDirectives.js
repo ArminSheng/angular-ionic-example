@@ -182,8 +182,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('orderSubList', ['mmrCartService', 'mmrModal',
-  function(mmrCartService, mmrModal) {
+.directive('orderSubList', ['mmrCartService', 'mmrModal', 'mmrItemFactory', 'mmrDataService',
+  function(mmrCartService, mmrModal, mmrItemFactory, mmrDataService) {
 
   // sub order id ---> whether to show all items
   var expandedMapping = {
@@ -267,7 +267,13 @@ angular.module('mmr.directives')
       };
 
       scope.doOpenDetail = function(subItem) {
-        mmrModal.createItemDetailModal(scope, subItem);
+        mmrDataService.request(mmrItemFactory.item(subItem.id)).then(function(res) {
+          mmrModal.createItemDetailModal(scope, res[0]);
+        }, function(err) {
+          console.log(err);
+        }).finally(function() {
+
+        });
       };
 
       // watchers

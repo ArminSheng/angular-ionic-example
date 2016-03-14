@@ -29,6 +29,11 @@
   color: #ff0000;
 }
 
+/*seckilling area*/
+.m-modal-item-detail-title-row2-ext {
+  padding-top: 0.4rem;
+}
+
 .m-modal-item-detail-title .m-modal-item-detail-title-row2 {
   display: flex;
   align-items: center;

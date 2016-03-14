@@ -57,8 +57,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService', 'mmrSearchService',
-  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService, mmrSearchService) {
+.directive('cartCount', ['$rootScope', '$timeout', 'mmrEventing', 'Validator', 'mmrCommonService', 'mmrCartService', 'mmrSearchService', 'mmrAuth',
+  function($rootScope, $timeout, mmrEventing, Validator, mmrCommonService, mmrCartService, mmrSearchService, mmrAuth) {
 
   return {
     restrict: 'E',
@@ -95,6 +95,11 @@ angular.module('mmr.directives')
           }, 200);
         }
 
+        // check whether login
+        if(mmrAuth.redirectIfNotLogin()) {
+          return;
+        }
+
         if(!independentCounter) {
           // emit the event
           if(scope.currentCount > 0) {
@@ -129,6 +134,11 @@ angular.module('mmr.directives')
       };
 
       scope.doCountPlus = function($event) {
+        // check whether login
+        if(mmrAuth.redirectIfNotLogin()) {
+          return;
+        }
+
         if(!independentCounter) {
           if(Validator.number(scope.currentCountTemp + 1, scope.item.inventoryAmount, true)) {
             if(mmrCartService.isItemInCart(scope.item)) {
@@ -167,6 +177,11 @@ angular.module('mmr.directives')
       };
 
       scope.doValidateCount = function() {
+        // check whether login
+        if(mmrAuth.redirectIfNotLogin()) {
+          return;
+        }
+
         scope.currentCountTemp = Number(scope.currentCountTemp);
         if(!Validator.number(scope.currentCountTemp, scope.item.inventoryAmount, true)) {
           // restore to last valid number

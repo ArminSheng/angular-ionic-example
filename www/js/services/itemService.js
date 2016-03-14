@@ -29,6 +29,11 @@ angular.module('mmr.services')
       item.deadline *= 1000;
     }
 
+    // place
+    if(!item.place) {
+      item.place = '未知';
+    }
+
     // shop
     if(item.shop) {
       item.shop.logoPath = processImagePath(item.shop.logoPath);

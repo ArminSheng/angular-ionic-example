@@ -101,6 +101,7 @@ angular.module('mmr.services')
         res = res[0];
         if(res.msg === '登录成功') {
           postprocess(res.data, 1);
+          console.log(res.data);
           dfd.resolve(res.data);
         } else {
           dfd.reject(res.msg);

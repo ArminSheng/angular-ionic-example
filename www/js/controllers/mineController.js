@@ -329,6 +329,12 @@ angular.module('mmr.controllers')
     });
   }
 
+  // calc the height for avatar, workaround
+  $timeout(function() {
+    var avatarHeight = $('.m-mine-avatar').height();
+    $('.m-mine-avatar img').height(avatarHeight);
+  }, 10);
+
 }])
 
 .controller('ConfigCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$ionicHistory', '$ionicActionSheet', 'mmrModal', 'mmrEventing', 'mmrAuth',

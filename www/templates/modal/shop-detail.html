@@ -49,12 +49,12 @@
 			</div>
 		</div>
 		<div class="m-filter-tabs" ng-class="{'active-products': shopDetailModal.tab === 1}">
-           <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 0}" ng-click="shopDetailModal.switchTab(0)">
-              <span>店铺首页</span>
-           </div>
-           <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 1}" ng-click="shopDetailModal.switchTab(1)">
-            	<span>全部商品</span>
-            </div>
+		  <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 0}" ng-click="shopDetailModal.switchTab(0)">
+	      <span>店铺首页</span>
+		  </div>
+		  <div class="m-filter-item" ng-class="{'active': shopDetailModal.tab === 1}" ng-click="shopDetailModal.switchTab(1)">
+	    	<span>全部商品</span>
+		  </div>
     </div>
     <div class="m-modal-mine-shop-index" ng-show="shopDetailModal.tab === 0">
     	<div class="m-modal-mine-shop-index-adv">
@@ -73,25 +73,30 @@
 
     <div class="m-modal-mine-shop-all" ng-show="shopDetailModal.tab === 1">
 
-      <!-- options bar -->
-	    <div class="m-cat-options-bar" ng-class="{'downing': !optionsBarOpened}">
-	      <!-- sorting & filters -->
-	      <div class="m-cat-filters">
-	        <div class="row row-no-padding m-cat-filters-row">
-	          <div class="col col-50 m-cat-filters-col-border">
-	            <sorter event-name="{{ shopDetailModal.sortEventName }}" sorters="shopDetailModal.sorters" sort-activated="shopDetailModal.sortActivated" activate-sort="shopDetailModal.activateSort()" additional-class="m-shop-sorter"></sorter>
-	          </div>
-
-	          <div class="col col-50">
-	            <screener event-prefix="{{ shopDetailModal.screenEventPrefix }}" tags="shopDetailModal.tags" screen-activated="shopDetailModal.screenActivated" activate-screen="shopDetailModal.activateScreen()" additional-class="m-shop-screener"></screener>
-	          </div>
-	        </div>
-	      </div>
-	    </div>
 	    <collect-product-list items="shopDetailModal.items" ng-class="{'move-right':shopDetailModal.menuOpened}"></collect-product-list>
 	    <backdrop is-show='shopDetailModal.isShow'></backdrop>
     </div>
 	</ion-content>
+
+	<!-- options bar -->
+  <div class="m-cat-options-bar has-sub-head" ng-class="{'downing': !optionsBarOpened, 'fixed-top': onTop}" ng-if="shopDetailModal.tab === 1">
+	  <!-- sorting & filters -->
+	  <div class="m-cat-filters">
+	    <div class="row row-no-padding m-cat-filters-row">
+	      <div class="col col-50 m-cat-filters-col-border">
+	        <sorter event-name="{{ shopDetailModal.sortEventName }}" sorters="shopDetailModal.sorters" sort-activated="shopDetailModal.sortActivated" activate-sort="shopDetailModal.activateSort()" additional-class="m-shop-sorter"></sorter>
+	      </div>
+
+	      <div class="col col-50">
+	        <screener event-prefix="{{ shopDetailModal.screenEventPrefix }}" tags="shopDetailModal.tags" screen-activated="shopDetailModal.screenActivated" activate-screen="shopDetailModal.activateScreen()" additional-class="m-shop-screener"></screener>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<!-- back to top btn -->
+  <back-to-top-area show="showBacktoTopBtn" scroll-to-top="scrollToTop()"></back-to-top-area>
+
 	<!-- categories menu -->
 	<category-menu menu-opened="shopDetailModal.menuOpened" options-bar-opened="true" swipe-menu="shopDetailModal.swipeMenu(open)" items="shopDetailModal.classifications" additional-class="m-shop-menu-category" ng-show="shopDetailModal.tab === 1" offset="{{ $root.ui.heights.optionsBarHeight }}"></category-menu>
 

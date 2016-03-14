@@ -343,6 +343,7 @@
 
 .m-modal-mine-collect-view .bar-header {
     display: flex;
+    z-index: 15;
 }
 
 .m-modal-mine-collect-view .m-header-buttons {
@@ -366,6 +367,15 @@
 .m-modal-mine-shop-all .m-collect-product-list-container {
     padding-left: 36px;
     transition: all 0.2s ease-in-out;
+    margin-top: 42px;
+}
+
+.fixed-top {
+    top: 44px !important;
+}
+
+.fixed-top .m-sorter-options-list {
+    top: 86px !important;
 }
 
 .m-collect-product-list-container .list, .m-collect-shop-list-container .list {
@@ -553,13 +563,15 @@
 .m-modal-mine-shop-banner-text-head, .m-modal-mine-shop-banner-text-grade {
     color: #fff;
     margin: 0;
-    width: 100%;
+    width: 120%;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .m-modal-mine-shop-detail-content { background: #e8e8e8; }
+
+.m-modal-shop-detail-view .m-cat-options-bar {top: 86px;}
 
 .m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active { color: #ffc900; }
 
@@ -610,6 +622,10 @@
     bottom: 20px;
 }
 
+.m-shop-screener .scroll {
+    padding-bottom: 44px;
+}
+
 @media screen and (min-width: 370px) {
     .m-header-buttons {
         margin: 0 5px;
@@ -620,5 +636,12 @@
 
     .m-modal-mine-shop-banner-brand {
         width: 100px;
+    }
+
+}
+
+@media screen and (max-width: 330px) {
+    .m-modal-mine-shop-banner-text .m-modal-mine-shop-banner-text-head, .m-modal-mine-shop-banner-text .m-modal-mine-shop-banner-text-grade {
+        font-size: 1em !important;
     }
 }

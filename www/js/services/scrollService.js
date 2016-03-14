@@ -25,6 +25,19 @@ angular.module('mmr.services')
           var moveData = scrollHandler.getScrollPosition().top,
               lastTops;
 
+          // header hold on related
+          if (config.offHeight &&  moveData <= config.offHeight) {
+            if (typeof(config.offTop) === 'function') {
+              config.offTop();
+            }
+          }
+
+          if (config.offHeight &&  moveData > config.offHeight) {
+            if (typeof(config.onTop) === 'function') {
+              config.onTop();
+            }
+          }
+
           if(!lastTopsMappings[handler]) {
             lastTops = lastTopsMappings[handler] = [];
           } else {

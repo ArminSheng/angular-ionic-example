@@ -389,12 +389,15 @@ angular.module('mmr.services')
 
         //methods
         modal.doHide = function() {
-          modal.hide();
+          modal.remove();
         };
 
         // search related
         modal.searchResults = [];
         modal.searchInputFocused = false;
+        scope.searchNoResult = false;
+        scope.page = 1;
+        scope.isLoadingMore = false;
 
         modal.doFocusSearchInput = function() {
           modal.searchInputFocused = true;
@@ -477,6 +480,36 @@ angular.module('mmr.services')
           });
         };
 
+        // inifinite scroll related
+        scope.moreDataCanBeLoaded = function() {
+          if(!scope.searchNoResult) {
+            return true;
+          }
+
+          return false;
+        };
+
+        scope.loadMore = function() {
+          scope.isLoadingMore = true;
+
+          mmrDataService.request(mmrItemFactory.search({
+            sid: item.id,
+            page: scope.page
+          })).then(function(res) {
+            if(res[0] !== 'null' && res[0] instanceof Array) {
+              modal.items = modal.items.concat(res[0]);
+              scope.page += 1;
+              scope.searchNoResult = false;
+            } else {
+              scope.searchNoResult = true;
+            }
+            scope.isLoadingMore = false;
+            scope.$broadcast('scroll.infiniteScrollComplete');
+          }, function(err) {
+
+          });
+        };
+
         //event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // after selecting the new sorting method
@@ -515,7 +548,7 @@ angular.module('mmr.services')
         init();
         function init() {
           mmrDataService.request(mmrItemFactory.search({
-            page: 0
+            sid: item.id
           })).then(function(res) {
             modal.items = res[0];
           }, function(err) {
@@ -1358,7 +1391,7 @@ angular.module('mmr.services')
             modal.items = res[0];
           }, function(err) {
 
-          })
+          });
         }
       });
     },

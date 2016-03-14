@@ -30,7 +30,7 @@ angular.module('mmr.directives')
   $templateCache.put('templates/directives/common/no-more-content.html',
     '<div class="m-no-more-content">' +
     '<span class="m-no-more-content-text">{{ content }}</span>' +
-    '</div>')
+    '</div>');
 }])
 
 .directive('backToTopArea', [function() {

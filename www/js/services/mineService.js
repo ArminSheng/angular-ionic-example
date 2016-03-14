@@ -181,7 +181,7 @@ angular.module('mmr.services')
           mmrCacheFactory.set('products', products);
         }, function(err) {
 
-        })
+        });
 
         return mmrCacheFactory.get('products');
       }

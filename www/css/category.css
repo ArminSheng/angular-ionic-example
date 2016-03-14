@@ -178,6 +178,10 @@
     left: 5px;
 }
 
+.m-cat-body-loading {
+    text-align: center;
+}
+
 .platform-ios.platform-cordova .m-cat-search.scroll-view.ionic-scroll.scroll-y.activated {
     top: 64px;
 }

@@ -110,16 +110,36 @@
   margin-left: auto;
 }
 
+.m-order-suborder-item-name {
+    font-size: 14px;
+    width: 100%;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+}
+
 .m-order-suborder-item-brand {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.m-order-suborder-item-right {
+.m-order-suborder-item-bottom-left {
   position: absolute;
+  bottom: 4px;
+  left: 104px;
+  font-size: 14px;
+}
+
+.m-order-suborder-item-bottom-right {
+  position: absolute;
+  bottom: 4px;
   right: 10px;
-  top: 9px;
+  font-size: 14px;
 }
 
 .m-order-suborder-item-check {

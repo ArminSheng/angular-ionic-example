@@ -14,15 +14,17 @@
         <a class="item item-thumbnail-left m-order-suborder-item" ng-click="doOpenDetail(subItem)">
           <img ng-src="{{ subItem.imagePath }}">
           <div ng-if="!subOrder.isEditing">
-            <h3>{{ subItem.name }}</h3>
-            <p class="m-order-suborder-item-brand">属性：{{ $root.mappings.attributes[subItem.attribute] }}</p>
-            <div class="m-order-suborder-item-right">
-              <h3 class="m-order-suborder-item-price">
+            <span class="m-order-suborder-item-name">{{ subItem.name }}</span>
+            <!-- <span class="m-order-suborder-item-attr">属性：{{ $root.mappings.attributes[subItem.attribute] }}</span> -->
+            <div class="m-order-suborder-item-bottom-left">
+              <span class="m-order-suborder-item-price">
                 {{ subItem.price | currency: '￥' }}
-              </h3>
-              <p class="m-order-suborder-item-unit">
-                数量：{{ subItem.quantity }}
-              </p>
+              </span>
+            </div>
+            <div class="m-order-suborder-item-bottom-right">
+              <span class="m-order-suborder-item-unit">
+                数量: {{ subItem.quantity }}
+              </span>
             </div>
           </div>
           <div ng-if="subOrder.isEditing" class="m-order-suborder-editing">

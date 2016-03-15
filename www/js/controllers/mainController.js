@@ -26,7 +26,7 @@ angular.module('mmr.controllers')
       email: 'destiny.jiang@gmail.com',
       qq: '277727633',
       birthday: new Date('1987-10-20'),
-      deposit: 10.0,
+      deposit: 0,
       // oldUserAccounts: [
       //   'mmr-mmr-mmr1@mmr.com',
       //   'mmr-mmr-mmr2@mmr.com',

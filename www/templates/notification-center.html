@@ -12,5 +12,5 @@
     <notification-list items="notifications[tab]"></notification-list>
   </ion-content>
   <!-- empty content -->
-  <empty-content words="words" additional-class="{{ additionalClass }}" ng-if="isEmpty"></empty-content>
+  <empty-content words="words" additional-class="{{ additionalClass }}" ng-if="notifications[tab].length === 0"></empty-content>
 </ion-view>

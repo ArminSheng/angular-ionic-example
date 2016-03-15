@@ -249,6 +249,9 @@ angular.module('mmr.controllers')
         $scope.depositModal.show();
 
         // binding data
+        $scope.depositModal.ec = {};
+        $scope.depositModal.ec.words = ['暂无余额变动记录, 去购买一些商品吧 :)'];
+        $scope.depositModal.ec.additionalClass = 'm-deposit-list-empty';
 
         // methods
         $scope.depositModal.doHide = function() {

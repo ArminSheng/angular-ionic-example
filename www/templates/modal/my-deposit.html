@@ -24,9 +24,12 @@
       </div>
 
       <!-- detail list -->
-      <div class="m-modal-mine-deposit-details">
+      <div class="m-modal-mine-deposit-details" ng-if="depositModal.depositDetails.length > 0">
         <mine-deposit-list items="depositModal.depositDetails"></mine-deposit-list>
       </div>
+
+      <!-- empty content -->
+      <empty-content words="depositModal.ec.words" additional-class="{{ depositModal.ec.additionalClass }}" ng-if="depositModal.depositDetails.length === 0"></empty-content>
     </div>
 
   </ion-content>

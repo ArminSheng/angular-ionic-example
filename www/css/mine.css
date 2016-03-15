@@ -77,6 +77,10 @@
     color: red;
 }
 
+.m-common-empty-container.m-deposit-list-empty {
+    top: 140px;
+}
+
 /*my coupon*/
 .m-modal-mine-coupon {
     background-color: #e8e8e8;

@@ -423,7 +423,7 @@
 .m-header-buttons .button.active {
     background-color: #fff;
     border-color: #fff;
-    color: #ffc900;
+    color: #ffb401;
 }
 
 .m-collect-list-item-amount, .m-collect-list-item-name {
@@ -584,7 +584,7 @@
 
 .m-modal-shop-detail-view .m-cat-options-bar {top: 86px;}
 
-.m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active { color: #ffc900; }
+.m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active { color: #ffb401; }
 
 .m-filter-tabs.active-products {
     border-bottom: 1px solid #eee;

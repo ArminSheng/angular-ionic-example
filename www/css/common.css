@@ -19,7 +19,7 @@
 }
 
 .m-filter-item.active {
-    border-bottom: 2px solid #ffc900;
+    border-bottom: 2px solid #ffb401;
     opacity: 1;
 }
 
@@ -46,7 +46,7 @@
 
 /*popup msg*/
 .popup {
-    border:1px solid #ffc900;
+    border:1px solid #ffb401;
     border-radius: 5px !important;
 }
 
@@ -390,7 +390,7 @@
 
 .m-fav-icon .m-fav-icon-img .icon {
     font-size: 1.8rem;
-    color: #ffc900;
+    color: #ffb401;
 }
 
 /*vertically and horizontally centered*/
@@ -520,9 +520,9 @@
 }
 
 .m-button-outline-energized {
-    color:#ffc900;
+    color:#ffb401;
     background-color: #fff;
-    border-color: #ffc900;
+    border-color: #ffb401;
     padding: 0 10px !important;
 }
 

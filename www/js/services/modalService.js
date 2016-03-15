@@ -655,12 +655,17 @@ angular.module('mmr.services')
         modal.show();
 
         // bind data
-        modal.currentAddress = currentAddress;
         if(currentAddress) {
+          modal.currentAddress = currentAddress;
           modal.addressCheckboxes = mmrAddressService.generateAddressCheckboxes(currentAddress);
         }
 
         modal.isEditing = false;
+
+          // empty content related
+        modal.ec = {};
+        modal.ec.words = ['暂时还没有地址噢, 赶快去创建一个吧 :)'];
+        modal.ec.additionalClass = 'm-addresses-empty';
 
         // methods
         modal.doHide = function() {
@@ -668,28 +673,30 @@ angular.module('mmr.services')
         };
 
         modal.doSelectAddress = function(address, $index) {
-          modal.addressCheckboxes = _.map(modal.addressCheckboxes, function(element) {
-            return false;
-          });
-          modal.addressCheckboxes[$index] = true;
+          if(currentAddress) {
+            modal.addressCheckboxes = _.map(modal.addressCheckboxes, function(element) {
+              return false;
+            });
+            modal.addressCheckboxes[$index] = true;
 
-          // emit the event and close the modal
-          mmrEventing.doChangeAddress({
-            address: address,
-            type: addressType
-          });
-          modal.doHide();
+            // emit the event and close the modal
+            mmrEventing.doChangeAddress({
+              address: address,
+              type: addressType
+            });
+            modal.doHide();
+          }
         };
 
         modal.doOpenAddressDetail = function(address) {
-          createAddressDetailModal(scope, address);
+          createAddressDetailModal(scope, address, false, true);
         };
 
         modal.doAdd = function() {
           createAddressDetailModal(scope, {}, true);
         };
 
-        function createAddressDetailModal(scope, address, isEditing) {
+        function createAddressDetailModal(scope, address, isEditing, isUpdating) {
           $ionicModal.fromTemplateUrl('templates/modal/my-address-detail.html', {
             scope: scope,
             animation: 'slide-in-right'
@@ -703,11 +710,12 @@ angular.module('mmr.services')
 
             // bind data
             modal.isEditing = isEditing || false;
+            modal.isUpdating = isUpdating || false;
             modal.address = angular.copy(address);
 
             // methods
             modal.doHide = function() {
-              modal.hide();
+              modal.remove();
             };
 
             modal.doToggleEditing = function() {
@@ -715,9 +723,18 @@ angular.module('mmr.services')
                 $rootScope.$root.modals.addressDetailModal.isEditing = true;
               } else {
                 // validate the address
+                console.log(modal.address);
+                if(mmrAddressService.validateAddress(modal.address)) {
+                  // save the address
+                  mmrAddressService.createAddress(modal.address).then(function(res) {
+                    if(res.id) {
+                      mmrCommonService.help('创建成功', '新的地址已经创建成功');
+                      $rootScope.$root.modals.addressDetailModal.doHide();
+                    }
+                  }, function(err) {
 
-                // save the editings
-                $rootScope.$root.modals.addressDetailModal.doHide();
+                  });
+                }
               }
             };
 
@@ -730,18 +747,26 @@ angular.module('mmr.services')
               }).then(function(res) {
                 if(res) {
                   // delete the address
+                  mmrAddressService.removeAddress(modal.address.id).then(function() {
+                    mmrCommonService.help('删除成功', '地址已经删除成功');
+                    $rootScope.$root.modals.addressDetailModal.doHide();
+                  }, function(err) {
+
+                  });
                 }
               });
             };
 
-            modal.defaultAddress = function() {
+            modal.defaultAddress = function(setDefault) {
+              var title = setDefault ? '确定要将此地址设置为默认地址吗' : '确定要取消此地址为默认地址吗';
               $ionicPopup.confirm({
-                title: '确定要将此地址设置为默认地址吗',
+                title: title,
                 okText: '确定',
-                cancelText: '取消'
+                cancelText: '取消',
+                okType: 'button-energized'
               }).then(function(res) {
                 if(res) {
-                  // make the address as default
+                  modal.address.isDefault = setDefault;
                 }
               });
             };

@@ -19,7 +19,7 @@
   <ion-content class="m-modal-mine-address">
 
     <div class="list m-modal-mine-address-list">
-      <div class="m-modal-mine-address-item" ng-repeat="address in $root.addresses track by $index">
+      <div class="m-modal-mine-address-item" ng-repeat="address in $root.addresses track by $index" ng-if="$root.addresses.length > 0">
         <div class="row row-no-padding">
           <div class="col col-10 m-modal-mine-address-item-checkbox" ng-if="$root.modals.addressModal.currentAddress" ng-click="$root.modals.addressModal.doSelectAddress(address, $index)">
             <ion-checkbox class="checkbox-energized" ng-model="$root.modals.addressModal.addressCheckboxes[$index]"></ion-checkbox>
@@ -48,6 +48,9 @@
           </div>
         </div>
       </div>
+
+      <!-- empty content -->
+      <empty-content words="$root.modals.addressModal.ec.words" additional-class="{{ $root.modals.addressModal.ec.additionalClass }}" ng-if="$root.addresses.length === 0"></empty-content>
     </div>
 
   </ion-content>

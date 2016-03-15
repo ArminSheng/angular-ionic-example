@@ -27,6 +27,30 @@ angular.module('mmr.services')
       return true;
     },
 
+    fixedPhone: function(fixedPhone, popupWhenFailure) {
+      if(!fixedPhone || !/^(0[1-9]{2})-\d{8}$|^(0[1-9]{3}-(\d{7,8}))$/i.test(fixedPhone)) {
+
+        if(popupWhenFailure) {
+          var title = '固定电话格式验证失败',
+              template = '固定电话的格式应该符合中国大陆地区固定电话的格式';
+          if(_.trim(fixedPhone) === '') {
+            title = '请输入必要信息';
+            template = '请填入固定电话';
+          }
+
+          $ionicPopup.alert({
+            title: title,
+            template: template,
+            okType: 'button-energized'
+          });
+        }
+
+        return false;
+      }
+
+      return true;
+    },
+
     password: function(password, popupWhenFailure) {
       if(!password || !/[0-9|A-Z|a-z]{6,16}/.test(password)) {
 
@@ -139,6 +163,22 @@ angular.module('mmr.services')
           $ionicPopup.alert({
             title: title,
             template: template,
+            okType: 'button-energized'
+          });
+        }
+
+        return false;
+      }
+
+      return true;
+    },
+
+    field: function(text, fieldName) {
+      if(_.trim(text) === '') {
+        if(_.trim(fieldName) !== '') {
+          $ionicPopup.alert({
+            title: fieldName + '不能为空',
+            template: '请提供' + fieldName,
             okType: 'button-energized'
           });
         }

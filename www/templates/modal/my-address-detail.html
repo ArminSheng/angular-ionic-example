@@ -63,14 +63,19 @@
     <!-- operation list -->
     <div class="list m-modal-mine-address-op-list">
 
-      <a class="item item-icon-left assertive" ng-click="$root.modals.addressDetailModal.removeAddress()">
+      <a class="item item-icon-left assertive" ng-click="$root.modals.addressDetailModal.removeAddress()" ng-if="$root.modals.addressDetailModal.address.id">
         <i class="icon ion-trash-a"></i>
         删除此地址
       </a>
 
-       <a class="item item-icon-left" ng-click="$root.modals.addressDetailModal.defaultAddress()" ng-if="!$root.modals.addressDetailModal.address.isDefault">
+      <a class="item item-icon-left" ng-click="$root.modals.addressDetailModal.defaultAddress(true)" ng-if="!$root.modals.addressDetailModal.address.isDefault && $root.addresses.length > 0">
         <i class="icon ion-home"></i>
         将此地址设为默认
+      </a>
+
+      <a class="item item-icon-left" ng-click="$root.modals.addressDetailModal.defaultAddress(false)" ng-if="$root.modals.addressDetailModal.address.isDefault && !$root.modals.addressDetailModal.isUpdating">
+        <i class="icon ion-home"></i>
+        取消默认地址
       </a>
 
     </div>

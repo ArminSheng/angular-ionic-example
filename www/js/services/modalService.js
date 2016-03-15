@@ -723,17 +723,28 @@ angular.module('mmr.services')
                 $rootScope.$root.modals.addressDetailModal.isEditing = true;
               } else {
                 // validate the address
-                console.log(modal.address);
                 if(mmrAddressService.validateAddress(modal.address)) {
-                  // save the address
-                  mmrAddressService.createAddress(modal.address).then(function(res) {
-                    if(res.id) {
-                      mmrCommonService.help('创建成功', '新的地址已经创建成功');
-                      $rootScope.$root.modals.addressDetailModal.doHide();
-                    }
-                  }, function(err) {
+                  if(!modal.address.id) {
+                    // save the address
+                    mmrAddressService.createAddress(modal.address).then(function(res) {
+                      if(res.id) {
+                        mmrCommonService.help('创建成功', '新的地址已经创建成功');
+                        $rootScope.$root.modals.addressDetailModal.doHide();
+                      }
+                    }, function(err) {
 
-                  });
+                    });
+                  } else {
+                    // update the address
+                    mmrAddressService.updateAddress(modal.address).then(function(res) {
+                      if(res.id) {
+                        mmrCommonService.help('更新成功', '新的地址已经更新成功');
+                        $rootScope.$root.modals.addressDetailModal.doHide();
+                      }
+                    }, function(err) {
+
+                    });
+                  }
                 }
               }
             };
@@ -767,6 +778,17 @@ angular.module('mmr.services')
               }).then(function(res) {
                 if(res) {
                   modal.address.isDefault = setDefault;
+                  if(!modal.isEditing) {
+                    // save the address
+                    mmrAddressService.updateAddress(modal.address).then(function(res) {
+                      if(res.id) {
+                        mmrCommonService.help('更新默认地址成功', '此地址已经被设置为默认地址');
+                        $rootScope.$root.modals.addressDetailModal.doHide();
+                      }
+                    }, function(err) {
+
+                    });
+                  }
                 }
               });
             };

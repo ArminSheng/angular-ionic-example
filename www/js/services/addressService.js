@@ -103,18 +103,19 @@ angular.module('mmr.services')
       }
 
       $timeout(function() {
-        if(address.isDefault) {
-          _.forEach($rootScope.$root.addresses, function(a) {
-            if(a.isDefault && a.id !== address.id) {
-              a.isDefault = false;
+        $rootScope.$root.addresses = _.map($rootScope.$root.addresses, function(target) {
+          if(address.isDefault) {
+            if(target.isDefault && target.id !== address.id) {
+              target.isDefault = false;
             }
 
-            if(a.id === address.id) {
-              // replace the updated address
-              a = address;
+            if(address.id === target.id) {
+              target = address;
             }
-          });
-        }
+
+            return target;
+          }
+        });
 
         dfd.resolve(address);
       }, 500);
@@ -123,16 +124,28 @@ angular.module('mmr.services')
     },
 
     removeAddress: function(id) {
-      var dfd = $q.defer();
-
-      console.log('remove: ' + id);
+      var dfd = $q.defer(),
+          self = this;
 
       $timeout(function() {
-        _.remove($rootScope.$root.addresses, function(address) {
+        var removedAddress = _.remove($rootScope.$root.addresses, function(address) {
           return address.id === id;
-        });
+        })[0];
 
-        dfd.resolve();
+        if(removedAddress) {
+          if(removedAddress.isDefault && $rootScope.$root.addresses.length > 0) {
+            var defaultCandidate = $rootScope.$root.addresses[0];
+            defaultCandidate.isDefault = true;
+
+            // update the default candidate
+            self.updateAddress(defaultCandidate);
+          }
+
+          dfd.resolve();
+        } else {
+          dfd.reject('删除失败');
+        }
+
       });
 
       return dfd.promise;

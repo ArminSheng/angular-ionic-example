@@ -152,7 +152,6 @@ angular.module('mmr.services')
       var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
         scope:scope,
-        animation: 'slide-in-right'
       }).then(function(modal) {
         $rootScope.modals.receiptModal = modal;
         modal.show();
@@ -293,7 +292,6 @@ angular.module('mmr.services')
           // process on sorting event
           scope.sortMethod = data;
           modal.myFav  = mmrDataService.sortItems(modal.myFav, scope.sortMethod);
-          console.log('log');
           // close bacdrop
           modal.isShow = false;
         });
@@ -469,7 +467,6 @@ angular.module('mmr.services')
             },
             onThreshold: function(isGreaterThanThreshold) {
               scope.$apply(function() {
-                // console.log(threshold);
                 if(isGreaterThanThreshold) {
                   scope.showBacktoTopBtn = true;
                 } else {
@@ -510,6 +507,23 @@ angular.module('mmr.services')
           });
         };
 
+        modal.switchTab = function(tabIdx) {
+          modal.tab = tabIdx;
+        };
+
+        // TODO: refactor, make doGetCartCount a common method
+        modal.doGetCartCount = function() {
+          if($rootScope.$root.cart.totalCount >= 100) {
+            return '99+';
+          }
+
+          return $rootScope.$root.cart.totalCount;
+        };
+
+        modal.doTransToCart = function() {
+          mmrEventing.doStateToCart();
+        };
+
         //event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // after selecting the new sorting method
@@ -541,9 +555,12 @@ angular.module('mmr.services')
           modal.activateScreen();
         });
 
-        modal.switchTab = function(tabIdx) {
-          modal.tab = tabIdx;
-        };
+        scope.$on('doStateToCart', function($event, data) {
+          modal.doHide();
+          $state.go('tab.cart', {
+            tab: 1
+          });
+        });
 
         init();
         function init() {
@@ -1219,7 +1236,6 @@ angular.module('mmr.services')
           // call the order API to generate a new order
           var itemIds = getOrderItemIds(orders.orders);
           mmrOrderFactory.generate2(generateOrderVo(orders, itemIds)).then(function(res) {
-            console.log(res);
             mmrLoadingFactory.hide();
             if(res.status && res.status === 200 &&
               res.data.msg === '订单生成成功' &&
@@ -1263,8 +1279,6 @@ angular.module('mmr.services')
         function generateOrderVo(orders, itemIds) {
           var vo = {};
 
-          console.log(orders);
-
           vo.ids = mmrCartService.cartIds(itemIds);
           vo.type = 2; // buy by cart
           vo.mentioning = 0; // 0: not self-pick; 1: self-pick
@@ -1273,8 +1287,6 @@ angular.module('mmr.services')
           vo.address_invoice = 56;
           vo.order_type = orders.isReserved ? 0 : 1; // 0: reserve; 1: normal
           vo.uid = $rootScope.$root.pinfo.uid;
-
-          console.log(vo);
 
           return vo;
         }
@@ -1535,7 +1547,9 @@ angular.module('mmr.services')
         modal.button = {
           text: '去逛逛',
           onTap: function() {
-            console.log('log');
+            // trans to home view
+            modal.hide();
+            $state.go('tab.home');
           }
         };
 

@@ -499,6 +499,12 @@
     padding: 0;
 }
 
+.m-modal-shop-detail-view .m-modal-shop-detail-view-cart {
+    position: relative;
+    right: 3px;
+    top: 2px;
+}
+
 .m-modal-mine-shop-banner {
     position: relative;
     background: url('../img/common/shop-banner.png') no-repeat;

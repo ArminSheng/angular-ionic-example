@@ -18,15 +18,17 @@
 		      </button>
 	     	<!-- notification -->
 	      	<div class="m-home-cart">
-		        <a class="button button-icon icon ion-ios-cart" ng-click="doCheckNotification()">
-		        	<span class="badge badge-assertive m-badge">0</span>
+		        <a class="button button-icon icon ion-ios-cart m-modal-shop-detail-view-cart" ng-click="shopDetailModal.doTransToCart()">
+		        	<span class="badge badge-assertive m-badge" ng-if="$root.cart.totalCount > 0">
+                {{ shopDetailModal.doGetCartCount() }}
+              </span>
 		        </a>
 	      	</div>
-	      	<div class="buttons">
+	      	<!-- <div class="buttons">
 						<button class="button button-clear" ng-click="">
 							<span class="icon ion-more m-header-icon"></span>
 						</button>
-		   	</div>
+		   	</div> -->
     	</div>
 	</ion-header-bar>
 	<ion-content class="m-modal-mine-shop-detail-content" delegate-handle="shopItemsScroll" on-scroll="shopDetailModal.onScroll()">

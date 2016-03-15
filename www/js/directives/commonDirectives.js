@@ -3,7 +3,7 @@ angular.module('mmr.directives')
 .run(['$templateCache', function($templateCache) {
   $templateCache.put('templates/directives/notification-center.html',
     '<a class="button button-icon icon ion-chatbubble-working" ng-click="doCheckNotification()">' +
-    '<span class="badge badge-assertive m-badge" ng-if="$root.authenticated">{{ count }}</span>');
+    '<span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.notificationCount > 0">{{ count }}</span>');
 
   $templateCache.put('templates/directives/common/back-to-top-area.html',
     '<div class="m-back-to-top-area" ng-class="{\'activated\': show}" ng-click="scrollToTop({})">' +

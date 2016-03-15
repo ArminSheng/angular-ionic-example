@@ -247,14 +247,15 @@
 .m-mine-item-icon {
     width: 80px;
     padding: 10px 20px 0 20px;
+    display: inline-block;
 }
 
 .m-mine-item-title {
-
+    display: inline-block;
 }
 
 .m-mine-item-subtitle {
-
+    display: block;
 }
 
 .m-mine-item-placeholder {

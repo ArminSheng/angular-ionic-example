@@ -379,6 +379,15 @@
     top: 44px !important;
 }
 
+.platform-ios.platform-cordova .fixed-top {
+    top: 64px !important;
+}
+
+/*make sure the filters are invisible*/
+.platform-ios.platform-cordova .fixed-top.downing {
+    top: 20px !important;
+}
+
 .fixed-top .m-sorter-options-list {
     top: 86px !important;
 }
@@ -655,4 +664,8 @@
     .m-modal-mine-shop-banner-text .m-modal-mine-shop-banner-text-head, .m-modal-mine-shop-banner-text .m-modal-mine-shop-banner-text-grade {
         font-size: 1em !important;
     }
+}
+
+.platform-ios.platform-cordova .m-modal-shop-detail-view .m-cat-options-bar {
+    top: 106px;
 }

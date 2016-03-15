@@ -7,6 +7,7 @@
     background-size: 100%;
 
     position: relative;
+    padding: 4px;
 }
 
 .m-sales-area .m-sales-area-title {
@@ -35,7 +36,7 @@
     position: relative;
     top: 6px;
     background-color: white;
-    padding-top: 12px
+    padding: 12px 4px 4px 4px;
 }
 
 .m-sec-killing-area-item {
@@ -139,6 +140,7 @@
 
 /*grid items*/
 .m-commodity-grid {
+    padding: 4px;
     margin: 10px 0;
 }
 

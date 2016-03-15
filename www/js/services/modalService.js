@@ -322,13 +322,47 @@ angular.module('mmr.services')
         });
 
         function init(tab) {
-          modal.myFav = mmrMineFactory.myFav(tab);
-          modal.words = ['您还没有任何收藏，快去收藏吧！'];
+          if(tab === 0) {
+            mmrDataService.request(mmrItemFactory.footprintList({
+              uid: $rootScope.$root.pinfo.uid,
+              type: 3
+            })).then(function(res) {
+              if (res[0] === 'null') {
+                modal.myFavItems = null;
+                modal.isEmpty = true;
+              } else {
+                modal.myFavItems = res[0];
+                modal.isEmpty = false;
+              }
+          }, function(err) {
+
+          });
+          } else {
+            mmrDataService.request(mmrItemFactory.footprintList({
+              uid: $rootScope.$root.pinfo.uid,
+              type: 4
+            })).then(function(res) {
+              if (!Array.isArray(res[0])) {
+                modal.myFavShops = null;
+                modal.isEmpty = true;
+              } else {
+                modal.myFavShops = res[0];
+                modal.isEmpty = false;
+              }
+            }, function(err) {
+
+            });
+          }
+
+          // sorter and screener initialize
           modal.isShow = false;
           modal.sortActivated = false;
           modal.screenActivated = false;
+
+          // empty content related
+          modal.words = ['您还没有任何收藏，快去收藏吧！'];
           modal.additionalClass = tab === 0 ? 'm-collect-empty-product' : 'm-collect-empty-shop';
-          modal.isEmpty = modal.myFav.length === 0 ? true : false;
+
         }
 
         modal.switchTab(tab);
@@ -1011,16 +1045,14 @@ angular.module('mmr.services')
         animation: 'slide-in-right'
       }).then(function(modal) {
         modal.show();
-
         // bind data
         scope.itemModal = scope.itemModal || {};
         scope.itemModal.item = item;
-
+        console.log(item);
         // bind methods
         scope.itemModal.doHide = function() {
-          modal.hide();
+          modal.remove();
         };
-
         scope.itemModal.doOpenHeaderMenu = function() {
 
         };
@@ -1181,7 +1213,6 @@ angular.module('mmr.services')
               } else {
                  self.createAddressModal(scope, orders.addresses.normal, 'normal');
               }
-
 
               return true;
             }

@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrMineFactory', ['$http', 'restService', 'mmrCacheFactory', 'mmrDataService', 'mmrItemFactory',
-  function($http, restService, mmrCacheFactory, mmrDataService, mmrItemFactory) {
+.factory('mmrMineFactory', ['$http', 'restService', 'mmrCacheFactory', 'mmrDataService', 'mmrItemFactory', '$rootScope', '$q',
+  function($http, restService, mmrCacheFactory, mmrDataService, mmrItemFactory, $rootScope, $q) {
 
   // mock
   var details = [
@@ -168,22 +168,22 @@ angular.module('mmr.services')
     },
 
     myFav: function(index) {
+      var dfd = $q.defer();
 
       if (index === 1) {
         mmrCacheFactory.set('myFav.favShops', favShops);
         return favShops;
       } else {
-        // mmrCacheFactory.set('myFav.favProducts', favProducts);
-        mmrDataService.request(mmrItemFactory.search({
-          page: 0
+        mmrDataService.request(mmrItemFactory.footprintList({
+          uid: $rootScope.$root.pinfo.uid,
+          type: 3
         })).then(function(res) {
-          products = res[0];
-          mmrCacheFactory.set('products', products);
+          dfd.resolve(res);
         }, function(err) {
 
         });
 
-        return mmrCacheFactory.get('products');
+        return dfd.promise;
       }
     }
   };

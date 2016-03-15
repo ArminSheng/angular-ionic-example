@@ -1,6 +1,6 @@
 <div class="m-collect-shop-list-container">
 	<div class="list">
-		<a class="item item-thumbnail-left m-collect-shop-item" ng-repeat="item in items" ng-click="doOpenShopDetail(item)">
+		<a class="item item-thumbnail-left m-collect-shop-item" ng-repeat="item in items track by $index" ng-click="doOpenShopDetail(item)">
 			<img ng-src="{{ item.logoPath }}">
 			<h2 class="m-collect-list-item-name">{{ item.name }}</h2>
 			<p>

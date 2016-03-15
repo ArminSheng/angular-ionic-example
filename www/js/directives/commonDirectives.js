@@ -12,7 +12,7 @@ angular.module('mmr.directives')
 
   // fav icon
   $templateCache.put('templates/directives/common/fav-icon.html',
-    '<div class="m-fav-icon" ng-class="{{ additionalClass }}" ng-click="toggleFavStatus()">' +
+    '<div class="m-fav-icon" ng-class="{{ additionalClass }}" ng-click="toggleFavStatus({{id}})">' +
     '<span class="m-fav-icon-img"><i class="icon" ng-class="{\'ion-ios-star-outline\': !fav, \'ion-ios-star\': fav}"></i></span>' +
     '<span class="m-fav-icon-text">{{ fav ? \'取消收藏\' : \'关注收藏\' }}</span>' +
     '</div>');
@@ -344,7 +344,7 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('favIcon', [function() {
+.directive('favIcon', ['$rootScope', 'mmrDataService', 'mmrItemFactory', function($rootScope, mmrDataService, mmrItemFactory) {
 
   return {
 
@@ -352,12 +352,37 @@ angular.module('mmr.directives')
     replace: true,
     scope: {
       fav: '=',
+      id: '=',
       additionalClass: '@'
     },
     templateUrl: 'templates/directives/common/fav-icon.html',
     link: function(scope, element, attrs) {
-      scope.toggleFavStatus = function() {
-        scope.fav = !scope.fav;
+      scope.toggleFavStatus = function(id) {
+
+        if (!scope.fav === true) {
+          mmrDataService.request(mmrItemFactory.footprintAdd({
+            uid: $rootScope.$root.pinfo.uid,
+            id: id,
+            type: 3
+          })).then(function(res) {
+
+            if (res[0].status === '1') {
+              scope.fav = !scope.fav;
+            }
+          });
+        } else {
+          mmrDataService.request(mmrItemFactory.footprintDelete({
+            uid: $rootScope.$root.pinfo.uid,
+            id: id,
+            type: 3,
+            fav: false
+          })).then(function(res) {
+            if (res[0].status === '1') {
+              scope.fav = !scope.fav;
+            }
+          });
+        }
+
       };
     }
 

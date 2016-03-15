@@ -261,17 +261,19 @@ angular.module('mmr.controllers')
     }
 
     // hide the keyboard
-    try {
-      if(cordova && cordova.plugins && cordova.plugins.Keyboard) {
-        $timeout(function() {
-          cordova.plugins.Keyboard.close();
-        }, 100);
+    $timeout(function() {
+      try {
+        if(cordova && cordova.plugins && cordova.plugins.Keyboard) {
+          $timeout(function() {
+            cordova.plugins.Keyboard.close();
+          }, 100);
+        }
+      } catch (e) {
+        if (e instanceof ReferenceError) {
+          // take necessary steps
+        }
       }
-    } catch (e) {
-      if (e instanceof ReferenceError) {
-        // take necessary steps
-      }
-    }
+    }, 50);
   };
 
   // cache bindings

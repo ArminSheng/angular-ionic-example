@@ -34,6 +34,10 @@ angular.module('mmr.services')
       item.place = '未知';
     }
 
+    // unit name
+    item.specName = item.unitName;
+    item.unitName = item.unitName.substring(item.unitName.indexOf('/'));
+
     // shop
     if(item.shop) {
       item.shop.logoPath = processImagePath(item.shop.logoPath);

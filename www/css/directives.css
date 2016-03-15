@@ -233,7 +233,8 @@
 }
 
 .m-commodity-grid-item2-title,
-.m-commodity-grid-item2-brand {
+.m-commodity-grid-item2-brand,
+.m-commodity-grid-item2-price {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;

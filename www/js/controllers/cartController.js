@@ -4,7 +4,7 @@ angular.module('mmr.controllers')
   function($scope, $rootScope, $stateParams, $ionicHistory, $ionicScrollDelegate, mmrScrollService, mmrModal, mmrCartService, $state, mmrAuth) {
 
   $rootScope.$root.ui.tabsHidden = false;
-  $scope.tab = Number($stateParams.tab) || 1;
+  $scope.tab = Number($stateParams.tab);
 
   // define tabs
   $scope.tabs = [
@@ -23,7 +23,7 @@ angular.module('mmr.controllers')
 
   $scope.switchTab = function(tab) {
     $scope.tab = tab;
-     isEmpty(tab);
+    isEmpty(tab);
     // recalculate the height and back to top
     var cartScroll = $ionicScrollDelegate.$getByHandle('cartScroll');
     cartScroll.resize();
@@ -78,6 +78,7 @@ angular.module('mmr.controllers')
   };
 
   $scope.getOrders = function(tab) {
+    isEmpty(tab);
     return mmrCartService.generateCartOrders(tab === 1);
   };
 

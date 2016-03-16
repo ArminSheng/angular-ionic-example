@@ -16,14 +16,14 @@ angular.module('mmr.controllers')
 
     // auth related
     isOldUser: false,
-    // authenticated: true,
-    authenticated: false,
+    authenticated: true,
+    // authenticated: false,
     pinfo: {
       avatar: 'img/mine/avatar-bak.png',
-      // uid: '1560',
+      uid: '1560',
       // avatar: 'http://img3.imgtn.bdimg.com/it/u=1649545724,2257418323&fm=11&gp=0.jpg',
-      // phone: '18501751020',
-      // username: 'destiny1020',
+      phone: '18501751020',
+      username: 'destiny1020',
       // email: 'destiny.jiang@gmail.com',
       // qq: '277727633',
       // birthday: new Date('1987-10-20'),

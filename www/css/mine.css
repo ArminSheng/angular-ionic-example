@@ -401,9 +401,21 @@
     border: 0;
 }
 
+.m-collect-product-item {
+    height: 110px;
+}
+
 .m-collect-product-item img {
     max-width: 90px !important;
     max-height: 90px !important;
+}
+
+.m-collect-product-item .m-cart-counts.within-list {
+    left: -8px;
+}
+
+.item-thumbnail-left.m-collect-product-item .item-content {
+    margin-left: 0;
 }
 
 .m-modal-mine-shop-all {

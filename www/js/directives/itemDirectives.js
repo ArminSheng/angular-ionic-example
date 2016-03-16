@@ -220,7 +220,8 @@ angular.module('mmr.directives')
     restrict: 'E',
     replace: true,
     scope: {
-      items: '='
+      items: '=',
+      removeHandler: '&'
     },
     templateUrl: 'templates/directives/collect-product-list.html',
     link: function(scope, element, attrs) {
@@ -240,6 +241,13 @@ angular.module('mmr.directives')
           console.log(err);
         }).finally(function() {
 
+        });
+      };
+
+      scope.remove = function(item) {
+        // invoke the remove handler defined by user
+        scope.removeHandler({
+          item: item
         });
       };
     }

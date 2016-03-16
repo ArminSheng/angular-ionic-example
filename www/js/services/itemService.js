@@ -383,12 +383,15 @@ angular.module('mmr.services')
     footprintDelete: function(config) {
       var dfd = $q.defer();
 
-      $http({
+      mmrDataService.request($http({
         url: apiService.FOOTPRINT_DELETE,
         method: 'POST',
         data: prepareFootprintBody(config)
-      }).then(function(res) {
+      })).then(function(res) {
+        res = res[0];
         dfd.resolve(res);
+      }, function(err) {
+        dfd.reject(err);
       });
 
       return dfd.promise;

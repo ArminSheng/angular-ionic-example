@@ -1,35 +1,26 @@
 <div class="m-collect-product-list-container">
-
-	<div class="list">
-		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
-			<img ng-src="{{ item.imagePath }}">
-			<h2>{{ item.title }}</h2>
-			<p>
-        		{{ item.brand }}
-		        <span class="m-search-list-item-amount">
-		          销量:
-		          <span class="m-search-list-item-amount-text">
-		            {{ item.salesAmount }}
-		          </span>
-		        </span>
-     		</p>
-		    <div class="m-search-list-item-prices">
-			    <span class="m-search-list-item-current-price">
-			        {{ item.cprice | currency: '￥' }} {{ item.unitName }}
-			    </span>
-			    <!-- <span class="m-search-list-item-original-price">
-			        {{ item.oprice | currency: '￥' }}/{{ item.unitName }}
-			    </span> -->
-		    </div>
-		    <!-- control group -->
-				<!-- <div class="m-search-list-item-controls m-collect-product-list-item-controls">
-		        <span class="ion-ios-minus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, -1); $event.stopPropagation();"></span>
-
-		        <span class="m-search-list-item-controls-num">{{ item.cartAmount || 0 }}</span>
-
-		        <span class="ion-ios-plus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, 1); $event.stopPropagation();"></span>
-	      </div> -->
-	      <cart-count item="item" show-remove-btn="false" smaller-size="true"></cart-count>
-		</a>
-	</div>
+  <ion-list can-swipe="true">
+    <ion-item class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
+      <img ng-src="{{ item.imagePath }}">
+      <h2>{{ item.title }}</h2>
+      <p>
+        {{ item.brand }}
+        <span class="m-search-list-item-amount">
+          销量:
+          <span class="m-search-list-item-amount-text">
+            {{ item.salesAmount }}
+          </span>
+        </span>
+      </p>
+      <div class="m-search-list-item-prices">
+        <span class="m-search-list-item-current-price">
+            {{ item.cprice | currency: '￥' }} {{ item.unitName }}
+        </span>
+      </div>
+      <cart-count item="item" show-remove-btn="false" smaller-size="true"></cart-count>
+      <ion-option-button class="button-assertive" ng-click="remove(item)">
+        删除
+      </ion-option-button>
+    </ion-item>
+  </ion-list>
 </div>

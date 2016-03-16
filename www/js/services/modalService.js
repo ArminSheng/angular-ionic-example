@@ -1592,6 +1592,23 @@ angular.module('mmr.services')
           modal.hide();
         };
 
+        modal.removeHandler = function(item) {
+          // TODO
+          mmrItemFactory.footprintDelete({
+            id: item.id,
+            type: 1
+          }).then(function(res) {
+            if(res.status == 1 && res.msg === '操作成功') {
+              // remove the footprint
+              _.remove(modal.footprintResults, function(element) {
+                return element.id === item.id;
+              });
+            }
+          }, function(err) {
+            console.log(err);
+          });
+        };
+
         // event handler
         scope.$on('modal.shown', function($event, modalInstance) {
           if(modalInstance.name === modal.name) {

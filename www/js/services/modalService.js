@@ -1048,7 +1048,7 @@ angular.module('mmr.services')
         // bind data
         scope.itemModal = scope.itemModal || {};
         scope.itemModal.item = item;
-        console.log(item);
+
         // bind methods
         scope.itemModal.doHide = function() {
           modal.remove();
@@ -1571,11 +1571,14 @@ angular.module('mmr.services')
         modal.show();
         $rootScope.modals.footprintModal = modal;
 
+        // modal name
+        modal.name = 'footprint';
+
         //empty content
-        modal.isEmpty = true;
-        modal.words = ['暂无足迹'];
-        modal.additionalClass = 'my-footprint-empty';
-        modal.button = {
+        modal.ec = {};
+        modal.ec.words = ['暂无足迹'];
+        modal.ec.additionalClass = 'my-footprint-empty';
+        modal.ec.button = {
           text: '去逛逛',
           onTap: function() {
             // trans to home view
@@ -1589,6 +1592,21 @@ angular.module('mmr.services')
           modal.hide();
         };
 
+        // event handler
+        scope.$on('modal.shown', function($event, modalInstance) {
+          if(modalInstance.name === modal.name) {
+            mmrItemFactory.footprintList({
+              p: 0,
+              type: 1
+            }).then(function(res) {
+              // res is the result footprint array
+              modal.footprintResults = res;
+              modal.isEmpty = false;
+            }, function(err) {
+              modal.isEmpty = true;
+            });
+          }
+        });
       });
     },
 

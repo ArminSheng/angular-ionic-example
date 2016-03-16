@@ -13,7 +13,9 @@
       </button> -->
     </div>
   </ion-header-bar>
-  <ion-content></ion-content>
+  <ion-content>
+    <collect-product-list items="modals.footprintModal.footprintResults"></collect-product-list>
+  </ion-content>
   <!-- empty content -->
-  <empty-content words="modals.footprintModal.words" additional-class="{{ modals.footprintModal.additionalClass }}" button="modals.footprintModal.button" ng-if="modals.footprintModal.isEmpty"></empty-content>
+  <empty-content words="modals.footprintModal.ec.words" additional-class="{{ modals.footprintModal.ec.additionalClass }}" button="modals.footprintModal.ec.button" ng-if="modals.footprintModal.isEmpty"></empty-content>
 </ion-modal-view>

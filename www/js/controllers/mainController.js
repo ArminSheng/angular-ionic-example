@@ -16,17 +16,18 @@ angular.module('mmr.controllers')
 
     // auth related
     isOldUser: false,
-    authenticated: true,
+    // authenticated: true,
+    authenticated: false,
     pinfo: {
-      // avatar: 'img/mine/avatar-bak.png',
-      uid: '1560',
-      avatar: 'http://img3.imgtn.bdimg.com/it/u=1649545724,2257418323&fm=11&gp=0.jpg',
-      phone: '18501751020',
-      username: 'destiny1020',
-      email: 'destiny.jiang@gmail.com',
-      qq: '277727633',
-      birthday: new Date('1987-10-20'),
-      deposit: 0,
+      avatar: 'img/mine/avatar-bak.png',
+      // uid: '1560',
+      // avatar: 'http://img3.imgtn.bdimg.com/it/u=1649545724,2257418323&fm=11&gp=0.jpg',
+      // phone: '18501751020',
+      // username: 'destiny1020',
+      // email: 'destiny.jiang@gmail.com',
+      // qq: '277727633',
+      // birthday: new Date('1987-10-20'),
+      // deposit: 0,
       // oldUserAccounts: [
       //   'mmr-mmr-mmr1@mmr.com',
       //   'mmr-mmr-mmr2@mmr.com',
@@ -45,7 +46,7 @@ angular.module('mmr.controllers')
     },
 
     addresses: [
-      { 'id': 1, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1306室', isDefault: true, isReceiptDefault: false, isQuarantineDefault: false }
+      // { 'id': 1, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1306室', isDefault: true, isReceiptDefault: false, isQuarantineDefault: false }
       // { 'id': 2, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1308室', isDefault: false, isReceiptDefault: true, isQuarantineDefault: false },
       // { 'id': 3, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1309室', isDefault: false, isReceiptDefault: false, isQuarantineDefault: true },
       // { 'id': 4, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1307室', isDefault: false, isReceiptDefault: false, isQuarantineDefault: false },

@@ -182,7 +182,6 @@ angular.module('mmr.directives')
               city: $rootScope.$root.location.id,
               num: scope.currentCount + 1
             }).then(function(res) {
-              console.log('cart id', res);
               if(mmrCartService.isItemInCart(scope.item)) {
                 mmrEventing.doIncreaseItemCount(scope, {
                   item: scope.item

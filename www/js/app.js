@@ -72,7 +72,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   };
 }])
 
-.run(function($rootScope, $ionicPlatform) {
+.run(function($rootScope, $ionicPlatform, $cordovaGeolocation, mmrMetaFactory) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       if(window.cordova.plugins.Keyboard) {
@@ -100,6 +100,21 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
         $rootScope.$root.platform = 'browser';
       }
     }
+
+    // geo location
+    // load geo position
+    // var posOptions = { timeout: 5000, enableHighAccuracy: false };
+
+    // $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
+    //   var latitude  = position.coords.latitude;
+    //   var longitude = position.coords.longitude;
+
+    //   // get current location
+    //   mmrMetaFactory.location(longitude + ',' + latitude);
+    // }, function(err) {
+    //   // error
+    //   console.log(err);
+    // });
 
     // prepare the camera
     // TODO

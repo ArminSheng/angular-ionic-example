@@ -1,25 +1,9 @@
 angular.module('mmr.controllers')
 
-.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', '$cordovaGeolocation', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService', 'mmrCacheFactory', '$ionicPopup', 'mmrMetaFactory',
-  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, $cordovaGeolocation, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService, mmrCacheFactory, $ionicPopup, mmrMetaFactory) {
+.controller('HomeCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$ionicHistory', '$ionicScrollDelegate', '$ionicSlideBoxDelegate', 'mmrAreaFactory', 'mmrItemFactory', 'mmrCommonService', 'mmrLoadingFactory', 'mmrDataService', 'mmrCacheFactory', '$ionicPopup', 'mmrMetaFactory',
+  function($scope, $rootScope, $q, $timeout, $ionicHistory, $ionicScrollDelegate, $ionicSlideBoxDelegate, mmrAreaFactory, mmrItemFactory, mmrCommonService, mmrLoadingFactory, mmrDataService, mmrCacheFactory, $ionicPopup, mmrMetaFactory) {
 
   $scope.initialize = function() {
-    // load geo position
-    var posOptions = {timeout: 5000, enableHighAccuracy: false};
-
-    $cordovaGeolocation.getCurrentPosition(posOptions).then(function (position) {
-      var latitude  = position.coords.latitude;
-      var longitude = position.coords.longitude;
-      $scope.pos = position;
-
-      // get current location
-      mmrMetaFactory.location(longitude + ',' + latitude);
-    }, function(err) {
-      // error
-      console.log(err);
-      $scope.err = err;
-    });
-
     // load data
     if($rootScope.$root.category.entries.length > 0) {
       mmrDataService.request(

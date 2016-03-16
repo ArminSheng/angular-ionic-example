@@ -83,7 +83,7 @@ angular.module('mmr.controllers')
 
     // hide the bottom tabs
     $timeout(function() {
-      $rootScope.$root.ui.tabsHidden = true;
+      $rootScope.$root.ui.tabsHidden = $scope.screenActivated;
     }, 300);
   };
 
@@ -147,7 +147,7 @@ angular.module('mmr.controllers')
     mmrScrollService.onScroll({
       handler: 'searchScroll',
       onDowning: function() {
-        $rootScope.$root.ui.tabsHidden = true;
+        $rootScope.$root.ui.tabsHidden = false;
         $scope.optionsBarOpened = false;
       },
       onUping: function() {

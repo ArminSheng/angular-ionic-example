@@ -221,10 +221,17 @@ angular.module('mmr.directives')
     replace: true,
     scope: {
       items: '=',
-      removeHandler: '&'
+      removeHandler: '&',
+      hasInfinite: '=',
+      infinitePredicate: '&',
+      infiniteHandler: '&'
     },
     templateUrl: 'templates/directives/collect-product-list.html',
     link: function(scope, element, attrs) {
+      if(angular.isUndefined(scope.hasInfinite)) {
+        scope.hasInfinite = false;
+      }
+
       scope.doChangeNumber = function(item, offset) {
         item.cartAmount = item.cartAmount || 0;
         item.cartAmount += offset;
@@ -244,10 +251,31 @@ angular.module('mmr.directives')
         });
       };
 
+      // connectors below
+      // connector for the remove handler
       scope.remove = function(item) {
         // invoke the remove handler defined by user
         scope.removeHandler({
           item: item
+        });
+      };
+
+      // connector for the infinite predicate
+      scope.isInfinite = function() {
+        if(!scope.items || scope.items.length === 0) {
+          return false;
+        }
+
+        // pass in the current list size
+        return scope.infinitePredicate({
+          size: scope.items.length
+        });
+      };
+
+      // connector for the infinite handler
+      scope.onInfinite = function() {
+        scope.infiniteHandler({
+
         });
       };
     }

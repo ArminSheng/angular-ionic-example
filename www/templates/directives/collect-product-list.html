@@ -1,4 +1,5 @@
 <div class="m-collect-product-list-container">
+  <!-- product list -->
   <ion-list can-swipe="true">
     <ion-item class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
       <img ng-src="{{ item.imagePath }}">
@@ -23,4 +24,11 @@
       </ion-option-button>
     </ion-item>
   </ion-list>
+  <!-- no more content hint -->
+  <no-more-content ng-if="hasInfinite && !isInfinite()"></no-more-content>
+  <!-- infinite scroll -->
+  <div class="m-collect-product-infinite" ng-if="hasInfinite">
+    <ion-infinite-scroll ng-if="isInfinite()" icon="ion-loading-c" on-infinite="onInfinite()" distance="1%">
+    </ion-infinite-scroll>
+  </div>
 </div>

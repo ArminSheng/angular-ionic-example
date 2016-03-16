@@ -1573,6 +1573,13 @@ angular.module('mmr.services')
 
         // modal name
         modal.name = 'footprint';
+        modal.footprintResults = [];
+
+        // search related
+        modal.searchVo = {
+          type: 1,
+          p: 0
+        };
 
         //empty content
         modal.ec = {};
@@ -1592,6 +1599,7 @@ angular.module('mmr.services')
           modal.hide();
         };
 
+        // invokers for item list
         modal.removeHandler = function(item) {
           // TODO
           mmrItemFactory.footprintDelete({
@@ -1609,21 +1617,49 @@ angular.module('mmr.services')
           });
         };
 
+        modal.infinitePredicate = function(size) {
+          // TODO: default to use
+          console.log(size);
+          if(size % 10 > 0) {
+            return false;
+          } else {
+            return true;
+          }
+        };
+
+        modal.infiniteHandler = function() {
+          requestData();
+        };
+
         // event handler
         scope.$on('modal.shown', function($event, modalInstance) {
           if(modalInstance.name === modal.name) {
-            mmrItemFactory.footprintList({
-              p: 0,
-              type: 1
-            }).then(function(res) {
-              // res is the result footprint array
-              modal.footprintResults = res;
-              modal.isEmpty = false;
-            }, function(err) {
-              modal.isEmpty = true;
-            });
+            requestData();
           }
         });
+
+        // private functions
+        function requestData() {
+          mmrItemFactory.footprintList(modal.searchVo).then(function(res) {
+            // res is the result footprint array
+            if(res &&
+               res instanceof Array &&
+               res.length > 0) {
+              modal.footprintResults = modal.footprintResults.concat(res);
+              modal.searchVo.p = modal.searchVo.p + 1;
+            }
+          }, function(err) {
+
+          }).finally(function() {
+            if(modal.footprintResults.length === 0) {
+              modal.isEmpty = true;
+            } else {
+              modal.isEmpty = false;
+            }
+
+            scope.$broadcast('scroll.infiniteScrollComplete');
+          });
+        }
       });
     },
 

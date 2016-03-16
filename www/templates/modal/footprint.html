@@ -14,7 +14,7 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <collect-product-list items="modals.footprintModal.footprintResults" remove-handler="modals.footprintModal.removeHandler(item)"></collect-product-list>
+    <collect-product-list items="modals.footprintModal.footprintResults" remove-handler="modals.footprintModal.removeHandler(item)" has-infinite="true" infinite-predicate="modals.footprintModal.infinitePredicate(size)" infinite-handler="modals.footprintModal.infiniteHandler()"></collect-product-list>
   </ion-content>
   <!-- empty content -->
   <empty-content words="modals.footprintModal.ec.words" additional-class="{{ modals.footprintModal.ec.additionalClass }}" button="modals.footprintModal.ec.button" ng-if="modals.footprintModal.isEmpty"></empty-content>

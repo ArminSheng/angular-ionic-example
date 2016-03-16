@@ -12,6 +12,8 @@ angular.module('mmr.services')
     // avatar
     if(res.img && _.startsWith(res.img, './')) {
       localUserInfo.avatar = apiService.API_BASE + res.img.substring(2);
+    } else {
+      localUserInfo.avatar = 'img/mine/avatar-bak.png';
     }
     // uid
     localUserInfo.uid = res.id;

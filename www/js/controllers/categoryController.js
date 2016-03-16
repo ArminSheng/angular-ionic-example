@@ -123,8 +123,6 @@ angular.module('mmr.controllers')
   $scope.loadMore = function() {
     $scope.isLoadingMore = true;
 
-    console.log($scope);
-
     mmrDataService.request(mmrItemFactory.search(assembleSearchVo())).then(function(res) {
       if(res[0] !== 'null' && res[0] instanceof Array) {
         $scope.searchResults = $scope.searchResults.concat(res[0]);

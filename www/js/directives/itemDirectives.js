@@ -228,6 +228,7 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/directives/collect-product-list.html',
     link: function(scope, element, attrs) {
+      // init variables
       if(angular.isUndefined(scope.hasInfinite)) {
         scope.hasInfinite = false;
       }

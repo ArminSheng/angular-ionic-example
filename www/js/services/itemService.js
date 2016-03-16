@@ -202,7 +202,6 @@ angular.module('mmr.services')
     // retrieve the details of item
     item: function(id) {
       var dfd = $q.defer();
-
       $http({
         url: apiService.ITEM_DETAIL,
         method: 'POST',
@@ -222,6 +221,10 @@ angular.module('mmr.services')
 
       return dfd.promise;
     },
+
+    // isFav: function(id) {
+    //   var self = this;
+    // },
 
     // search the items [mock usage]
     // config object:
@@ -293,6 +296,110 @@ angular.module('mmr.services')
           postprocessList(res.data);
         }
 
+        dfd.resolve(res);
+      });
+
+      return dfd.promise;
+    },
+
+    footprintList: function(config) {
+      var body = {};
+
+      if(config.uid) {
+        body.uid = config.uid;
+      }
+      if(config.s) {
+        body.s = config.s;
+      }
+      if(config.p) {
+        body.p = config.p;
+      }
+      if(config.city) {
+        body.city = config.city;
+      }
+      if(config.type) {
+        body.type = config.type;
+      }
+
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.FOOTPRINT_LIST,
+        method: 'POST',
+        data: body
+      }).then(function(res) {
+        if(res.data &&
+          res.data instanceof Array &&
+          res.data.length > 0) {
+          postprocessList(res.data);
+        }
+        dfd.resolve(res);
+      });
+
+      return dfd.promise;
+    },
+
+    footprintAdd: function(config) {
+      var body = {};
+
+      if(config.uid) {
+        body.uid = config.uid;
+      }
+      if(config.id) {
+        body.id = config.id;
+      }
+      if(config.type) {
+        body.type = config.type;
+      }
+      if(config.price) {
+        body.price = config.price;
+      }
+      if(config.city) {
+        body.city = config.city;
+      }
+
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.FOOTPRINT_ADD,
+        method: 'POST',
+        data: body
+      }).then(function(res) {
+        dfd.resolve(res);
+      });
+
+      return dfd.promise;
+    },
+
+    footprintDelete: function(config) {
+      var body = {};
+
+      if(config.uid) {
+        body.uid = config.uid;
+      }
+      if(config.id) {
+        body.id = config.id;
+      }
+      if(config.type) {
+        body.type = config.type;
+      }
+      if(config.price) {
+        body.price = config.price;
+      }
+      if(config.city) {
+        body.city = config.city;
+      }
+      if(config.fav) {
+        body.fav = config.fav;
+      }
+
+      var dfd = $q.defer();
+
+      $http({
+        url: apiService.FOOTPRINT_DELETE,
+        method: 'POST',
+        data: body
+      }).then(function(res) {
         dfd.resolve(res);
       });
 

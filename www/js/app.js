@@ -63,6 +63,11 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     // Order related
     this.data.ORDER_GENERATE = this.data.API_BASE + 'api-order-create.html';
 
+    // Favorite related
+    this.data.FOOTPRINT_LIST = this.data.API_BASE + 'api-footprint-getList.html';
+    this.data.FOOTPRINT_ADD = this.data.API_BASE + 'api-footprint-addition.html';
+    this.data.FOOTPRINT_DELETE = this.data.API_BASE + 'api-footprint-del.html';
+
     return this.data;
   };
 }])

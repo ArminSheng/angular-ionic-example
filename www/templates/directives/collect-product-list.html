@@ -1,7 +1,7 @@
 <div class="m-collect-product-list-container">
 
 	<div class="list">
-		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items" ng-click="doOpenDetail(item)">
+		<a class="item item-thumbnail-left m-collect-product-item" ng-repeat="item in items track by $index" ng-click="doOpenDetail(item)">
 			<img ng-src="{{ item.imagePath }}">
 			<h2>{{ item.title }}</h2>
 			<p>

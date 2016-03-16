@@ -21,8 +21,8 @@
   <ion-content class="m-modal-mine-collect-content" delegate-handle="favScroll" on-scroll="onScroll()">
 
     <div class="m-collect-container" ng-class="{'has-sub-head': modals.collectModal.tab === 0}">
-      <collect-product-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 0"></collect-product-list>
-      <collect-shop-list items="modals.collectModal.myFav" ng-if="modals.collectModal.tab === 1"></collect-shop-list>
+      <collect-product-list items="modals.collectModal.myFavItems" ng-if="modals.collectModal.tab === 0"></collect-product-list>
+      <collect-shop-list items="modals.collectModal.myFavShops" ng-if="modals.collectModal.tab === 1"></collect-shop-list>
       <backdrop is-show = 'modals.collectModal.isShow'></backdrop>
     </div>
     <!-- <div class="m-collect-container" ng-show="modals.collectModal.tab === 1">

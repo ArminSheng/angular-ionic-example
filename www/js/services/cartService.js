@@ -214,13 +214,20 @@ angular.module('mmr.services')
         });
       }
 
+      var orderObject = {};
+
+      mmrAddressService.defaultAddresses().then(function(res) {
+        orderObject.addresses = res;
+      }, function(err) {
+
+      });
+
       var orderObject = {
         isReserved: tab === 0,
         orders: generateOrders(),
         money: generateMoney(),
         delivery: '送货上门',
-        receipt: '增值税普通发票',
-        addresses: mmrAddressService.defaultAddresses()
+        receipt: '增值税普通发票'
       };
 
       return orderObject;

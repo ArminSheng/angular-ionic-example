@@ -734,7 +734,7 @@ angular.module('mmr.services')
 
         // send request
         mmrAddressService.fetchAddressList().then(function(res) {
-          $rootScope.$root.addresses = res;
+          // process the result list if necessary
         }, function(err) {
 
         });
@@ -1220,18 +1220,46 @@ angular.module('mmr.services')
             buttonClicked: function(index) {
               switch(index) {
                 case 0:
-                modal.orders.delivery = '送货上门';
+                  modal.orders.delivery = '送货上门';
+                  if ($rootScope.$root.modals.addressModal && !$rootScope.$root.modals.addressModal.scope.$$destroyed) {
+                    $rootScope.$root.modals.addressModal.currentAddress = orders.addresses.normal;
+                    $rootScope.$root.modals.addressModal.show();
+                  } else {
+                     self.createAddressModal(scope, orders.addresses.normal, 'normal');
+                  }
                   break;
                 case 1:
-                modal.orders.delivery = '自提';
+                  modal.orders.delivery = '自提';
+                  // send request to load warehouse information
+                  $timeout(function() {
+                    mmrAddressService.fetchWarehouseList().then(function(res) {
+                      if(res.msg instanceof Array && res.msg.length > 0) {
+                        // show the warehouse to let user choose
+                        var candidates = _.map(res.msg, function(warehouse) {
+                          return {
+                            text: warehouse.house_name + '-' + warehouse.address,
+                            id: warehouse.id
+                          };
+                        });
+                        $ionicActionSheet.show({
+                          buttons: candidates,
+                          titleText: '选择自提点',
+                          cancelText: '取消',
+                          cancel: function() {
+                          },
+                          buttonClicked: function(index) {
+                            console.log(index);
+                            return true;
+                          }
+                        });
+                      } else {
+                        mmrCommonService.help('无法选择自提', '当前城市暂不支持自提方式，请选择送货上门');
+                      }
+                    }, function(err) {
+                      mmrCommonService.help('发生错误', '在获取自提点信息期间发生了错误，请重试');
+                    });
+                  }, 500);
                   break;
-              }
-
-              if ($rootScope.$root.modals.addressModal && !$rootScope.$root.modals.addressModal.scope.$$destroyed) {
-                $rootScope.$root.modals.addressModal.currentAddress = orders.addresses.normal;
-                $rootScope.$root.modals.addressModal.show();
-              } else {
-                 self.createAddressModal(scope, orders.addresses.normal, 'normal');
               }
 
               return true;

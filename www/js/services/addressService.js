@@ -44,23 +44,32 @@ angular.module('mmr.services')
   return {
 
     defaultAddresses: function() {
-      var normalAddress = _.find($rootScope.$root.addresses, function(address) {
-        return address.isDefault;
-      });
+      var dfd = $q.defer();
 
-      var receiptAddress = _.find($rootScope.$root.addresses, function(address) {
-        return address.isReceiptDefault;
-      });
+      if($rootScope.$root.addresses.length === 0) {
+        // load the addresses
+        this.fetchAddressList().then(function(res) {
+          dfd.resolve(resolveCore(res));
+        }, function(err) {
+          dfd.reject(err);
+        });
+      } else {
+        dfd.resolve(resolveCore($rootScope.$root.addresses));
+      }
 
-      var quarantineAddress = _.find($rootScope.$root.addresses, function(address) {
-        return address.isQuarantineDefault;
-      });
+      return dfd.promise;
 
-      return {
-        normal: normalAddress,
-        receipt: receiptAddress,
-        quarantine: quarantineAddress
-      };
+      function resolveCore(addresses) {
+        var normalAddress = _.find(addresses, function(address) {
+          return address.isDefault;
+        });
+        var receiptAddress = normalAddress;
+
+        return {
+          normal: normalAddress,
+          receipt: receiptAddress
+        };
+      }
     },
 
     generateAddressCheckboxes: function(currentAddress) {
@@ -132,8 +141,16 @@ angular.module('mmr.services')
           uid: $rootScope.$root.pinfo.uid
         }
       })).then(function(res) {
-        postprocess(res[0]);
-        dfd.resolve(res[0]);
+        res = res[0];
+
+        if(res instanceof Array) {
+          postprocess(res);
+          $rootScope.$root.addresses = res;
+        } else {
+          res = [];
+        }
+
+        dfd.resolve(res);
       }, function(err) {
         dfd.reject(err);
       });
@@ -257,6 +274,24 @@ angular.module('mmr.services')
 
         });
       }
+
+      return dfd.promise;
+    },
+
+    fetchWarehouseList: function() {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.ADDRESS_WAREHOUSE,
+        method: 'POST',
+        data: {
+          city: $rootScope.$root.location.id
+        }
+      })).then(function(res) {
+        dfd.resolve(res[0]);
+      }, function(err) {
+        dfd.reject(err);
+      });
 
       return dfd.promise;
     }

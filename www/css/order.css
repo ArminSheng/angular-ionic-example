@@ -227,6 +227,11 @@
   padding-bottom: 5px;
 }
 
+.m-order-detail-address-create {
+  color: #aaa;
+  padding: 16px 8px;
+}
+
 /*order detail money area*/
 .m-order-detail-money-container {
   padding: 10px 0;

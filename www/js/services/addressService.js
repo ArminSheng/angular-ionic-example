@@ -18,6 +18,20 @@ angular.module('mmr.services')
     return vo;
   };
 
+  var postprocess = function(addresses) {
+    _.forEach(addresses, function(address) {
+      // split the phone into phoneArea-phone
+      if(address.phone.indexOf('-') > 0) {
+        var parts = _.split(address.phone, '-');
+        address.phoneArea = parts[0];
+        address.phone = parts[1];
+      }
+
+      // remove the possible '市辖区' and '县' in the summary
+      // TODO
+    });
+  };
+
   return {
 
     defaultAddresses: function() {
@@ -109,6 +123,7 @@ angular.module('mmr.services')
           uid: $rootScope.$root.pinfo.uid
         }
       })).then(function(res) {
+        postprocess(res[0]);
         dfd.resolve(res[0]);
       }, function(err) {
         dfd.reject(err);

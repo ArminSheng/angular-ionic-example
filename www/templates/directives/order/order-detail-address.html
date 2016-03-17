@@ -3,7 +3,7 @@
     <div class="col col-10 m-order-detail-address-icon">
       <img ng-src="{{ iconPath }}"/>
     </div>
-    <div class="col col-67" ng-if="address">
+    <div class="col col-67" ng-if="address && (type === 'normal' || type === 'receipt')">
       <div class="row row-no-padding m-order-detail-address-row1">
         <div class="col col-33">
           {{ address.receiver }}
@@ -13,16 +13,20 @@
         </div>
       </div>
       <div class="row row-no-padding m-order-detail-address-row2">
-        {{ address.street }}
+        {{ address.summary }}
       </div>
     </div>
-    <div class="col col-67 m-order-detail-address-create" ng-if="!address">
+    <div class="col col-67 m-order-detail-address-create" ng-if="!address && (type === 'normal' || type === 'receipt')">
       没有可用地址, 点击创建 :)
+    </div>
+
+    <div class="col col-90" ng-if="type === 'quarantine'">
+      <input type="text" ng-model="address.summary" placeholder="请填写检疫证寄送地址" class="m-order-detail-address-input">
     </div>
 
     <!-- receipt button -->
     <div class="m-order-detail-address-receipt-btn" ng-if="type === 'receipt'">
-      <button class="button button-small" ng-click="doCheckReceipt(item)">
+      <button class="button button-small" ng-click="doCheckReceipt(item);$event.stopPropagation();">
         发票清单
       </button>
     </div>

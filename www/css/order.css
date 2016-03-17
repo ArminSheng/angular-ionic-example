@@ -232,6 +232,12 @@
   padding: 16px 8px;
 }
 
+.m-order-detail-address-input {
+  width: 100%;
+  position: relative;
+  top: 0.4rem;
+}
+
 /*order detail money area*/
 .m-order-detail-money-container {
   padding: 10px 0;

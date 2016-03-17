@@ -712,6 +712,8 @@ angular.module('mmr.services')
     },
 
     createAddressModal: function(scope, currentAddress, addressType) {
+      var self = this;
+
       $ionicModal.fromTemplateUrl('templates/modal/my-address.html', {
         scope: scope,
         animation: 'slide-in-right'
@@ -761,111 +763,112 @@ angular.module('mmr.services')
         };
 
         modal.doOpenAddressDetail = function(address) {
-          createAddressDetailModal(scope, address, false, true);
+          self.createAddressDetailModal(scope, address, false, true);
         };
 
         modal.doAdd = function() {
-          createAddressDetailModal(scope, {}, true);
+          self.createAddressDetailModal(scope, {}, true);
+        };
+      });
+    },
+
+    createAddressDetailModal: function(scope, address, isEditing, isUpdating, isDirectUse) {
+      $ionicModal.fromTemplateUrl('templates/modal/my-address-detail.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.$root.modals.addressDetailModal = modal;
+        modal.show();
+
+        // bind data
+        modal.isEditing = isEditing || false;
+        modal.isUpdating = isUpdating || false;
+        modal.isDirectUse = isDirectUse || false;
+        modal.address = angular.copy(address);
+
+        // methods
+        modal.doHide = function() {
+          modal.remove();
         };
 
-        function createAddressDetailModal(scope, address, isEditing, isUpdating) {
-          $ionicModal.fromTemplateUrl('templates/modal/my-address-detail.html', {
-            scope: scope,
-            animation: 'slide-in-right'
-          }).then(function(modal) {
-            $rootScope.$root.modals.addressDetailModal = modal;
-            modal.show();
+        modal.doToggleEditing = function() {
+          if(!modal.isEditing) {
+            modal.isEditing = true;
+          } else {
+            // validate the address
+            if(mmrAddressService.validateAddress(modal.address)) {
+              if(!modal.address.id) {
+                // save the address
+                mmrAddressService.createAddress(modal.address).then(function(res) {
+                  if(res.id) {
+                    if(modal.isDirectUse) {
+                      mmrEventing.doUseNewlyCreatedAddress(res);
+                    }
 
-            // cache
-            localStorageService.bind($rootScope, 'districts');
-            localStorageService.bind($rootScope, 'cities');
+                    mmrCommonService.help('创建成功', '新的地址已经创建成功');
+                    modal.doHide();
+                  }
+                }, function(err) {
 
-            // bind data
-            modal.isEditing = isEditing || false;
-            modal.isUpdating = isUpdating || false;
-            modal.address = angular.copy(address);
-
-            // methods
-            modal.doHide = function() {
-              modal.remove();
-            };
-
-            modal.doToggleEditing = function() {
-              if(!$rootScope.$root.modals.addressDetailModal.isEditing) {
-                $rootScope.$root.modals.addressDetailModal.isEditing = true;
+                });
               } else {
-                // validate the address
-                if(mmrAddressService.validateAddress(modal.address)) {
-                  if(!modal.address.id) {
-                    // save the address
-                    mmrAddressService.createAddress(modal.address).then(function(res) {
-                      if(res.id) {
-                        mmrCommonService.help('创建成功', '新的地址已经创建成功');
-                        $rootScope.$root.modals.addressDetailModal.doHide();
-                      }
-                    }, function(err) {
-
-                    });
-                  } else {
-                    // update the address
-                    mmrAddressService.updateAddress(modal.address).then(function(res) {
-                      if(res.id) {
-                        mmrCommonService.help('更新成功', '新的地址已经更新成功');
-                        $rootScope.$root.modals.addressDetailModal.doHide();
-                      }
-                    }, function(err) {
-
-                    });
+                // update the address
+                mmrAddressService.updateAddress(modal.address).then(function(res) {
+                  if(res.id) {
+                    mmrCommonService.help('更新成功', '新的地址已经更新成功');
+                    modal.doHide();
                   }
-                }
+                }, function(err) {
+
+                });
               }
-            };
+            }
+          }
+        };
 
-            modal.removeAddress = function() {
-              $ionicPopup.confirm({
-                title: '确定要删除此条地址吗',
-                okText: '删除',
-                cancelText: '取消',
-                okType: 'button-assertive'
-              }).then(function(res) {
-                if(res) {
-                  // delete the address
-                  mmrAddressService.removeAddress(modal.address.id).then(function() {
-                    mmrCommonService.help('删除成功', '地址已经删除成功');
-                    $rootScope.$root.modals.addressDetailModal.doHide();
-                  }, function(err) {
+        modal.removeAddress = function() {
+          $ionicPopup.confirm({
+            title: '确定要删除此条地址吗',
+            okText: '删除',
+            cancelText: '取消',
+            okType: 'button-assertive'
+          }).then(function(res) {
+            if(res) {
+              // delete the address
+              mmrAddressService.removeAddress(modal.address.id).then(function() {
+                mmrCommonService.help('删除成功', '地址已经删除成功');
+                modal.doHide();
+              }, function(err) {
 
-                  });
-                }
               });
-            };
-
-            modal.defaultAddress = function(setDefault) {
-              var title = setDefault ? '确定要将此地址设置为默认地址吗' : '确定要取消此地址为默认地址吗';
-              $ionicPopup.confirm({
-                title: title,
-                okText: '确定',
-                cancelText: '取消',
-                okType: 'button-energized'
-              }).then(function(res) {
-                if(res) {
-                  modal.address.isDefault = setDefault;
-                  if(!modal.isEditing) {
-                    // save the address
-                    mmrAddressService.updateAddress(modal.address).then(function(res) {
-                      if(res.id) {
-                        mmrCommonService.help('更新默认地址成功', '此地址已经被设置为默认地址');
-                        $rootScope.$root.modals.addressDetailModal.doHide();
-                      }
-                    }, function(err) {
-
-                    });
-                  }
-                }
-              });
-            };
+            }
           });
-        }
+        };
+
+        modal.defaultAddress = function(setDefault) {
+          var title = setDefault ? '确定要将此地址设置为默认地址吗' : '确定要取消此地址为默认地址吗';
+          $ionicPopup.confirm({
+            title: title,
+            okText: '确定',
+            cancelText: '取消',
+            okType: 'button-energized'
+          }).then(function(res) {
+            if(res) {
+              modal.address.isDefault = setDefault;
+              if(!modal.isEditing) {
+                // save the address
+                mmrAddressService.updateAddress(modal.address).then(function(res) {
+                  if(res.id) {
+                    mmrCommonService.help('更新默认地址成功', '此地址已经被设置为默认地址');
+                    modal.doHide();
+                  }
+                }, function(err) {
+
+                });
+              }
+            }
+          });
+        };
       });
     },
 

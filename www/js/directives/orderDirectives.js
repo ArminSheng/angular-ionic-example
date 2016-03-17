@@ -420,12 +420,23 @@ angular.module('mmr.directives')
       };
 
       $scope.doOpenAddressList = function() {
-        if($scope.clickable === 'false' || ($scope.type && $scope.type === 'receipt')) {
+        if($scope.clickable === 'false' || ($scope.type && $scope.type === 'quarantine')) {
           return;
         }
 
-        mmrModal.createAddressModal($scope, $scope.address, $scope.type);
+        if($scope.address) {
+          mmrModal.createAddressModal($scope, $scope.address, $scope.type);
+        } else {
+          mmrModal.createAddressDetailModal($scope, {}, true, false, true);
+        }
       };
+
+      // event handler
+      $scope.$on('doUseNewlyCreatedAddress', function($event, data) {
+        if(data) {
+          $scope.address = data;
+        }
+      });
     }
   };
 

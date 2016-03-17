@@ -12,7 +12,7 @@
     </h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="$root.modals.addressDetailModal.doToggleEditing()">
-        {{ $root.modals.addressDetailModal.isEditing ? '保存修改' : '修改地址' }}
+        {{ $root.modals.addressDetailModal.isEditing ? ($root.modals.addressDetailModal.isDirectUse ? '保存并使用' : '保存修改') : '修改地址' }}
       </button>
     </div>
   </ion-header-bar>

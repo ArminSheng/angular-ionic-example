@@ -197,6 +197,10 @@ angular.module('mmr.services')
 
     doLoadHomeCommodity: function(data) {
       $rootScope.$broadcast('doLoadHomeCommodity', data);
+    },
+
+    doUseNewlyCreatedAddress: function(data) {
+      $rootScope.$broadcast('doUseNewlyCreatedAddress', data);
     }
 
   };

@@ -187,6 +187,10 @@ angular.module('mmr.services')
           }
 
           $rootScope.$root.addresses.push(address);
+
+          // provide the summary field
+          address.summary = self.generateAddressSummary(address);
+
           dfd.resolve(address);
         }
       }, function(err) {

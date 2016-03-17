@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService) {
 
   return {
 
@@ -188,7 +188,7 @@ angular.module('mmr.services')
 
         init();
         function init() {
-          modal.receipts = mmrMineFactory.receiptDetails();
+          modal.receipts = $rootScope.$root.receipts;
         }
 
         //is empty function
@@ -199,26 +199,39 @@ angular.module('mmr.services')
       });
     },
 
-    createReceiptDetailModal: function(scope,tab) {
+    createReceiptDetailModal: function(scope, tab) {
       var receiptTemplate = (tab === 0) ? 'receipt-usual-detail' : 'receipt-special-detail';
 
-          $ionicModal.fromTemplateUrl('templates/modal/'+receiptTemplate+'.html', {
-            scope: scope,
-            animation: 'slide-in-right'
-          }).then(function(modal) {
-            $rootScope.modals.receiptDetailModal = modal;
-            $rootScope.modals.receiptDetailModal.show();
+      $ionicModal.fromTemplateUrl('templates/modal/' + receiptTemplate + '.html', {
+        scope: scope,
+        animation: 'slide-in-right'
+      }).then(function(modal) {
+        $rootScope.modals.receiptDetailModal = modal;
+        modal.show();
 
-            //methods
-            $rootScope.modals.receiptDetailModal.doHideReceiptUsl = function() {
-              $rootScope.modals.receiptDetailModal.hide();
-            };
+        if(tab === 0) {
+          modal.usual = {
+            type: 1
+          };
+        } else {
+          modal.special = {
+            type: 2
+          };
+        }
 
-            $rootScope.modals.receiptDetailModal.doCreateReceipt = function() {
-              //save data
+        //methods
+        modal.doHideReceiptUsl = function() {
+          modal.remove();
+        };
 
-            };
-          });
+        modal.doCreateReceipt = function(receipt) {
+          // validate the receipt
+          if(mmrReceiptService.validateReceipt(receipt)) {
+            // save data
+            mmrReceiptService.createReceipt(receipt);
+          }
+        };
+      });
     },
 
     createMyCollectModal: function(scope, tab) {
@@ -720,7 +733,6 @@ angular.module('mmr.services')
 
         // send request
         mmrAddressService.fetchAddressList().then(function(res) {
-          console.log(res);
           $rootScope.$root.addresses = res;
         }, function(err) {
 
@@ -1002,8 +1014,7 @@ angular.module('mmr.services')
         modal.show();
 
         //binding data
-        // modal.item = item;
-        modal.item = mmrMineFactory.receiptDetails();
+        modal.item = $rootScope.$root.receipts;
 
         modal.doHide = function() {
           modal.hide();
@@ -1255,9 +1266,9 @@ angular.module('mmr.services')
                 $rootScope.$root.modals.receiptManagementModal.index = index;
 
                 if (index === 0) {
-                  $rootScope.$root.modals.receiptManagementModal.receipts = mmrMineFactory.receiptDetails()[0];
-                }else {
-                  $rootScope.$root.modals.receiptManagementModal.receipts = mmrMineFactory.receiptDetails()[1];
+                  $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.usual;
+                } else {
+                  $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.special;
                 }
 
                 $rootScope.$root.modals.receiptManagementModal.show();
@@ -1361,9 +1372,9 @@ angular.module('mmr.services')
 
         // binding data
         if (index === 0) {
-          modal.receipts = mmrMineFactory.receiptDetails()[0];
-        }else {
-          modal.receipts = mmrMineFactory.receiptDetails()[1];
+          modal.receipts = $rootScope.$root.receipts.usual;
+        } else {
+          modal.receipts = $rootScope.$root.receipts.special;
         }
         modal.index = index;
 

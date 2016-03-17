@@ -26,6 +26,41 @@ angular.module('mmr.services')
 
   return {
 
+    validateReceipt: function(receipt) {
+      if(!Validator.field(receipt.companyName, '单位名称')) {
+        return false;
+      }
+
+      if(receipt.type === 1) {
+        // normal receipt
+      } else {
+        // special receipt
+        if(!Validator.field(receipt.taxpayer, '纳税人识别号')) {
+          return false;
+        }
+
+        if(!Validator.field(receipt.registerAddress, '注册地址')) {
+          return false;
+        }
+
+        if(!Validator.field(receipt.phone, '注册电话号码')) {
+          return false;
+        }
+
+        if(!Validator.field(receipt.bank, '开户银行')) {
+          return false;
+        }
+
+        if(!Validator.field(receipt.bankAccount, '银行账户')) {
+          return false;
+        }
+
+        // validate license
+      }
+
+      return true;
+    },
+
     // API below
     fetchReceiptList: function() {
       var dfd = $q.defer();
@@ -56,7 +91,7 @@ angular.module('mmr.services')
         res = res[0];
         console.log(res);
         if(res.status === 1 && res.msg === '操作成功') {
-          // dfd.resolve(receipt);
+          dfd.resolve(receipt);
         }
       }, function(err) {
         dfd.reject(err);

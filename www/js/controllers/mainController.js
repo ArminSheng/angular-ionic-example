@@ -53,6 +53,12 @@ angular.module('mmr.controllers')
       // { 'id': 5, 'receiver': '姜瑞翔', 'cellphone': '18501751020', 'phoneArea': '021', 'phone': '45678900', 'city': '上海市', 'district': '普陀区', 'street': '曹杨路绿地和创中心1310室', isDefault: false, isReceiptDefault: false, isQuarantineDefault: false }
     ],
 
+    // 1: usual; 2: special
+    receipts: {
+      'usual': [],
+      'special': []
+    },
+
     // network related
     network: true,
     networkDownStates: {

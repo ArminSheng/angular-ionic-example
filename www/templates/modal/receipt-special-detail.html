@@ -7,7 +7,7 @@
       </button>
     </div>
     <h1 class="title">我的发票</h1>
-    <button class="button button-clear" ng-click="modals.receiptDetailModal.doCreateReceipt()">
+    <button class="button button-clear" ng-click="modals.receiptDetailModal.doCreateReceipt(modals.receiptDetailModal.special)">
         保存
       </button>
     </ion-header-bar>
@@ -24,7 +24,7 @@
         </label>
         <label class="item item-input">
           <span class="input-label">纳税人识别号</span>
-          <input type="text" placeholder="输入纳锐人识别号" ng-model="modals.receiptDetailModal.special.taxpayer">
+          <input type="text" placeholder="输入纳税人识别号" ng-model="modals.receiptDetailModal.special.taxpayer">
         </label>
         <label class="item item-input">
           <span class="input-label">注册地址</span>

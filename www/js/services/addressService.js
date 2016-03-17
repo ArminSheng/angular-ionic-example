@@ -156,25 +156,34 @@ angular.module('mmr.services')
 
       if(!address.id) {
         dfd.reject('无效地址');
-      }
+      } else {
+        mmrDataService.request($http({
+          url: apiService.ADDRESS_EDIT,
+          method: 'POST',
+          data: generateAddressVo(address)
+        })).then(function(res) {
+          res = res[0];
+          if(res.status === 1 && res.msg === '操作成功') {
+            $rootScope.$root.addresses = _.map($rootScope.$root.addresses, function(target) {
+              if(address.isDefault) {
+                if(target.isDefault && target.id !== address.id) {
+                  target.isDefault = false;
+                }
 
-      $timeout(function() {
-        $rootScope.$root.addresses = _.map($rootScope.$root.addresses, function(target) {
-          if(address.isDefault) {
-            if(target.isDefault && target.id !== address.id) {
-              target.isDefault = false;
-            }
+                if(address.id === target.id) {
+                  target = address;
+                }
 
-            if(address.id === target.id) {
-              target = address;
-            }
+                return target;
+              }
+            });
 
-            return target;
+            dfd.resolve(address);
           }
+        }, function(err) {
+          dfd.reject(err);
         });
-
-        dfd.resolve(address);
-      }, 500);
+      }
 
       return dfd.promise;
     },
@@ -183,26 +192,39 @@ angular.module('mmr.services')
       var dfd = $q.defer(),
           self = this;
 
-      $timeout(function() {
-        var removedAddress = _.remove($rootScope.$root.addresses, function(address) {
-          return address.id === id;
-        })[0];
-
-        if(removedAddress) {
-          if(removedAddress.isDefault && $rootScope.$root.addresses.length > 0) {
-            var defaultCandidate = $rootScope.$root.addresses[0];
-            defaultCandidate.isDefault = true;
-
-            // update the default candidate
-            self.updateAddress(defaultCandidate);
+      if(id) {
+        mmrDataService.request($http({
+          url: apiService.ADDRESS_DELETE,
+          method: 'POST',
+          data: {
+            id: id,
+            uid: $rootScope.$root.pinfo.uid
           }
+        })).then(function(res) {
+          res = res[0];
+          if(res.status === 1 && res.msg === '操作成功') {
+            var removedAddress = _.remove($rootScope.$root.addresses, function(address) {
+              return address.id === id;
+            })[0];
 
-          dfd.resolve();
-        } else {
-          dfd.reject('删除失败');
-        }
+            if(removedAddress) {
+              if(removedAddress.isDefault && $rootScope.$root.addresses.length > 0) {
+                var defaultCandidate = $rootScope.$root.addresses[0];
+                defaultCandidate.isDefault = true;
 
-      });
+                // update the default candidate
+                self.updateAddress(defaultCandidate);
+              }
+
+              dfd.resolve();
+            } else {
+              dfd.reject('删除失败');
+            }
+          }
+        }, function(err) {
+
+        });
+      }
 
       return dfd.promise;
     }

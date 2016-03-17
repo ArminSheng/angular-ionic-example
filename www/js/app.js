@@ -76,6 +76,11 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.ADDRESS_EDIT = this.data.API_BASE + 'api-address-edit.html';
     this.data.ADDRESS_DELETE = this.data.API_BASE + 'api-address-del.html';
 
+    // Receipt related
+    this.data.RECEIPT_LIST = this.data.API_BASE + 'api-invoice-getList.html';
+    this.data.RECEIPT_ADD = this.data.API_BASE + 'api-invoice-addition.html';
+    this.data.RECEIPT_DELETE = this.data.API_BASE + 'api-invoice-del.html';
+
     return this.data;
   };
 }])

@@ -164,6 +164,12 @@ angular.module('mmr.controllers')
       current: undefined,
       last: undefined,
       beforeLogin: undefined
+    },
+
+    geo: {
+      all: undefined,
+      flattenAll: undefined,
+      provinces: undefined
     }
   };
 
@@ -204,6 +210,7 @@ angular.module('mmr.controllers')
   mmrMetaFactory.attributes();
   mmrMetaFactory.classification();
   mmrMetaFactory.citiesAndDisctricts();
+  mmrMetaFactory.citiesAndAreas();
 
   // shop related
   mmrShopService.shops();

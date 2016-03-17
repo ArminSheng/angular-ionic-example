@@ -1,9 +1,22 @@
 angular.module('mmr.services')
 
-.factory('mmrAddressService', ['$q', '$http', '$timeout', 'restService', '$rootScope', 'Validator',
-  function($q, $http, $timeout, restService, $rootScope, Validator) {
+.factory('mmrAddressService', ['$q', '$http', '$timeout', 'restService', '$rootScope', 'Validator', 'mmrDataService', 'apiService',
+  function($q, $http, $timeout, restService, $rootScope, Validator, mmrDataService, apiService) {
 
-  var currentAddressId = 10;
+  var generateAddressVo = function(address) {
+    var vo = {};
+
+    vo.uid = $rootScope.$root.pinfo.uid;
+    vo.consignee = address.receiver;
+    vo.address = address.street;
+    vo.telphone = address.phoneArea + '-' + address.phone;
+    vo.mobile = address.cellphone;
+    vo.is_default = address.isDefault ? 1 : 0;
+    vo.city = address.city.id;
+    vo.area = address.district.id;
+
+    return vo;
+  };
 
   return {
 
@@ -66,6 +79,30 @@ angular.module('mmr.services')
       return true;
     },
 
+    generateAddressSummary: function(address) {
+      console.log(address);
+      return '叫啊叫啊';
+    },
+
+    // API below
+    fetchAddressList: function() {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.ADDRESS_LIST,
+        method: 'POST',
+        data: {
+          uid: $rootScope.$root.pinfo.uid
+        }
+      })).then(function(res) {
+        dfd.resolve(res[0]);
+      }, function(err) {
+        dfd.reject(err);
+      });
+
+      return dfd.promise;
+    },
+
     createAddress: function(address) {
       var dfd = $q.defer();
 
@@ -74,23 +111,28 @@ angular.module('mmr.services')
         address.isDefault = true;
       }
 
-      $timeout(function() {
-        // resolved address should have id field
-        address.id = currentAddressId;
-        currentAddressId += 1;
+      mmrDataService.request($http({
+        url: apiService.ADDRESS_ADD,
+        method: 'POST',
+        data: generateAddressVo(address)
+      })).then(function(res) {
+        res = res[0];
+        if(res.status === 1 && res.msg === '操作成功') {
+          address.id = res.data.id;
+          if(address.isDefault) {
+            _.forEach($rootScope.$root.addresses, function(address) {
+              if(address.isDefault) {
+                address.isDefault = false;
+              }
+            });
+          }
 
-        if(address.isDefault) {
-          _.forEach($rootScope.$root.addresses, function(address) {
-            if(address.isDefault) {
-              address.isDefault = false;
-            }
-          });
+          $rootScope.$root.addresses.push(address);
+          dfd.resolve(address);
         }
-
-        $rootScope.$root.addresses.push(address);
-
-        dfd.resolve(address);
-      }, 500);
+      }, function(err) {
+        dfd.reject(err);
+      });
 
       return dfd.promise;
     },

@@ -114,6 +114,7 @@ angular.module('mmr.services')
       return dfd.promise;
     },
 
+    // [Mock Usage]
     citiesAndDisctricts: function() {
       var items = {
         '南京市': [
@@ -174,6 +175,26 @@ angular.module('mmr.services')
 
       mmrCacheFactory.set('cities', Object.keys(items));
       mmrCacheFactory.set('districts', items);
+    },
+
+    citiesAndAreas: function() {
+      return $http({
+        url: apiService.META_GEO,
+        method: 'POST'
+      }).then(function(res) {
+        res = res.data;
+        if(res.msg === '操作成功' && res.status === 1) {
+          $rootScope.$root.geo.all = res.data;
+          var provinces = res.data['1'];
+          $rootScope.$root.geo.provinces = _.values(provinces);
+
+          // flatten the data and assemble as object
+          var intermediate = _.flatMap(res.data, function(elem) { return _.values(elem); });
+          $rootScope.$root.geo.flattenAll = _.zipObject(_.map(intermediate, function(elem){return elem.id;}), intermediate);
+        }
+      }, function(err) {
+
+      });
     },
 
     // longitude,latitude

@@ -37,14 +37,20 @@
       </div>
 
       <label class="item item-input">
+        <span class="input-label">省份</span>
+        <select ng-model="$root.modals.addressDetailModal.address.province" ng-options="item.name for item in $root.geo.provinces" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        </select>
+      </label>
+
+      <label class="item item-input">
         <span class="input-label">城市</span>
-        <select ng-model="$root.modals.addressDetailModal.address.city" ng-options="item for item in cities" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        <select ng-model="$root.modals.addressDetailModal.address.city" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.province.id]" ng-disabled="!$root.modals.addressDetailModal.isEditing">
         </select>
       </label>
 
       <label class="item item-input">
         <span class="input-label">地区</span>
-        <select ng-model="$root.modals.addressDetailModal.address.district" ng-options="item for item in districts[$root.modals.addressDetailModal.address.city]" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        <select ng-model="$root.modals.addressDetailModal.address.district" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.city.id]" ng-disabled="!$root.modals.addressDetailModal.isEditing">
         </select>
       </label>
 
@@ -53,10 +59,10 @@
         <input type="text" ng-model="$root.modals.addressDetailModal.address.street" ng-disabled="!$root.modals.addressDetailModal.isEditing">
       </label>
 
-       <label class="item item-input">
+      <!-- <label class="item item-input">
         <span class="input-label">备注</span>
         <input type="text" ng-model="$root.modals.addressDetailModal.address.notice" ng-disabled="!$root.modals.addressDetailModal.isEditing">
-      </label>
+      </label> -->
 
     </div>
 

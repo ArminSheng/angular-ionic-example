@@ -747,6 +747,10 @@ angular.module('mmr.services')
           createAddressDetailModal(scope, {}, true);
         };
 
+        modal.getAddressSummary = function(address) {
+          return mmrAddressService.generateAddressSummary(address);
+        };
+
         function createAddressDetailModal(scope, address, isEditing, isUpdating) {
           $ionicModal.fromTemplateUrl('templates/modal/my-address-detail.html', {
             scope: scope,

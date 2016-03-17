@@ -54,6 +54,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
     // Metadata related
     this.data.META_LOCATION = this.data.API_BASE + 'api-metadata-getCity.html';
+    this.data.META_GEO = this.data.API_BASE + 'api-metadata-geo.html';
 
     // Cart related
     this.data.CART_INDEX = this.data.API_BASE + 'api-cart-getList.html';
@@ -67,6 +68,13 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.FOOTPRINT_LIST = this.data.API_BASE + 'api-footprint-getList.html';
     this.data.FOOTPRINT_ADD = this.data.API_BASE + 'api-footprint-addition.html';
     this.data.FOOTPRINT_DELETE = this.data.API_BASE + 'api-footprint-del.html';
+
+    // Address related
+    this.data.ADDRESS_LIST = this.data.API_BASE + 'api-address-getList.html';
+    this.data.ADDRESS_WAREHOUSE = this.data.API_BASE + 'api-address-getWarehouse.html';
+    this.data.ADDRESS_ADD = this.data.API_BASE + 'api-address-addition.html';
+    this.data.ADDRESS_EDIT = this.data.API_BASE + 'api-address-edit.html';
+    this.data.ADDRESS_DELETE = this.data.API_BASE + 'api-address-del.html';
 
     return this.data;
   };

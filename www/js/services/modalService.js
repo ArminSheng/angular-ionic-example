@@ -718,6 +718,14 @@ angular.module('mmr.services')
         modal.ec.words = ['暂时还没有地址噢, 赶快去创建一个吧 :)'];
         modal.ec.additionalClass = 'm-addresses-empty';
 
+        // send request
+        mmrAddressService.fetchAddressList().then(function(res) {
+          console.log(res);
+          $rootScope.$root.addresses = res;
+        }, function(err) {
+
+        });
+
         // methods
         modal.doHide = function() {
           modal.hide();

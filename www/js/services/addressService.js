@@ -80,8 +80,22 @@ angular.module('mmr.services')
     },
 
     generateAddressSummary: function(address) {
-      console.log(address);
-      return '叫啊叫啊';
+      if(address.summary) {
+        return address.summary;
+      }
+
+      var summary = '';
+      if(address.province) {
+        summary += address.province.name;
+      } else {
+        summary += $rootScope.$root.geo.flattenAll[address.city.parent_id].name;
+      }
+
+      summary += address.city.name;
+      summary += address.district.name;
+      summary += address.street;
+
+      return summary;
     },
 
     // API below

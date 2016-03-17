@@ -38,19 +38,19 @@
 
       <label class="item item-input">
         <span class="input-label">省份</span>
-        <select ng-model="$root.modals.addressDetailModal.address.province" ng-options="item.name for item in $root.geo.provinces" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        <select ng-model="$root.modals.addressDetailModal.address.province" ng-options="item.name for item in $root.geo.provinces track by item.id" ng-disabled="!$root.modals.addressDetailModal.isEditing">
         </select>
       </label>
 
       <label class="item item-input">
         <span class="input-label">城市</span>
-        <select ng-model="$root.modals.addressDetailModal.address.city" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.province.id]" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        <select ng-model="$root.modals.addressDetailModal.address.city" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.province.id] track by item.id" ng-disabled="!$root.modals.addressDetailModal.isEditing">
         </select>
       </label>
 
       <label class="item item-input">
         <span class="input-label">地区</span>
-        <select ng-model="$root.modals.addressDetailModal.address.district" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.city.id]" ng-disabled="!$root.modals.addressDetailModal.isEditing">
+        <select ng-model="$root.modals.addressDetailModal.address.district" ng-options="item.name for item in $root.geo.all[$root.modals.addressDetailModal.address.city.id] track by item.id" ng-disabled="!$root.modals.addressDetailModal.isEditing">
         </select>
       </label>
 

@@ -6,6 +6,9 @@ angular.module('mmr.services')
   var generateAddressVo = function(address) {
     var vo = {};
 
+    if(address.id) {
+      vo.id = address.id;
+    }
     vo.uid = $rootScope.$root.pinfo.uid;
     vo.consignee = address.receiver;
     vo.address = address.street;
@@ -13,7 +16,7 @@ angular.module('mmr.services')
     vo.mobile = address.cellphone;
     vo.is_default = address.isDefault ? 1 : 0;
     vo.city = address.city.id;
-    vo.area = address.district.id;
+    vo.area = address.area.id;
 
     return vo;
   };
@@ -26,6 +29,12 @@ angular.module('mmr.services')
         address.phoneArea = parts[0];
         address.phone = parts[1];
       }
+
+      // restore the province object
+      address.province = $rootScope.$root.geo.flattenAll[address.city.parend_id];
+
+      // restore isDefault to boolean value
+      address.isDefault = address.isDefault === '0' ? false : true;
 
       // remove the possible '市辖区' and '县' in the summary
       // TODO
@@ -76,12 +85,12 @@ angular.module('mmr.services')
         return false;
       }
 
-      // city and district
+      // city and area
       if(!Validator.field(address.city, '城市')) {
         return false;
       }
 
-      if(!Validator.field(address.district, '地区')) {
+      if(!Validator.field(address.area, '地区')) {
         return false;
       }
 
@@ -102,11 +111,11 @@ angular.module('mmr.services')
       if(address.province) {
         summary += address.province.name;
       } else {
-        summary += $rootScope.$root.geo.flattenAll[address.city.parent_id].name;
+        summary += $rootScope.$root.geo.flattenAll[address.city.parend_id].name;
       }
 
       summary += address.city.name;
-      summary += address.district.name;
+      summary += address.area.name;
       summary += address.street;
 
       return summary;
@@ -133,7 +142,8 @@ angular.module('mmr.services')
     },
 
     createAddress: function(address) {
-      var dfd = $q.defer();
+      var dfd = $q.defer(),
+          self = this;
 
       // check whether the currently creating address is the only one
       if($rootScope.$root.addresses.length === 0) {
@@ -152,6 +162,9 @@ angular.module('mmr.services')
             _.forEach($rootScope.$root.addresses, function(address) {
               if(address.isDefault) {
                 address.isDefault = false;
+
+                // emit the update request
+                self.updateAddress(address);
               }
             });
           }
@@ -167,7 +180,8 @@ angular.module('mmr.services')
     },
 
     updateAddress: function(address) {
-      var dfd = $q.defer();
+      var dfd = $q.defer(),
+          self = this;
 
       if(!address.id) {
         dfd.reject('无效地址');
@@ -183,14 +197,17 @@ angular.module('mmr.services')
               if(address.isDefault) {
                 if(target.isDefault && target.id !== address.id) {
                   target.isDefault = false;
+
+                  // emit the update request
+                  self.updateAddress(target);
                 }
 
                 if(address.id === target.id) {
                   target = address;
                 }
-
-                return target;
               }
+
+              return target;
             });
 
             dfd.resolve(address);

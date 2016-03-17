@@ -194,7 +194,8 @@ angular.module('mmr.services')
         //is empty function
         isEmpty(modal.tab);
         function isEmpty(tab) {
-          modal.isEmpty = modal.receipts[tab].length === 0 ? true : false;
+          var name = tab === 0 ? 'usual' : 'special';
+          modal.isEmpty = modal.receipts[name].length === 0 ? true : false;
         }
       });
     },
@@ -765,10 +766,6 @@ angular.module('mmr.services')
 
         modal.doAdd = function() {
           createAddressDetailModal(scope, {}, true);
-        };
-
-        modal.getAddressSummary = function(address) {
-          return mmrAddressService.generateAddressSummary(address);
         };
 
         function createAddressDetailModal(scope, address, isEditing, isUpdating) {

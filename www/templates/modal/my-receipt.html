@@ -44,33 +44,6 @@
 
         <!-- special receipts -->
         <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 1 && $root.receipts.special && $root.receipts.special.length > 0">
-            <!-- <div class="m-modal-mine-receipt-head">
-                <span class="m-modal-mine-receipt-head-left">单位名称</span>
-                <span class="m-modal-mine-receipt-head-right">审核结果</span>
-            </div>
-            <div class="m-modal-mine-receipt-list">
-                <div class="m-modal-mine-receipt-item" ng-repeat="receipt in $root.receipts.special track by $index">
-                    <div class="row row-nopadding m-modal-mine-receipt-item-row">
-                        <div class="col col-100 m-modal-mine-receipt-item-info">
-                            <p class="m-modal-mine-receipt-item-info-name">
-                                {{ receipt.companyName }}
-                                <span class="m-modal-mine-receipt-item-info-term">
-                                    {{ modals.receiptModal.getExplain(receipt) }}
-                                </span>
-                            </p>
-                            <p ng-if="receipt.taxpayer" class="m-modal-mine-receipt-item-info-text">
-                               <span>{{ receipt.taxpayer }}</span>
-                               <span>{{ receipt.registerAddress }}</span>
-                               <span>{{ receipt.phone }}</span>
-                               <span>{{ receipt.bank }}</span>
-                               <span>{{ receipt.bankAccount }}</span>
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-            </div> -->
-
             <div class="m-modal-mine-receipt-head">
               <span class="m-modal-mine-receipt-head-left">单位名称</span>
               <span class="m-modal-mine-receipt-head-right">审核结果</span>

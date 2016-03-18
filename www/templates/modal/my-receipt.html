@@ -11,7 +11,7 @@
         <span class="icon ion-plus m-header-icon"></span>
       </button>
     </ion-header-bar>
-    <ion-content class="m-modal-mine-receipt">
+<ion-content class="m-modal-mine-receipt">
         <div class="m-filter-tabs">
            <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 0}" ng-click="modals.receiptModal.switchTab(0)">
               <span>增值税普通发票</span>
@@ -21,35 +21,115 @@
             </div>
         </div>
 
-        <div class="m-modal-mine-receipt-body">
-        	<div class="m-modal-mine-receipt-head">
-        		<span class="m-modal-mine-receipt-head-left">单位名称</span>
-        		<span class="m-modal-mine-receipt-head-right">审核结果</span>
-        	</div>
-        	<div class="m-modal-mine-receipt-list">
-        		<div class="m-modal-mine-receipt-item" ng-repeat="receipt in modals.receiptModal.receipts[modals.receiptModal.tab] track by $index">
-        			<div class="row row-nopadding m-modal-mine-receipt-item-row">
-        				<div class="col col-100 m-modal-mine-receipt-item-info">
-        					<p class="m-modal-mine-receipt-item-info-name">
-        						{{ receipt.companyName }}
-        						<span class="m-modal-mine-receipt-item-info-term">
-        							{{ modals.receiptModal.getExplain(receipt) }}
-        						</span>
-        					</p>
-        					<p ng-hide="receipt.taxpayer == ''" class="m-modal-mine-receipt-item-info-text">
-        					   <span>{{ receipt.taxpayer }}</span>
-        					   <span>{{ receipt.registerAddress }}</span>
-        					   <span>{{ receipt.phone }}</span>
-        					   <span>{{ receipt.bank }}</span>
-        					   <span>{{ receipt.bankAccount }}</span>
-        					</p>
-        				</div>
+        <!-- usual receipts -->
+        <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 0 && $root.receipts.usual && $root.receipts.usual.length > 0">
+          <div class="m-modal-mine-receipt-head">
+            <span class="m-modal-mine-receipt-head-left">单位名称</span>
+            <span class="m-modal-mine-receipt-head-right">审核结果</span>
+          </div>
+          <ion-list can-swipe="true">
+            <ion-item class="item m-modal-mine-receipt-item" ng-repeat="receipt in $root.receipts.usual track by $index">
+              <span class="m-modal-mine-receipt-item-text">
+                {{ receipt.companyName }}
+              </span>
+              <span class="item-note m-modal-mine-receipt-item-note">
+                {{ modals.receiptModal.getExplain(receipt) }}
+              </span>
+              <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
+                删除
+              </ion-option-button>
+            </ion-item>
+          </ion-list>
+        </div>
 
-        			</div>
-        		</div>
-        	</div>
+        <!-- special receipts -->
+        <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 1 && $root.receipts.special && $root.receipts.special.length > 0">
+            <!-- <div class="m-modal-mine-receipt-head">
+                <span class="m-modal-mine-receipt-head-left">单位名称</span>
+                <span class="m-modal-mine-receipt-head-right">审核结果</span>
+            </div>
+            <div class="m-modal-mine-receipt-list">
+                <div class="m-modal-mine-receipt-item" ng-repeat="receipt in $root.receipts.special track by $index">
+                    <div class="row row-nopadding m-modal-mine-receipt-item-row">
+                        <div class="col col-100 m-modal-mine-receipt-item-info">
+                            <p class="m-modal-mine-receipt-item-info-name">
+                                {{ receipt.companyName }}
+                                <span class="m-modal-mine-receipt-item-info-term">
+                                    {{ modals.receiptModal.getExplain(receipt) }}
+                                </span>
+                            </p>
+                            <p ng-if="receipt.taxpayer" class="m-modal-mine-receipt-item-info-text">
+                               <span>{{ receipt.taxpayer }}</span>
+                               <span>{{ receipt.registerAddress }}</span>
+                               <span>{{ receipt.phone }}</span>
+                               <span>{{ receipt.bank }}</span>
+                               <span>{{ receipt.bankAccount }}</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="m-modal-mine-receipt-head">
+              <span class="m-modal-mine-receipt-head-left">单位名称</span>
+              <span class="m-modal-mine-receipt-head-right">审核结果</span>
+            </div>
+            <ion-list can-swipe="true">
+              <div ng-repeat="receipt in $root.receipts.special track by $index">
+                <!-- summary of the receipt -->
+                <ion-item class="item m-modal-mine-receipt-item" ng-click="modals.receiptModal.check(receipt)">
+                  <span class="m-modal-mine-receipt-item-text">
+                    {{ receipt.companyName }}
+                  </span>
+                  <span class="item-note m-modal-mine-receipt-item-note">
+                    {{ modals.receiptModal.getExplain(receipt) }}
+                  </span>
+                  <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
+                    删除
+                  </ion-option-button>
+                </ion-item>
+                <!-- detail of the receipt -->
+                <ion-item ng-show="receipt.showDetail" class="m-item-accordion">
+                  <div class="m-modal-mine-receipt-item-extra">
+                    <div class="list">
+                      <div class="item">
+                        纳税人识别号
+                        <span class="item-note">
+                          {{ receipt.taxpayer }}
+                        </span>
+                      </div>
+                      <div class="item">
+                        注册地址
+                        <span class="item-note">
+                          {{ receipt.registerAddress }}
+                        </span>
+                      </div>
+                      <div class="item">
+                        注册电话
+                        <span class="item-note">
+                          {{ receipt.phone }}
+                        </span>
+                      </div>
+                      <div class="item">
+                        开户银行
+                        <span class="item-note">
+                          {{ receipt.bank }}
+                        </span>
+                      </div>
+                      <div class="item">
+                        银行账户
+                        <span class="item-note">
+                          {{ receipt.bankAccount }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </ion-item>
+              </div>
+            </ion-list>
         </div>
     </ion-content>
     <!-- empty content -->
-    <empty-content words="modals.receiptModal.words" additional-class="{{ modals.receiptModal.additionalClass }}" ng-if="modals.receiptModal.isEmpty"></empty-content>
+    <empty-content words="modals.receiptModal.ec.words" additional-class="{{ modals.receiptModal.ec.additionalClass }}" ng-if="modals.receiptModal.checkEmpty()"></empty-content>
 </ion-modal-view>

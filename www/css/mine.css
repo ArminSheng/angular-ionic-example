@@ -227,8 +227,9 @@
 
 /*mine receipt*/
 .m-modal-mine-receipt-body {
-    padding: 0 10px;
+    padding: 0;
 }
+
 .m-modal-mine-receipt-head {
     padding: 20px;
     border-bottom: 1px solid #ccc;
@@ -240,6 +241,31 @@
 
 .m-modal-mine-receipt-item {
     border-bottom: 1px solid #ccc;
+}
+
+.m-modal-mine-receipt-item-note {
+    display: inline-block;
+    max-width: 75%;
+    white-space: normal;
+}
+
+.m-modal-mine-receipt-item-note {
+    position: relative;
+    left: 30px;
+}
+
+.list .item.m-item-accordion {
+    line-height: 38px;
+    transition: 0.1s all ease-in-out;
+}
+
+.m-modal-mine-receipt-item-extra .item {
+    border: none;
+    padding: 0 8px;
+}
+
+.list .item.m-item-accordion.ng-hide {
+    line-height: 0px;
 }
 
 .m-modal-mine-receipt-item-info-name {

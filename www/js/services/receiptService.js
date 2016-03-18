@@ -72,7 +72,15 @@ angular.module('mmr.services')
           uid: $rootScope.$root.pinfo.uid
         }
       })).then(function(res) {
-        dfd.resolve(res[0]);
+        res = res[0];
+
+        if(res instanceof Object) {
+          $rootScope.$root.receipts = res;
+        } else {
+          res = [];
+        }
+
+        dfd.resolve(res);
       }, function(err) {
         dfd.reject(err);
       });
@@ -89,9 +97,18 @@ angular.module('mmr.services')
         data: generateReceiptVo(receipt)
       })).then(function(res) {
         res = res[0];
-        console.log(res);
-        if(res.status === 1 && res.msg === '操作成功') {
-          dfd.resolve(receipt);
+        if(res.id) {
+          // add the receipt
+          var type = receipt.type === 1 ? 'usual' : 'special';
+          var container = $rootScope.$root.receipts[type];
+          if(!container) {
+            container = [];
+          }
+          container.push(res);
+
+          dfd.resolve(res);
+        } else {
+          dfd.reject();
         }
       }, function(err) {
         dfd.reject(err);
@@ -100,22 +117,31 @@ angular.module('mmr.services')
       return dfd.promise;
     },
 
-    removeReceipt: function(id) {
-      var dfd = $q.defer(),
-          self = this;
+    removeReceipt: function(receipt) {
+      var dfd = $q.defer();
+
+      console.log(receipt);
 
       mmrDataService.request($http({
         url: apiService.RECEIPT_DELETE,
         method: 'POST',
         data: {
           uid: $rootScope.$root.pinfo.uid,
-          id: id
+          id: receipt.id
         }
       })).then(function(res) {
         res = res[0];
-        console.log(res);
-        if(res.status === 1 && res.msg === '操作成功') {
-          // dfd.resolve(receipt);
+        if(res.status === 'OK') {
+          // remove the receipt
+          var type = _.has(receipt, 'taxpayer') ? 'special' : 'usual';
+
+          _.remove($rootScope.$root.receipts[type], function(target) {
+            return target.id === receipt.id;
+          });
+
+          dfd.resolve();
+        } else if(res.status === 'ERROR') {
+          dfd.reject();
         }
       }, function(err) {
         dfd.reject(err);

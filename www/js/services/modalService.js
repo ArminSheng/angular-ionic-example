@@ -151,20 +151,27 @@ angular.module('mmr.services')
     createMyReceiptModal: function(scope) {
       var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
-        scope:scope,
+        scope: scope,
       }).then(function(modal) {
         $rootScope.modals.receiptModal = modal;
         modal.show();
 
         // empty content
-        modal.words = ['暂无发票'];
-        modal.additionalClass = 'my-receipt-empty';
+        modal.ec = {};
+        modal.ec.words = ['暂无发票'];
+        modal.ec.additionalClass = 'my-receipt-empty';
 
         modal.tab = 0;
         modal.switchTab = function(tabIdx) {
           modal.tab = tabIdx;
-          isEmpty(tabIdx);
         };
+
+        // send request
+        mmrReceiptService.fetchReceiptList().then(function(res) {
+          // process the result list if necessary
+        }, function(err) {
+
+        });
 
         //methods
         modal.doHideReceipt = function() {
@@ -172,31 +179,52 @@ angular.module('mmr.services')
         };
 
         modal.getExplain = function(receipt) {
-          switch(receipt.status) {
+          switch(Number(receipt.status)) {
             case 0:
-              return '有效';
+              return '审核中';
             case 1:
-              return '过期';
+              return '审核通过';
             case 2:
-              return '审核未通过';
+              return '审核失败';
+            case 3:
+              return '失败';
           }
         };
 
-        modal.doAdd = function(tab) {
-          self.createReceiptDetailModal(scope,tab);
+        modal.checkEmpty = function() {
+          var container = $rootScope.$root.receipts[modal.tab === 0 ? 'usual' : 'special'];
+          return !container || container.length === 0;
         };
 
-        init();
-        function init() {
-          modal.receipts = $rootScope.$root.receipts;
-        }
+        modal.doAdd = function(tab) {
+          self.createReceiptDetailModal(scope, tab);
+        };
 
-        //is empty function
-        isEmpty(modal.tab);
-        function isEmpty(tab) {
-          var name = tab === 0 ? 'usual' : 'special';
-          modal.isEmpty = modal.receipts[name].length === 0 ? true : false;
-        }
+        modal.remove = function(receipt) {
+          // check whether can be removed
+          if(_.has(receipt, 'taxpayer') && receipt.status == 0) {
+            mmrCommonService.help('删除提示', '此发票正处于审核过程中, 无法删除');
+            $ionicListDelegate.closeOptionButtons();
+            return;
+          }
+
+          // confirm to remove
+          mmrCommonService.confirm('确认删除', '确定要删除此条发票信息吗').then(function(res) {
+            if(res) {
+              mmrReceiptService.removeReceipt(receipt).then(function(res) {
+                mmrCommonService.help('删除成功', '此发票已成功被删除');
+              }, function(err) {
+                mmrCommonService.help('删除失败', '删除此发票时发生了错误');
+              })
+            } else {
+              $ionicListDelegate.closeOptionButtons();
+            }
+          })
+        };
+
+        modal.check = function(receipt) {
+          receipt.showDetail = !receipt.showDetail;
+        };
       });
     },
 
@@ -228,8 +256,20 @@ angular.module('mmr.services')
         modal.doCreateReceipt = function(receipt) {
           // validate the receipt
           if(mmrReceiptService.validateReceipt(receipt)) {
-            // save data
-            mmrReceiptService.createReceipt(receipt);
+            // hint the user it is not editable after creating
+            mmrCommonService.confirm('注意事项', '发票一旦创建不可编辑，请确认信息无误并点击确认').then(function(res) {
+              if(res) {
+                // save data
+                mmrReceiptService.createReceipt(receipt).then(function(res) {
+                  mmrCommonService.help('创建成功', '成功创建了新的发票');
+                  modal.doHideReceiptUsl();
+                }, function(err) {
+                  mmrCommonService.help('创建错误', '创建发票时发生了错误');
+                });
+              } else {
+                // cancel process
+              }
+            });
           }
         };
       });

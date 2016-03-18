@@ -227,7 +227,7 @@ angular.module('mmr.services')
         orders: generateOrders(),
         money: generateMoney(),
         delivery: '送货上门',
-        receipt: '增值税普通发票'
+        receipt: '不需要发票'
       };
 
       return orderObject;

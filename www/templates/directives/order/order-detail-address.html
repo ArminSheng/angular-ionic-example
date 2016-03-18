@@ -1,10 +1,11 @@
-<div class="m-order-detail-address" ng-click="doOpenAddressList()">
+<div class="m-order-detail-address" ng-class="{'hidden': isHidden}" ng-click="doOpenAddressList()">
   <div class="row">
     <div class="col col-10 m-order-detail-address-icon">
       <img ng-src="{{ iconPath }}"/>
     </div>
-    <div class="col col-67" ng-if="address && (type === 'normal' || type === 'receipt')">
-      <div class="row row-no-padding m-order-detail-address-row1">
+    <div class="col col-67" ng-class="{'col-67': !address.self, 'col-100': address.self}" ng-if="address && (type === 'normal' || type === 'receipt')">
+      <!-- delivery -->
+      <div class="row row-no-padding m-order-detail-address-row1" ng-if="!address.self">
         <div class="col col-33">
           {{ address.receiver }}
         </div>
@@ -12,8 +13,15 @@
           {{ address.cellphone }}
         </div>
       </div>
+      <!-- self-pick -->
+      <div class="row row-no-padding m-order-detail-address-row1" ng-if="address.self">
+        <div class="col col-100">
+          {{ address.name }}
+        </div>
+      </div>
+
       <div class="row row-no-padding m-order-detail-address-row2">
-        {{ address.summary }}
+        {{ address.self ? address.address : address.summary }}
       </div>
     </div>
     <div class="col col-67 m-order-detail-address-create" ng-if="!address && (type === 'normal' || type === 'receipt')">

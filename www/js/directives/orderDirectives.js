@@ -407,6 +407,10 @@ angular.module('mmr.directives')
             return 'img/common/geo-quarantine.png';
         }
       })();
+
+      if(scope.type === 'receipt') {
+        scope.isHidden = true;
+      }
     },
     controller: function($rootScope, $scope, mmrModal, mmrEventing) {
       $scope.doCheckReceipt = function(item) {
@@ -437,6 +441,18 @@ angular.module('mmr.directives')
           $scope.address = data;
         }
       });
+
+      if($scope.type === 'normal') {
+        $scope.$on('doSelectSelfPickAddress', function($event, data) {
+          $scope.address = data;
+        });
+      }
+
+      if($scope.type === 'receipt') {
+        $scope.$on('doToggleReceiptAddress', function($event, data) {
+          $scope.isHidden = data;
+        });
+      }
     }
   };
 

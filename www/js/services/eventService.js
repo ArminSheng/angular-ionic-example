@@ -201,6 +201,14 @@ angular.module('mmr.services')
 
     doUseNewlyCreatedAddress: function(data) {
       $rootScope.$broadcast('doUseNewlyCreatedAddress', data);
+    },
+
+    doSelectSelfPickAddress: function(data) {
+      $rootScope.$broadcast('doSelectSelfPickAddress', data);
+    },
+
+    doToggleReceiptAddress: function(data) {
+      $rootScope.$broadcast('doToggleReceiptAddress', data);
     }
 
   };

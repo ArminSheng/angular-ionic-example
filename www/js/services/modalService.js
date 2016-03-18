@@ -1241,7 +1241,10 @@ angular.module('mmr.services')
                         var candidates = _.map(res.msg, function(warehouse) {
                           return {
                             text: warehouse.house_name + '-' + warehouse.address,
-                            id: warehouse.id
+                            id: warehouse.id,
+                            name: warehouse.house_name,
+                            address: warehouse.address,
+                            self: true
                           };
                         });
                         $ionicActionSheet.show({
@@ -1251,7 +1254,7 @@ angular.module('mmr.services')
                           cancel: function() {
                           },
                           buttonClicked: function(index) {
-                            console.log(index);
+                            mmrEventing.doSelectSelfPickAddress(candidates[index]);
                             return true;
                           }
                         });
@@ -1273,6 +1276,7 @@ angular.module('mmr.services')
         modal.doModifyReceipt = function() {
           var hideSheet = $ionicActionSheet.show({
             buttons: [
+              { text: '不需要发票' },
               { text: '增值税普通发票' },
               { text: '增值税专用发票' }
             ],
@@ -1283,25 +1287,36 @@ angular.module('mmr.services')
             buttonClicked: function(index) {
               switch(index) {
                 case 0:
-                  modal.orders.receipt = '增值税普通发票';
+                  modal.orders.receipt = '不需要发票';
                   break;
                 case 1:
+                  modal.orders.receipt = '增值税普通发票';
+                  break;
+                case 2:
                   modal.orders.receipt = '增值税专用发票';
                   break;
               }
 
-              if ($rootScope.$root.modals.receiptManagementModal && !$rootScope.$root.modals.receiptManagementModal.scope.$$destroyed) {
-                $rootScope.$root.modals.receiptManagementModal.index = index;
+              if(index === 1 || index === 2) {
+                // cancel the receipt address
+                mmrEventing.doToggleReceiptAddress(false);
 
-                if (index === 0) {
-                  $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.usual;
+                if ($rootScope.$root.modals.receiptManagementModal && !$rootScope.$root.modals.receiptManagementModal.scope.$$destroyed) {
+                  $rootScope.$root.modals.receiptManagementModal.index = index;
+
+                  if (index === 0) {
+                    $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.usual;
+                  } else {
+                    $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.special;
+                  }
+
+                  $rootScope.$root.modals.receiptManagementModal.show();
                 } else {
-                  $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.special;
+                   self.createReceiptManagementModal(scope, index);
                 }
-
-                $rootScope.$root.modals.receiptManagementModal.show();
-              } else {
-                 self.createReceiptManagementModal(scope, index);
+              } else if(index === 0) {
+                // cancel the receipt address
+                mmrEventing.doToggleReceiptAddress(true);
               }
 
               return true;

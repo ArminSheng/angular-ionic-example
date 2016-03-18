@@ -408,7 +408,8 @@ angular.module('mmr.directives')
         }
       })();
 
-      if(scope.type === 'receipt') {
+      if(scope.type === 'receipt' ||
+         scope.type === 'quarantine') {
         scope.isHidden = true;
       }
     },
@@ -450,6 +451,12 @@ angular.module('mmr.directives')
 
       if($scope.type === 'receipt') {
         $scope.$on('doToggleReceiptAddress', function($event, data) {
+          $scope.isHidden = data;
+        });
+      }
+
+      if($scope.type === 'quarantine') {
+        $scope.$on('doToggleQuarantineAddress', function($event, data) {
           $scope.isHidden = data;
         });
       }

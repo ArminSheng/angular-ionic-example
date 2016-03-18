@@ -209,6 +209,10 @@ angular.module('mmr.services')
 
     doToggleReceiptAddress: function(data) {
       $rootScope.$broadcast('doToggleReceiptAddress', data);
+    },
+
+    doToggleQuarantineAddress: function(data) {
+      $rootScope.$broadcast('doToggleQuarantineAddress', data);
     }
 
   };

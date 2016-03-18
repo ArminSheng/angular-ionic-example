@@ -223,7 +223,7 @@
 }
 
 .m-order-detail-address.hidden {
-  height: 0px;
+  display: none;
 }
 
 .m-order-detail-address-icon, .m-order-detail-address-receipt-btn {

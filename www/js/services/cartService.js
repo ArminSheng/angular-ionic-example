@@ -227,7 +227,8 @@ angular.module('mmr.services')
         orders: generateOrders(),
         money: generateMoney(),
         delivery: '送货上门',
-        receipt: '不需要发票'
+        receipt: '不需要发票',
+        quarantine: false   // false: 不需要; true: 需要
       };
 
       return orderObject;

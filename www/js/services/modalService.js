@@ -1380,6 +1380,17 @@ angular.module('mmr.services')
           });
         };
 
+        modal.doModifyQuarantine = function() {
+          if(!orders.quarantine) {
+            mmrEventing.doToggleQuarantineAddress(false);
+            orders.quarantine = true;
+          } else {
+            mmrEventing.doToggleQuarantineAddress(true);
+            orders.quarantine = false;
+          }
+
+        },
+
         modal.doGenerate = function() {
           // calc the deadline payment time
           orders.deadline = new Date(new Date().getTime() + 1800000);

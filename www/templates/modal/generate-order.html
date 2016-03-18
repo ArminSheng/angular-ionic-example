@@ -27,7 +27,7 @@
 
       <!-- receipt info -->
       <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyReceipt()">
-        需要发票
+        发票
         <span class="item-note">
           {{ $root.modals.genOrderModal.orders.receipt }}
         </span>
@@ -37,7 +37,10 @@
 
       <!-- quarantine info -->
       <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyQuarantine()">
-        需要检疫证
+        检疫证
+        <span class="item-note">
+          {{ $root.modals.genOrderModal.orders.quarantine ? '需要检疫证' : '不需要检疫证' }}
+        </span>
         <i class="icon ion-chevron-right"></i>
       </a>
       <order-detail-address type="quarantine" address="$root.modals.genOrderModal.orders.addresses.quarantine"></order-detail-address>

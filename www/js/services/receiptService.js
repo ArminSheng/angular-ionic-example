@@ -120,8 +120,6 @@ angular.module('mmr.services')
     removeReceipt: function(receipt) {
       var dfd = $q.defer();
 
-      console.log(receipt);
-
       mmrDataService.request($http({
         url: apiService.RECEIPT_DELETE,
         method: 'POST',

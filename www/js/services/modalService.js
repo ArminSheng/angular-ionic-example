@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService', 'mmrPayment', 'dateFilter',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService, mmrPayment, dateFilter) {
 
   return {
 
@@ -711,13 +711,29 @@ angular.module('mmr.services')
             if(!noNeedValidation) {
               if(Validator[targetField] && Validator[targetField](res, true)) {
                 // save the attribute into server
-                $rootScope.$root.pinfo[targetField] = res;
+                sendRequest(targetField, res);
               } else {
                 // when the validation is failed
               }
             } else {
-              // when validation is not needed
-              $rootScope.$root.pinfo[targetField] = res;
+              // when validation is not needed, save the attribute into server
+              sendRequest(targetField, res);
+            }
+
+            function sendRequest(targetField, targetValue) {
+              // convert date to string
+              if(targetValue instanceof Date) {
+                targetValue = dateFilter(targetValue, 'yyyy-MM-dd');
+              }
+
+              var vo = {};
+              vo[targetField] = targetValue;
+
+              mmrAuth.pinfo(vo).then(function() {
+                $rootScope.$root.pinfo[targetField] = targetValue;
+              }, function(err) {
+
+              });
             }
           });
         };
@@ -1519,7 +1535,28 @@ angular.module('mmr.services')
         };
 
         modal.doCheckout = function() {
-          self.createPayResultModal(scope, 1);
+          mmrPayment.doAction().then(function(res) {
+            console.log(res);
+            $ionicPopup.show({
+              template: res,
+              title: '即将跳转到快钱支付网关',
+              scope: scope,
+              buttons: [
+                {
+                  text: '<b>确定</b>',
+                  type: 'button-energized',
+                  onTap: function(e) {
+                    // event handler when user confirm
+                    console.log('hahahah');
+                    $('form[name="kqPay"]')[0].submit();
+                  }
+                }
+              ]
+            });
+          }, function(err) {
+
+          });
+          // self.createPayResultModal(scope, 1);
         };
 
         // watchers

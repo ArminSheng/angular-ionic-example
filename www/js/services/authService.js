@@ -45,6 +45,35 @@ angular.module('mmr.services')
     }
   }
 
+  function buildPInfoVo(info) {
+    var vo = {};
+
+    vo.id = $rootScope.$root.pinfo.uid;
+
+    if(_.has(info, 'username')) {
+      vo.name = info.username;
+    }
+
+    if(_.has(info, 'realname')) {
+      vo.real_name = info.realname;
+    }
+
+    if(_.has(info, 'qq')) {
+      vo.qq = info.qq;
+    }
+
+    if(_.has(info, 'email')) {
+      vo.email = info.email;
+    }
+
+    // birthday has the form "2015-01-01"
+    if(_.has(info, 'birthday')) {
+      vo.birthday = info.birthday;
+    }
+
+    return vo;
+  }
+
   return {
 
     // return false means not redirect
@@ -155,8 +184,29 @@ angular.module('mmr.services')
         }
       }), '密码重设中...').then(function(res) {
         res = res[0];
-        console.log(res);
         if(res.msg === '修改成功') {
+          dfd.resolve();
+        } else {
+          dfd.reject(res.msg);
+        }
+      }, function(err) {
+        console.log(err);
+        dfd.reject();
+      });
+
+      return dfd.promise;
+    },
+
+    pinfo: function(info) {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.AUTH_USER_INFO_EDIT,
+        method: 'POST',
+        data: buildPInfoVo(info)
+      }), '用户信息更新中...').then(function(res) {
+        res = res[0];
+        if(res.status === 1 && res.msg === '更新成功') {
           dfd.resolve();
         } else {
           dfd.reject(res.msg);

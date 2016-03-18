@@ -70,6 +70,11 @@ angular.module('mmr.controllers')
   };
 
   $scope.doChangeAvatar = function() {
+    // check whether this feature is supported
+    if($rootScope.$root.platform === 'browser') {
+      return;
+    }
+
     // whether the user has login
     if(!$rootScope.$root.authenticated) {
       $scope.doLogin();

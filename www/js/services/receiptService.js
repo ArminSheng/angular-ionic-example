@@ -24,6 +24,36 @@ angular.module('mmr.services')
     return vo;
   };
 
+  var generateReceiptCalcVo = function(items) {
+    var vo = {};
+
+    vo.city = $rootScope.$root.location.id;
+    vo.items = _.map(items, function(item) {
+      return {
+        id: item.id,
+        quantity: item.quantity
+      };
+    });
+
+    return vo;
+  };
+
+  // type: 1: usual, 2: special
+  var postprocess = function(receiptObj, type) {
+    if(type === 1) {
+      // if result has 'sepcial' section, move them all into 'usual' section
+      if(_.has(receiptObj, 'special')) {
+        if(!_.has(receiptObj, 'usual')) {
+          receiptObj.usual = [];
+        }
+
+        _.forEach(receiptObj.special, function(elem) {
+          receiptObj.usual.push(elem);
+        });
+      }
+    }
+  };
+
   return {
 
     validateReceipt: function(receipt) {
@@ -140,6 +170,28 @@ angular.module('mmr.services')
           dfd.resolve();
         } else if(res.status === 'ERROR') {
           dfd.reject();
+        }
+      }, function(err) {
+        dfd.reject(err);
+      });
+
+      return dfd.promise;
+    },
+
+    calcReceipt: function(items, receiptType) {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.RECEIPT_CALC,
+        method: 'POST',
+        data: generateReceiptCalcVo(items)
+      })).then(function(res) {
+        res = res[0];
+        if(res !== 'null') {
+          postprocess(res, receiptType);
+          dfd.resolve(res);
+        } else {
+          dfd.reject('获取发票清单错误');
         }
       }, function(err) {
         dfd.reject(err);

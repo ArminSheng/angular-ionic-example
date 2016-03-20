@@ -12,58 +12,164 @@
     </button> -->
   </ion-header-bar>
   <ion-content>
-    <div class="m-order-receipt-list-item">
+    <!-- usual list -->
+    <div class="m-order-receipt-list-item" ng-if="$root.modals.receiptListModal.calcResults.usual && $root.modals.receiptListModal.calcResults.usual.length > 0">
       <div class="m-order-receipt-list-item-head">
         <h4 class="m-item-head">增值税普通发票</h4>
       </div>
       <div class="m-order-receipt-list-item-body">
-        <p class="m-order-receipt-company-name">单位名称：{{ item.subOrders[0].name }} {{item.name}}</p>
-        <div class="row m-order-receipt-row">
-          <div class="col col-20">商品明细</div>
-          <div class="col col-20">规格</div>
-          <div class="col col-12">单位</div>
-          <div class="col col-12">数量</div>
-          <div class="col col-12">单价</div>
-          <div class="col col-12">税率</div>
-          <div class="col col-12">税额</div>
+        <!-- header list -->
+        <div class="row row-no-padding m-order-receipt-list-item-header">
+          <div class="col col-50">
+            商品名称
+          </div>
+          <div class="col col-25">
+            税率
+          </div>
+          <div class="col col-25">
+            税额
+          </div>
         </div>
-        <div class="row m-order-receipt-row" ng-repeat="item in item.subOrders[0].items">
-          <div class="col col-20">{{ item.name }}</div>
-          <div class="col col-20">70公斤/箱</div>
-          <div class="col col-12">{{ item.unitName }}</div>
-          <div class="col col-12">{{ item.quantity }}</div>
-          <div class="col col-12">{{ item.price }}</div>
-          <div class="col col-12">0.01%</div>
-          <div class="col col-12">0.01</div>
-        </div>
+        <ion-list can-swipe="false">
+          <div ng-repeat="receipt in $root.modals.receiptListModal.calcResults.usual track by $index">
+            <ion-item class="item m-modal-mine-receipt-item" ng-click="$root.modals.receiptListModal.check(receipt)">
+              <div class="row row-no-padding">
+                <div class="col col-50 m-text-ellipsis">
+                  <span class="m-modal-mine-receipt-item-text">
+                    {{ receipt.id }}
+                  </span>
+                </div>
+                <div class="col col-25">
+                  {{ receipt.taxRate + '%'}}
+                </div>
+                <div class="col col-25">
+                  {{ receipt.taxAmount | currency: '¥' }}
+                </div>
+              </div>
+            </ion-item>
+            <!-- detail of the receipt -->
+            <ion-item ng-show="receipt.showDetail" class="m-item-accordion">
+              <div class="m-modal-mine-receipt-item-extra">
+                <div class="list">
+                  <div class="item">
+                    规格
+                    <span class="item-note">
+                      {{ receipt.spec }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    单位
+                    <span class="item-note">
+                      {{ receipt.unitName }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    数量
+                    <span class="item-note">
+                      {{ receipt.quantity }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    单价
+                    <span class="item-note">
+                      {{ receipt.price }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    税率
+                    <span class="item-note">
+                      {{ receipt.taxRate }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ion-item>
+          </div>
+        </ion-list>
       </div>
-
     </div>
-    <div class="m-order-receipt-list-item">
+
+    <!-- special list -->
+    <div class="m-order-receipt-list-item" ng-if="$root.modals.receiptListModal.receiptType === 2 && $root.modals.receiptListModal.calcResults.special && $root.modals.receiptListModal.calcResults.special.length > 0">
       <div class="m-order-receipt-list-item-head">
         <h4 class="m-item-head">增值税专用发票</h4>
       </div>
       <div class="m-order-receipt-list-item-body">
-        <p class="m-order-receipt-company-name">单位名称：{{ item.subOrders[1].name }}</p>
-        <div class="row m-order-receipt-row">
-          <div class="col col-20">商品明细</div>
-          <div class="col col-20">规格</div>
-          <div class="col col-12">单位</div>
-          <div class="col col-12">数量</div>
-          <div class="col col-12">单价</div>
-          <div class="col col-12">税率</div>
-          <div class="col col-12">税额</div>
+        <!-- header list -->
+        <div class="row row-no-padding m-order-receipt-list-item-header">
+          <div class="col col-50">
+            商品名称
+          </div>
+          <div class="col col-25">
+            税率
+          </div>
+          <div class="col col-25">
+            税额
+          </div>
         </div>
-        <div class="row m-order-receipt-row" ng-repeat="item in item.subOrders[1].items">
-          <div class="col col-20">{{ item.name }}</div>
-          <div class="col col-20">70公斤/箱</div>
-          <div class="col col-12">{{ item.unitName }}</div>
-          <div class="col col-12">{{ item.quantity }}</div>
-          <div class="col col-12">{{ item.price }}</div>
-          <div class="col col-12">0.01%</div>
-          <div class="col col-12">0.01</div>
-        </div>
+        <ion-list can-swipe="false">
+          <div ng-repeat="receipt in $root.modals.receiptListModal.calcResults.special track by $index">
+            <ion-item class="item m-modal-mine-receipt-item" ng-click="$root.modals.receiptListModal.check(receipt)">
+              <div class="row row-no-padding">
+                <div class="col col-50 m-text-ellipsis">
+                  <span class="m-modal-mine-receipt-item-text">
+                    {{ receipt.id }}
+                  </span>
+                </div>
+                <div class="col col-25">
+                  {{ receipt.taxRate + '%'}}
+                </div>
+                <div class="col col-25">
+                  {{ receipt.taxAmount | currency: '¥' }}
+                </div>
+              </div>
+            </ion-item>
+            <!-- detail of the receipt -->
+            <ion-item ng-show="receipt.showDetail" class="m-item-accordion">
+              <div class="m-modal-mine-receipt-item-extra">
+                <div class="list">
+                  <div class="item">
+                    规格
+                    <span class="item-note">
+                      {{ receipt.spec }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    单位
+                    <span class="item-note">
+                      {{ receipt.unitName }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    数量
+                    <span class="item-note">
+                      {{ receipt.quantity }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    单价
+                    <span class="item-note">
+                      {{ receipt.price }}
+                    </span>
+                  </div>
+                  <div class="item">
+                    税率
+                    <span class="item-note">
+                      {{ receipt.taxRate }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </ion-item>
+          </div>
+        </ion-list>
       </div>
+    </div>
+
+    <!-- explain part -->
+    <div class="m-order-receipt-list-explain" ng-if="$root.modals.receiptListModal.receiptType === 2 && (!$root.modals.receiptListModal.calcResults.special || $root.modals.receiptListModal.calcResults.special.length === 0)">
+      <i class="icon ion-help-circled energized"></i>
+      因所购商品均无法开具增值税专用发票，故使用增值税普通发票进行替换。
     </div>
   </ion-content>
 </ion-modal-view>

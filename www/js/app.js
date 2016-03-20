@@ -81,6 +81,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     this.data.RECEIPT_LIST = this.data.API_BASE + 'api-invoice-getList.html';
     this.data.RECEIPT_ADD = this.data.API_BASE + 'api-invoice-addition.html';
     this.data.RECEIPT_DELETE = this.data.API_BASE + 'api-invoice-del.html';
+    this.data.RECEIPT_CALC = this.data.API_BASE + 'api-invoice-calc.html';
 
     // Payment related
     this.data.PAYMENT_ACTION = this.data.API_BASE + 'api-payment-doPay.html';

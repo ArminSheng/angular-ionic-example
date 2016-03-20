@@ -392,8 +392,9 @@ angular.module('mmr.directives')
     scope: {
       type: '@',
       address: '=',
-      item: '=',
-      clickable: '@'
+      orders: '=',
+      clickable: '@',
+      receiptType: '@'
     },
     templateUrl: 'templates/directives/order/order-detail-address.html',
     link: function(scope, element, attrs) {
@@ -414,13 +415,14 @@ angular.module('mmr.directives')
       }
     },
     controller: function($rootScope, $scope, mmrModal, mmrEventing) {
-      $scope.doCheckReceipt = function(item) {
+      $scope.doCheckReceipt = function(orders) {
         if($rootScope.$root.modals.receiptListModal && !$rootScope.$root.modals.receiptListModal.scope.$$destroyed) {
           // directly open it
-          $rootScope.$root.modals.receiptListModal.item = item;
+          $rootScope.$root.modals.receiptListModal.orders = orders;
+          $rootScope.$root.modals.receiptListModal.receiptType = ($scope.receiptType === '增值税普通发票') ? 1 : 2;
           $rootScope.$root.modals.receiptListModal.show();
         } else {
-          mmrModal.createReceiptListModal($scope, item);
+          mmrModal.createReceiptListModal($scope, orders, $scope.receiptType);
         }
       };
 

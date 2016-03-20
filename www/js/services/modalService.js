@@ -1062,7 +1062,7 @@ angular.module('mmr.services')
     },
 
     // order receipt list modal view
-    createReceiptListModal: function(scope, item) {
+    createReceiptListModal: function(scope, orders, type) {
       $ionicModal.fromTemplateUrl('templates/modal/receipt-list.html', {
         scope: scope
       }).then(function(modal) {
@@ -1070,11 +1070,28 @@ angular.module('mmr.services')
         modal.show();
 
         //binding data
-        modal.item = $rootScope.$root.receipts;
+        modal.receiptType = (type === '增值税普通发票') ? 1 : 2;
+        modal.orders = orders;
+        modal.calcResults = undefined;
+
+        // binding methods
+        modal.check = function(receipt) {
+          receipt.showDetail = !receipt.showDetail
+        };
 
         modal.doHide = function() {
           modal.hide();
         };
+
+        // send request
+        mmrReceiptService.calcReceipt(_.flatten(_.map(orders, function(order) {
+          return order.items;
+        })), modal.receiptType).then(function(res) {
+          modal.calcResults = res;
+          console.log(modal.calcResults);
+        }, function(err) {
+          mmrCommonService.help('获取信息错误', err);
+        });
       });
     },
 

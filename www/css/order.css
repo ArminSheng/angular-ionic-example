@@ -386,21 +386,25 @@
 
 /* receipt list modal view */
 .m-order-receipt-list-item {
-  border-top: 5px solid #e8e8e8;
+  /*border-top: 5px solid #e8e8e8;*/
 }
 
 .m-order-receipt-list-item:last-child {
-  border-bottom: 5px solid #e8e8e8;
+  /*border-bottom: 5px solid #e8e8e8;*/
 }
 
 .m-order-receipt-list-item-head, .m-order-receipt-list-item-body{
-  padding: 0 10px;
+  /*padding: 0 10px;*/
 }
 
 .m-order-receipt-list-item-head .m-item-head {
-  padding: 15px 0;
+  padding: 15px 4px;
   margin: 0;
-  border-bottom: 1px solid #ccc;
+  /*border-bottom: 1px solid #ccc;*/
+}
+
+.m-order-receipt-list-item-header {
+  margin: 10px 5px;
 }
 
 .m-order-receipt-company-name {
@@ -420,6 +424,10 @@
 
 .m-order-receipt-row .col-20 {
   margin-right: 5px;
+}
+
+.m-order-receipt-list-explain {
+  padding: 20px;
 }
 
 /* receipt management modal view */

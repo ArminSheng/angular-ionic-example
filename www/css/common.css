@@ -27,6 +27,12 @@
 
 }
 
+.m-text-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 /*modal animation*/
 .slide-in-right {
   -webkit-transform: translateX(100%);

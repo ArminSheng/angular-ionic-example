@@ -33,7 +33,7 @@
         </span>
         <i class="icon ion-chevron-right"></i>
       </a>
-      <order-detail-address type="receipt" address="$root.modals.genOrderModal.orders.addresses.receipt" item="$root.modals.genOrderModal.orders.orders[0]"></order-detail-address>
+      <order-detail-address type="receipt" address="$root.modals.genOrderModal.orders.addresses.receipt" orders="$root.modals.genOrderModal.orders.orders" receipt-type="{{ $root.modals.genOrderModal.orders.receipt }}"></order-detail-address>
 
       <!-- quarantine info -->
       <a class="item item-icon-right" ng-click="$root.modals.genOrderModal.doModifyQuarantine()">

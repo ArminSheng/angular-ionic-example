@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService', 'mmrPayment', 'dateFilter',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService, mmrPayment, dateFilter) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService', 'mmrPayment', 'dateFilter', 'mmrUser',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService, mmrPayment, dateFilter, mmrUser) {
 
   return {
 
@@ -681,7 +681,18 @@ angular.module('mmr.services')
         };
 
         $rootScope.modals.pInfoModal.doModifyAvatar = function() {
+          // check whether this feature is supported
+          if($rootScope.$root.platform === 'browser') {
+            return;
+          }
 
+          // whether the user has login
+          if(!$rootScope.$root.authenticated) {
+            mmrCommonService.help('状态异常', '请检查登录状态');
+            return;
+          }
+
+          mmrUser.doChangeAvatar();
         };
 
         $rootScope.modals.pInfoModal.doModifyAttribute = function(type, origNgModel, title, noNeedValidation) {

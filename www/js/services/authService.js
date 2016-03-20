@@ -1,7 +1,22 @@
 angular.module('mmr.services')
 
-.factory('mmrAuth', ['$q', '$http', '$rootScope', 'apiService', 'mmrEventing', 'mmrDataService',
-  function($q, $http, $rootScope, apiService, mmrEventing, mmrDataService) {
+.factory('mmrAuth', ['$q', '$http', '$rootScope', 'apiService', 'mmrEventing', 'mmrDataService', '$cordovaFileTransfer', 'mmrCommonService',
+  function($q, $http, $rootScope, apiService, mmrEventing, mmrDataService, $cordovaFileTransfer, mmrCommonService) {
+
+  function processAvatar(originalPath) {
+    var result;
+
+    if(originalPath && _.startsWith(originalPath, './')) {
+      result = apiService.API_BASE + originalPath.substring(2);
+    } else {
+      result = 'img/mine/avatar-bak.png';
+    }
+
+    // replace all "
+    result = _.replace(result, '\"', '');
+
+    return result;
+  }
 
   // type:
   // 1: login; 2: register
@@ -10,11 +25,7 @@ angular.module('mmr.services')
     var localUserInfo = $rootScope.$root.pinfo;
 
     // avatar
-    if(res.img && _.startsWith(res.img, './')) {
-      localUserInfo.avatar = apiService.API_BASE + res.img.substring(2);
-    } else {
-      localUserInfo.avatar = 'img/mine/avatar-bak.png';
-    }
+    localUserInfo.avatar = processAvatar(res.img);
     // uid
     localUserInfo.uid = res.id;
     // phone
@@ -217,6 +228,30 @@ angular.module('mmr.services')
       });
 
       return dfd.promise;
+    },
+
+    avatar: function(imageURI) {
+      // upload the image to server
+      $cordovaFileTransfer.upload(apiService.AUTH_USER_UPLOAD_AVATAR, imageURI, {
+        mimeType: 'image/png',
+        fileKey: 'img',
+        params: {
+          uid: $rootScope.$root.pinfo.uid
+        }
+      }).then(function(result) {
+        // reassign the latest avatar url
+        if(result.responseCode === 200) {
+          $rootScope.$root.pinfo.avatar = processAvatar(result.response);
+        } else {
+          mmrCommonService.help('错误提示', '在上传头像时发生了错误, 错误代码: ' + result.responseCode);
+        }
+        // $rootScope.$root.pinfo.avatar = REST_BASE + 'user_uploaded/' +filename ;
+      }, function(err) {
+        // reassign the latest avatar url
+        mmrCommonService.help('错误提示', '在上传头像时发生了错误');
+      }, function (progress) {
+        // constant progress updates
+      });
     }
 
   };

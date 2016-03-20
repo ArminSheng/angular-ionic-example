@@ -27,6 +27,14 @@
         <i class="icon ion-chevron-right"></i>
       </a>
 
+      <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('text', '$root.pinfo.realname', '请输入新的真实姓名')">
+        真实姓名
+        <span class="item-note">
+          {{ $root.pinfo.realname }}
+        </span>
+        <i class="icon ion-chevron-right"></i>
+      </a>
+
       <a class="item item-icon-right" ng-click="modals.pInfoModal.doModifyAttribute('text', '$root.pinfo.email', '请输入新的邮箱')">
         邮箱
         <span class="item-note">

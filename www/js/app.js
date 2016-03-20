@@ -70,6 +70,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
     // Payment related
     this.data.PAYMENT_ACTION = this.data.API_BASE + 'api-payment-doPay.html';
     this.data.PAYMENT_INTERFACE_LIST = this.data.API_BASE + 'api-payment-getList.html';
+    this.data.PAYMENT_DEPOSIT_LIST = this.data.API_BASE + 'api-user-deposit.html';
 
     return this.data;
   };

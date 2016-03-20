@@ -102,6 +102,23 @@ angular.module('mmr.services')
       return true;
     },
 
+    realname: function(realname, popupWhenFailure) {
+      if(!realname || !/^[a-zA-Z\u4e00-\u9fa5]{2,4}$/.test(realname)) {
+
+        if(popupWhenFailure) {
+          $ionicPopup.alert({
+            title: '真实姓名格式验证失败',
+            template: '真实姓名的长度应该在2-4之间，且只能包含汉字和英文',
+            okType: 'button-energized'
+          });
+        }
+
+        return false;
+      }
+
+      return true;
+    },
+
     qq: function(qq, popupWhenFailure) {
       if(!qq || !/^[0-9]{5,10}$/.test(qq)) {
 

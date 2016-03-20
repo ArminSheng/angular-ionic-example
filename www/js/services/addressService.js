@@ -67,7 +67,8 @@ angular.module('mmr.services')
 
         return {
           normal: normalAddress,
-          receipt: receiptAddress
+          receipt: receiptAddress,
+          quarantine: {}
         };
       }
     },

@@ -1409,6 +1409,14 @@ angular.module('mmr.services')
         },
 
         modal.doGenerate = function() {
+          // check validity
+          var checkResult = checkValidity();
+
+          if(checkResult.hasError) {
+            mmrCommonService.help('订单无法生成', checkResult.errorMsg);
+            return;
+          }
+
           // calc the deadline payment time
           orders.deadline = new Date(new Date().getTime() + 1800000);
 
@@ -1484,6 +1492,50 @@ angular.module('mmr.services')
           });
 
           return ids;
+        }
+
+        // return obj:
+        // hasError, errorMsg
+        function checkValidity() {
+          console.log(modal.orders);
+
+          // check address
+          if(orders.delivery === '送货上门' && !orders.addresses.normal) {
+            return {
+              hasError: true,
+              errorMsg: '请提供送货上门收货地址'
+            };
+          }
+
+          if(orders.delivery === '自提' && !orders.addresses.normal) {
+            return {
+              hasError: true,
+              errorMsg: '请选择自提地址'
+            };
+          }
+
+          // check receipt address
+          if(orders.receipt !== '不需要发票' && !orders.addresses.receipt) {
+            return {
+              hasError: true,
+              errorMsg: '请选择发票寄送地址'
+            };
+          }
+
+          // check quarantine adddress
+          if(order.quarantine &&
+            !orders.addresses.quarantine.quarantine ||
+            _.trim(orders.addresses.quarantine.quarantine) === '') {
+            return {
+              hasError: true,
+              errorMsg: '请选择检疫证寄送地址'
+            };
+          }
+
+          return {
+            hasError: true,
+            errorMsg: '测试中'
+          };
         }
       });
     },

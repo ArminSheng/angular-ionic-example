@@ -5,7 +5,7 @@ angular.module('mmr.services')
 
   return {
 
-    changeAvatar: function() {
+    doChangeAvatar: function() {
       var hideSheet = $ionicActionSheet.show({
         buttons: [
           { text: '新拍摄一张' },

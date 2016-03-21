@@ -265,6 +265,19 @@ angular.module('mmr.controllers')
     $scope.initialize();
   });
 
+  $scope.$on('doPaySuccessfully', function($event, data) {
+    // update order counters
+    mmrDataService.request(
+      mmrOrderFactory.fetchOrderCounters()
+    ).then(function(res) {
+      if(res[0]) {
+        $rootScope.$root.orderCounters = res[0];
+      }
+    }, function(err) {
+      mmrCommonService.help('数据获取错误', '暂时无法获取订单数量信息, 请稍后重试');
+    });
+  });
+
   $scope.initialize();
 
   // private functions

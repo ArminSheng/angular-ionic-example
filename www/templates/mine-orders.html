@@ -8,7 +8,7 @@
   </ion-content>
 
   <!-- empty content -->
-  <empty-content words="words" additional-class="{{ additionalClass }}" button="button" ng-if="isEmpty"></empty-content>
+  <empty-content words="ec.words" additional-class="{{ ec.additionalClass }}" button="ec.button" ng-if="isEmpty"></empty-content>
 
   <div class="m-mine-orders-filters" ng-class="scrollStatus">
     <filter-tabs tabs="tabs" current-tab="{{ tab }}" action="switchTab(tab)"></filter-tabs>

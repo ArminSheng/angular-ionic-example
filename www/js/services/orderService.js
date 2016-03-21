@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrOrderFactory', ['$http', 'restService', 'mmrCacheFactory', 'apiService',
-  function($http, restService, mmrCacheFactory, apiService) {
+.factory('mmrOrderFactory', ['$q', '$http', '$rootScope', 'restService', 'mmrCacheFactory', 'apiService', 'mmrDataService',
+  function($q, $http, $rootScope, restService, mmrCacheFactory, apiService, mmrDataService) {
 
   // mock
   // status:
@@ -649,10 +649,53 @@ angular.module('mmr.services')
     }
   ];
 
+  var prepareOrderListVo = function(config) {
+    var vo = {};
+
+    if(config) {
+      vo.t = config.type || 0;
+    } else {
+      vo.t = 0;
+    }
+
+    vo.uid = $rootScope.$root.pinfo.uid;
+
+    return vo;
+  };
+
+  var postprocessOrders = function(orders) {
+
+    _.forEach(orders, function(order) {
+      // money information
+      order.money = _.mapValues(order.money, function(value) {
+        return Number(value);
+      });
+
+      // item image paths
+      order.subOrders = _.values(order.subOrders);
+      _.forEach(order.subOrders, function(subOrder) {
+        _.forEach(subOrder.items, function(item) {
+          item.imagePath = processImagePath(item.imagePath);
+        });
+      });
+    });
+
+    function processImagePath(imagePath) {
+      if(imagePath && _.startsWith(imagePath, './')) {
+        imagePath = apiService.API_BASE + imagePath.substring(2);
+      } else {
+        imagePath = 'img/item/sample.png';
+      }
+
+      return imagePath;
+    }
+  };
+
   return {
     orders: function() {
       // save into cache
-      mmrCacheFactory.set('orders', orders);
+      // mmrCacheFactory.set('orders', orders);
+      return [];
     },
 
     // [Mock Usage]
@@ -669,6 +712,30 @@ angular.module('mmr.services')
         method: 'POST',
         data: info
       });
+    },
+
+    fetchOrderList: function(config) {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.ORDER_LIST,
+        method: 'POST',
+        data: prepareOrderListVo(config)
+      }), '正在加载订单列表...').then(function(res) {
+        res = res[0];
+
+        if(res instanceof Array) {
+          postprocessOrders(res);
+        } else {
+          res = [];
+        }
+
+        dfd.resolve(res);
+      }, function(err) {
+        dfd.reject(err);
+      });
+
+      return dfd.promise;
     }
   };
 

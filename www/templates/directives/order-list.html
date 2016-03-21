@@ -17,20 +17,20 @@
     <!-- order summary area -->
     <div class="row row-no-padding m-order-item-summary">
       <div class="col col-offset-33 col-67">
-        <div class="row row-no-padding">
+        <div class="row row-no-padding" ng-if="item.money.total">
           <div class="col col-offset-20 col-50">
             订单总金额：
           </div>
           <div class="col col-33 m-order-item-total-amount">
-            ¥ {{ item.price }}
+            ¥ {{ item.money.total }}
           </div>
         </div>
-        <div class="row row-no-padding">
+        <div class="row row-no-padding" ng-if="item.money.actual">
           <div class="col col-offset-20 col-50">
             实际金额合计：
           </div>
           <div class="col col-33 m-order-item-total-amount">
-            ¥ {{ item.price }}
+            ¥ {{ item.money.actual }}
           </div>
         </div>
       </div>

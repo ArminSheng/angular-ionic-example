@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('OrderCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', '$stateParams', 'localStorageService', 'mmrScrollService', 'mmrOrderFactory',
-  function($scope, $rootScope, $ionicScrollDelegate, $stateParams, localStorageService, mmrScrollService, mmrOrderFactory) {
+.controller('OrderCtrl', ['$scope', '$rootScope', '$ionicScrollDelegate', '$stateParams', 'localStorageService', 'mmrScrollService', 'mmrOrderFactory', 'mmrCommonService',
+  function($scope, $rootScope, $ionicScrollDelegate, $stateParams, localStorageService, mmrScrollService, mmrOrderFactory, mmrCommonService) {
 
   $rootScope.$root.ui.tabsHidden = true;
 
@@ -62,22 +62,23 @@ angular.module('mmr.controllers')
     $scope.showBacktoTopBtn = false;
   };
 
-  init();
-  function init() {
-    // init orders
-    mmrOrderFactory.orders();
+  $scope.initialize = function() {
+    mmrOrderFactory.fetchOrderList().then(function(res) {
+      $scope.orders = res;
+      $scope.isEmpty = res.length === 0;
+    }, function(err) {
+      mmrCommonService.help('获取订单失败', '获取过程中发生了错误, 请稍后重试');
+      $scope.isEmpty = true;
+    });
+  };
 
-    // cache bindings
-    localStorageService.bind($scope, 'orders');
-  }
+  $scope.initialize();
 
-  // empty content
-  if (!$scope.orders) {
-    $scope.isEmpty = true;
-  }
-  $scope.words = ['这里空空的，快去下单吧！'];
-  $scope.additionalClass = 'm-order-empty';
-  $scope.button = {
+  // empty content related
+  $scope.ec = {};
+  $scope.ec.words = ['这里空空的，快去下单吧！'];
+  $scope.ec.additionalClass = 'm-order-empty';
+  $scope.ec.button = {
     text:'去逛逛',
     onTap: function() {
       console.log('orders');

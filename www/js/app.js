@@ -48,6 +48,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
 
     // Order related
     this.data.ORDER_GENERATE = this.data.API_BASE + 'api-order-create.html';
+    this.data.ORDER_LIST = this.data.API_BASE + 'api-order-getList.html';
 
     // Favorite related
     this.data.FOOTPRINT_LIST = this.data.API_BASE + 'api-footprint-getList.html';

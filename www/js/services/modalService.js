@@ -1546,10 +1546,19 @@ angular.module('mmr.services')
 
           vo.ids = mmrCartService.cartIds(itemIds);
           vo.type = 2; // buy by cart
-          vo.mentioning = 0; // 0: not self-pick; 1: self-pick
-          vo.address = 56 // address id
-          vo.invoice_id = 26;
-          vo.address_invoice = 56;
+
+          vo.mentioning = orders.delivery === '自提' ? 1 : 0; // 0: not self-pick; 1: self-pick
+          if(vo.mentioning === 1) {
+            vo.store = orders.addresses.normal.id;
+          } else {
+            vo.address = orders.addresses.normal.id;
+          }
+
+          if(orders.receipt !== '不需要发票') {
+            vo.invoice_id = orders.selectedReceipt.id;
+            vo.address_invoice = orders.addresses.receipt.id;
+          }
+
           vo.order_type = orders.isReserved ? 0 : 1; // 0: reserve; 1: normal
           vo.uid = $rootScope.$root.pinfo.uid;
 
@@ -1618,7 +1627,7 @@ angular.module('mmr.services')
           }
 
           return {
-            hasError: true
+            hasError: false
           };
         }
 

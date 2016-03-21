@@ -249,6 +249,7 @@ angular.module('mmr.controllers')
   $rootScope.$on('$stateChangeSuccess', function () {
     if($state.current.name === 'tab.cart') {
       $rootScope.$root.ui.tabsHidden = false;
+      mmrEventing.doStateArriveCart();
     }
     $rootScope.$broadcast('loading.hide');
   });

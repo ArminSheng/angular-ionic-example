@@ -6,13 +6,7 @@ angular.module('mmr.controllers')
   $rootScope.$root.ui.tabsHidden = false;
   $scope.tab = Number($stateParams.tab);
 
-  // change the tab if another tab has items
-  if($rootScope.$root.cart.counts[$scope.tab] === 0) {
-    var another = $scope.tab === 1 ? 0 : 1;
-    if($rootScope.$root.cart.counts[another] > 0) {
-      $scope.tab = another;
-    }
-  }
+  toggleTab();
 
   // define tabs
   $scope.tabs = [
@@ -119,6 +113,10 @@ angular.module('mmr.controllers')
     isEmpty($stateParams.tab);
   });
 
+  $rootScope.$on('doStateArriveCart', function($event, data) {
+    toggleTab();
+  });
+
   $rootScope.$on('doNewOrderGenerated', function($event, data) {
     mmrCartService.removeGeneratedItems(data);
   });
@@ -132,5 +130,16 @@ angular.module('mmr.controllers')
       { text: '普通商品(' + $rootScope.$root.cart.counts[1] + ')' }
     ];
   });
+
+  // private functions
+  function toggleTab() {
+    // change the tab if another tab has items
+    if($rootScope.$root.cart.counts[$scope.tab] === 0) {
+      var another = $scope.tab === 1 ? 0 : 1;
+      if($rootScope.$root.cart.counts[another] > 0) {
+        $scope.tab = another;
+      }
+    }
+  }
 
 }]);

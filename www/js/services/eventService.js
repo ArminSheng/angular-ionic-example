@@ -115,8 +115,14 @@ angular.module('mmr.services')
     },
 
     // state transfers
+    // this will trigger the state to cart
     doStateToCart: function(data) {
       $rootScope.$broadcast('doStateToCart', data);
+    },
+
+    // when the state arrives cart
+    doStateArriveCart: function(data) {
+      $rootScope.$broadcast('doStateArriveCart', data);
     },
 
     // address related

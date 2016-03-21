@@ -63,12 +63,17 @@ angular.module('mmr.controllers')
   };
 
   $scope.initialize = function() {
-    mmrOrderFactory.fetchOrderList().then(function(res) {
+    mmrOrderFactory.fetchOrderList({
+      type: $scope.tab
+    }).then(function(res) {
       $scope.orders = res;
       $scope.isEmpty = res.length === 0;
     }, function(err) {
       mmrCommonService.help('获取订单失败', '获取过程中发生了错误, 请稍后重试');
       $scope.isEmpty = true;
+    }).finally(function() {
+      // Stop the ion-refresher from spinning
+      $scope.$broadcast('scroll.refreshComplete');
     });
   };
 

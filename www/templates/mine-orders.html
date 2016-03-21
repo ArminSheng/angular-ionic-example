@@ -1,6 +1,9 @@
 <ion-view view-title="我的订单">
   <ion-content class="m-mine-orders" delegate-handle="orderScroll" on-scroll="onScroll()" scroll-event-interval="10" ng-class="scrollStatus">
 
+    <ion-refresher pulling-text="上拉更新页面..." on-refresh="initialize()">
+    </ion-refresher>
+
     <div class="m-order-list">
       <order-list items="orders" search="search"></order-list>
     </div>

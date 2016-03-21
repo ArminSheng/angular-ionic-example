@@ -29,7 +29,7 @@ angular.module('mmr.services')
       var errorFlag = false;
       _.forEach(parameters, function(q, idx) {
         q.then(function(res) {
-          if(res.status === 0) {
+          if(!res || res.status === 0) {
             errorFlag = true;
           } else {
             results[idx] = res.data;

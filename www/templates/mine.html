@@ -73,27 +73,27 @@
         <!-- order icons -->
         <div class="row m-mine-order-center">
           <div class="col col-20" ng-click="doOpenMoreOrders(1)">
-            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[1] && $root.orderCounters[1] > 0">{{ $root.orderCounters[1] }}</span>
+            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters['0'] && $root.orderCounters['0'] > 0">{{ $root.orderCounters['0'] }}</span>
             <img ng-src="img/mine/o-pay.png" class="m-mine-order-icon"/>
             <span class="m-mine-order-type">待付款</span>
           </div>
           <div class="col col-20" ng-click="doOpenMoreOrders(2)">
-            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[2] && $root.orderCounters[2] > 0">{{ $root.orderCounters[2] }}</span>
+            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[1] && $root.orderCounters[1] > 0">{{ $root.orderCounters[1] }}</span>
             <img ng-src="img/mine/o-delivery.png" class="m-mine-order-icon"/>
             <span class="m-mine-order-type">待发货</span>
           </div>
           <div class="col col-20" ng-click="doOpenMoreOrders(3)">
-            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[3] && $root.orderCounters[3] > 0">{{ $root.orderCounters[3] }}</span>
+            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[2] && $root.orderCounters[2] > 0">{{ $root.orderCounters[2] }}</span>
             <img ng-src="img/mine/o-receive.png" class="m-mine-order-icon"/>
             <span class="m-mine-order-type">待收货</span>
           </div>
           <div class="col col-20" ng-click="doOpenMoreOrders(4)">
-            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[4] && $root.orderCounters[4] > 0">{{ $root.orderCounters[4] }}</span>
+            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[3] && $root.orderCounters[3] > 0">{{ $root.orderCounters[3] }}</span>
             <img ng-src="img/mine/o-self.png" class="m-mine-order-icon"/>
             <span class="m-mine-order-type">待自提</span>
           </div>
           <div class="col col-20" ng-click="doOpenMoreOrders(5)">
-            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[5] && $root.orderCounters[5] > 0">{{ $root.orderCounters[5] }}</span>
+            <span class="badge badge-assertive m-badge" ng-if="$root.authenticated && $root.orderCounters[6] && $root.orderCounters[6] > 0">{{ $root.orderCounters[6] }}</span>
             <img ng-src="img/mine/o-service.png" class="m-mine-order-icon"/>
             <span class="m-mine-order-type">售后中</span>
           </div>

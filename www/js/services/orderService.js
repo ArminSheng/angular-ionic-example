@@ -736,6 +736,42 @@ angular.module('mmr.services')
       });
 
       return dfd.promise;
+    },
+
+    // param t: -1全部0待付款1待发货2待收货3待自提4完成5关闭6售后7已派车8已出库21预定待确认22预定已确认41已收货待评价
+    fetchOrderCounters: function() {
+      var dfd = $q.defer();
+
+      if(!$rootScope.$root.authenticated) {
+        dfd.resolve([]);
+      } else {
+        mmrDataService.request($http({
+          url: apiService.ORDER_COUNTERS,
+          method: 'POST',
+          data: {
+            uid: $rootScope.$root.pinfo.uid,
+            t: -1
+          }
+        }), '正在加载订单数量信息...').then(function(res) {
+          res = res[0];
+          if(res) {
+            // extra processing
+            res = _.mapValues(res, function(value) {
+              return Number(value);
+            });
+          } else {
+            res = {};
+          }
+
+          dfd.resolve({
+            data: res
+          });
+        }, function(err) {
+          dfd.reject(err);
+        });
+      }
+
+      return dfd.promise;
     }
   };
 

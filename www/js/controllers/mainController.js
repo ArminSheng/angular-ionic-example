@@ -160,12 +160,7 @@ angular.module('mmr.controllers')
 
       normalOrders: [
 
-      ],
-    },
-
-    // cart api related
-    cartApi: {
-
+      ]
     },
 
     // save states info

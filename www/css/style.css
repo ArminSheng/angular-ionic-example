@@ -172,6 +172,7 @@
 .m-mine-address .m-mine-pinfo-link {
     position: absolute;
     bottom: 16px;
+    right: 8px;
 }
 
 .m-mine-phone {

@@ -100,9 +100,70 @@ angular.module('mmr.services')
 
     logout: function() {
       // remove all personal information
+      $rootScope.$root.notificationCount = 0;
+
       $rootScope.$root.authenticated = false;
       $rootScope.$root.pinfoBackend = {};
       $rootScope.$root.pinfo = {};
+
+      $rootScope.$root.addresses = [];
+      $rootScope.$root.receipts = {
+        'usual': [],
+        'special': [],
+        'noSpecial': true
+      };
+
+      $rootScope.$root.modals = {};
+      $rootScope.$root.cart = {
+        totalCount: 0,
+        amounts: {
+          '0': 0,
+          '1': 0
+        },
+        counts: {
+          '0': 0,
+          '1': 0
+        },
+        allChecked: {
+          '0': false,
+          '1': false
+        },
+        checkedCounts: {
+          '0': 0,
+          '1': 0
+        },
+        checkedAmounts: {
+          '0': 0,
+          '1': 0
+        },
+
+        // items count: id ---> count
+        itemsCount: {
+
+        },
+
+        // items ID ---> true : exists
+        itemsId: {
+
+        },
+
+        // shops and items
+        reservedOrders: [
+
+        ],
+
+        normalOrders: [
+
+        ]
+      };
+
+      $rootScope.$root.states = {
+        current: undefined,
+        last: undefined,
+        beforeLogin: undefined
+      };
+
+      $rootScope.$root.orderCounters = {}
     },
 
     sendCode: function(phone, type) {
@@ -143,7 +204,6 @@ angular.module('mmr.services')
         res = res[0];
         if(res.msg === '登录成功') {
           postprocess(res.data, 1);
-          console.log(res.data);
           dfd.resolve(res.data);
         } else {
           dfd.reject(res.msg);

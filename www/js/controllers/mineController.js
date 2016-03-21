@@ -1,20 +1,31 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$state', '$interval', '$ionicHistory', '$ionicModal', '$ionicPopup', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth', 'API_BASE', 'mmrUser',
-  function($scope, $rootScope, $q, $timeout, $state, $interval, $ionicHistory, $ionicModal, $ionicPopup, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth, API_BASE, mmrUser) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$state', '$interval', '$ionicHistory', '$ionicModal', '$ionicPopup', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth', 'API_BASE', 'mmrUser', 'mmrOrderFactory',
+  function($scope, $rootScope, $q, $timeout, $state, $interval, $ionicHistory, $ionicModal, $ionicPopup, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth, API_BASE, mmrUser, mmrOrderFactory) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
 
     // load data
-    mmrDataService.request(mmrItemFactory.recommend()).then(function(res) {
+    mmrDataService.request(
+      mmrItemFactory.recommend(),
+      mmrOrderFactory.fetchOrderCounters()
+    ).then(function(res) {
       $scope.recommendedItems = res[0];
+      if(res[1]) {
+        $rootScope.$root.orderCounters = res[1];
+      }
     }, function(err) {
       console.log(err);
     }).finally(function() {
       // Stop the ion-refresher from spinning
       $scope.$broadcast('scroll.refreshComplete');
     });
+
+    $timeout(function() {
+      var avatarWidth = $('.m-mine-avatar img').width();
+      $('.m-mine-avatar img').height(avatarWidth);
+    }, 10);
   };
 
   $scope.doOpenConfig = function() {
@@ -248,19 +259,17 @@ angular.module('mmr.controllers')
     }
   });
 
+  $scope.$on('doLoginSuccessfully', function($event) {
+    // refresh the mine view
+    $scope.initialize();
+  });
+
   $scope.initialize();
 
   // private functions
   function getUploadAvatarName() {
     return new Date().getTime() + '-' + String(Math.random()).substring(2, 6) + '.png';
   }
-
-  // calc the height for avatar, workaround
-  $timeout(function() {
-    var avatarWidth = $('.m-mine-avatar img').width();
-    $('.m-mine-avatar img').height(avatarWidth);
-  }, 10);
-
 }])
 
 .controller('ConfigCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$ionicHistory', '$ionicActionSheet', 'mmrModal', 'mmrEventing', 'mmrAuth',

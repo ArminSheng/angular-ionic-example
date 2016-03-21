@@ -33,6 +33,15 @@
         </span>
         <i class="icon ion-chevron-right"></i>
       </a>
+      <!-- receipt details -->
+      <div class="m-modal-gen-order-list-receipt" ng-if="$root.modals.genOrderModal.orders.receipt !== '不需要发票'" ng-click="$root.modals.genOrderModal.doSelectReceipt()">
+        <span ng-if="!$root.modals.genOrderModal.orders.selectedReceipt">
+          还没有选择发票，请点击选择
+        </span>
+        <div ng-if="$root.modals.genOrderModal.orders.selectedReceipt">
+          <span class="m-modal-gen-order-list-receipt-detail">{{ $root.modals.genOrderModal.orders.selectedReceipt.companyName }}</span>
+        </div>
+      </div>
       <order-detail-address type="receipt" address="$root.modals.genOrderModal.orders.addresses.receipt" orders="$root.modals.genOrderModal.orders.orders" receipt-type="{{ $root.modals.genOrderModal.orders.receipt }}"></order-detail-address>
 
       <!-- quarantine info -->

@@ -11,51 +11,63 @@
         <span class="icon ion-plus m-header-icon"></span>
       </button>
     </ion-header-bar>
-<ion-content class="m-modal-mine-receipt">
-        <div class="m-filter-tabs">
-           <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 0}" ng-click="modals.receiptModal.switchTab(0)">
-              <span>增值税普通发票</span>
-           </div>
-           <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 1}" ng-click="modals.receiptModal.switchTab(1)">
-             <span>增值税专用发票</span>
-            </div>
+    <ion-content class="m-modal-mine-receipt">
+      <div class="m-filter-tabs">
+        <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 0}" ng-click="modals.receiptModal.switchTab(0)">
+            <span>增值税普通发票</span>
         </div>
+        <div class="m-filter-item" ng-class="{'active': modals.receiptModal.tab === 1}" ng-click="modals.receiptModal.switchTab(1)">
+            <span>增值税专用发票</span>
+        </div>
+      </div>
 
-        <!-- usual receipts -->
-        <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 0 && $root.receipts.usual && $root.receipts.usual.length > 0">
-          <div class="m-modal-mine-receipt-head">
+      <!-- usual receipts -->
+      <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 0 && $root.receipts.usual && $root.receipts.usual.length > 0">
+        <div class="m-modal-mine-receipt-head" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
+          <span class="m-modal-mine-receipt-head-left">单位名称</span>
+          <span class="m-modal-mine-receipt-head-right">审核结果</span>
+        </div>
+        <ion-list can-swipe="!modals.receiptModal.selectedReceipt">
+          <div class="row row-no-padding" ng-repeat="receipt in $root.receipts.usual track by $index">
+            <div class="col col-10 m-modal-mine-receipt-item-checkbox" ng-if="modals.receiptModal.selectedReceipt" ng-click="modals.receiptModal.doSelectReceipt(receipt, $index)">
+              <ion-checkbox class="checkbox-energized" ng-model="modals.receiptModal.receiptCheckboxes[$index]"></ion-checkbox>
+            </div>
+            <div class="col" ng-class="{'col-90': modals.receiptModal.selectedReceipt, 'col-100': !modals.receiptModal.selectedReceipt}">
+              <ion-item class="item m-modal-mine-receipt-item-usual">
+                <span class="m-modal-mine-receipt-item-text">
+                  {{ receipt.companyName }}
+                </span>
+                <span class="item-note m-modal-mine-receipt-item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
+                  {{ modals.receiptModal.getExplain(receipt) }}
+                </span>
+                <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
+                  删除
+                </ion-option-button>
+              </ion-item>
+            </div>
+          </div>
+        </ion-list>
+      </div>
+
+      <!-- special receipts -->
+      <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 1 && $root.receipts.special && $root.receipts.special.length > 0">
+          <div class="m-modal-mine-receipt-head" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
             <span class="m-modal-mine-receipt-head-left">单位名称</span>
             <span class="m-modal-mine-receipt-head-right">审核结果</span>
           </div>
-          <ion-list can-swipe="true">
-            <ion-item class="item m-modal-mine-receipt-item" ng-repeat="receipt in $root.receipts.usual track by $index">
-              <span class="m-modal-mine-receipt-item-text">
-                {{ receipt.companyName }}
-              </span>
-              <span class="item-note m-modal-mine-receipt-item-note">
-                {{ modals.receiptModal.getExplain(receipt) }}
-              </span>
-              <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
-                删除
-              </ion-option-button>
-            </ion-item>
-          </ion-list>
-        </div>
-
-        <!-- special receipts -->
-        <div class="m-modal-mine-receipt-body" ng-if="modals.receiptModal.tab === 1 && $root.receipts.special && $root.receipts.special.length > 0">
-            <div class="m-modal-mine-receipt-head">
-              <span class="m-modal-mine-receipt-head-left">单位名称</span>
-              <span class="m-modal-mine-receipt-head-right">审核结果</span>
-            </div>
-            <ion-list can-swipe="true">
-              <div ng-repeat="receipt in $root.receipts.special track by $index">
-                <!-- summary of the receipt -->
-                <ion-item class="item m-modal-mine-receipt-item" ng-click="modals.receiptModal.check(receipt)">
+          <ion-list can-swipe="!modals.receiptModal.selectedReceipt">
+            <div class="row row-no-padding m-modal-mine-receipt-item-container" ng-repeat="receipt in $root.receipts.special track by $index">
+              <!-- checkbox -->
+              <div class="col col-10 m-modal-mine-receipt-item-checkbox" ng-if="modals.receiptModal.selectedReceipt" ng-click="modals.receiptModal.doSelectReceipt(receipt, $index)">
+                <ion-checkbox class="checkbox-energized" ng-model="modals.receiptModal.receiptCheckboxes[$index]" ng-disabled="receipt.status == 0"></ion-checkbox>
+              </div>
+              <!-- summary of the receipt -->
+              <div class="col" ng-class="{'col-90': modals.receiptModal.selectedReceipt, 'col-100': !modals.receiptModal.selectedReceipt}">
+                <ion-item class="item m-modal-mine-receipt-item" ng-click="modals.receiptModal.check(receipt)" ng-class="{'no-bottom-border': receipt.showDetail}">
                   <span class="m-modal-mine-receipt-item-text">
                     {{ receipt.companyName }}
                   </span>
-                  <span class="item-note m-modal-mine-receipt-item-note">
+                  <span class="item-note m-modal-mine-receipt-item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                     {{ modals.receiptModal.getExplain(receipt) }}
                   </span>
                   <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
@@ -68,31 +80,31 @@
                     <div class="list">
                       <div class="item">
                         纳税人识别号
-                        <span class="item-note">
+                        <span class="item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                           {{ receipt.taxpayer }}
                         </span>
                       </div>
                       <div class="item">
                         注册地址
-                        <span class="item-note">
+                        <span class="item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                           {{ receipt.registerAddress }}
                         </span>
                       </div>
                       <div class="item">
                         注册电话
-                        <span class="item-note">
+                        <span class="item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                           {{ receipt.phone }}
                         </span>
                       </div>
                       <div class="item">
                         开户银行
-                        <span class="item-note">
+                        <span class="item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                           {{ receipt.bank }}
                         </span>
                       </div>
                       <div class="item">
                         银行账户
-                        <span class="item-note">
+                        <span class="item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                           {{ receipt.bankAccount }}
                         </span>
                       </div>
@@ -100,8 +112,15 @@
                   </div>
                 </ion-item>
               </div>
-            </ion-list>
-        </div>
+            </div>
+          </ion-list>
+      </div>
+
+      <!-- no available special receipts hint -->
+      <div class="m-modal-mine-receipt-no-available-hint" ng-if="$root.receipts.noSpecial && modals.receiptModal.tab === 1 && modals.receiptModal.selectedReceipt">
+        <i class="icon ion-help-circled energized"></i>
+        暂时没有可用的增值税专用发票, 请退出并尝试选择增值税普通发票
+      </div>
     </ion-content>
     <!-- empty content -->
     <empty-content words="modals.receiptModal.ec.words" additional-class="{{ modals.receiptModal.ec.additionalClass }}" ng-if="modals.receiptModal.checkEmpty()"></empty-content>

@@ -57,7 +57,10 @@ angular.module('mmr.controllers')
     // 1: usual; 2: special
     receipts: {
       'usual': [],
-      'special': []
+      'special': [],
+
+      // hint
+      'noSpecial': true
     },
 
     // network related

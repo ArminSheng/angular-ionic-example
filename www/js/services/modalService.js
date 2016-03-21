@@ -148,7 +148,7 @@ angular.module('mmr.services')
       });
     },
 
-    createMyReceiptModal: function(scope) {
+    createMyReceiptModal: function(scope, selectedReceipt, initIdx) {
       var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
         scope: scope,
@@ -161,14 +161,22 @@ angular.module('mmr.services')
         modal.ec.words = ['暂无发票'];
         modal.ec.additionalClass = 'my-receipt-empty';
 
-        modal.tab = 0;
+        modal.tab = initIdx - 1;
         modal.switchTab = function(tabIdx) {
+          if(selectedReceipt) {
+            return false;
+          }
+
           modal.tab = tabIdx;
         };
 
         // send request
         mmrReceiptService.fetchReceiptList().then(function(res) {
-          // process the result list if necessary
+          // prepare the checkboxes
+          if(selectedReceipt) {
+            modal.selectedReceipt = selectedReceipt;
+            modal.receiptCheckboxes = mmrReceiptService.generateReceiptCheckboxes(selectedReceipt, initIdx);
+          }
         }, function(err) {
 
         });
@@ -224,6 +232,21 @@ angular.module('mmr.services')
 
         modal.check = function(receipt) {
           receipt.showDetail = !receipt.showDetail;
+        };
+
+        modal.doSelectReceipt = function(receipt, $index) {
+          if(selectedReceipt) {
+            modal.receiptCheckboxes = _.map(modal.receiptCheckboxes, function(element) {
+              return false;
+            });
+            modal.receiptCheckboxes[$index] = true;
+
+            // emit the event and close the modal
+            mmrEventing.doChangeReceipt({
+              receipt: receipt
+            });
+            modal.doHideReceipt();
+          }
         };
       });
     },
@@ -1287,7 +1310,8 @@ angular.module('mmr.services')
         $rootScope.$root.modals.genOrderModal = modal;
 
         // bind data
-        $rootScope.$root.modals.genOrderModal.orders = orders;
+        modal.orders = orders;
+        modal.selectedReceipt = undefined;
 
         // bind methods
         modal.doHide = function() {
@@ -1373,6 +1397,15 @@ angular.module('mmr.services')
             cancel: function() {
             },
             buttonClicked: function(index) {
+              if(modal.receiptIdx === index) {
+                return;
+              }
+
+              modal.receiptIdx = index;
+
+              // remove current selected receipt
+              modal.orders.selectedReceipt = undefined;
+
               switch(index) {
                 case 0:
                   modal.orders.receipt = '不需要发票';
@@ -1388,20 +1421,19 @@ angular.module('mmr.services')
               if(index === 1 || index === 2) {
                 // cancel the receipt address
                 mmrEventing.doToggleReceiptAddress(false);
+                // if ($rootScope.$root.modals.receiptManagementModal && !$rootScope.$root.modals.receiptManagementModal.scope.$$destroyed) {
+                //   $rootScope.$root.modals.receiptManagementModal.index = index;
 
-                if ($rootScope.$root.modals.receiptManagementModal && !$rootScope.$root.modals.receiptManagementModal.scope.$$destroyed) {
-                  $rootScope.$root.modals.receiptManagementModal.index = index;
+                //   if (index === 0) {
+                //     $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.usual;
+                //   } else {
+                //     $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.special;
+                //   }
 
-                  if (index === 0) {
-                    $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.usual;
-                  } else {
-                    $rootScope.$root.modals.receiptManagementModal.receipts = $rootScope.$root.receipts.special;
-                  }
-
-                  $rootScope.$root.modals.receiptManagementModal.show();
-                } else {
-                   self.createReceiptManagementModal(scope, index);
-                }
+                //   $rootScope.$root.modals.receiptManagementModal.show();
+                // } else {
+                //    self.createReceiptManagementModal(scope, index);
+                // }
               } else if(index === 0) {
                 // cancel the receipt address
                 mmrEventing.doToggleReceiptAddress(true);
@@ -1411,6 +1443,11 @@ angular.module('mmr.services')
             }
           });
         };
+
+        modal.doSelectReceipt = function() {
+           // open the receipt selection view
+          self.createMyReceiptModal(scope, modal.orders.selectedReceipt || {}, modal.receiptIdx);
+        },
 
         modal.doModifyQuarantine = function() {
           if(!orders.quarantine) {
@@ -1471,6 +1508,13 @@ angular.module('mmr.services')
             } else if(data.type === 'quarantine') {
               modal.orders.addresses.quarantine = data.address;
             }
+          }
+        });
+
+        $rootScope.$on('doChangeReceipt', function($event, data) {
+          if(data && data.receipt) {
+            modal.orders.selectedReceipt = data.receipt;
+            console.log(data.receipt);
           }
         });
 
@@ -1537,7 +1581,7 @@ angular.module('mmr.services')
             };
           }
 
-          // check quarantine adddress
+          // check quarantine address
           if(orders.quarantine &&
             (!orders.addresses.quarantine.quarantine ||
             _.trim(orders.addresses.quarantine.quarantine) === '')) {
@@ -1547,9 +1591,17 @@ angular.module('mmr.services')
             };
           }
 
+          // check receipt
+          if(orders.receipt !== '不需要发票' &&
+            (!orders.selectedReceipt || !orders.selectedReceipt.id)) {
+            return {
+              hasError: true,
+              errorMsg: '请选择需要使用的发票'
+            };
+          }
+
           return {
-            hasError: true,
-            errorMsg: '测试中'
+            hasError: true
           };
         }
       });

@@ -56,6 +56,23 @@ angular.module('mmr.services')
 
   return {
 
+    generateReceiptCheckboxes: function(currentReceipt, type) {
+      // whether
+      var typeText;
+      switch(type) {
+        case 1:
+          typeText = 'usual';
+          break;
+        case 2:
+          typeText = 'special';
+          break;
+      }
+
+      return _.map($rootScope.$root.receipts[typeText], function(receipt) {
+        return receipt.id === currentReceipt.id;
+      });
+    },
+
     validateReceipt: function(receipt) {
       if(!Validator.field(receipt.companyName, '单位名称')) {
         return false;
@@ -106,6 +123,16 @@ angular.module('mmr.services')
 
         if(res instanceof Object) {
           $rootScope.$root.receipts = res;
+
+          // evaluate whether has available special receipt
+          var hasMatched = _.some($rootScope.$root.receipts.special, function(receipt) {
+            return Number(receipt.status) !== 0;
+          });
+          if(hasMatched) {
+            $rootScope.$root.receipts.noSpecial = false;
+          } else {
+            $rootScope.$root.receipts.noSpecial = true;
+          }
         } else {
           res = [];
         }

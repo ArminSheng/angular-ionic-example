@@ -183,7 +183,7 @@ angular.module('mmr.services')
         method: 'GET',
         timeout: 60000
       }).then(function(res) {
-        if(res.data && res.statusText === 'OK' && res.status === 200) {
+        if(res.data && res.status === 200) {
           $rootScope.$root.geo.all = res.data;
           var provinces = res.data['1'];
           $rootScope.$root.geo.provinces = _.values(provinces);

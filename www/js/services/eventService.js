@@ -217,6 +217,10 @@ angular.module('mmr.services')
 
     doChangeReceipt: function(data) {
       $rootScope.$broadcast('doChangeReceipt', data);
+    },
+
+    doPaySuccessfully: function(data) {
+      $rootScope.$broadcast('doPaySuccessfully', data);
     }
 
   };

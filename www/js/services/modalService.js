@@ -1504,12 +1504,15 @@ angular.module('mmr.services')
             if(res.status && res.status === 200 &&
               res.data.msg === '订单生成成功' &&
               res.data.status === 1) {
+              // bind id into orders
+              orders.id = res.data.data.id;
+
               // broadcast the generate event for cart orders
               if(!orders.isIndependentOrder) {
                 // order object & generated order text id
                 mmrEventing.doNewOrderGenerated({
                   orders: orders,
-                  id: res.data.data,
+                  orderId: res.data.data.orderId,  // starts with 'mmr'
                   itemIds: itemIds
                 });
               }
@@ -1542,6 +1545,11 @@ angular.module('mmr.services')
 
         $rootScope.$on('doCancelPayment', function($event, data) {
           // when the user cancel the payment for this order
+          modal.remove();
+        });
+
+        scope.$on('doPaySuccessfully', function($event, data) {
+          // close the modal
           modal.remove();
         });
 
@@ -1587,8 +1595,6 @@ angular.module('mmr.services')
         // return obj:
         // hasError, errorMsg
         function checkValidity() {
-          console.log(modal.orders);
-
           // check address
           if(orders.delivery === '送货上门' && !orders.addresses.normal) {
             return {
@@ -1697,14 +1703,18 @@ angular.module('mmr.services')
         modal.payments = [false, false, false];
 
         // bind methods
-        modal.doClose = function() {
+        modal.doClose = function(isSuccessful) {
           // hint the user
-          mmrCommonService.confirm('取消支付', '确定要取消支付吗？(稍后可以在订单页面中再次支付)').then(function(res) {
-            if(res) {
-              mmrEventing.doCancelPayment(orders);
-              modal.remove();
-            }
-          });
+          if(!isSuccessful) {
+            mmrCommonService.confirm('取消支付', '确定要取消支付吗？(稍后可以在订单页面中再次支付)').then(function(res) {
+              if(res) {
+                mmrEventing.doCancelPayment(orders);
+                modal.remove();
+              }
+            });
+          } else {
+            modal.remove();
+          }
         };
 
         modal.doShowDepositHint = function() {
@@ -1721,24 +1731,51 @@ angular.module('mmr.services')
         };
 
         modal.doCheckout = function() {
-          mmrPayment.doAction().then(function(res) {
-            console.log(res);
-            $ionicPopup.show({
-              template: res,
-              title: '即将跳转到快钱支付网关',
-              scope: scope,
-              buttons: [
-                {
-                  text: '<b>确定</b>',
-                  type: 'button-energized',
-                  onTap: function(e) {
-                    // event handler when user confirm
-                    console.log('hahahah');
-                    $('form[name="kqPay"]')[0].submit();
-                  }
-                }
-              ]
-            });
+          if(!modal.payments[0] &&
+            !modal.payments[1] &&
+            !modal.payments[2]) {
+            mmrCommonService.help('无法付款', '请选择至少一种支付方式');
+            return;
+          }
+
+          // if only deposit is used but not enough
+          if(modal.payments[0] &&
+            !modal.payments[1] &&
+            !modal.payments[2]) {
+            if(modal.orders.money.summary > $rootScope.$root.pinfo.deposit) {
+              mmrCommonService.help('无法付款', '余额不足, 请再选择另一种支付方式');
+              return;
+            }
+          }
+
+          mmrPayment.doAction({
+            id: modal.orders.id,
+            balance: modal.payments[0] ? 1 : 0
+          }).then(function(res) {
+            if(res.status === 1 && res.msg === '支付成功') {
+              mmrCommonService.help('支付成功', '恭喜您, 支付成功啦!');
+              mmrEventing.doPaySuccessfully({
+                order: modal.orders
+              });
+              modal.doClose(true);
+            } else {
+
+            }
+            // $ionicPopup.show({
+            //   template: res,
+            //   title: '即将跳转到快钱支付网关',
+            //   scope: scope,
+            //   buttons: [
+            //     {
+            //       text: '<b>确定</b>',
+            //       type: 'button-energized',
+            //       onTap: function(e) {
+            //         // event handler when user confirm
+            //         $('form[name="kqPay"]')[0].submit();
+            //       }
+            //     }
+            //   ]
+            // });
           }, function(err) {
 
           });

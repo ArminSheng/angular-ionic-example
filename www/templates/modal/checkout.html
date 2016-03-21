@@ -43,10 +43,10 @@
           <span>{{ ($root.modals.checkoutModal.orders.money.summary - $root.pinfo.deposit) | currency: '¥' }}</span>
         </div>
       </ion-checkbox>
-      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[1]">
+      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[1]" ng-disabled="true">
         <img ng-src="img/common/payment-alipay.png" class="m-modal-checkout-payment-logo"/>
       </ion-checkbox>
-      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[2]">
+      <ion-checkbox class="checkbox-energized" ng-model="$root.modals.checkoutModal.payments[2]" ng-disabled="true">
         <img ng-src="img/common/payment-kuaiqian.png" class="m-modal-checkout-payment-logo"/>
       </ion-checkbox>
     </div>

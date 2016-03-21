@@ -5,7 +5,7 @@ angular.module('mmr.controllers')
 
   $rootScope.$root.ui.tabsHidden = true;
 
-  $scope.tab = $stateParams.orderType || 0;
+  $scope.tab = Number($stateParams.orderType) || 0;
 
   // define tabs
   $scope.tabs = [
@@ -31,6 +31,8 @@ angular.module('mmr.controllers')
 
     // back to top
     $ionicScrollDelegate.scrollTop(true);
+
+    $scope.initialize();
   };
 
   // scroll related
@@ -64,7 +66,7 @@ angular.module('mmr.controllers')
 
   $scope.initialize = function() {
     mmrOrderFactory.fetchOrderList({
-      type: $scope.tab
+      type: convertType($scope.tab)
     }).then(function(res) {
       $scope.orders = res;
       $scope.isEmpty = res.length === 0;
@@ -95,6 +97,24 @@ angular.module('mmr.controllers')
     switch(Number(tab)) {
       case 0:
         return '';
+      case 1:
+        return 0;
+      case 2:
+        return 1;
+      case 3:
+        return 2;
+      case 4:
+        return 3;
+      case 5:
+        return 6;
+    }
+  }
+
+  // -1全部0待付款1待发货2待收货3待自提4完成5关闭6售后7已派车8已出库21预定待确认22预定已确认41已收货待评价
+  function convertType(tab) {
+    switch(tab) {
+      case 0:
+        return -1;
       case 1:
         return 0;
       case 2:

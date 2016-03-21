@@ -27,7 +27,7 @@ angular.module('mmr.controllers')
       email: 'destiny.jiang@gmail.com',
       qq: '277727633',
       birthday: new Date('1987-10-20'),
-      deposit: 0,
+      deposit: 100000,
       oldUserAccounts: [
         'mmr-mmr-mmr1@mmr.com',
         'mmr-mmr-mmr2@mmr.com',
@@ -423,6 +423,13 @@ angular.module('mmr.controllers')
         }
       });
     });
+  });
+
+  $scope.$on('doPaySuccessfully', function($event, data) {
+    var amount = data.order.money.summary;
+
+    // TODO: consider other payment methods as well
+    $rootScope.$root.pinfo.deposit -= amount;
   });
 
   function changeCartItems(item, newCount, canAdd) {

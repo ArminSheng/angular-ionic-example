@@ -197,14 +197,14 @@
 }
 
 .m-modal-mine-address-item-row1 {
-    margin-bottom: 6px;
+    /*margin-bottom: 6px;*/
 }
 
 .m-modal-mine-address-item-row1 .m-modal-mine-address-item-phone {
     float: right;
 }
 
-.m-modal-mine-address-item-row2 .m-modal-mine-address-item-default {
+.m-modal-mine-address-item-row1 .m-modal-mine-address-item-default {
     color: red;
 }
 

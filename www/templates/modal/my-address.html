@@ -25,10 +25,13 @@
             <ion-checkbox class="checkbox-energized" ng-model="$root.modals.addressModal.addressCheckboxes[$index]"></ion-checkbox>
           </div>
           <div class="col" ng-class="{'col-90': $root.modals.addressModal.currentAddress, 'col-100': !$root.modals.addressModal.currentAddress}">
-            <a class="item item-icon-right m-modal-mine-address-item" ng-click="$root.modals.addressModal.doOpenAddressDetail(address)">
+            <a class="item item-icon-right m-modal-mine-address-item" ng-click="$root.modals.addressModal.doOpenAddressDetail(address, $index)">
               <div class="m-modal-mine-address-item-main">
                 <div class="m-modal-mine-address-item-row1">
+                  <span class="m-modal-mine-address-item-default" ng-if="address.isDefault">[默认]</span>
                   {{ address.receiver }}
+                </div>
+                <div class="m-modal-mine-address-item-row1-ext">
                   <span class="m-modal-mine-address-item-phone">
                     <span class="m-modal-mine-address-item-cellphone">
                       {{ address.cellphone }}
@@ -39,11 +42,10 @@
                   </span>
                 </div>
                 <div class="m-modal-mine-address-item-row2">
-                  <span class="m-modal-mine-address-item-default" ng-if="address.isDefault">[默认]</span>
                   {{ address.summary }}
               </div>
               </div>
-              <i class="icon ion-chevron-right"></i>
+              <i class="icon ion-chevron-right" ng-click="$root.modals.addressModal.doOpenAddressDetail(address, $index, true);$event.stopPropagation();"></i>
             </a>
           </div>
         </div>

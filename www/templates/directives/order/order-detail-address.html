@@ -3,7 +3,7 @@
     <div class="col col-10 m-order-detail-address-icon">
       <img ng-src="{{ iconPath }}"/>
     </div>
-    <div class="col col-67" ng-class="{'col-67': !address.self, 'col-100': address.self}" ng-if="address && (type === 'normal' || type === 'receipt')">
+    <div class="col" ng-class="{'col-67': type === 'receipt', 'col-100': address.self || type === 'normal'}" ng-if="address && (type === 'normal' || type === 'receipt')">
       <!-- delivery -->
       <div class="row row-no-padding m-order-detail-address-row1" ng-if="!address.self">
         <div class="col col-33">

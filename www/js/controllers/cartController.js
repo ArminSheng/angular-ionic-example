@@ -6,6 +6,14 @@ angular.module('mmr.controllers')
   $rootScope.$root.ui.tabsHidden = false;
   $scope.tab = Number($stateParams.tab);
 
+  // change the tab if another tab has items
+  if($rootScope.$root.cart.counts[$scope.tab] === 0) {
+    var another = $scope.tab === 1 ? 0 : 1;
+    if($rootScope.$root.cart.counts[another] > 0) {
+      $scope.tab = another;
+    }
+  }
+
   // define tabs
   $scope.tabs = [
     { text: '预定商品(' + $rootScope.$root.cart.counts[0] + ')' },

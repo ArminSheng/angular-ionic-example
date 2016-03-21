@@ -829,8 +829,12 @@ angular.module('mmr.services')
           }
         };
 
-        modal.doOpenAddressDetail = function(address) {
-          self.createAddressDetailModal(scope, address, false, true);
+        modal.doOpenAddressDetail = function(address, $index, forceEdit) {
+          if(currentAddress && !forceEdit) {
+            modal.doSelectAddress(address, $index);
+          } else {
+            self.createAddressDetailModal(scope, address, false, true);
+          }
         };
 
         modal.doAdd = function() {
@@ -1534,9 +1538,9 @@ angular.module('mmr.services')
           }
 
           // check quarantine adddress
-          if(order.quarantine &&
-            !orders.addresses.quarantine.quarantine ||
-            _.trim(orders.addresses.quarantine.quarantine) === '') {
+          if(orders.quarantine &&
+            (!orders.addresses.quarantine.quarantine ||
+            _.trim(orders.addresses.quarantine.quarantine) === '')) {
             return {
               hasError: true,
               errorMsg: '请选择检疫证寄送地址'

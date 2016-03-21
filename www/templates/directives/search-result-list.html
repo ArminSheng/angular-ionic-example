@@ -18,20 +18,9 @@
         <span class="m-search-list-item-current-price">
           {{ item.cprice | currency: '￥' }} {{ item.unitName }}
         </span>
-        <!-- <span class="m-search-list-item-original-price">
-          {{ item.oprice | currency: '￥' }}
-        </span> -->
       </div>
 
-      <!-- control group -->
-      <!-- <div class="m-search-list-item-controls">
-        <span class="ion-ios-minus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, -1); $event.stopPropagation();"></span>
-
-        <span class="m-search-list-item-controls-num">{{ item.cartAmount || 0 }}</span>
-
-        <span class="ion-ios-plus-outline m-search-list-item-controls-img" ng-click="doChangeNumber(item, 1); $event.stopPropagation();"></span>
-      </div> -->
-      <cart-count item="item" show-remove-btn="false" smaller-size="true" ng-if="$root.authenticated"></cart-count>
+      <cart-count item="item" show-remove-btn="false" smaller-size="true"></cart-count>
     </a>
 
   </div>

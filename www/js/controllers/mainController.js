@@ -16,19 +16,18 @@ angular.module('mmr.controllers')
 
     // auth related
     isOldUser: false,
-    authenticated: true,
-    // authenticated: false,
+    // authenticated: true,
+    authenticated: false,
     pinfo: {
-      // avatar: 'img/mine/avatar-bak.png',
-      uid: '1560',
-      avatar: 'http://img3.imgtn.bdimg.com/it/u=1649545724,2257418323&fm=11&gp=0.jpg',
-      phone: '18501751020',
-      username: 'destiny1020',
-      realname: 'JRX',
-      email: 'destiny.jiang@gmail.com',
-      qq: '277727633',
-      birthday: new Date('1987-10-20'),
-      deposit: 0,
+      // uid: '1560',
+      // avatar: 'http://img3.imgtn.bdimg.com/it/u=1649545724,2257418323&fm=11&gp=0.jpg',
+      // phone: '18501751020',
+      // username: 'destiny1020',
+      // realname: 'JRX',
+      // email: 'destiny.jiang@gmail.com',
+      // qq: '277727633',
+      // birthday: new Date('1987-10-20'),
+      // deposit: 0,
       // oldUserAccounts: [
       //   'mmr-mmr-mmr1@mmr.com',
       //   'mmr-mmr-mmr2@mmr.com',
@@ -180,6 +179,15 @@ angular.module('mmr.controllers')
       all: undefined,
       flattenAll: undefined,
       provinces: undefined
+    },
+
+    // order counters
+    orderCounters: {
+      // '1': 10,
+      // '2': 0,
+      // '3': 4,
+      // '4': 5,
+      // '5': 0
     }
   };
 

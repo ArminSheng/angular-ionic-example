@@ -219,6 +219,10 @@
     text-align: center;
 }
 
+.m-mine-order-center .col {
+    position: relative;
+}
+
 .m-mine-order-icon {
     height: 28px;
     display: block;

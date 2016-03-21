@@ -255,12 +255,16 @@
     border-bottom: 1px solid #e7e7e7;
 }
 
+.no-border.m-modal-mine-receipt-item-container {
+    border: none;
+}
+
 .m-modal-mine-receipt-item {
     border-left: none;
 }
 
 .m-modal-mine-receipt-item-usual {
-    /*border: none;*/
+    border-left: none;
 }
 
 .m-modal-mine-receipt-item.row + .m-modal-mine-receipt-item.row {

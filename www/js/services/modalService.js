@@ -153,18 +153,18 @@ angular.module('mmr.services')
 
       // retrieve receipt data
       mmrReceiptService.fetchReceiptList().then(function(res) {
-        // prepare the checkboxes
-        if(selectedReceipt) {
-          modal.selectedReceipt = selectedReceipt;
-          modal.receiptCheckboxes = mmrReceiptService.generateReceiptCheckboxes(selectedReceipt, initIdx);
-        }
-
         // open the modal
         $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
           scope: scope,
         }).then(function(modal) {
           $rootScope.modals.receiptModal = modal;
           modal.show();
+
+          // prepare the checkboxes
+          if(selectedReceipt) {
+            modal.selectedReceipt = selectedReceipt;
+            modal.receiptCheckboxes = mmrReceiptService.generateReceiptCheckboxes(selectedReceipt, initIdx);
+          }
 
           // empty content
           modal.ec = {};

@@ -56,7 +56,7 @@
             <span class="m-modal-mine-receipt-head-right">审核结果</span>
           </div>
           <ion-list can-swipe="!modals.receiptModal.selectedReceipt">
-            <div class="row row-no-padding m-modal-mine-receipt-item-container" ng-repeat="receipt in $root.receipts.special track by $index">
+            <div class="row row-no-padding m-modal-mine-receipt-item-container" ng-class="{'no-border': modals.receiptModal.selectedReceipt}" ng-repeat="receipt in $root.receipts.special track by $index">
               <!-- checkbox -->
               <div class="col col-10 m-modal-mine-receipt-item-checkbox" ng-if="modals.receiptModal.selectedReceipt" ng-click="modals.receiptModal.doSelectReceipt(receipt, $index)">
                 <ion-checkbox class="checkbox-energized" ng-model="modals.receiptModal.receiptCheckboxes[$index]" ng-disabled="receipt.status == 0"></ion-checkbox>

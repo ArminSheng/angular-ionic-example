@@ -7,7 +7,7 @@ angular.module('mmr.services')
     if(imagePath && _.startsWith(imagePath, './')) {
       imagePath = apiService.API_BASE + imagePath.substring(2);
     } else {
-      imagePath = 'img/item/sample.png';
+      imagePath = 'img/item/default.png';
     }
 
     return imagePath;

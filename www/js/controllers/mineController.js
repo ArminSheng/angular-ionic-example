@@ -75,6 +75,12 @@ angular.module('mmr.controllers')
   };
 
   $scope.doOpenMyCollect = function(tab) {
+    // TEMP: forbid shop fav
+    if(tab === 1) {
+      mmrCommonService.help('提示', '暂不支持此功能');
+      return;
+    }
+
     if(!mmrAuth.redirectIfNotLogin()) {
       mmrEventing.doOpenMyCollect(tab);
     }

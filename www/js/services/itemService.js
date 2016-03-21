@@ -13,7 +13,7 @@ angular.module('mmr.services')
     return imagePath;
   }
 
-  function postprocessItem(item) {
+  function postprocessItem(item, processFav) {
     // image
     item.imagePath = processImagePath(item.imagePath);
 
@@ -66,10 +66,35 @@ angular.module('mmr.services')
 
     // detailed html
     item.detailHtml = $sce.trustAsHtml(item.detailHtml);
+
+    // TODO: use the more efficient API
+    if(processFav) {
+      // favorite
+      item.fav = false;
+      var config = {
+        uid: $rootScope.$root.pinfo.uid,
+        type: 3
+      };
+
+      $http({
+        url: apiService.FOOTPRINT_LIST,
+        method: 'POST',
+        data: prepareFootprintBody(config)
+      }).then(function(res) {
+        _.forEach(res.data, function(elem) {
+          if(item.id === elem.id) {
+            item.fav = true;
+            return false;
+          }
+        });
+      });
+    }
   }
 
   function postprocessList(res) {
-    _.forEach(res, postprocessItem);
+    _.forEach(res, function(item) {
+      postprocessItem(item);
+    });
   }
 
   function fillToTen(results, source) {
@@ -252,7 +277,7 @@ angular.module('mmr.services')
         }
       }).then(function(res) {
         // process the images
-        postprocessItem(res.data);
+        postprocessItem(res.data, true);
 
         dfd.resolve({
           data: res.data

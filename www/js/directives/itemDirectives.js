@@ -257,7 +257,8 @@ angular.module('mmr.directives')
       scope.remove = function(item) {
         // invoke the remove handler defined by user
         scope.removeHandler({
-          item: item
+          item: item,
+          tab: 0
         });
       };
 

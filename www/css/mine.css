@@ -698,7 +698,9 @@
 
 .m-modal-mine-shop-detail-content { background: #e8e8e8; }
 
-.m-modal-shop-detail-view .m-cat-options-bar {top: 86px;}
+.m-modal-shop-detail-view .m-cat-options-bar {
+    top: 86px;
+}
 
 .m-modal-mine-shop-detail-content .m-filter-tabs .m-filter-item.active { color: #ffb401; }
 
@@ -775,4 +777,12 @@
 
 .platform-ios.platform-cordova .m-modal-shop-detail-view .m-cat-options-bar {
     top: 106px;
+}
+
+.m-cat-options-bar.fixed-top ~ .m-shop-menu-category > .m-cat-menu-content {
+    top: 87px;
+}
+
+.m-cat-options-bar.downing ~ .m-shop-menu-category > .m-cat-menu-content {
+    top: 42px;
 }

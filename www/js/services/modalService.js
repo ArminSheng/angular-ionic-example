@@ -330,6 +330,12 @@ angular.module('mmr.services')
         };
 
         modal.switchTab = function(tabIdx) {
+          // TEMP: forbid shop fav
+          if(tabIdx === 1) {
+            mmrCommonService.help('提示', '暂不支持此功能');
+            return;
+          }
+
           modal.tab = tabIdx;
           init(tabIdx);
         };
@@ -371,6 +377,21 @@ angular.module('mmr.services')
           modal.isShow = modal.sortActivated;
         };
 
+        // remove collect handler
+        modal.removeCollectHandler = function(item, tab) {
+          var deleType = tab === 0 ? 3 : 4;
+          mmrItemFactory.footprintDelete({
+            uid: $rootScope.$root.pinfo.uid,
+            id: item.id,
+            type: deleType,
+            fav: true
+          }).then(function(res) {
+            if (res.status === '1') {
+              init(tab);
+            }
+          });
+        };
+
         // event handler
         scope.$on(modal.sortEventName, function($event, data) {
           // process on sorting event
@@ -407,30 +428,30 @@ angular.module('mmr.services')
 
         function init(tab) {
           if(tab === 0) {
-            mmrDataService.request(mmrItemFactory.footprintList({
+            mmrItemFactory.footprintList({
               uid: $rootScope.$root.pinfo.uid,
               type: 3
-            })).then(function(res) {
-              if (res[0] === 'null') {
+            }).then(function(res) {
+              if (!res || res === 'null') {
                 modal.myFavItems = null;
                 modal.isEmpty = true;
               } else {
-                modal.myFavItems = res[0];
+                modal.myFavItems = res;
                 modal.isEmpty = false;
               }
-          }, function(err) {
+            }, function(err) {
 
-          });
-          } else {
-            mmrDataService.request(mmrItemFactory.footprintList({
+            });
+          } else if(tab === 1) {
+            mmrItemFactory.footprintList({
               uid: $rootScope.$root.pinfo.uid,
               type: 4
-            })).then(function(res) {
-              if (!Array.isArray(res[0])) {
+            }).then(function(res) {
+              if (!Array.isArray(res)) {
                 modal.myFavShops = null;
                 modal.isEmpty = true;
               } else {
-                modal.myFavShops = res[0];
+                modal.myFavShops = res;
                 modal.isEmpty = false;
               }
             }, function(err) {

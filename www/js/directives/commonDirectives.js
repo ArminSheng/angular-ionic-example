@@ -367,7 +367,7 @@ angular.module('mmr.directives')
           })).then(function(res) {
 
             if (res[0].status === '1') {
-              scope.fav = !scope.fav;
+              scope.fav = true;
             }
           });
         } else {
@@ -378,7 +378,7 @@ angular.module('mmr.directives')
             fav: false
           })).then(function(res) {
             if (res[0].status === '1') {
-              scope.fav = !scope.fav;
+              scope.fav = false;
             }
           });
         }

@@ -119,6 +119,10 @@
     font-size: 0.8rem;
 }
 
+.m-mine-pinfo-link.m-mine-pinfo-link-address {
+    font-size: 0.7rem;
+}
+
 .button-clear.button-clear.m-mine-pinfo-login-link {
     color: #fff;
     font-size: 1.2rem;

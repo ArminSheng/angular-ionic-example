@@ -260,7 +260,11 @@
 }
 
 .m-modal-mine-receipt-item-usual {
-    border: none;
+    /*border: none;*/
+}
+
+.m-modal-mine-receipt-item.row + .m-modal-mine-receipt-item.row {
+    margin-top: 0;
 }
 
 .no-bottom-border.m-modal-mine-receipt-item {

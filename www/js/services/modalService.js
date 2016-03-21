@@ -150,104 +150,111 @@ angular.module('mmr.services')
 
     createMyReceiptModal: function(scope, selectedReceipt, initIdx) {
       var self = this;
-      $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
-        scope: scope,
-      }).then(function(modal) {
-        $rootScope.modals.receiptModal = modal;
-        modal.show();
 
-        // empty content
-        modal.ec = {};
-        modal.ec.words = ['暂无发票'];
-        modal.ec.additionalClass = 'my-receipt-empty';
+      // retrieve receipt data
+      mmrReceiptService.fetchReceiptList().then(function(res) {
+        // prepare the checkboxes
+        if(selectedReceipt) {
+          modal.selectedReceipt = selectedReceipt;
+          modal.receiptCheckboxes = mmrReceiptService.generateReceiptCheckboxes(selectedReceipt, initIdx);
+        }
 
-        modal.tab = initIdx - 1;
-        modal.switchTab = function(tabIdx) {
-          if(selectedReceipt) {
-            return false;
+        // open the modal
+        $ionicModal.fromTemplateUrl('templates/modal/my-receipt.html', {
+          scope: scope,
+        }).then(function(modal) {
+          $rootScope.modals.receiptModal = modal;
+          modal.show();
+
+          // empty content
+          modal.ec = {};
+          modal.ec.words = ['暂无发票'];
+          modal.ec.additionalClass = 'my-receipt-empty';
+
+          if(initIdx) {
+            modal.tab = initIdx - 1;
+          } else {
+            modal.tab = 0;
           }
 
-          modal.tab = tabIdx;
-        };
-
-        // send request
-        mmrReceiptService.fetchReceiptList().then(function(res) {
-          // prepare the checkboxes
-          if(selectedReceipt) {
-            modal.selectedReceipt = selectedReceipt;
-            modal.receiptCheckboxes = mmrReceiptService.generateReceiptCheckboxes(selectedReceipt, initIdx);
-          }
-        }, function(err) {
-
-        });
-
-        //methods
-        modal.doHideReceipt = function() {
-          modal.hide();
-        };
-
-        modal.getExplain = function(receipt) {
-          switch(Number(receipt.status)) {
-            case 0:
-              return '审核中';
-            case 1:
-              return '审核通过';
-            case 2:
-              return '审核失败';
-            case 3:
-              return '失败';
-          }
-        };
-
-        modal.checkEmpty = function() {
-          var container = $rootScope.$root.receipts[modal.tab === 0 ? 'usual' : 'special'];
-          return !container || container.length === 0;
-        };
-
-        modal.doAdd = function(tab) {
-          self.createReceiptDetailModal(scope, tab);
-        };
-
-        modal.remove = function(receipt) {
-          // check whether can be removed
-          if(_.has(receipt, 'taxpayer') && receipt.status == 0) {
-            mmrCommonService.help('删除提示', '此发票正处于审核过程中, 无法删除');
-            $ionicListDelegate.closeOptionButtons();
-            return;
-          }
-
-          // confirm to remove
-          mmrCommonService.confirm('确认删除', '确定要删除此条发票信息吗').then(function(res) {
-            if(res) {
-              mmrReceiptService.removeReceipt(receipt).then(function(res) {
-                mmrCommonService.help('删除成功', '此发票已成功被删除');
-              }, function(err) {
-                mmrCommonService.help('删除失败', '删除此发票时发生了错误');
-              })
-            } else {
-              $ionicListDelegate.closeOptionButtons();
-            }
-          })
-        };
-
-        modal.check = function(receipt) {
-          receipt.showDetail = !receipt.showDetail;
-        };
-
-        modal.doSelectReceipt = function(receipt, $index) {
-          if(selectedReceipt) {
-            modal.receiptCheckboxes = _.map(modal.receiptCheckboxes, function(element) {
+          modal.switchTab = function(tabIdx) {
+            if(selectedReceipt) {
               return false;
-            });
-            modal.receiptCheckboxes[$index] = true;
+            }
 
-            // emit the event and close the modal
-            mmrEventing.doChangeReceipt({
-              receipt: receipt
-            });
-            modal.doHideReceipt();
-          }
-        };
+            modal.tab = tabIdx;
+          };
+
+          //methods
+          modal.doHideReceipt = function() {
+            modal.remove();
+          };
+
+          modal.getExplain = function(receipt) {
+            switch(Number(receipt.status)) {
+              case 0:
+                return '审核中';
+              case 1:
+                return '审核通过';
+              case 2:
+                return '审核失败';
+              case 3:
+                return '失败';
+            }
+          };
+
+          modal.checkEmpty = function() {
+            var container = $rootScope.$root.receipts[modal.tab === 0 ? 'usual' : 'special'];
+            return !container || container.length === 0;
+          };
+
+          modal.doAdd = function(tab) {
+            self.createReceiptDetailModal(scope, tab);
+          };
+
+          modal.removeReceipt = function(receipt) {
+            // check whether can be removed
+            if(_.has(receipt, 'taxpayer') && receipt.status == 0) {
+              mmrCommonService.help('删除提示', '此发票正处于审核过程中, 无法删除');
+              $ionicListDelegate.closeOptionButtons();
+              return;
+            }
+
+            // confirm to remove
+            mmrCommonService.confirm('确认删除', '确定要删除此条发票信息吗').then(function(res) {
+              if(res) {
+                mmrReceiptService.removeReceipt(receipt).then(function(res) {
+                  mmrCommonService.help('删除成功', '此发票已成功被删除');
+                }, function(err) {
+                  mmrCommonService.help('删除失败', '删除此发票时发生了错误');
+                })
+              } else {
+                $ionicListDelegate.closeOptionButtons();
+              }
+            })
+          };
+
+          modal.check = function(receipt) {
+            receipt.showDetail = !receipt.showDetail;
+          };
+
+          modal.doSelectReceipt = function(receipt, $index) {
+            if(selectedReceipt) {
+              modal.receiptCheckboxes = _.map(modal.receiptCheckboxes, function(element) {
+                return false;
+              });
+              modal.receiptCheckboxes[$index] = true;
+
+              // emit the event and close the modal
+              mmrEventing.doChangeReceipt({
+                receipt: receipt
+              });
+              modal.doHideReceipt();
+            }
+          };
+        });
+      }, function(err) {
+        mmrCommonService.help('获取数据错误', '获取发票信息发生错误, 请重试');
       });
     },
 

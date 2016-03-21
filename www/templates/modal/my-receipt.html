@@ -28,7 +28,7 @@
           <span class="m-modal-mine-receipt-head-right">审核结果</span>
         </div>
         <ion-list can-swipe="!modals.receiptModal.selectedReceipt">
-          <div class="row row-no-padding" ng-repeat="receipt in $root.receipts.usual track by $index">
+          <div class="row row-no-padding m-modal-mine-receipt-item" ng-repeat="receipt in $root.receipts.usual track by $index">
             <div class="col col-10 m-modal-mine-receipt-item-checkbox" ng-if="modals.receiptModal.selectedReceipt" ng-click="modals.receiptModal.doSelectReceipt(receipt, $index)">
               <ion-checkbox class="checkbox-energized" ng-model="modals.receiptModal.receiptCheckboxes[$index]"></ion-checkbox>
             </div>
@@ -40,7 +40,7 @@
                 <span class="item-note m-modal-mine-receipt-item-note" ng-class="{'selecting': modals.receiptModal.selectedReceipt}">
                   {{ modals.receiptModal.getExplain(receipt) }}
                 </span>
-                <ion-option-button class="button-assertive" ng-click="modals.receiptModal.remove(receipt)">
+                <ion-option-button class="button-assertive" ng-click="modals.receiptModal.removeReceipt(receipt)">
                   删除
                 </ion-option-button>
               </ion-item>

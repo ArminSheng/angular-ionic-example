@@ -1126,7 +1126,6 @@ angular.module('mmr.services')
           return order.items;
         })), modal.receiptType).then(function(res) {
           modal.calcResults = res;
-          console.log(modal.calcResults);
         }, function(err) {
           mmrCommonService.help('获取信息错误', err);
         });
@@ -1531,7 +1530,6 @@ angular.module('mmr.services')
         $rootScope.$on('doChangeReceipt', function($event, data) {
           if(data && data.receipt) {
             modal.orders.selectedReceipt = data.receipt;
-            console.log(data.receipt);
           }
         });
 

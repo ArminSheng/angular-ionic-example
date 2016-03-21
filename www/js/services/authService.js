@@ -32,6 +32,8 @@ angular.module('mmr.services')
     localUserInfo.phone = res.phone;
     // username
     localUserInfo.username = res.name;
+    // realname
+    localUserInfo.realname = res.real_name;
     // email
     localUserInfo.email = res.email;
     // qq

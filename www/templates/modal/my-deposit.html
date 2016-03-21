@@ -20,7 +20,7 @@
         <div class="m-modal-mine-deposit-banner-text">
           可用余额<i class="icon ion-help-circled energized" ng-click="depositModal.doShowDepositHelp()"></i>
         </div>
-        <div class="m-modal-mine-deposit-banner-num">￥{{ ::$root.pinfo.deposit }}</div>
+        <div class="m-modal-mine-deposit-banner-num">{{ ::$root.pinfo.deposit | currency: '￥' }}</div>
       </div>
 
       <!-- detail list -->

@@ -13,6 +13,12 @@ angular.module('mmr.services')
     return vo;
   };
 
+  var postprocessDepositList = function(list) {
+    _.forEach(list, function(deposit) {
+      deposit.time = Number(deposit.time) * 1000;
+    });
+  };
+
   return {
 
     doAction: function(config) {
@@ -24,6 +30,26 @@ angular.module('mmr.services')
         data: buildActionVo(config)
       }), '获取支付信息中...').then(function(res) {
         res = res[0];
+        dfd.resolve(res);
+      }, function(err) {
+        dfd.reject(err);
+      });
+
+      return dfd.promise;
+    },
+
+    fetchDepositList: function() {
+      var dfd = $q.defer();
+
+      mmrDataService.request($http({
+        url: apiService.PAYMENT_DEPOSIT_LIST,
+        method: 'POST',
+        data: {
+          uid: $rootScope.$root.pinfo.uid
+        }
+      }), '获取余额记录中...').then(function(res) {
+        res = res[0];
+        postprocessDepositList(res);
         dfd.resolve(res);
       }, function(err) {
         dfd.reject(err);

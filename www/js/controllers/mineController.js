@@ -1,7 +1,7 @@
 angular.module('mmr.controllers')
 
-.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$state', '$interval', '$ionicHistory', '$ionicModal', '$ionicPopup', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth', 'API_BASE', 'mmrUser', 'mmrOrderFactory',
-  function($scope, $rootScope, $q, $timeout, $state, $interval, $ionicHistory, $ionicModal, $ionicPopup, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth, API_BASE, mmrUser, mmrOrderFactory) {
+.controller('MineCtrl', ['$scope', '$rootScope', '$q', '$timeout', '$state', '$interval', '$ionicHistory', '$ionicModal', '$ionicPopup', 'REST_BASE', 'mmrModal', 'mmrEventing', 'mmrCommonService', 'mmrMineFactory', 'mmrItemFactory', 'mmrLoadingFactory', 'mmrDataService', 'Validator', 'mmrAuth', 'API_BASE', 'mmrUser', 'mmrOrderFactory', 'mmrPayment',
+  function($scope, $rootScope, $q, $timeout, $state, $interval, $ionicHistory, $ionicModal, $ionicPopup, REST_BASE, mmrModal, mmrEventing, mmrCommonService, mmrMineFactory, mmrItemFactory, mmrLoadingFactory, mmrDataService, Validator, mmrAuth, API_BASE, mmrUser, mmrOrderFactory, mmrPayment) {
 
   $scope.initialize = function() {
     $rootScope.$root.ui.tabsHidden = false;
@@ -200,35 +200,35 @@ angular.module('mmr.controllers')
 
   // deposit
   $scope.$on('eventOpenMyDeposit', function($event, data) {
-    if($scope.depositModal) {
-      $scope.depositModal.show();
-    } else {
+    // fetch deposit list
+    mmrPayment.fetchDepositList().then(function(res) {
       $ionicModal.fromTemplateUrl('templates/modal/my-deposit.html', {
         scope: $scope
       }).then(function(modal) {
         $scope.depositModal = modal;
-        $scope.depositModal.show();
+        modal.show();
 
         // binding data
-        $scope.depositModal.ec = {};
-        $scope.depositModal.ec.words = ['暂无余额变动记录, 去购买一些商品吧 :)'];
-        $scope.depositModal.ec.additionalClass = 'm-deposit-list-empty';
+        modal.depositDetails = res;
+
+        // empty content related
+        modal.ec = {};
+        modal.ec.words = ['暂无余额变动记录, 去购买一些商品吧 :)'];
+        modal.ec.additionalClass = 'm-deposit-list-empty';
 
         // methods
-        $scope.depositModal.doHide = function() {
-          $scope.depositModal.hide();
+        modal.doHide = function() {
+          modal.remove();
         };
 
-        $scope.depositModal.doShowDepositHelp = function() {
+        modal.doShowDepositHelp = function() {
           mmrCommonService.help('提示：余额的作用', '下单过程中产生的退款均会退回到此余额账户，下单时可直接勾选使用，用于抵扣部分总额，余额在购物时充当现金使用。');
         };
-
-        init();
-        function init() {
-          $scope.depositModal.depositDetails = mmrMineFactory.depositDetails();
-        }
       });
-    }
+    }, function(err) {
+      mmrCommonService.help('获取数据失败', '获取余额记录失败, 请稍候重试');
+    })
+
   });
 
   // personal information

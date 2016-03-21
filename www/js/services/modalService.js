@@ -1333,6 +1333,19 @@ angular.module('mmr.services')
             cancel: function() {
             },
             buttonClicked: function(index) {
+              if(modal.addressIdx === index) {
+                return true;
+              }
+
+              modal.addressIdx = index;
+              if(index === 1) {
+                modal.orders.addresses.normal = undefined;
+              } else {
+                modal.orders.addresses.normal = _.find($rootScope.$root.addresses, function(address) {
+                  return address.isDefault;
+                });
+              }
+
               switch(index) {
                 case 0:
                   modal.orders.delivery = '送货上门';
@@ -1364,6 +1377,8 @@ angular.module('mmr.services')
                           titleText: '选择自提点',
                           cancelText: '取消',
                           cancel: function() {
+                            // fall back to the delivery
+                            fallbackToDelivery();
                           },
                           buttonClicked: function(index) {
                             mmrEventing.doSelectSelfPickAddress(candidates[index]);
@@ -1372,9 +1387,11 @@ angular.module('mmr.services')
                         });
                       } else {
                         mmrCommonService.help('无法选择自提', '当前城市暂不支持自提方式，请选择送货上门');
+                        fallbackToDelivery();
                       }
                     }, function(err) {
                       mmrCommonService.help('发生错误', '在获取自提点信息期间发生了错误，请重试');
+                      fallbackToDelivery();
                     });
                   }, 500);
                   break;
@@ -1398,7 +1415,7 @@ angular.module('mmr.services')
             },
             buttonClicked: function(index) {
               if(modal.receiptIdx === index) {
-                return;
+                return true;
               }
 
               modal.receiptIdx = index;
@@ -1603,6 +1620,14 @@ angular.module('mmr.services')
           return {
             hasError: true
           };
+        }
+
+        function fallbackToDelivery() {
+          modal.addressIdx = 0;
+          modal.orders.delivery = '送货上门';
+          modal.orders.addresses.normal = _.find($rootScope.$root.addresses, function(address) {
+            return address.isDefault;
+          });
         }
       });
     },

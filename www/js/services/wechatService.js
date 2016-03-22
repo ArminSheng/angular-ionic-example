@@ -1,0 +1,90 @@
+angular.module('mp.commons', [])
+
+.factory('mpWechatService', ['$q', function($q) {
+
+  var wechatConfig = {
+    installed: false
+  };
+
+  var RESPONSE = {
+    'NOT_INSTALLED': {
+      code: -1,
+      msg: '微信应用未安装'
+    },
+    'FAILED': {
+      code: 0,
+      msg: '发送失败'
+    },
+    'SUCCESSFUL': {
+      code: 1,
+      msg: '发送成功'
+    }
+  };
+
+  return {
+
+    // init should be called in the config section
+    init: function() {
+      var dfd = $q.defer();
+
+      try {
+        if(Wechat) {
+          Wechat.isInstalled(function (installed) {
+            if(installed) {
+              wechatConfig.installed = true;
+              dfd.resolve(true);
+            } else {
+              dfd.reject(false);
+            }
+          }, function (reason) {
+            dfd.reject(false);
+          });
+        } else {
+          dfd.reject(false);
+        }
+      } catch (e) {
+        dfd.reject(false);
+      }
+
+      return dfd.promise;
+    },
+
+    // scene - 0: Session, 1: Timeline, 2: Favorite
+    shareLink: function(scene, info) {
+      var dfd = $q.defer();
+
+      try {
+        // make sure wechat has been installed
+        if(!wechatConfig.installed) {
+         dfd.reject(RESPONSE.NOT_INSTALLED);
+        } else {
+          // prepare the params
+          var params = {};
+
+          params.scene = scene;
+          params.message = {};
+          params.message.title = info.title;
+          params.message.description = info.description;
+          params.message.thumb = info.thumb;
+          params.message.media = {};
+          params.message.media.type = Wechat.Type.LINK;
+          params.message.media.webpageUrl = info.webpageUrl;
+
+          Wechat.share(params, function () {
+            dfd.resolve(RESPONSE.SUCCESSFUL);
+          }, function (reason) {
+            var response = angular.copy(RESPONSE.FAILED);
+            response.reason = reason;
+            dfd.reject(response);
+          });
+        }
+      } catch (e) {
+        dfd.reject(RESPONSE.FAILED);
+      }
+
+      return dfd.promise;
+    }
+
+  };
+
+}]);

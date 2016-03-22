@@ -44,11 +44,28 @@ angular.module('mmr.directives')
     replace: true,
     scope: {
       items: '=',
-      search: '='
+      hasInfinite: '=',
+      infinitePredicate: '&',
+      infiniteHandler: '&'
     },
     templateUrl: 'templates/directives/order-list.html',
-    link: function(scope, element, attrs) {
+    controller: function($scope) {
+      // connector for the infinite predicate
+      $scope.isInfinite = function() {
+        if(!$scope.items || $scope.items.length === 0) {
+          return false;
+        }
 
+        // pass in the current list size
+        return $scope.infinitePredicate({
+          size: $scope.items.length
+        });
+      };
+
+      // connector for the infinite handler
+      $scope.onInfinite = function() {
+        $scope.infiniteHandler({});
+      };
     }
   };
 

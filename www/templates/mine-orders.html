@@ -5,7 +5,7 @@
     </ion-refresher>
 
     <div class="m-order-list">
-      <order-list items="orders" search="search"></order-list>
+      <order-list items="orders" has-infinite="true" infinite-predicate="infinitePredicate(size)" infinite-handler="infiniteHandler()"></order-list>
     </div>
 
   </ion-content>

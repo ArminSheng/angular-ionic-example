@@ -654,6 +654,7 @@ angular.module('mmr.services')
 
     if(config) {
       vo.t = config.type || 0;
+      vo.p = config.p || 0;
     } else {
       vo.t = 0;
     }

@@ -1,6 +1,6 @@
 <div class="m-order-list-container">
 
-  <div class="m-order-list-item" ng-repeat="item in items | filter: search track by $index">
+  <div class="m-order-list-item" ng-repeat="item in items track by $index">
     <!-- order title -->
     <div class="row m-order-item-title">
       <div class="col col-67 m-order-item-id">
@@ -38,7 +38,14 @@
 
     <!-- order operations -->
     <order-operations item="item"></order-operations>
+  </div>
 
+  <!-- no more content hint -->
+  <no-more-content content="'到底了, 没有订单啦 :)'" ng-if="hasInfinite && !isInfinite()"></no-more-content>
+  <!-- infinite scroll -->
+  <div class="m-order-list-infinite" ng-if="hasInfinite">
+    <ion-infinite-scroll ng-if="isInfinite()" icon="ion-loading-c" on-infinite="onInfinite()" distance="1%">
+    </ion-infinite-scroll>
   </div>
 
 </div>

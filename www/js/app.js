@@ -55,6 +55,7 @@ angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'ionic
     this.data.FOOTPRINT_LIST = this.data.API_BASE + 'api-footprint-getList.html';
     this.data.FOOTPRINT_ADD = this.data.API_BASE + 'api-footprint-addition.html';
     this.data.FOOTPRINT_DELETE = this.data.API_BASE + 'api-footprint-del.html';
+    this.data.FOOTPRINT_CHECKED = this.data.API_BASE + 'api-footprint-checked.html';
 
     // Address related
     this.data.ADDRESS_LIST = this.data.API_BASE + 'api-address-getList.html';

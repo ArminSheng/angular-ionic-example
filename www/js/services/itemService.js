@@ -72,23 +72,31 @@ angular.module('mmr.services')
       // favorite
       item.fav = false;
       var config = {
-        uid: $rootScope.$root.pinfo.uid,
+        item_id: item.id,
         type: 3
       };
 
-      $http({
-        url: apiService.FOOTPRINT_LIST,
-        method: 'POST',
-        data: prepareFootprintBody(config)
-      }).then(function(res) {
-        _.forEach(res.data, function(elem) {
-          if(item.id === elem.id) {
-            item.fav = true;
-            return false;
-          }
-        });
-      });
+      checkFavorate(config, item);
     }
+
+
+  }
+
+  function checkFavorate(config, item) {
+    var dfd = $q.defer();
+    $http({
+      url: apiService.FOOTPRINT_CHECKED,
+      method: 'POST',
+      data: prepareFootprintBody(config)
+    }).then(function(res) {
+      item.fav = res.data === '1' ? true : false;
+      dfd.resolve(res.data);
+    }, function(err) {
+      console.log(err);
+      dfd.reject();
+    });
+
+    return dfd.promise;
   }
 
   function postprocessList(res) {
@@ -119,6 +127,10 @@ angular.module('mmr.services')
       body.uid = config.uid;
     } else if($rootScope.$root.authenticated) {
       body.uid = $rootScope.$root.pinfo.uid;
+    }
+
+    if(config.item_id) {
+      body.item_id = config.item_id;
     }
 
     if(config.id) {
@@ -278,7 +290,7 @@ angular.module('mmr.services')
       }).then(function(res) {
         // process the images
         postprocessItem(res.data, true);
-
+        // console.log(res);
         dfd.resolve({
           data: res.data
         });
@@ -289,9 +301,15 @@ angular.module('mmr.services')
       return dfd.promise;
     },
 
-    // isFav: function(id) {
-    //   var self = this;
-    // },
+    checkFav: function(item) {
+      var type = item.logoPath ? 4 : 3;
+      var config = {
+        item_id: item.id,
+        type: type
+      }
+
+      return checkFavorate(config, item);
+    },
 
     // search the items [mock usage]
     // config object:
@@ -431,7 +449,8 @@ angular.module('mmr.services')
           this.footprintAdd({
             id: item.id,
             type: 1
-          }));
+          })
+          );
       } else {
         return mmrDataService.request(this.item(item.id));
       }

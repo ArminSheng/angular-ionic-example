@@ -365,19 +365,19 @@ angular.module('mmr.directives')
             id: id,
             type: 3
           })).then(function(res) {
-
-            if (res[0].status === '1') {
+            res = res[0]
+            if (res.status === '1' && res.msg === '操作成功') {
               scope.fav = true;
             }
           });
         } else {
-          mmrDataService.request(mmrItemFactory.footprintDelete({
+          mmrItemFactory.footprintDelete({
             uid: $rootScope.$root.pinfo.uid,
             id: id,
             type: 3,
             fav: false
-          })).then(function(res) {
-            if (res[0].status === '1') {
+          }).then(function(res) {
+            if (res.status === '1' && res.msg === '操作成功') {
               scope.fav = false;
             }
           });

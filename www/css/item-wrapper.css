@@ -1,0 +1,12 @@
+.m-item-wrapper-banner {
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  top: 44px;
+  background-color: orange;
+  display: none;
+}
+
+.m-item-wrapper-banner button.button-clear {
+  color: white;
+}

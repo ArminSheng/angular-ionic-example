@@ -41,7 +41,7 @@ angular.module('mmr.services', [])
 
     // show help information
     help: function(title, template) {
-      $ionicPopup.alert({
+      return $ionicPopup.alert({
         title: title,
         template: template,
         okType: 'button-energized'

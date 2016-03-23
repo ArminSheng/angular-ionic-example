@@ -289,6 +289,11 @@ angular.module('mmr.services')
         }
       }).then(function(res) {
         // process the images
+        if(!res.data.id) {
+          dfd.reject('商品不存在');
+          return;
+        }
+
         postprocessItem(res.data, true);
         // console.log(res);
         dfd.resolve({

@@ -11,9 +11,9 @@
       商品详情
     </h1>
     <div class="buttons">
-      <!-- <button class="button button-clear" ng-click="itemModal.doOpenHeaderMenu()">
+      <button class="button button-clear" mp-option-list>
         <span class="icon ion-more m-header-icon"></span>
-      </button> -->
+      </button>
     </div>
   </ion-header-bar>
   <ion-content class="m-modal-item-detail">
@@ -185,7 +185,7 @@
     </div>
 
     <!-- backdrop -->
-    <backdrop is-show="itemModal.showBackdrop" click-to-dismiss="false"></backdrop>
+    <backdrop is-show="itemModal.showBackdrop" click-to-dismiss="true"></backdrop>
 
   </ion-content>
 
@@ -193,5 +193,7 @@
   <bottom-cart item="itemModal.item"></bottom-cart>
 
   <bottom-direct-buy item="itemModal.item"></bottom-direct-buy>
+
+  <mp-sharing-panel item="itemModal.item" ng-class="{'activated': itemModal.showSharingPanel}"></mp-sharing-panel>
 
 </ion-modal-view>

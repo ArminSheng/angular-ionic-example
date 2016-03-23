@@ -1,7 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService', 'mmrPayment', 'dateFilter', 'mmrUser',
-  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService, mmrPayment, dateFilter, mmrUser) {
+.factory('mmrModal', ['$rootScope', '$interval', '$timeout', '$interpolate', '$state', '$ionicModal', '$ionicPopup', '$ionicListDelegate', 'localStorageService', 'Validator', 'mmrMineFactory', 'mmrItemFactory', 'mmrCacheFactory', 'mmrEventing', 'mmrScrollService', '$ionicScrollDelegate', 'mmrSearchService', '$ionicActionSheet', 'mmrAddressService', 'mmrCommonService', 'mmrOrderFactory', 'mmrLoadingFactory', 'mmrAuth', 'apiService', 'mmrDataService', 'mmrCartService', 'mmrReceiptService', 'mmrPayment', 'dateFilter', 'mmrUser', '$ionicPopover',
+  function($rootScope, $interval, $timeout, $interpolate, $state, $ionicModal, $ionicPopup, $ionicListDelegate, localStorageService, Validator, mmrMineFactory, mmrItemFactory, mmrCacheFactory, mmrEventing, mmrScrollService, $ionicScrollDelegate, mmrSearchService, $ionicActionSheet, mmrAddressService, mmrCommonService, mmrOrderFactory, mmrLoadingFactory, mmrAuth, apiService, mmrDataService, mmrCartService, mmrReceiptService, mmrPayment, dateFilter, mmrUser, $ionicPopover) {
 
   return {
 
@@ -1214,9 +1214,6 @@ angular.module('mmr.services')
         scope.itemModal.doHide = function() {
           modal.remove();
         };
-        scope.itemModal.doOpenHeaderMenu = function() {
-
-        };
 
         scope.itemModal.doLoadMoreReviews = function() {
           self.createItemReviews(scope, item);
@@ -1229,6 +1226,10 @@ angular.module('mmr.services')
           } else{
             self.createShopDetailModal(scope, item.shop);
           }
+        };
+
+        scope.itemModal.doBackdropClick = function() {
+          console.log('sdfsdf');
         };
 
         // event handlers
@@ -1244,6 +1245,20 @@ angular.module('mmr.services')
         });
 
         scope.$on('doCancelBuyImmediately', function($event, data) {
+          scope.itemModal.showBackdrop = false;
+        });
+
+        scope.$on('doMenuClicked', function($event, data) {
+          if(data.event === 'share') {
+            // popup the sharing panel
+            console.log('item detail --- sharing panel');
+            scope.itemModal.showBackdrop = true;
+            scope.itemModal.showSharingPanel = true;
+          }
+        });
+
+        scope.$on('eventHideBackdrop', function($event) {
+          scope.itemModal.showSharingPanel = false;
           scope.itemModal.showBackdrop = false;
         });
       });
@@ -1343,10 +1358,6 @@ angular.module('mmr.services')
         // bind methods
         modal.doHide = function() {
           modal.hide();
-        };
-
-        modal.doOpenHeaderMenu = function() {
-
         };
 
         modal.doModifyDelivery = function() {
@@ -1745,10 +1756,6 @@ angular.module('mmr.services')
           } else {
             return false;
           }
-        };
-
-        modal.doOpenHeaderMenu = function() {
-
         };
 
         modal.doCheckout = function() {

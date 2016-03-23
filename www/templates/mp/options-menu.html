@@ -1,0 +1,10 @@
+<ion-popover-view class="mp-popover-option-menus">
+<!--   <ion-content> -->
+    <div class="list mp-option-list">
+      <a class="item item-icon-left mp-option-list-item" ng-repeat="menu in menus.optionMenus track by $index" ng-click="menuClicked(menu)">
+        <i class="icon {{ menu.icon }}"></i>
+        {{ menu.title }}
+      </a>
+    </div>
+  <!-- </ion-content> -->
+</ion-popover-view>

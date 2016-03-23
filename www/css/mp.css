@@ -1,0 +1,49 @@
+/*Micropoplar CSS Commons*/
+
+/*popover*/
+/*option menus popover*/
+.mp-popover-option-menus.popover {
+  height: 75px;
+}
+
+.mp-popover-option-menus .list {
+  padding: 12px;
+}
+
+.mp-popover-option-menus .list .item {
+  border: none;
+}
+
+/*popup panel from bottom*/
+.mp-sharing-panel {
+  position: absolute;
+  bottom: -150px;
+  width: 100%;
+  background-color: #e7e7e7;
+
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.mp-sharing-panel.activated {
+  bottom: 0;
+}
+
+.mp-sharing-panel-title {
+  padding: 8px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mp-sharing-item {
+  text-align: center;
+}
+
+.mp-sharing-item-img {
+  width: 100%;
+  padding: 0 12px;
+}

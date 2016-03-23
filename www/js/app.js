@@ -108,19 +108,7 @@ angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'mmr.c
     }
 
     // wechat
-    mpWechatService.init().then(function(res) {
-      // installed callback
-      mpWechatService.shareLink(0, {
-        title: '周哥正在看着你!',
-        description: '周哥正在看着你!周哥正在看着你!周哥正在看着你!啊啊啊啊啊',
-        thumb: 'www/img/temp/testing.png',
-        webpageUrl: 'http://www.micropoplar.com'
-      }).then(function(res) {
-        alert(res.msg);
-      }, function(err) {
-        alert(err.msg + ' - ' + err.reason);
-      })
-    });
+    mpWechatService.init();
 
     // geo location
     // load geo position

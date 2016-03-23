@@ -227,6 +227,11 @@ angular.module('mmr.services')
 
     doPaySuccessfully: function(data) {
       $rootScope.$broadcast('doPaySuccessfully', data);
+    },
+
+    // mp common related
+    doMenuClicked: function(data) {
+      $rootScope.$broadcast('doMenuClicked', data);
     }
 
   };

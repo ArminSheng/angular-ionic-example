@@ -25,7 +25,7 @@ angular.module('mmr.directives')
     '<span class="m-positon-item-text">{{ item }}</span>' +
     '<span ng-if="index === $index" class="select-checkmark icon ion-ios-checkmark energized"></span>' +
     '</div></div>'
-    );
+  );
 
   $templateCache.put('templates/directives/common/no-more-content.html',
     '<div class="m-no-more-content">' +
@@ -457,6 +457,82 @@ angular.module('mmr.directives')
       if(!scope.content) {
         scope.content = '到底了, 没有商品啦 :)';
       }
+    }
+  };
+
+}])
+
+.directive('mpOptionList', ['$ionicPopover', 'mmrEventing',
+  function($ionicPopover, mmrEventing) {
+
+  return {
+    restrict: 'A',
+    // replace: true,
+    // scope: {
+    //   menus: '='
+    // },
+    // templateUrl: 'templates/directives/mp/option-list.html',
+    link: function(scope, elem, attrs) {
+      if(!scope.menus) {
+        scope.menus = {};
+
+        // default option menus on the header
+        scope.menus.optionMenus = [
+          { title: '分享', icon: 'ion-share', event: 'share' }
+        ];
+      }
+
+      if(!scope.popovers) {
+        scope.popovers = {};
+      }
+
+      elem.on('click', function($event) {
+        if(scope.popovers.optionPopover) {
+          scope.popovers.optionPopover.show($event);
+        } else {
+          $ionicPopover.fromTemplateUrl('templates/mp/options-menu.html', {
+            scope: scope
+          }).then(function(popover) {
+            scope.popovers.optionPopover = popover;
+            scope.popovers.optionPopover.show($event);
+
+            scope.menuClicked = function(menu) {
+              mmrEventing.doMenuClicked(menu);
+              popover.hide();
+            };
+
+            // bind event handlers
+            scope.$on('$destroy', function() {
+              popover.remove();
+            });
+
+            scope.$on('popover.hidden', function() {
+            });
+
+            scope.$on('popover.removed', function() {
+            });
+          });
+        }
+      });
+    }
+  };
+
+}])
+
+.directive('mpSharingPanel', ['$ionicPopover', 'mmrEventing',
+  function($ionicPopover, mmrEventing) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '='
+    },
+    templateUrl: 'templates/mp/sharing-panel.html',
+    controller: function($scope) {
+      $scope.doShare = function(type) {
+        // contine to process the sharing request
+      };
     }
   };
 

@@ -440,6 +440,14 @@ angular.module('mmr.controllers')
     $rootScope.$root.pinfo.deposit -= amount;
   });
 
+  // on option menu click
+  $rootScope.$on('doMenuClicked', function($event, data) {
+    if(data.event === 'share') {
+      // popup the sharing panel
+      console.log('sharing panel');
+    }
+  });
+
   function changeCartItems(item, newCount, canAdd) {
     var shopItems, needRemoveShop;
     var itemsIdMapping = $rootScope.$root.cart.itemsId;

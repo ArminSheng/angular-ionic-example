@@ -2,8 +2,8 @@
 angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'ionic-toast', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
 
 .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
-// .constant('REST_BASE', 'http://192.168.1.135:8081/mmr/')
 .constant('API_BASE', 'http://demo.0lz.net/mmrou/')
+.constant('WAP_BASE', 'http://demo.0lz.net/mmrou-wap/index.html')
 
 .provider('restService', ['REST_BASE', function(REST_BASE) {
   this.data = {
@@ -253,6 +253,16 @@ angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'ionic
       'tab-mine': {
         templateUrl: 'templates/mine-orders.html',
         controller: 'OrderCtrl'
+      }
+    }
+  })
+
+  .state('tab.item-detail', {
+    url: '/item/:id',
+    views: {
+      'tab-home': {
+        templateUrl: 'templates/item-wrapper.html',
+        controller: 'ItemWrapperCtrl'
       }
     }
   });

@@ -39,13 +39,13 @@ angular.module('mmr.services')
         });
       });
 
-      $q.all(parameters).then(responseCore);
+      $q.all(parameters).then(responseCore, responseCore);
 
       function responseCore() {
         mmrLoadingFactory.hide();
 
         if(errorFlag) {
-          dfd.reject();
+          dfd.reject(arguments[0]);
           mmrCommonService.networkDown();
         } else {
           dfd.resolve(results);

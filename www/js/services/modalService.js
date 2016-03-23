@@ -1204,7 +1204,7 @@ angular.module('mmr.services')
       });
     },
 
-    createItemDetailModal: function(scope, item) {
+    createItemDetailModal: function(scope, item, backToHome) {
       var self = this;
       $ionicModal.fromTemplateUrl('templates/modal/item/item-detail.html', {
         scope: scope,
@@ -1217,6 +1217,10 @@ angular.module('mmr.services')
 
         // bind methods
         scope.itemModal.doHide = function() {
+          if(backToHome) {
+            $rootScope.$root.ui.tabsHidden = false;
+            $state.go('tab.home');
+          }
           modal.remove();
         };
 

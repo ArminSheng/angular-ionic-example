@@ -1,6 +1,7 @@
 angular.module('mmr.services')
 
-.factory('mmrShare', [function() {
+.factory('mmrShare', ['WAP_BASE',
+  function(WAP_BASE) {
 
   return {
 
@@ -10,7 +11,7 @@ angular.module('mmr.services')
       vo.title = '[' + item.category + '] ' + item.title;
       vo.description = '买卖肉为您提供新鲜的肉制品和快捷的送货服务';
       vo.thumb = 'www/img/logo.png';
-      vo.webpageUrl = 'http://www.micropoplar.com';
+      vo.webpageUrl = WAP_BASE + '#/tab/item/' + item.id;
 
       return vo;
     }

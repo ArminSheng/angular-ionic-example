@@ -387,7 +387,12 @@ angular.module('mmr.services')
             fav: true
           }).then(function(res) {
             if (res.status === '1') {
-              init(tab);
+              _.remove(modal.myFavItems, function(element) {
+                return element.id === item.id;
+              });
+
+              // release the operations area
+              $ionicListDelegate.closeOptionButtons();
             }
           });
         };

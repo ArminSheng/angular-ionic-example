@@ -519,8 +519,8 @@ angular.module('mmr.directives')
 
 }])
 
-.directive('mpSharingPanel', ['$ionicPopover', 'mmrEventing',
-  function($ionicPopover, mmrEventing) {
+.directive('mpSharingPanel', ['$rootScope', '$ionicPopover', 'ionicToast', 'mmrEventing', 'mpWechatService', 'mmrShare',
+  function($rootScope, $ionicPopover, ionicToast, mmrEventing, mpWechatService, mmrShare) {
 
   return {
     restrict: 'E',
@@ -530,8 +530,26 @@ angular.module('mmr.directives')
     },
     templateUrl: 'templates/mp/sharing-panel.html',
     controller: function($scope) {
+
+      // type definitions:
+      // 0: Wechat Session; 1: Wechat Timeline; 2: Weibo, 3: SMS
       $scope.doShare = function(type) {
-        // contine to process the sharing request
+        if($rootScope.$root.platform === 'browser') {
+          ionicToast.show('浏览器下暂时不支持分享操作...', 'bottom', false, 2000);
+          return;
+        }
+
+        // continue to process the sharing request
+        // wechat and wechat-timeline
+        if(type === 0 || type === 1) {
+          // check whether wechat is installed
+          if(!mpWechatService.ready()) {
+            ionicToast.show('您好像还木有安装微信呢...', 'bottom', false, 2000);
+          } else {
+            var info = mmrShare.prepareWechatLink($scope.item);
+            mpWechatService.shareLink(type, info);
+          }
+        }
       };
     }
   };

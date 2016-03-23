@@ -49,6 +49,10 @@ angular.module('mp.commons', [])
       return dfd.promise;
     },
 
+    ready: function() {
+      return wechatConfig.installed;
+    },
+
     // scene - 0: Session, 1: Timeline, 2: Favorite
     // Example:
     // mpWechatService.shareLink(0, {

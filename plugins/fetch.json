@@ -82,5 +82,16 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-weibosdk": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/iVanPan/cordova_weibo.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "WEIBO_APP_ID": "2183772482"
+        }
     }
 }

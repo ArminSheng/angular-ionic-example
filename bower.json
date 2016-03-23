@@ -11,6 +11,7 @@
     "angular-local-storage": "~0.2.3",
     "lodash": "~4.6.1",
     "ion-gallery": "~0.1.12",
-    "ng-img-crop": "ngImgCrop#~0.3.2"
+    "ng-img-crop": "ngImgCrop#~0.3.2",
+    "ionic-toast": "~0.2.0"
   }
 }

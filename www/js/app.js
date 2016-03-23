@@ -1,5 +1,5 @@
 // MMR App
-angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
+angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'ionic-toast', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
 
 .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
 // .constant('REST_BASE', 'http://192.168.1.135:8081/mmr/')

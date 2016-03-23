@@ -1251,7 +1251,6 @@ angular.module('mmr.services')
         scope.$on('doMenuClicked', function($event, data) {
           if(data.event === 'share') {
             // popup the sharing panel
-            console.log('item detail --- sharing panel');
             scope.itemModal.showBackdrop = true;
             scope.itemModal.showSharingPanel = true;
           }

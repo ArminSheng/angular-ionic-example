@@ -1,5 +1,5 @@
 // MMR App
-angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
+angular.module('mmr', ['mp.commons', 'ngAnimate', 'ionic', 'ion-gallery', 'ionic-toast', 'mmr.controllers', 'mmr.services', 'mmr.directives', 'ngCordova', 'angular-md5', 'ngImgCrop', 'LocalStorageModule'])
 
 .constant('REST_BASE', 'http://115.29.161.170:8081/mmr/')
 // .constant('REST_BASE', 'http://192.168.1.135:8081/mmr/')
@@ -78,7 +78,7 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
   };
 }])
 
-.run(function($rootScope, $ionicPlatform, $cordovaGeolocation, mmrMetaFactory) {
+.run(function($rootScope, $ionicPlatform, $cordovaGeolocation, mmrMetaFactory, mpWechatService) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       if(window.cordova.plugins.Keyboard) {
@@ -106,6 +106,9 @@ angular.module('mmr', ['ngAnimate', 'ionic', 'ion-gallery', 'mmr.controllers', '
         $rootScope.$root.platform = 'browser';
       }
     }
+
+    // wechat
+    mpWechatService.init();
 
     // geo location
     // load geo position

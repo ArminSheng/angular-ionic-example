@@ -403,6 +403,10 @@ angular.module('mmr.directives')
       scope.$on('doCancelPayment', function($event, data) {
         scope.doCloseImmediateBuy();
       });
+
+      scope.$on('eventHideBackdrop', function($event) {
+        element.removeClass('activated');
+      });
     }
   };
 

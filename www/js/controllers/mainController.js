@@ -183,6 +183,13 @@ angular.module('mmr.controllers')
       // '3': 4,
       // '4': 5,
       // '5': 0
+    },
+
+    // 3rd APPs
+    apps: {
+      // 'wechat': {
+
+      // }
     }
   };
 

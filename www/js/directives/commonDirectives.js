@@ -25,7 +25,7 @@ angular.module('mmr.directives')
     '<span class="m-positon-item-text">{{ item }}</span>' +
     '<span ng-if="index === $index" class="select-checkmark icon ion-ios-checkmark energized"></span>' +
     '</div></div>'
-    );
+  );
 
   $templateCache.put('templates/directives/common/no-more-content.html',
     '<div class="m-no-more-content">' +
@@ -457,6 +457,100 @@ angular.module('mmr.directives')
       if(!scope.content) {
         scope.content = '到底了, 没有商品啦 :)';
       }
+    }
+  };
+
+}])
+
+.directive('mpOptionList', ['$ionicPopover', 'mmrEventing',
+  function($ionicPopover, mmrEventing) {
+
+  return {
+    restrict: 'A',
+    // replace: true,
+    // scope: {
+    //   menus: '='
+    // },
+    // templateUrl: 'templates/directives/mp/option-list.html',
+    link: function(scope, elem, attrs) {
+      if(!scope.menus) {
+        scope.menus = {};
+
+        // default option menus on the header
+        scope.menus.optionMenus = [
+          { title: '分享', icon: 'ion-share', event: 'share' }
+        ];
+      }
+
+      if(!scope.popovers) {
+        scope.popovers = {};
+      }
+
+      elem.on('click', function($event) {
+        if(scope.popovers.optionPopover) {
+          scope.popovers.optionPopover.show($event);
+        } else {
+          $ionicPopover.fromTemplateUrl('templates/mp/options-menu.html', {
+            scope: scope
+          }).then(function(popover) {
+            scope.popovers.optionPopover = popover;
+            scope.popovers.optionPopover.show($event);
+
+            scope.menuClicked = function(menu) {
+              mmrEventing.doMenuClicked(menu);
+              popover.hide();
+            };
+
+            // bind event handlers
+            scope.$on('$destroy', function() {
+              popover.remove();
+            });
+
+            scope.$on('popover.hidden', function() {
+            });
+
+            scope.$on('popover.removed', function() {
+            });
+          });
+        }
+      });
+    }
+  };
+
+}])
+
+.directive('mpSharingPanel', ['$rootScope', '$ionicPopover', 'ionicToast', 'mmrEventing', 'mpWechatService', 'mmrShare',
+  function($rootScope, $ionicPopover, ionicToast, mmrEventing, mpWechatService, mmrShare) {
+
+  return {
+    restrict: 'E',
+    replace: true,
+    scope: {
+      item: '='
+    },
+    templateUrl: 'templates/mp/sharing-panel.html',
+    controller: function($scope) {
+
+      // type definitions:
+      // 0: Wechat Session; 1: Wechat Timeline; 2: Weibo, 3: SMS
+      $scope.doShare = function(type) {
+        if($rootScope.$root.platform === 'browser') {
+          ionicToast.show('浏览器下暂时不支持分享操作...', 'bottom', false, 2000);
+          return;
+        }
+
+        // continue to process the sharing request
+        // wechat and wechat-timeline
+        if(type === 0 || type === 1) {
+          // check whether wechat is installed
+          if(!mpWechatService.ready()) {
+            ionicToast.show('您好像还木有安装微信呢...', 'bottom', false, 2000);
+          } else {
+            var info = mmrShare.prepareWechatLink($scope.item);
+            mpWechatService.shareLink(type, info);
+          }
+        }
+      };
     }
   };
 
